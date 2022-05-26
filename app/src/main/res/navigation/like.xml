@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/like"
+    app:startDestination="@id/likesFragment">
+
+    <fragment
+        android:id="@+id/likesFragment"
+        android:name="com.affise.app.ui.fragments.likes.LikesFragment"
+        android:label="LikesFragment"
+        tools:layout="@layout/fragment_main_likes">
+        <action
+            android:id="@+id/action_likesFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/productDetailsFragment2"
+        android:name="com.affise.app.ui.fragments.details.ProductDetailsFragment"
+        android:label="ProductDetailsFragment"
+        tools:layout="@layout/fragment_main_product_details" />
+</navigation>

@@ -1,0 +1,3 @@
+include ':attribution'
+include ':app'
+rootProject.name = "AffiseAttributionLib"

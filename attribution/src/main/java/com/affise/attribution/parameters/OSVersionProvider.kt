@@ -1,0 +1,16 @@
+package com.affise.attribution.parameters
+
+import com.affise.attribution.build.BuildConfigPropertiesProvider
+import com.affise.attribution.parameters.base.StringPropertyProvider
+
+/**
+ * Provider for parameter [Parameters.OS_VERSION]
+ *
+ * @property buildConfigPropertiesProvider to retrieve release name
+ */
+class OSVersionProvider(
+    private val buildConfigPropertiesProvider: BuildConfigPropertiesProvider
+) : StringPropertyProvider() {
+
+    override fun provide(): String? = buildConfigPropertiesProvider.getReleaseName()
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/metrics"
+    app:startDestination="@id/metricsFragment">
+
+    <fragment
+        android:id="@+id/metricsFragment"
+        android:name="com.affise.app.ui.fragments.metrics.MetricsFragment"
+        android:label="MetricsFragment"
+        tools:layout="@layout/fragment_main_metrics" />
+</navigation>

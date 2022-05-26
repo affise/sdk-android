@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/productDetailsRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fillViewport="true"
+                android:overScrollMode="never"
+                app:layout_constraintBottom_toTopOf="@+id/footerGroup"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/imageBg"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_bg_item_details" />
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/images"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:overScrollMode="never"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageBg"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/imageBg" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/imagePages"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="50dp"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal"
+                        android:overScrollMode="never"
+                        android:padding="20dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageBg"
+                        app:layout_constraintStart_toStartOf="@+id/imageBg" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:text="$75.50"
+                        android:textSize="28sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageBg" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="20dp"
+                        android:text="Air Max 270 G"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/price"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageBg" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="12dp"
+                        android:alpha="0.8"
+                        android:text="Ratting 4.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_marginStart="5dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/rating"
+                        app:layout_constraintStart_toEndOf="@+id/rating"
+                        app:layout_constraintTop_toTopOf="@+id/rating"
+                        app:srcCompat="@drawable/ic_rating_star" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/description"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:alpha="0.8"
+                        android:paddingHorizontal="20dp"
+                        android:text="The Nike Air max 270 G Huarache Run DNA ch. 1 reimagines not only the original Air"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/rating" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/actionColor"
+                        android:layout_width="80dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="20dp"
+                        android:foreground="@drawable/ripple"
+                        app:cardBackgroundColor="@android:color/transparent"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="0dp"
+                        app:layout_constraintEnd_toStartOf="@+id/actionSize"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/description"
+                        app:strokeColor="@color/ebony_clay"
+                        app:strokeWidth="1dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/actionColorTitle"
+                            android:layout_width="80dp"
+                            android:layout_height="35dp"
+                            android:gravity="center"
+                            android:text="@string/colors" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/actionSize"
+                        android:layout_width="80dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="20dp"
+                        android:foreground="@drawable/ripple"
+                        app:cardBackgroundColor="@android:color/transparent"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="0dp"
+                        app:layout_constraintEnd_toStartOf="@+id/actionReviews"
+                        app:layout_constraintStart_toEndOf="@+id/actionColor"
+                        app:layout_constraintTop_toBottomOf="@+id/description"
+                        app:strokeColor="@color/ebony_clay"
+                        app:strokeWidth="1dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/actionSizeTitle"
+                            android:layout_width="80dp"
+                            android:layout_height="35dp"
+                            android:background="@color/ebony_clay"
+                            android:gravity="center"
+                            android:text="@string/size"
+                            android:textColor="@color/white" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/actionReviews"
+                        android:layout_width="80dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="20dp"
+                        android:foreground="@drawable/ripple"
+                        app:cardBackgroundColor="@android:color/transparent"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="0dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/actionSize"
+                        app:layout_constraintTop_toBottomOf="@+id/description"
+                        app:strokeColor="@color/ebony_clay"
+                        app:strokeWidth="1dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/actionReviewsTitle"
+                            android:layout_width="80dp"
+                            android:layout_height="35dp"
+                            android:gravity="center"
+                            android:text="@string/reviews" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/colors"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="130dp"
+                        android:orientation="horizontal"
+                        android:padding="15dp"
+                        app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/actionColor"
+                        tools:listitem="@layout/item_recycler_color" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/reviews"
+                        android:layout_width="0dp"
+                        android:layout_height="130dp"
+                        android:gravity="center"
+                        android:padding="15dp"
+                        android:text="No reviews"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/actionColor" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/sizeGroup"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="130dp"
+                        android:paddingVertical="15dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/actionColor">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/actionSizeEuro"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/ripple"
+                            android:gravity="center"
+                            android:text="@string/actionSizeEuroText"
+                            app:layout_constraintEnd_toStartOf="@+id/actionSizeUs"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/actionSizeUs"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/ripple"
+                            android:gravity="center"
+                            android:text="@string/actionSizeUsText"
+                            app:layout_constraintEnd_toStartOf="@+id/actionSizeAsia"
+                            app:layout_constraintStart_toEndOf="@+id/actionSizeEuro"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/actionSizeAsia"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/ripple"
+                            android:gravity="center"
+                            android:text="@string/actionSizeAsiaText"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/actionSizeUs"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/size"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="21dp"
+                            android:clipToPadding="false"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="15dp"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/actionSizeEuro"
+                            tools:listitem="@layout/item_recycler_size" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/headerGroup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/header_item_details"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/productDetailsBack"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/ripple"
+                    android:padding="20dp"
+                    android:tint="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_back" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/productDetailsLogo"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:padding="10dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/productDetailsBack"
+                    app:layout_constraintEnd_toStartOf="@+id/productDetailsLike"
+                    app:layout_constraintStart_toEndOf="@+id/productDetailsBack"
+                    app:layout_constraintTop_toTopOf="@+id/productDetailsBack"
+                    app:srcCompat="@drawable/ic_home_logo" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/productDetailsLike"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/ripple"
+                    android:padding="23dp"
+                    android:src="@drawable/ic_like"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/footerGroup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cart"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="21dp"
+                    android:layout_marginBottom="30dp"
+                    android:foreground="@drawable/ripple"
+                    app:cardBackgroundColor="@android:color/transparent"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:strokeColor="@color/gray_ec"
+                    app:strokeWidth="1dp">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/cartImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="13dp"
+                        app:srcCompat="@drawable/ic_cart" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/buyNow"
+                    style="@style/ButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/buy_now"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/cart"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/productDetailsLoading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_f8"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/ebony_clay"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/productDetailsError"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_f8"
+        android:visibility="gone">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/productDetailsErrorBack"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:background="@drawable/ripple"
+            android:padding="20dp"
+            android:tint="@color/ebony_clay"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_back" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/productDetailsErrorText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/error"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/productDetailsErrorRefresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:paddingHorizontal="64dp"
+            android:text="@string/retry"
+            app:layout_constraintBaseline_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productDetailsErrorText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,19 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.AffiseAttributionLib" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/ebony_clay</item>
+        <item name="colorPrimaryVariant">@color/ebony_clay</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/ebony_clay</item>
+        <item name="colorSecondaryVariant">@color/ebony_clay</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+
+        <item name="android:windowBackground">@color/gray_f8</item>
+        <item name="android:textColor">@color/ebony_clay</item>
+    </style>
+</resources>
