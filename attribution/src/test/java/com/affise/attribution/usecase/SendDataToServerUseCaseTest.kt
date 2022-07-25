@@ -114,7 +114,7 @@ class SendDataToServerUseCaseTest {
         justRun { metricsRepository.deleteMetrics(url1) }
         justRun { metricsRepository.deleteMetrics(url2) }
 
-        useCase.send()
+        useCase.send(false)
 
         Truth.assertThat(slot.size).isEqualTo(2)
 
@@ -171,7 +171,7 @@ class SendDataToServerUseCaseTest {
         justRun { metricsRepository.deleteMetrics(url1) }
         justRun { metricsRepository.deleteMetrics(url2) }
 
-        useCase.send()
+        useCase.send(false)
 
         Truth.assertThat(slot.size).isEqualTo(3)
 

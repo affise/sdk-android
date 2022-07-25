@@ -1,9 +1,11 @@
 package com.affise.attribution.usecase
 
 import com.affise.attribution.events.EventsRepository
+import com.affise.attribution.events.SerializedEvent
 import com.affise.attribution.executors.ExecutorServiceProvider
 import com.affise.attribution.logs.LogsManager
 import com.affise.attribution.logs.LogsRepository
+import com.affise.attribution.logs.SerializedLog
 import com.affise.attribution.metrics.MetricsRepository
 import com.affise.attribution.network.CloudConfig
 import com.affise.attribution.network.CloudRepository
@@ -32,7 +34,7 @@ internal class SendDataToServerUseCaseImpl(
      * Send data
      */
     @Synchronized
-    override fun send() {
+    override fun send(withDelay: Boolean) {
         if (preferencesUseCase.isOfflineModeEnabled()) {
             logsManager.addSdkError(OfflineModeEnabledException())
             return
@@ -41,12 +43,13 @@ internal class SendDataToServerUseCaseImpl(
         CloudConfig.getUrls().forEach {
             //Check if sending on this url
             if (isSend[it] == false) {
-
                 //Lock sending to this url
                 isSend[it] = true
 
                 sendServiceProvider.provideExecutorService().execute {
-                    Thread.sleep(TIME_DELAY_SENDING)
+                    if (withDelay) {
+                        Thread.sleep(TIME_DELAY_SENDING)
+                    }
 
                     //Send to this url
                     try {
@@ -67,10 +70,7 @@ internal class SendDataToServerUseCaseImpl(
      * Sending for url
      */
     private fun send(url: String) {
-        //Crate flag is send any to url, to send empty data if has not events or logs
-        var isSend = false
-
-        while (true) {
+        do {
             //Get events
             val events = eventsRepository.getEvents(url)
 
@@ -79,11 +79,6 @@ internal class SendDataToServerUseCaseImpl(
 
             //Get metrics
             val metrics = metricsRepository.getMetrics(url)
-
-            //If send nothing
-            if (events.isEmpty() && logs.isEmpty() && metrics.isEmpty() && isSend) {
-                return
-            }
 
             //Generate data
             val data = listOf(postBackModelFactory.create(events, logs, metrics))
@@ -106,10 +101,7 @@ internal class SendDataToServerUseCaseImpl(
 
                 return
             }
-
-            //Change flag is send any to url
-            isSend = true
-        }
+        } while (events.size == EventsParams.EVENTS_SEND_COUNT)
     }
 
     companion object {

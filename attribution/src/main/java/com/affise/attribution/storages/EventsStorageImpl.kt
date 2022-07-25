@@ -2,6 +2,7 @@ package com.affise.attribution.storages
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.affise.attribution.events.EventsParams
 import com.affise.attribution.events.SerializedEvent
 import com.affise.attribution.logs.LogsManager
 import org.json.JSONObject
@@ -20,6 +21,14 @@ internal class EventsStorageImpl(
     private val context: Context,
     private val logsManager: LogsManager,
 ) : EventsStorage {
+
+    /**
+     * Has save events by [key] or not
+     */
+    override fun hasEvents(key: String) = getEventsDirectory(key)
+        .listFiles()
+        ?.isNotEmpty()
+        ?: false
 
     /**
      * Store [event] by [key]
@@ -46,14 +55,14 @@ internal class EventsStorageImpl(
         ?.filter { it.isFile }
         ?.filter { file ->
             //Filter old files
-            (file.lastModified() > Calendar.getInstance().timeInMillis - EVENTS_STORE_TIME).also { isActual ->
+            (file.lastModified() > Calendar.getInstance().timeInMillis - EventsParams.EVENTS_STORE_TIME).also { isActual ->
                 if (!isActual) {
                     //Delete old files
                     file.runCatching { delete() }
                 }
             }
         }
-        ?.take(EVENTS_SEND_COUNT)
+        ?.take(EventsParams.EVENTS_SEND_COUNT)
         ?.mapNotNull { file ->
             try {
                 //Get data from file
@@ -93,7 +102,7 @@ internal class EventsStorageImpl(
      * Removes all events
      */
     override fun clear() {
-        context.getDir(EVENTS_DIR_NAME, Context.MODE_PRIVATE).deleteRecursively()
+        context.getDir(EventsParams.EVENTS_DIR_NAME, Context.MODE_PRIVATE).deleteRecursively()
     }
 
     /**
@@ -102,7 +111,7 @@ internal class EventsStorageImpl(
      */
     private fun getEventsDirectory(key: String? = null): File {
         //Get root events dir
-        val eventDir = context.getDir(EVENTS_DIR_NAME, Context.MODE_PRIVATE)
+        val eventDir = context.getDir(EventsParams.EVENTS_DIR_NAME, Context.MODE_PRIVATE)
             .apply {
                 //Create eventDir if doesn't exists
                 if (!exists()) mkdir()
@@ -122,11 +131,5 @@ internal class EventsStorageImpl(
                 if (!exists()) mkdir()
             }
             ?: eventDir
-    }
-
-    companion object {
-        private const val EVENTS_DIR_NAME = "affise-events"
-        private const val EVENTS_SEND_COUNT = 100
-        private const val EVENTS_STORE_TIME = 7 * 24 * 60 * 60 * 1000
     }
 }

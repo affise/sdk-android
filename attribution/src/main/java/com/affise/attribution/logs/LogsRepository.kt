@@ -6,6 +6,10 @@ import com.affise.attribution.events.predefined.AffiseLog
  * Logs repository interface
  */
 internal interface LogsRepository {
+    /**
+     * Has logs by [url] or not
+     */
+    fun hasLogs(url: String): Boolean
 
     /**
      * Store log for all [urls]

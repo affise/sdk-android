@@ -22,6 +22,7 @@
     - [Disable tracking](#disable-tracking)
     - [Disable background tracking](#disable-background-tracking)
     - [GDPR right to be forgotten](#gdpr-right-to-be-forgotten)
+    - [Get referrer](#get-referrer)
     - [Web view tracking](#webview-tracking)
         - [Initialize webview](#initialize-webview) 
         - [Events tracking JS](#events-tracking-js) 
@@ -565,6 +566,14 @@ To prevent library from generating new events, disable tracking just before call
 Affise.init(..)
 Affise.setTrackingEnabled(enabled = false)
 Affise.forget() // to forget users data
+```
+
+### Get referrer
+
+Use the next public method of SDK
+
+```kotlin
+Affise.getReferrer()
 ```
 
 ### Webview tracking

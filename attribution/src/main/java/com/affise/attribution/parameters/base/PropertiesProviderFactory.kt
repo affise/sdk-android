@@ -33,7 +33,8 @@ internal class PropertiesProviderFactory(
     private val stringToSha1Converter: Converter<String, String>,
     private val stringToSha256Converter: Converter<String, String>,
     private val logsManager: LogsManager,
-    private val deeplinkClickRepository: DeeplinkClickRepository
+    private val deeplinkClickRepository: DeeplinkClickRepository,
+    private val installReferrerProvider: InstallReferrerProvider
 ) {
 
     private val macProvider = MacProvider(logsManager)
@@ -81,7 +82,7 @@ internal class PropertiesProviderFactory(
         "", //TODO
         RefTokenProvider(sharedPreferences),
         RefTokensProvider(sharedPreferences),
-        InstallReferrerProvider(app, retrieveInstallReferrerUseCase),
+        installReferrerProvider,
         UserAgentProvider(),
         MCCProvider(app),
         MNCProvider(app),

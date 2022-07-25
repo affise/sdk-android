@@ -39,7 +39,7 @@ class EventsManager(
             //Check if start new session
             if (lastSessionCount == 0L && count == 1L) {
                 //Send events on activity started
-                sendEvents()
+                sendEvents(withDelay = false)
 
                 //Start timer fo repeat send events
                 startTimer()
@@ -55,8 +55,8 @@ class EventsManager(
     /**
      * Send event
      */
-    fun sendEvents() {
-        sendDataToServerUseCase.send()
+    fun sendEvents(withDelay: Boolean = true) {
+        sendDataToServerUseCase.send(withDelay)
     }
 
     /**

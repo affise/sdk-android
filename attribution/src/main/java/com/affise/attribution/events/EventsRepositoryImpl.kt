@@ -22,6 +22,13 @@ internal class EventsRepositoryImpl(
 ) : EventsRepository {
 
     /**
+     * Has save events by [url] or not
+     */
+    override fun hasEvents(url: String) = eventsStorage.hasEvents(
+        converterToBase64.convert(url)
+    )
+
+    /**
      * Store [event] by [urls]
      */
     override fun storeEvent(event: Event, urls: List<String>) {

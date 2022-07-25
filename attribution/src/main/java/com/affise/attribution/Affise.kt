@@ -134,7 +134,8 @@ object Affise {
      * Returns current background tracking state
      */
     @JvmStatic
-    fun isBackgroundTrackingEnabled(): Boolean = api?.preferencesUseCase?.isBackgroundTrackingEnabled() ?: false
+    fun isBackgroundTrackingEnabled(): Boolean =
+        api?.preferencesUseCase?.isBackgroundTrackingEnabled() ?: false
 
     /**
      * Sets offline mode to [enabled] state
@@ -175,4 +176,10 @@ object Affise {
     fun crashApplication() {
         api?.crashApplicationUseCase?.crash()
     }
+
+    /**
+     * Get referrer
+     */
+    @JvmStatic
+    fun getReferrer(): String? = api?.installReferrerProvider?.provide()
 }

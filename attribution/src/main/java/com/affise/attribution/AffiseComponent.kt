@@ -55,6 +55,7 @@ import com.affise.attribution.network.CloudRepositoryImpl
 import com.affise.attribution.network.HttpClientImpl
 import com.affise.attribution.oaid.OaidManager
 import com.affise.attribution.oaid.OaidManagerImpl
+import com.affise.attribution.parameters.InstallReferrerProvider
 import com.affise.attribution.parameters.base.PropertiesProviderFactory
 import com.affise.attribution.parameters.factory.PostBackModelFactory
 import com.affise.attribution.preferences.ApplicationLifecyclePreferencesRepositoryImpl
@@ -107,9 +108,9 @@ internal class AffiseComponent(
             StringToSHA1Converter(),
             StringToSHA256Converter(),
             logsManager,
-            isDeeplinkClickRepository
-        )
-            .create()
+            isDeeplinkClickRepository,
+            installReferrerProvider
+        ).create()
     }
 
     private val converterToBase64: ConverterToBase64 by lazy {
@@ -279,6 +280,10 @@ internal class AffiseComponent(
         )
     }
 
+    override val installReferrerProvider by lazy {
+        InstallReferrerProvider(app, retrieveInstallReferrerUseCase)
+    }
+
     /**
      * InitPropertiesStorage
      */
@@ -423,7 +428,6 @@ internal class AffiseComponent(
             logsManager
         )
             .also(Thread::setDefaultUncaughtExceptionHandler)
-
     }
 
     companion object {

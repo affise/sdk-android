@@ -19,6 +19,14 @@ internal class LogsRepositoryImpl(
 ) : LogsRepository {
 
     /**
+     * Has logs by [url] or not
+     */
+    override fun hasLogs(url: String): Boolean = logsStorage.hasLogs(
+        converterToBase64.convert(url),
+        AffiseLogType.values().map { converterToBase64.convert(it.type) }
+    )
+
+    /**
      * Store [log]
      */
     @Synchronized

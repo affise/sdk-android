@@ -20,6 +20,14 @@ internal class MetricsRepositoryImpl(
 ) : MetricsRepository {
 
     /**
+     * Has metrics by [url] or not
+     */
+    override fun hasMetrics(url: String) = metricsStorage.hasMetrics(
+        converterToBase64.convert(url),
+        getCurrentDayName()
+    )
+
+    /**
      * Get old metrics event from [url]
      * @return list of metrics SerializedEvent
      */

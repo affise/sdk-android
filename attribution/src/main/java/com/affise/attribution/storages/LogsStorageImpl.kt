@@ -17,6 +17,17 @@ internal class LogsStorageImpl(
 ) : LogsStorage {
 
     /**
+     * Has logs by [url] or not
+     */
+    override fun hasLogs(key: String, subKeys: List<String>): Boolean = subKeys
+        .any { subKey ->
+            getLogsDirectory(key, subKey)
+                .listFiles()
+                ?.isNotEmpty()
+                ?: false
+        }
+
+    /**
      * Store not send [log] by [key] and [subKey]
      */
     override fun saveLog(key: String, subKey: String, log: SerializedLog) {

@@ -20,6 +20,18 @@ internal class MetricsStorageImpl(
 ) : MetricsStorage {
 
     /**
+     * Has metrics by [key] or not
+     */
+    override fun hasMetrics(key: String, ignoreSubKey: String) = getMetricsDirectory(key)
+        .listFiles()
+        ?.filter { file ->
+            //Don't get events in current day
+            file.name != ignoreSubKey
+        }?.any {
+            it.listFiles()?.isNotEmpty() ?: false
+        } ?: false
+
+    /**
      * Get metrics events by [key] excluding [ignoreSubKey]
      */
     override fun getMetricsEvents(

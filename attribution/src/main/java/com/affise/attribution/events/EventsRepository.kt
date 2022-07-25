@@ -6,6 +6,11 @@ package com.affise.attribution.events
 internal interface EventsRepository {
 
     /**
+     * Has save events by [url] or not
+     */
+    fun hasEvents(url: String): Boolean
+
+    /**
      * Event recording for each url
      */
     fun storeEvent(event: Event, urls: List<String>)

@@ -5,5 +5,5 @@ interface SendDataToServerUseCase {
     /**
      * Send
      */
-    fun send()
+    fun send(withDelay: Boolean)
 }
