@@ -7,6 +7,7 @@ import android.net.Uri
 import com.affise.attribution.converter.Converter
 import com.affise.attribution.converter.StringToAffiseReferrerDataConverter
 import com.affise.attribution.deeplink.DeeplinkManager
+import com.affise.attribution.logs.LogsManager
 import com.affise.attribution.referrer.AffiseReferrerData
 import com.affise.attribution.referrer.AffiseReferrerDataToStringConverter
 import com.android.installreferrer.api.InstallReferrerClient
@@ -19,6 +20,7 @@ class RetrieveInstallReferrerUseCase(
     private val toAffiseReferrerDataConverter: StringToAffiseReferrerDataConverter,
     private val app: Application,
     private val deeplinkManager: DeeplinkManager,
+    private val logsManager: LogsManager,
     private val installReferrerToDeeplinkUriConverter: Converter<String, Uri?>
 ) {
 
@@ -38,10 +40,16 @@ class RetrieveInstallReferrerUseCase(
                 when (responseCode) {
                     InstallReferrerClient.InstallReferrerResponse.OK -> {
                         // Connection established.
-                        val data = referrerClient.installReferrer ?: return
+                        try {
+                            val data = referrerClient.installReferrer ?: return
 
-                        //Processing referrer details
-                        processReferrerDetails(data)
+                            //Processing referrer details
+                            processReferrerDetails(data)
+                        } catch (throwable: Throwable) {
+                            logsManager.addSdkError(
+                                RuntimeException("Error read ReferrerClient")
+                            )
+                        }
                     }
                     InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED -> {
                         // API not available on the current Play Store app.
@@ -71,7 +79,7 @@ class RetrieveInstallReferrerUseCase(
      * Processing referrer details
      */
     fun processReferrerDetails(data: ReferrerDetails) {
-        if(!isDelayedDeeplinkProcessed()) {
+        if (!isDelayedDeeplinkProcessed()) {
             print("referrer ")
             println(data.installReferrer)
             data.installReferrer
@@ -116,6 +124,7 @@ class RetrieveInstallReferrerUseCase(
             }
             .commit()
     }
+
     companion object {
         private const val REFERRER_KEY = "referrer_data"
         private const val DELAYED_DEEPLINK_PROCESSED_KEY = "DELAYED_DEEPLINK_PROCESSED_KEY"

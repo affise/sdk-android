@@ -1,11 +1,10 @@
 package com.affise.attribution.usecase
 
+import com.affise.attribution.events.EventsParams
 import com.affise.attribution.events.EventsRepository
-import com.affise.attribution.events.SerializedEvent
 import com.affise.attribution.executors.ExecutorServiceProvider
 import com.affise.attribution.logs.LogsManager
 import com.affise.attribution.logs.LogsRepository
-import com.affise.attribution.logs.SerializedLog
 import com.affise.attribution.metrics.MetricsRepository
 import com.affise.attribution.network.CloudConfig
 import com.affise.attribution.network.CloudRepository

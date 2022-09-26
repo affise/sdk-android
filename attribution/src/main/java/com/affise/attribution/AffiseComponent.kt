@@ -276,6 +276,7 @@ internal class AffiseComponent(
             StringToAffiseReferrerDataConverter(logsManager),
             app,
             deeplinkManager,
+            logsManager,
             InstallReferrerToDeeplinkUriConverter()
         )
     }

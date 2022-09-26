@@ -68,6 +68,7 @@ class AffiseUnityPlugin(app: Application) : AffiseUnityPluginApi {
             StringToAffiseReferrerDataConverter(logsManager),
             app,
             deeplinkManager,
+            logsManager,
             InstallReferrerToDeeplinkUriConverter()
         )
     }

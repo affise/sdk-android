@@ -216,7 +216,9 @@ internal class PostBackModelFactory(
             timezoneDev = timezoneDevProvider.provideWithDefault(),
             affEventToken = affEventTokenProvider,// TODO .provideWithDefault(),
             affEventName = affEventNameProvider,// TODO .provideWithDefault(),
-            lastTimeSession = lastTimeSessionProvider.provideWithDefault(),
+            lastTimeSession = lastTimeSessionProvider.provide()
+                ?.takeIf { it > 0 }
+                ?: firstOpenTimeProvider.provideWithDefault(),
             timeSession = timeSessionProvider.provideWithDefault(),
             affSessionCount = affSessionCountProvider.provideWithDefault(),
             lifetimeSessionCount = lifetimeSessionCountProvider.provideWithDefault(),
