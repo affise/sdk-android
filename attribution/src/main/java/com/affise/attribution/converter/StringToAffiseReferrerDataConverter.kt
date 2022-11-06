@@ -26,7 +26,10 @@ class StringToAffiseReferrerDataConverter(
                 installReferrer = j.getString(AffiseReferrerData.KEYS.installReferrer),
                 referrerClickTimestampSeconds = j.getLong(AffiseReferrerData.KEYS.referrerClickTimestampSeconds),
                 installBeginTimestampSeconds = j.getLong(AffiseReferrerData.KEYS.installBeginTimestampSeconds),
+                referrerClickTimestampServerSeconds = j.getLong(AffiseReferrerData.KEYS.referrerClickTimestampServerSeconds),
                 installBeginTimestampServerSeconds = j.getLong(AffiseReferrerData.KEYS.installBeginTimestampServerSeconds),
+                installVersion = j.getString(AffiseReferrerData.KEYS.installVersion),
+                googlePlayInstantParam = j.getBoolean(AffiseReferrerData.KEYS.googlePlayInstantParam),
             )
         } catch (e: Exception) {
             //log error

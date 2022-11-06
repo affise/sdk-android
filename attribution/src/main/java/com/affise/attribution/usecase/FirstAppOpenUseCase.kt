@@ -46,8 +46,27 @@ internal class FirstAppOpenUseCase(
             putString(AFF_DEVICE_ID, affDevId)
             putString(AFF_ALT_DEVICE_ID, affAltDevId)
             putString(Parameters.RANDOM_USER_ID, randomUserId)
+            putBoolean(FIRST_OPENED, true)
         }.commit()
     }
+
+    /**
+     * Get first open
+     * @return is first open
+     */
+    fun isFirstOpen() = preferences
+        .getBoolean(FIRST_OPENED, true)
+        .let {
+            if (it) {
+                //Save properties
+                preferences.edit().apply {
+                    putBoolean(FIRST_OPENED, false)
+                }.apply()
+                true
+            } else {
+               false
+            }
+        }
 
     /**
      * Get first open date
@@ -76,6 +95,7 @@ internal class FirstAppOpenUseCase(
     fun getRandomUserId() = preferences.getString(Parameters.RANDOM_USER_ID, "")
 
     companion object {
+        private const val FIRST_OPENED = "FIRST_OPENED"
         private const val FIRST_OPENED_DATE_KEY = "FIRST_OPENED_DATE_KEY"
         private const val AFF_DEVICE_ID = "AFF_DEVICE_ID"
         private const val AFF_ALT_DEVICE_ID = "AFF_ALT_DEVICE_ID"

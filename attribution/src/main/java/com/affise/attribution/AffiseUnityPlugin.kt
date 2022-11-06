@@ -137,6 +137,22 @@ class AffiseUnityPlugin(app: Application) : AffiseUnityPluginApi {
         return providers.referrerProvider.provideWithDefault()
     }
 
+    override fun getReferrerInstallVersion(): String {
+        return providers.referrerInstallVersionProvider.provideWithDefault()
+    }
+
+    override fun getReferrerClickTimestamp(): Long {
+        return providers.referrerClickTimestampProvider.provideWithDefault()
+    }
+
+    override fun getReferrerClickTimestampServer(): Long {
+        return providers.referrerClickTimestampServerProvider.provideWithDefault()
+    }
+
+    override fun getReferrerGooglePlayInstant(): Boolean {
+        return providers.referrerGooglePlayInstantProvider.provideWithDefault()
+    }
+
     companion object {
         private const val PREFERENCES_FILE_NAME = "com.affise.attribution"
         private const val PREFERENCES_ENCRYPTED_FILE_NAME = "com.affise.attribution.encrypted"

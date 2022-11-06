@@ -3,69 +3,15 @@ package com.affise.attribution.parameters.factory
 import com.affise.attribution.events.SerializedEvent
 import com.affise.attribution.logs.SerializedLog
 import com.affise.attribution.network.entity.PostBackModel
-import com.affise.attribution.parameters.AffAppTokenPropertyProvider
-import com.affise.attribution.parameters.AffPartParamNamePropertyProvider
-import com.affise.attribution.parameters.AffPartParamNameTokenPropertyProvider
+import com.affise.attribution.parameters.*
 import com.affise.attribution.parameters.AffSDKSecretIdProvider
-import com.affise.attribution.parameters.AffSDKVersionProvider
 import com.affise.attribution.parameters.AffiseAltDeviceIdProvider
-import com.affise.attribution.parameters.AffiseAppIdProvider
 import com.affise.attribution.parameters.AffiseDeviceIdProvider
-import com.affise.attribution.parameters.AffisePackageAppNameProvider
 import com.affise.attribution.parameters.AffiseSessionCountProvider
-import com.affise.attribution.parameters.AndroidIdMD5Provider
-import com.affise.attribution.parameters.AndroidIdProvider
-import com.affise.attribution.parameters.ApiLevelOSProvider
-import com.affise.attribution.parameters.AppVersionProvider
-import com.affise.attribution.parameters.AppVersionRawProvider
-import com.affise.attribution.parameters.ConnectionTypeProvider
-import com.affise.attribution.parameters.CountryProvider
-import com.affise.attribution.parameters.CpuTypeProvider
-import com.affise.attribution.parameters.CreatedTimeHourProvider
-import com.affise.attribution.parameters.CreatedTimeMilliProvider
-import com.affise.attribution.parameters.CreatedTimeProvider
-import com.affise.attribution.parameters.DeeplinkClickPropertyProvider
-import com.affise.attribution.parameters.DeeplinkProvider
-import com.affise.attribution.parameters.DeviceManufacturerProvider
-import com.affise.attribution.parameters.DeviceNameProvider
-import com.affise.attribution.parameters.DeviceTypeProvider
 import com.affise.attribution.parameters.FirstOpenHourProvider
 import com.affise.attribution.parameters.FirstOpenTimeProvider
-import com.affise.attribution.parameters.GoogleAdvertisingIdMd5Provider
-import com.affise.attribution.parameters.GoogleAdvertisingIdProvider
-import com.affise.attribution.parameters.HardwareNameProvider
-import com.affise.attribution.parameters.InstallBeginTimeProvider
 import com.affise.attribution.parameters.InstallFinishTimeProvider
-import com.affise.attribution.parameters.InstallReferrerProvider
-import com.affise.attribution.parameters.InstalledHourProvider
-import com.affise.attribution.parameters.InstalledTimeProvider
-import com.affise.attribution.parameters.IsProductionPropertyProvider
-import com.affise.attribution.parameters.IspNameProvider
-import com.affise.attribution.parameters.LanguageProvider
-import com.affise.attribution.parameters.LastSessionTimeProvider
-import com.affise.attribution.parameters.LifetimeSessionCountProvider
-import com.affise.attribution.parameters.MCCProvider
-import com.affise.attribution.parameters.MNCProvider
-import com.affise.attribution.parameters.MacMD5Provider
-import com.affise.attribution.parameters.MacSha1Provider
-import com.affise.attribution.parameters.NetworkTypeProvider
-import com.affise.attribution.parameters.OSVersionProvider
-import com.affise.attribution.parameters.OaidMD5Provider
-import com.affise.attribution.parameters.OaidProvider
-import com.affise.attribution.parameters.OsNameProvider
-import com.affise.attribution.parameters.PlatformNameProvider
-import com.affise.attribution.parameters.ProxyIpAddressProvider
-import com.affise.attribution.parameters.PushTokenProvider
 import com.affise.attribution.parameters.RandomUserIdProvider
-import com.affise.attribution.parameters.RefTokenProvider
-import com.affise.attribution.parameters.RefTokensProvider
-import com.affise.attribution.parameters.ReferralTimeProvider
-import com.affise.attribution.parameters.RegionProvider
-import com.affise.attribution.parameters.StoreProvider
-import com.affise.attribution.parameters.TimeSessionProvider
-import com.affise.attribution.parameters.TimezoneDeviceProvider
-import com.affise.attribution.parameters.UserAgentProvider
-import com.affise.attribution.parameters.UuidProvider
 
 internal class PostBackModelFactory(
     val uuidProvider: UuidProvider,
@@ -78,9 +24,14 @@ internal class PostBackModelFactory(
     val firstOpenTimeProvider: FirstOpenTimeProvider,
     val installedHourProvider: InstalledHourProvider,
     val firstOpenHourProvider: FirstOpenHourProvider,
+    val installFirstEventProvider: InstallFirstEventProvider,
     val installBeginTimeProvider: InstallBeginTimeProvider,
     val installFinishTimeProvider: InstallFinishTimeProvider,
+    val referrerInstallVersionProvider: ReferrerInstallVersionProvider,
     val referralTimeProvider: ReferralTimeProvider,
+    val referrerClickTimestampProvider: ReferrerClickTimestampProvider,
+    val referrerClickTimestampServerProvider: ReferrerClickTimestampServerProvider,
+    val referrerGooglePlayInstantProvider: ReferrerGooglePlayInstantProvider,
     val createdTimeProvider: CreatedTimeProvider,
     val createdTimeMilliProvider: CreatedTimeMilliProvider,
     val createdTimeHourProvider: CreatedTimeHourProvider,
@@ -165,9 +116,14 @@ internal class PostBackModelFactory(
             firstOpenTime = firstOpenTimeProvider.provideWithDefault(),
             installedHour = installedHourProvider.provideWithDefault(),
             firstOpenHour = firstOpenHourProvider.provideWithDefault(),
+            installFirstEvent = installFirstEventProvider.provideWithDefault(),
             installBeginTime = installBeginTimeProvider.provideWithDefault(),
             installFinishTime = installFinishTimeProvider.provideWithDefault(),
+            referrerInstallVersion = referrerInstallVersionProvider.provideWithDefault(),
             referralTime = referralTimeProvider.provideWithDefault(),
+            referrerClickTimestamp = referrerClickTimestampProvider.provideWithDefault(),
+            referrerClickTimestampServer = referrerClickTimestampServerProvider.provideWithDefault(),
+            referrerGooglePlayInstant = referrerGooglePlayInstantProvider.provideWithDefault(),
             createdTime = createdTime,
             createdTimeMilli = createdTimeMilliProvider.provideWithDefault(),
             createdTimeHour = createdTimeHourProvider.provideWithDefault(),

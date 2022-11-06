@@ -95,7 +95,10 @@ class RetrieveInstallReferrerUseCase(
             installReferrer = data.installReferrer ?: "",
             referrerClickTimestampSeconds = data.referrerClickTimestampSeconds,
             installBeginTimestampSeconds = data.installBeginTimestampSeconds,
-            installBeginTimestampServerSeconds = data.installBeginTimestampServerSeconds
+            referrerClickTimestampServerSeconds = data.referrerClickTimestampServerSeconds,
+            installBeginTimestampServerSeconds = data.installBeginTimestampServerSeconds,
+            installVersion = data.installVersion,
+            googlePlayInstantParam = data.googlePlayInstantParam,
         )
             .let(toStringConverter::convert)
             .let(::storeToSharedPreferences)

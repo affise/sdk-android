@@ -13,4 +13,8 @@ interface AffiseUnityPluginApi {
     fun getStore(): String
     fun getGaidAdid(): String
     fun getReferrer(): String
+    fun getReferrerInstallVersion(): String
+    fun getReferrerClickTimestamp(): Long
+    fun getReferrerClickTimestampServer(): Long
+    fun getReferrerGooglePlayInstant(): Boolean
 }

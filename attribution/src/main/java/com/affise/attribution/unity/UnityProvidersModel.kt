@@ -15,4 +15,8 @@ internal class UnityProvidersModel(
     val installBeginTimeProvider: InstallBeginTimeProvider,
     val gaidAdidProvider: GoogleAdvertisingIdProvider,
     val referrerProvider: InstallReferrerProvider,
+    val referrerInstallVersionProvider: ReferrerInstallVersionProvider,
+    val referrerClickTimestampProvider: ReferrerClickTimestampProvider,
+    val referrerClickTimestampServerProvider: ReferrerClickTimestampServerProvider,
+    val referrerGooglePlayInstantProvider: ReferrerGooglePlayInstantProvider,
 )

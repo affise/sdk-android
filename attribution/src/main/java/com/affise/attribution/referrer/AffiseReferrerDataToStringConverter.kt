@@ -30,6 +30,10 @@ class AffiseReferrerDataToStringConverter : Converter<AffiseReferrerData, String
             AffiseReferrerData.KEYS.installBeginTimestampServerSeconds,
             from.installBeginTimestampServerSeconds
         ),
+        Pair(
+            AffiseReferrerData.KEYS.installVersion,
+            from.installVersion
+        ),
     )
         .let(::JSONObject)
         .toString()

@@ -27,6 +27,10 @@ internal class UnityPropertiesProviderFactory(
         apiLevelOSProvider = ApiLevelOSProvider(buildConfigPropertiesProvider),
         osVersionProvider = OSVersionProvider(buildConfigPropertiesProvider),
         gaidAdidProvider = GoogleAdvertisingIdProvider(advertisingIdManager),
-        referrerProvider = InstallReferrerProvider(app, retrieveInstallReferrerUseCase)
+        referrerProvider = InstallReferrerProvider(app, retrieveInstallReferrerUseCase),
+        referrerInstallVersionProvider = ReferrerInstallVersionProvider(retrieveInstallReferrerUseCase),
+        referrerClickTimestampProvider = ReferrerClickTimestampProvider(retrieveInstallReferrerUseCase),
+        referrerClickTimestampServerProvider = ReferrerClickTimestampServerProvider(retrieveInstallReferrerUseCase),
+        referrerGooglePlayInstantProvider = ReferrerGooglePlayInstantProvider(retrieveInstallReferrerUseCase),
     )
 }
