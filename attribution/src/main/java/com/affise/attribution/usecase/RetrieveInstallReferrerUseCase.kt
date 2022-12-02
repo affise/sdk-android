@@ -27,21 +27,21 @@ class RetrieveInstallReferrerUseCase(
     /**
      * Referrer client
      */
-    private lateinit var referrerClient: InstallReferrerClient
+    private var referrerClient: InstallReferrerClient? = null
 
-    fun startInstallReferrerRetrieve() {
+    fun startInstallReferrerRetrieve(onFinished: (() -> Unit)? = null) {
         //Create referrer client
         referrerClient = InstallReferrerClient.newBuilder(app)
             .build()
 
         //Start connection
-        referrerClient.startConnection(object : InstallReferrerStateListener {
+        referrerClient?.startConnection(object : InstallReferrerStateListener {
             override fun onInstallReferrerSetupFinished(responseCode: Int) {
                 when (responseCode) {
                     InstallReferrerClient.InstallReferrerResponse.OK -> {
                         // Connection established.
                         try {
-                            val data = referrerClient.installReferrer ?: return
+                            val data = referrerClient?.installReferrer ?: return
 
                             //Processing referrer details
                             processReferrerDetails(data)
@@ -58,6 +58,7 @@ class RetrieveInstallReferrerUseCase(
                         // Connection couldn't be established.
                     }
                 }
+                onFinished?.invoke()
             }
 
             override fun onInstallReferrerServiceDisconnected() {
@@ -97,13 +98,13 @@ class RetrieveInstallReferrerUseCase(
             installBeginTimestampSeconds = data.installBeginTimestampSeconds,
             referrerClickTimestampServerSeconds = data.referrerClickTimestampServerSeconds,
             installBeginTimestampServerSeconds = data.installBeginTimestampServerSeconds,
-            installVersion = data.installVersion,
+            installVersion = data.installVersion ?: "",
             googlePlayInstantParam = data.googlePlayInstantParam,
         )
             .let(toStringConverter::convert)
             .let(::storeToSharedPreferences)
 
-        referrerClient.endConnection()
+        referrerClient?.endConnection()
     }
 
     /**

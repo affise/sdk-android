@@ -34,6 +34,7 @@ import com.affise.attribution.events.predefined.PurchaseEvent
 import com.affise.attribution.events.predefined.RateEvent
 import com.affise.attribution.events.predefined.ReEngageEvent
 import com.affise.attribution.events.predefined.ReserveEvent
+import com.affise.attribution.events.predefined.SalesEvent
 import com.affise.attribution.events.predefined.SearchEvent
 import com.affise.attribution.events.predefined.ShareEvent
 import com.affise.attribution.events.predefined.SpendCreditsEvent
@@ -89,6 +90,7 @@ class DefaultEventsFactory : EventsFactory {
             createRateEvent(),
             createReEngageEvent(),
             createReserveEvent(),
+            createSalesEvent(),
             createSearchEvent(),
             createShareEvent(),
             createSpendCreditsEvent(),
@@ -637,6 +639,18 @@ class DefaultEventsFactory : EventsFactory {
             put("food", "coke")
         }
         return ReserveEvent(listOf(data, data2), System.currentTimeMillis(), "discount").apply {
+            addPredefinedParameter(PredefinedParameters.ORDER_ID, "23123")
+            addPredefinedParameter(PredefinedParameters.PRICE, "2.19$")
+            addPredefinedParameter(PredefinedParameters.QUANTITY, "1")
+        }
+    }
+
+    private fun createSalesEvent(): Event {
+        val data = JSONObject().apply {
+            put("phone", 1)
+            put("case", 1)
+        }
+        return SalesEvent(data, System.currentTimeMillis(), "apple").apply {
             addPredefinedParameter(PredefinedParameters.ORDER_ID, "23123")
             addPredefinedParameter(PredefinedParameters.PRICE, "2.19$")
             addPredefinedParameter(PredefinedParameters.QUANTITY, "1")

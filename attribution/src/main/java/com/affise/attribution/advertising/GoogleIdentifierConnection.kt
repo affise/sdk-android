@@ -34,14 +34,14 @@ class GoogleIdentifierConnection : ServiceConnection {
     /**
      * Get IBinder
      */
-    fun getBinder(): IBinder {
+    fun getBinder(): IBinder? {
         //Check retrieved
         check(!retrieved)
 
         //Change flag of retrieved
         retrieved = true
 
-        return queue.poll(TIME_WAIT, TimeUnit.SECONDS) as IBinder
+        return queue.poll(TIME_WAIT, TimeUnit.SECONDS)
     }
 
     companion object {

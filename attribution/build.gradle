@@ -60,7 +60,6 @@ dependencies {
 
     //Installreferrer
     implementation "com.android.installreferrer:installreferrer:2.2"
-    implementation "com.android.installreferrer:installreferrer:2.2"
 
     //Oaid sdk
     compileOnly files('libs/oaid_sdk_1.0.26.aar')

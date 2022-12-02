@@ -262,6 +262,7 @@ With above example you can implement other events:
 - `RateEvent`
 - `ReEngageEvent`
 - `ReserveEvent`
+- `SalesEvent`
 - `SearchEvent`
 - `ShareEvent`
 - `SpendCreditsEvent`

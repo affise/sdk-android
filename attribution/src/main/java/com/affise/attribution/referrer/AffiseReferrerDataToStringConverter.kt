@@ -27,12 +27,20 @@ class AffiseReferrerDataToStringConverter : Converter<AffiseReferrerData, String
             from.installBeginTimestampSeconds
         ),
         Pair(
+            AffiseReferrerData.KEYS.referrerClickTimestampServerSeconds,
+            from.referrerClickTimestampServerSeconds
+        ),
+        Pair(
             AffiseReferrerData.KEYS.installBeginTimestampServerSeconds,
             from.installBeginTimestampServerSeconds
         ),
         Pair(
             AffiseReferrerData.KEYS.installVersion,
             from.installVersion
+        ),
+        Pair(
+            AffiseReferrerData.KEYS.googlePlayInstantParam,
+            from.googlePlayInstantParam
         ),
     )
         .let(::JSONObject)

@@ -69,8 +69,10 @@ internal class AdvertisingIdManagerImpl(
         try {
             //Check binding
             if (context.bindService(intent, connection, Context.BIND_AUTO_CREATE)) {
-                //Create GoogleIdentifierInterface and get Google Advertising ID
-                return GoogleIdentifierInterface(connection.getBinder()).getGoogleAdid()
+                connection.getBinder()?.let {
+                    //Create GoogleIdentifierInterface and get Google Advertising ID
+                    return GoogleIdentifierInterface(it).getGoogleAdid()
+                }
             }
         } catch (throwable: Throwable) {
             //Log error

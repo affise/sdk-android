@@ -26,24 +26,34 @@ class EventsManager(
      */
     private var timer: Timer? = null
 
+    private var isAllowed: Boolean = false
+
     /**
      * Start manager
      */
-    fun init() = subscribeToActivityEvents()
+    fun init() {
+        subscribeToActivityEvents()
+        sendEventsOnStart()
+    }
+
+    fun sendEventsOnStart() {
+        //Allow send events
+        isAllowed = true
+
+        //Send events on activity started
+        sendEvents(withDelay = false)
+
+        //Start timer fo repeat send events
+        startTimer()
+    }
 
     /**
      * Subscribe to change open activity count
      */
     private fun subscribeToActivityEvents() {
         activityCountProvider.addActivityCountListener { count ->
-            //Check if start new session
-            if (lastSessionCount == 0L && count == 1L) {
-                //Send events on activity started
-                sendEvents(withDelay = false)
-
-                //Start timer fo repeat send events
-                startTimer()
-            } else if (lastSessionCount == 1L && count == 0L) {
+            //Check if activity closed
+            if (lastSessionCount == 1L && count == 0L) {
                 //Stop timer
                 stopTimer()
             }
