@@ -47,6 +47,7 @@ from [releases page](https://github.com/affise/sdk-android/releases) and place t
 module lib directory `app/libs/attribution-release.aar`
 
 Add library as gradle file dependency to application module build script
+Add install referrer library
 
 For kotlin build script build.gradle.kts use:
 
@@ -54,6 +55,8 @@ For kotlin build script build.gradle.kts use:
 dependencies {
     // ...
     implementation(files("libs/attribution-release.aar"))
+    // Add install referrer
+    implementation("com.android.installreferrer:installreferrer:2.2")
 }
 ```
 
@@ -63,6 +66,8 @@ For groovy build script build.gradle use:
 dependencies {
     // ...  
     implementation files('libs/attribution-release.aar')
+  // Add install referrer
+    implementation 'com.android.installreferrer:installreferrer:2.2'
 }
 ```
 
@@ -82,7 +87,9 @@ class App : Application() {
             partParamNameToken = "Your partParamNameToken", //Change to your partParamNameToken
             appToken = "Your appToken", //Change to your appToken
             isProduction = !BuildConfig.DEBUG, //Add your custom rule to determine if this is a production build
-            secretId = "Your secretId" //Change to your appToken
+            secretId = "Your secretId", //Change to your secretId
+            autoCatchingClickEvents = emptyList(), // Types to handles interception of clicks on activity
+            enabledMetrics = false // Affise metrics
         )
         Affise.init(this, properties)
     }
@@ -98,12 +105,14 @@ public class App extends Application {
         super.onCreate();
 
         AffiseInitProperties properties = new AffiseInitProperties(
-                "Your appId", //Change to your app id
-                "Your partParamName", //Change to your partParamName
-                "Your partParamNameToken", //Change to your partParamNameToken
-                "Your appToken", //Change to your appToken
-                !BuildConfig.DEBUG, //Add your custom rule to determine if this is a production build
-                "Your secretId" //Change to your appToken
+            "Your appId", //Change to your app id
+            !BuildConfig.DEBUG, //Add your custom rule to determine if this is a production build
+            "Your partParamName", //Change to your partParamName
+            "Your partParamNameToken", //Change to your partParamNameToken
+            "Your appToken", //Change to your appToken
+            "Your secretId", //Change to your secretId
+            Collections.emptyList(), // Types to handles interception of clicks on activity
+            false // Affise metrics
         );
         Affise.init(this, properties);
     }
