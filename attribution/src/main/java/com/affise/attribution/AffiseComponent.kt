@@ -269,7 +269,7 @@ internal class AffiseComponent(
     /**
      * RetrieveInstallReferrerUseCase
      */
-    private val retrieveInstallReferrerUseCase by lazy {
+    override val retrieveInstallReferrerUseCase by lazy {
         RetrieveInstallReferrerUseCase(
             sharedPreferences,
             AffiseReferrerDataToStringConverter(),

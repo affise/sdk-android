@@ -4,10 +4,12 @@ import android.app.Application
 import android.webkit.WebView
 import com.affise.attribution.deeplink.OnDeeplinkCallback
 import com.affise.attribution.events.Event
+import com.affise.attribution.referrer.ReferrerKey
 import com.affise.attribution.events.autoCatchingClick.AutoCatchingType
 import com.affise.attribution.events.predefined.GDPREvent
 import com.affise.attribution.init.AffiseInitProperties
 import com.affise.attribution.parameters.PushTokenProvider
+import com.affise.attribution.referrer.OnReferrerCallback
 
 /**
  * Entry point to initialise Affise Attribution library
@@ -182,4 +184,13 @@ object Affise {
      */
     @JvmStatic
     fun getReferrer(): String? = api?.installReferrerProvider?.provide()
+
+
+    /**
+     * Get referrer Value
+     */
+    @JvmStatic
+    fun getReferrerValue(key: ReferrerKey, callback: OnReferrerCallback?) {
+        api?.retrieveInstallReferrerUseCase?.getReferrerValue(key, callback)
+    }
 }

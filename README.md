@@ -23,6 +23,8 @@
     - [Disable background tracking](#disable-background-tracking)
     - [GDPR right to be forgotten](#gdpr-right-to-be-forgotten)
     - [Get referrer](#get-referrer)
+    - [Get referrer parameter](#get-referrer-parameter)
+        - [Referrer keys](#referrer-keys)
     - [Web view tracking](#webview-tracking)
         - [Initialize webview](#initialize-webview) 
         - [Events tracking JS](#events-tracking-js) 
@@ -585,6 +587,55 @@ Use the next public method of SDK
 ```kotlin
 Affise.getReferrer()
 ```
+
+### Get referrer parameter
+
+Use the next public method of SDK to get referrer parameter by
+
+```kotlin
+Affise.getReferrerValue(ReferrerType.CLICK_ID) { value ->
+
+}
+```
+
+```java
+Affise.getReferrerValue(ReferrerType.CLICK_ID, value -> {
+
+});
+```
+
+#### Referrer keys
+
+In examples above `ReferrerKey.CLICK_ID` is used, but many others is available:
+
+- `CLICK_ID`
+- `AFFISE_AD`
+- `AFFISE_AD_ID`
+- `AFFISE_AD_TYPE`
+- `AFFISE_ADSET`
+- `AFFISE_ADSET_ID`
+- `AFFISE_AFFC_ID`
+- `AFFISE_CHANNEL`
+- `AFFISE_CLICK_LOOK_BACK`
+- `AFFISE_COST_CURRENCY`
+- `AFFISE_COST_MODEL`
+- `AFFISE_COST_VALUE`
+- `AFFISE_DEEPLINK`
+- `AFFISE_KEYWORDS`
+- `AFFISE_MEDIA_TYPE`
+- `AFFISE_MODEL`
+- `AFFISE_OS`
+- `AFFISE_PARTNER`
+- `AFFISE_REF`
+- `AFFISE_SITE_ID`
+- `AFFISE_SUB_SITE_ID`
+- `AFFC`
+- `PID`
+- `SUB_1`
+- `SUB_2`
+- `SUB_3`
+- `SUB_4`
+- `SUB_5`
 
 ### Webview tracking
 #### Initialize webview

@@ -14,6 +14,7 @@ import com.affise.attribution.oaid.OaidManager
 import com.affise.attribution.parameters.InstallReferrerProvider
 import com.affise.attribution.session.SessionManager
 import com.affise.attribution.test.CrashApplicationUseCase
+import com.affise.attribution.usecase.RetrieveInstallReferrerUseCase
 import com.affise.attribution.usecase.EraseUserDataUseCaseImpl
 import com.affise.attribution.usecase.FirstAppOpenUseCase
 import com.affise.attribution.usecase.PreferencesUseCaseImpl
@@ -43,4 +44,5 @@ internal interface AffiseApi {
     val metricsManager: MetricsManager
     val crashApplicationUseCase: CrashApplicationUseCase
     val installReferrerProvider: InstallReferrerProvider
+    val retrieveInstallReferrerUseCase: RetrieveInstallReferrerUseCase
 }

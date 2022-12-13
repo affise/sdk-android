@@ -7,9 +7,11 @@ import android.net.Uri
 import com.affise.attribution.converter.Converter
 import com.affise.attribution.converter.StringToAffiseReferrerDataConverter
 import com.affise.attribution.deeplink.DeeplinkManager
+import com.affise.attribution.referrer.ReferrerKey
 import com.affise.attribution.logs.LogsManager
 import com.affise.attribution.referrer.AffiseReferrerData
 import com.affise.attribution.referrer.AffiseReferrerDataToStringConverter
+import com.affise.attribution.referrer.OnReferrerCallback
 import com.android.installreferrer.api.InstallReferrerClient
 import com.android.installreferrer.api.InstallReferrerStateListener
 import com.android.installreferrer.api.ReferrerDetails
@@ -28,6 +30,8 @@ class RetrieveInstallReferrerUseCase(
      * Referrer client
      */
     private var referrerClient: InstallReferrerClient? = null
+
+    private var onReferrerFinished: (() -> Unit)? = null
 
     fun startInstallReferrerRetrieve(onFinished: (() -> Unit)? = null) {
         //Create referrer client
@@ -59,6 +63,7 @@ class RetrieveInstallReferrerUseCase(
                     }
                 }
                 onFinished?.invoke()
+                onReferrerFinished?.invoke()
             }
 
             override fun onInstallReferrerServiceDisconnected() {
@@ -66,6 +71,27 @@ class RetrieveInstallReferrerUseCase(
                 // Google Play by calling the startConnection() method.
             }
         })
+    }
+
+    /**
+     * Get referrer uri value by key
+     */
+    fun getReferrerValue(key: ReferrerKey, callback: OnReferrerCallback?) {
+        getInstallReferrer()?.let {
+            callback?.handleReferrer(getReferrerValue(key))
+            return
+        }
+
+        onReferrerFinished = {
+            callback?.handleReferrer(getReferrerValue(key))
+        }
+    }
+
+    private fun getReferrerValue(key: ReferrerKey): String? {
+        return getInstallReferrer()?.installReferrer?.let {
+            val uri = Uri.parse("https://referrer/?$it")
+            uri.getQueryParameter(key.type)
+        }
     }
 
     /**
