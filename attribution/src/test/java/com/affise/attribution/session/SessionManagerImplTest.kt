@@ -1,10 +1,13 @@
 package com.affise.attribution.session
 
 import android.content.SharedPreferences
+import android.os.SystemClock
 import com.google.common.truth.Truth
-import io.mockk.*
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.mockkStatic
+import io.mockk.verifyAll
 import org.junit.Test
-import java.util.*
 
 class SessionManagerImplTest {
 
@@ -18,22 +21,6 @@ class SessionManagerImplTest {
     private val timeStartSession = 15001L
     private val timeNotStartSession = 14999L
     private val timeHideSession = 1000L
-
-    private val calendarStart: Calendar = mockk {
-        every { timeInMillis } returns timeStart
-    }
-
-    private val calendarStartSession: Calendar = mockk {
-        every { timeInMillis } returns timeStartSession
-    }
-
-    private val calendarNotStartSession: Calendar = mockk {
-        every { timeInMillis } returns timeNotStartSession
-    }
-
-    private val calendarHideSession: Calendar = mockk {
-        every { timeInMillis } returns timeHideSession
-    }
 
     private lateinit var listenerTest: (count: Long) -> Unit
 
@@ -57,6 +44,9 @@ class SessionManagerImplTest {
             every {
                 getLong(keyLifetimeSessionCount, 0L)
             } returns saveLifetimeSessionCount
+            every {
+                getLong(keyAffiseSessionCount, 0L)
+            } returns 0
         }
 
         val manager = SessionManagerImpl(preferences, provider)
@@ -66,8 +56,8 @@ class SessionManagerImplTest {
 
         verifyAll {
             preferences.getLong(keyLifetimeSessionCount, 0L)
+            preferences.getLong(keyAffiseSessionCount, 0L)
         }
-
     }
 
     /**
@@ -79,31 +69,33 @@ class SessionManagerImplTest {
             every {
                 getLong(keyLifetimeSessionCount, 0L)
             } returns saveLifetimeSessionCount
+            every {
+                getLong(keyAffiseSessionCount, 0L)
+            } returns 0
         }
 
-        mockkStatic(Calendar::class) {
+        mockkStatic(SystemClock::class) {
             every {
-                Calendar.getInstance()
-            } returns calendarStart
+                SystemClock.elapsedRealtime()
+            } returns timeStart
 
             val manager = SessionManagerImpl(preferences, provider).apply { init() }
 
             listenerTest(1)
 
             every {
-                Calendar.getInstance()
-            } returns calendarNotStartSession
+                SystemClock.elapsedRealtime()
+            } returns timeNotStartSession
 
             val lifetimeSessionTime = manager.getLifetimeSessionTime()
 
-            Truth.assertThat(lifetimeSessionTime).isEqualTo(saveLifetimeSessionCount + timeNotStartSession)
+            Truth.assertThat(lifetimeSessionTime)
+                .isEqualTo(saveLifetimeSessionCount + timeNotStartSession)
 
             verifyAll {
                 preferences.getLong(keyLifetimeSessionCount, 0L)
-                calendarStart.timeInMillis
-                calendarNotStartSession.timeInMillis
+                preferences.getLong(keyAffiseSessionCount, 0L)
             }
-
         }
     }
 
@@ -116,29 +108,32 @@ class SessionManagerImplTest {
             every {
                 getLong(keyLifetimeSessionCount, 0L)
             } returns saveLifetimeSessionCount
+            every {
+                getLong(keyAffiseSessionCount, 0L)
+            } returns 0
         }
 
-        mockkStatic(Calendar::class) {
+        mockkStatic(SystemClock::class) {
             every {
-                Calendar.getInstance()
-            } returns calendarStart
+                SystemClock.elapsedRealtime()
+            } returns timeStart
 
             val manager = SessionManagerImpl(preferences, provider).apply { init() }
 
             listenerTest(1)
 
             every {
-                Calendar.getInstance()
-            } returns calendarStartSession
+                SystemClock.elapsedRealtime()
+            } returns timeStartSession
 
             val lifetimeSessionTime = manager.getLifetimeSessionTime()
 
-            Truth.assertThat(lifetimeSessionTime).isEqualTo(saveLifetimeSessionCount + timeStartSession)
+            Truth.assertThat(lifetimeSessionTime)
+                .isEqualTo(saveLifetimeSessionCount + timeStartSession)
 
             verifyAll {
                 preferences.getLong(keyLifetimeSessionCount, 0L)
-                calendarStart.timeInMillis
-                calendarStartSession.timeInMillis
+                preferences.getLong(keyAffiseSessionCount, 0L)
             }
 
         }
@@ -167,36 +162,36 @@ class SessionManagerImplTest {
             } returns true
         }
 
-        mockkStatic(Calendar::class) {
+        mockkStatic(SystemClock::class) {
             every {
-                Calendar.getInstance()
-            } returns calendarStart
+                SystemClock.elapsedRealtime()
+            } returns timeStart
 
             val manager = SessionManagerImpl(preferences, provider).apply { init() }
 
             listenerTest(1)
 
             every {
-                Calendar.getInstance()
-            } returns calendarStartSession
+                SystemClock.elapsedRealtime()
+            } returns timeStartSession
 
             listenerTest(0)
 
             every {
-                Calendar.getInstance()
-            } returns calendarHideSession
+                SystemClock.elapsedRealtime()
+            } returns timeHideSession
 
             val lifetimeSessionTime = manager.getLifetimeSessionTime()
 
-            Truth.assertThat(lifetimeSessionTime).isEqualTo(saveLifetimeSessionCount)
+            Truth.assertThat(lifetimeSessionTime)
+                .isEqualTo(saveLifetimeSessionCount - timeStart + timeStartSession)
+            //.isEqualTo(saveLifetimeSessionCount)
 
             verifyAll {
                 preferences.getLong(keyLifetimeSessionCount, 0L)
                 preferences.getLong(keyAffiseSessionCount, 0L)
                 preferences.edit().putLong(keyLifetimeSessionCount, any()).commit()
                 preferences.edit().putLong(keyAffiseSessionCount, 1).commit()
-                calendarStart.timeInMillis
-                calendarStartSession.timeInMillis
             }
 
         }
@@ -206,68 +201,91 @@ class SessionManagerImplTest {
 
     @Test
     fun getSessionTimeNotOpenActive() {
-        val preferences: SharedPreferences = mockk()
+        val preferences: SharedPreferences = mockk {
+            every {
+                getLong(keyLifetimeSessionCount, 0L)
+            } returns saveLifetimeSessionCount
+
+            every {
+                getLong(keyAffiseSessionCount, 0L)
+            } returns 0
+        }
 
         val manager = SessionManagerImpl(preferences, provider).apply { init() }
 
         val sessionTime = manager.getSessionTime()
 
         Truth.assertThat(sessionTime).isEqualTo(0L)
-
     }
 
     @Test
     fun getSessionTimeNotStartSession() {
-        val preferences: SharedPreferences = mockk()
-
-        mockkStatic(Calendar::class) {
+        val preferences: SharedPreferences = mockk {
             every {
-                Calendar.getInstance()
-            } returns calendarStart
+                getLong(keyLifetimeSessionCount, 0L)
+            } returns saveLifetimeSessionCount
+
+            every {
+                getLong(keyAffiseSessionCount, 0L)
+            } returns 0
+        }
+
+        mockkStatic(SystemClock::class) {
+            every {
+                SystemClock.elapsedRealtime()
+            } returns timeStart
 
             val manager = SessionManagerImpl(preferences, provider).apply { init() }
 
             listenerTest(1)
 
             every {
-                Calendar.getInstance()
-            } returns calendarNotStartSession
+                SystemClock.elapsedRealtime()
+            } returns timeNotStartSession
 
             val sessionTime = manager.getSessionTime()
 
             Truth.assertThat(sessionTime).isEqualTo(timeNotStartSession)
 
             verifyAll {
-                calendarStart.timeInMillis
-                calendarNotStartSession.timeInMillis
+                preferences.getLong(keyLifetimeSessionCount, 0L)
+                preferences.getLong(keyAffiseSessionCount, 0L)
             }
         }
     }
 
     @Test
     fun getSessionTimeActive() {
-        val preferences: SharedPreferences = mockk()
-
-        mockkStatic(Calendar::class) {
+        val preferences: SharedPreferences = mockk {
             every {
-                Calendar.getInstance()
-            } returns calendarStart
+                getLong(keyLifetimeSessionCount, 0L)
+            } returns saveLifetimeSessionCount
+
+            every {
+                getLong(keyAffiseSessionCount, 0L)
+            } returns 0
+        }
+
+        mockkStatic(SystemClock::class) {
+            every {
+                SystemClock.elapsedRealtime()
+            } returns timeStart
 
             val manager = SessionManagerImpl(preferences, provider).apply { init() }
 
             listenerTest(1)
 
             every {
-                Calendar.getInstance()
-            } returns calendarStartSession
+                SystemClock.elapsedRealtime()
+            } returns timeStartSession
 
             val sessionTime = manager.getSessionTime()
 
             Truth.assertThat(sessionTime).isEqualTo(timeStartSession)
 
             verifyAll {
-                calendarStart.timeInMillis
-                calendarStartSession.timeInMillis
+                preferences.getLong(keyLifetimeSessionCount, 0L)
+                preferences.getLong(keyAffiseSessionCount, 0L)
             }
         }
     }
@@ -280,22 +298,26 @@ class SessionManagerImplTest {
             } returns saveSessionCount
 
             every {
+                getLong(keyLifetimeSessionCount, 0L)
+            } returns 0
+
+            every {
                 edit().putLong(keyAffiseSessionCount, any()).commit()
             } returns true
         }
 
-        mockkStatic(Calendar::class) {
+        mockkStatic(SystemClock::class) {
             every {
-                Calendar.getInstance()
-            } returns calendarStart
+                SystemClock.elapsedRealtime()
+            } returns timeStart
 
             val manager = SessionManagerImpl(preferences, provider).apply { init() }
 
             listenerTest(1)
 
             every {
-                Calendar.getInstance()
-            } returns calendarStartSession
+                SystemClock.elapsedRealtime()
+            } returns timeStartSession
 
             val isSessionActive = manager.isSessionActive()
 
@@ -303,49 +325,54 @@ class SessionManagerImplTest {
 
             verifyAll {
                 preferences.getLong(keyAffiseSessionCount, 0L)
+                preferences.getLong(keyLifetimeSessionCount, 0L)
                 preferences.edit().putLong(keyAffiseSessionCount, any()).commit()
-                calendarStart.timeInMillis
-                calendarStartSession.timeInMillis
             }
-
         }
     }
 
     @Test
     fun isSessionNotActive() {
-        val preferences: SharedPreferences = mockk()
-
-        mockkStatic(Calendar::class) {
+        val preferences: SharedPreferences = mockk {
             every {
-                Calendar.getInstance()
-            } returns calendarStart
+                getLong(keyLifetimeSessionCount, 0L)
+            } returns 0
+
+            every {
+                getLong(keyAffiseSessionCount, 0L)
+            } returns 0
+        }
+
+        mockkStatic(SystemClock::class) {
+            every {
+                SystemClock.elapsedRealtime()
+            } returns timeStart
 
             val manager = SessionManagerImpl(preferences, provider).apply { init() }
 
             listenerTest(1)
 
             every {
-                Calendar.getInstance()
-            } returns calendarNotStartSession
+                SystemClock.elapsedRealtime()
+            } returns timeNotStartSession
 
             val isSessionActive = manager.isSessionActive()
 
             Truth.assertThat(isSessionActive).isFalse()
 
             verifyAll {
-                calendarStart.timeInMillis
-                calendarNotStartSession.timeInMillis
+                preferences.getLong(keyLifetimeSessionCount, 0L)
+                preferences.getLong(keyAffiseSessionCount, 0L)
             }
-
         }
     }
 
     @Test
     fun isSessionClose() {
-        mockkStatic(Calendar::class) {
+        mockkStatic(SystemClock::class) {
             every {
-                Calendar.getInstance()
-            } returns calendarStart
+                SystemClock.elapsedRealtime()
+            } returns timeStart
 
             val preferences: SharedPreferences = mockk {
                 every {
@@ -370,14 +397,14 @@ class SessionManagerImplTest {
             listenerTest(1)
 
             every {
-                Calendar.getInstance()
-            } returns calendarStartSession
+                SystemClock.elapsedRealtime()
+            } returns timeStartSession
 
             listenerTest(0)
 
             every {
-                Calendar.getInstance()
-            } returns calendarHideSession
+                SystemClock.elapsedRealtime()
+            } returns timeHideSession
 
             val isSessionActive = manager.isSessionActive()
 
@@ -386,12 +413,9 @@ class SessionManagerImplTest {
             verifyAll {
                 preferences.getLong(keyLifetimeSessionCount, 0L)
                 preferences.getLong(keyAffiseSessionCount, 0L)
-                preferences.edit().putLong(keyLifetimeSessionCount, any()).commit()
                 preferences.edit().putLong(keyAffiseSessionCount, 1).commit()
-                calendarStart.timeInMillis
-                calendarStartSession.timeInMillis
+                preferences.edit().putLong(keyLifetimeSessionCount, any()).commit()
             }
-
         }
     }
 
@@ -399,8 +423,8 @@ class SessionManagerImplTest {
     fun getSessionCount() {
         val preferences: SharedPreferences = mockk {
             every {
-                edit().putLong(keyAffiseSessionCount, any()).commit()
-            } returns true
+                getLong(keyLifetimeSessionCount, 0L)
+            } returns 0
 
             every {
                 getLong(keyAffiseSessionCount, 0L)
@@ -415,7 +439,7 @@ class SessionManagerImplTest {
 
         verifyAll {
             preferences.getLong(keyAffiseSessionCount, 0L)
+            preferences.getLong(keyLifetimeSessionCount, 0L)
         }
-
     }
 }

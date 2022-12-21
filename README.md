@@ -3,6 +3,7 @@
 - [Description](#description)
 - [Quick start](#quick-start)
 - [Integration](#integration)
+    - [Integrate as dependency](#integrate-as-dependency)
     - [Integrate as file dependency](#integrate-as-file-dependency)
     - [Initialize](#initialize)
 - [Features](#features)
@@ -41,6 +42,30 @@ referrer.
 ## Quick start
 
 ## Integration
+
+### Integrate as dependency
+
+For kotlin build script build.gradle.kts use:
+
+```kotlin
+dependencies {
+    // Add Affise library 
+    implementation("com.affise:attribution:1.4.3")
+    // Add install referrer
+    implementation("com.android.installreferrer:installreferrer:2.2")
+}
+```
+
+For groovy build script build.gradle use:
+
+```groovy
+dependencies {
+    // Add Affise library 
+    implementation 'com.affise:attribution:1.4.3'
+    // Add install referrer
+    implementation 'com.android.installreferrer:installreferrer:2.2'
+}
+```
 
 ### Integrate as file dependency
 
@@ -84,14 +109,14 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         val properties = AffiseInitProperties(
-            affiseAppId = "Your appId", //Change to your app id
-            partParamName = "Your partParamName", //Change to your partParamName
-            partParamNameToken = "Your partParamNameToken", //Change to your partParamNameToken
-            appToken = "Your appToken", //Change to your appToken
-            isProduction = !BuildConfig.DEBUG, //Add your custom rule to determine if this is a production build
-            secretId = "Your secretId", //Change to your secretId
-            autoCatchingClickEvents = emptyList(), // Types to handles interception of clicks on activity
-            enabledMetrics = false // Affise metrics
+            "Your appId", //Change to your app id
+            !BuildConfig.DEBUG, //Add your custom rule to determine if this is a production build
+            null, //Change to your partParamName
+            null, //Change to your partParamNameToken
+            null, //Change to your appToken
+            "Your secretId", //Change to your secretId
+            emptyList(), // Types to handles interception of clicks on activity
+            false // Affise metrics
         )
         Affise.init(this, properties)
     }
@@ -109,9 +134,9 @@ public class App extends Application {
         AffiseInitProperties properties = new AffiseInitProperties(
             "Your appId", //Change to your app id
             !BuildConfig.DEBUG, //Add your custom rule to determine if this is a production build
-            "Your partParamName", //Change to your partParamName
-            "Your partParamNameToken", //Change to your partParamNameToken
-            "Your appToken", //Change to your appToken
+            null, //Change to your partParamName
+            null, //Change to your partParamNameToken
+            null, //Change to your appToken
             "Your secretId", //Change to your secretId
             Collections.emptyList(), // Types to handles interception of clicks on activity
             false // Affise metrics

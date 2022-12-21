@@ -2,13 +2,24 @@ package com.affise.attribution.session
 
 import android.annotation.SuppressLint
 import android.content.SharedPreferences
+import android.os.SystemClock
 import com.affise.attribution.parameters.Parameters
 import java.util.Calendar
+
+data class SessionData(
+    val lifetimeSessionCount: Long = 0,
+    val affiseSessionCount: Long = 0
+)
 
 class SessionManagerImpl(
     private val preferences: SharedPreferences,
     private val activityCountProvider: CurrentActiveActivityCountProvider
 ) : SessionManager {
+
+    private var sessionData: SessionData = SessionData(
+        preferences.getLong(Parameters.LIFETIME_SESSION_COUNT, 0L),
+        preferences.getLong(Parameters.AFFISE_SESSION_COUNT, 0L)
+    )
 
     /**
      * Time of start session
@@ -16,9 +27,9 @@ class SessionManagerImpl(
     private var openAppTime: Long? = null
 
     /**
-     * Last time of user active
+     * Last date time of user active
      */
-    private var closeAppTime: Long? = null
+    private var closeAppDateTime: Long? = null
 
     /**
      * Session active status
@@ -50,14 +61,14 @@ class SessionManagerImpl(
                  */
                 if (openAppTime == null) {
                     //open app time
-                    openAppTime = Calendar.getInstance().timeInMillis
+                    openAppTime = SystemClock.elapsedRealtime()
                 }
             } else {
                 //Update session status if need
                 checkSessionToStart()
 
-                //Save time of user quit or hide app
-                closeAppTime = Calendar.getInstance().timeInMillis
+                //Save date time of user quit or hide app
+                closeAppDateTime = Calendar.getInstance().timeInMillis
 
                 //App is close
                 isOpenApp = false
@@ -82,7 +93,7 @@ class SessionManagerImpl(
         //Current time if app is open
         isOpenApp -> Calendar.getInstance().timeInMillis
         //lastInteractionTime is session is active
-        else -> closeAppTime
+        else -> closeAppDateTime
     }
 
     /**
@@ -107,7 +118,7 @@ class SessionManagerImpl(
         //Check open app time
         openAppTime?.let { startTime ->
             //Time current session
-            val time = Calendar.getInstance().timeInMillis - startTime - TIME_TO_START_SESSION
+            val time = SystemClock.elapsedRealtime() - startTime - TIME_TO_START_SESSION
 
             //if session started
             if (time > 0) {
@@ -124,27 +135,33 @@ class SessionManagerImpl(
      */
     @SuppressLint("ApplySharedPref")
     private fun saveSessionTime() {
+        val lifetimeSessionTime = getLifetimeSessionTime()
+
+        sessionData = sessionData.copy(lifetimeSessionCount = lifetimeSessionTime)
+
         preferences
             .edit()
-            .putLong(Parameters.LIFETIME_SESSION_COUNT, getLifetimeSessionTime())
+            .putLong(Parameters.LIFETIME_SESSION_COUNT, lifetimeSessionTime)
             .commit()
     }
 
     /**
      * Get all old sessions time
      */
-    private fun getSaveSessionsTime() = preferences.getLong(Parameters.LIFETIME_SESSION_COUNT, 0L)
+    private fun getSaveSessionsTime() = sessionData.lifetimeSessionCount
 
     /**
      * Save new session count
      */
     @SuppressLint("ApplySharedPref")
     private fun addNewSession() {
-        val count = preferences.getLong(Parameters.AFFISE_SESSION_COUNT, 0L)
+        val count = sessionData.affiseSessionCount + 1
+
+        sessionData = sessionData.copy(affiseSessionCount = count)
 
         preferences
             .edit()
-            .putLong(Parameters.AFFISE_SESSION_COUNT, count + 1)
+            .putLong(Parameters.AFFISE_SESSION_COUNT, count)
             .commit()
     }
 
@@ -157,14 +174,14 @@ class SessionManagerImpl(
             checkSessionToStart()
         }
 
-        return preferences.getLong(Parameters.AFFISE_SESSION_COUNT, 0L)
+        return sessionData.affiseSessionCount
     }
 
     /**
      * Get current session time
      */
     override fun getSessionTime() = openAppTime?.let { startTime ->
-        Calendar.getInstance().timeInMillis - startTime
+        SystemClock.elapsedRealtime() - startTime
     } ?: 0
 
     /**
