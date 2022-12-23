@@ -4,6 +4,8 @@ package com.affise.attribution.referrer
  * Type of referrer affise key
  */
 enum class ReferrerKey(val type: String) {
+    AD_ID("ad_id"),
+    CAMPAIGN_ID("campaign_id"),
     CLICK_ID("clickid"),
     AFFISE_AD("affise_ad"),
     AFFISE_AD_ID("affise_ad_id"),

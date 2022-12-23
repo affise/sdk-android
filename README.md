@@ -50,7 +50,7 @@ For kotlin build script build.gradle.kts use:
 ```kotlin
 dependencies {
     // Add Affise library 
-    implementation("com.affise:attribution:1.4.4")
+    implementation("com.affise:attribution:1.4.5")
     // Add install referrer
     implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -61,7 +61,7 @@ For groovy build script build.gradle use:
 ```groovy
 dependencies {
     // Add Affise library 
-    implementation 'com.affise:attribution:1.4.4'
+    implementation 'com.affise:attribution:1.4.5'
     // Add install referrer
     implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -617,14 +617,16 @@ Affise.getReferrer()
 
 Use the next public method of SDK to get referrer parameter by
 
+For kotlin:
 ```kotlin
-Affise.getReferrerValue(ReferrerType.CLICK_ID) { value ->
+Affise.getReferrerValue(ReferrerKey.CLICK_ID) { value ->
 
 }
 ```
 
+For java:
 ```java
-Affise.getReferrerValue(ReferrerType.CLICK_ID, value -> {
+Affise.getReferrerValue(ReferrerKey.CLICK_ID, value -> {
 
 });
 ```
@@ -633,6 +635,8 @@ Affise.getReferrerValue(ReferrerType.CLICK_ID, value -> {
 
 In examples above `ReferrerKey.CLICK_ID` is used, but many others is available:
 
+- `AD_ID`
+- `CAMPAIGN_ID`
 - `CLICK_ID`
 - `AFFISE_AD`
 - `AFFISE_AD_ID`
