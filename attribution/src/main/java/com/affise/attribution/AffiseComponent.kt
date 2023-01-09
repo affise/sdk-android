@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import android.os.Build
 import com.affise.attribution.advertising.AdvertisingIdManager
 import com.affise.attribution.advertising.AdvertisingIdManagerImpl
-import com.affise.attribution.advertising.GoogleIdentifierConnection
 import com.affise.attribution.build.BuildConfigPropertiesProviderImpl
 import com.affise.attribution.converter.Converter
 import com.affise.attribution.converter.ConverterToBase64
@@ -356,7 +355,6 @@ internal class AffiseComponent(
      */
     override val advertisingIdManager: AdvertisingIdManager by lazy {
         AdvertisingIdManagerImpl(
-            GoogleIdentifierConnection(),
             ExecutorServiceProviderImpl("GAID Worker"),
             logsManager
         )

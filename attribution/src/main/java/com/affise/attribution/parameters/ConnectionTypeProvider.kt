@@ -10,7 +10,7 @@ import com.affise.attribution.parameters.base.StringPropertyProvider
 /**
  * Provides connection type [Parameters.CONNECTION_TYPE]
  *
- * @property app to retrieve network info
+ * @property app app context
  */
 class ConnectionTypeProvider(
     private val app: Application
