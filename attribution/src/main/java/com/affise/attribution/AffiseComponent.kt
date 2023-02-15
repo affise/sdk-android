@@ -20,14 +20,10 @@ import com.affise.attribution.deeplink.DeeplinkClickRepository
 import com.affise.attribution.deeplink.DeeplinkClickRepositoryImpl
 import com.affise.attribution.deeplink.DeeplinkManagerImpl
 import com.affise.attribution.deeplink.InstallReferrerToDeeplinkUriConverter
-import com.affise.attribution.events.Event
-import com.affise.attribution.events.EventToSerializedEventConverter
-import com.affise.attribution.events.EventsManager
+import com.affise.attribution.events.*
 import com.affise.attribution.events.EventsRepository
 import com.affise.attribution.events.EventsRepositoryImpl
 import com.affise.attribution.events.GDPREventRepository
-import com.affise.attribution.events.SerializedEvent
-import com.affise.attribution.events.StoreEventUseCase
 import com.affise.attribution.events.StoreEventUseCaseImpl
 import com.affise.attribution.events.autoCatchingClick.AutoCatchingClickProvider
 import com.affise.attribution.executors.ExecutorServiceProviderImpl
@@ -64,6 +60,7 @@ import com.affise.attribution.session.CurrentActiveActivityCountProvider
 import com.affise.attribution.session.CurrentActiveActivityCountProviderImpl
 import com.affise.attribution.session.SessionManager
 import com.affise.attribution.session.SessionManagerImpl
+import com.affise.attribution.storages.*
 import com.affise.attribution.storages.EventsStorage
 import com.affise.attribution.storages.EventsStorageImpl
 import com.affise.attribution.storages.LogsStorage
@@ -238,6 +235,20 @@ internal class AffiseComponent(
     }
 
     /**
+     * Provides [IsFirstForUserStorage]
+     */
+    private val isFirstForUserStorage: IsFirstForUserStorage by lazy {
+        IsFirstForUserStorageImpl(app, logsManager)
+    }
+
+    /**
+     * Provides [IsFirstForUserUseCase]
+     */
+    private val isFirstForUserUseCase: IsFirstForUserUseCase by lazy {
+        IsFirstForUserUseCaseImpl(isFirstForUserStorage)
+    }
+
+    /**
      * SetPropertiesWhenInitUseCase
      */
     override val setPropertiesWhenInitUseCase: SetPropertiesWhenAppInitializedUseCase by lazy {
@@ -261,7 +272,8 @@ internal class AffiseComponent(
             eventsManager,
             preferencesUseCase,
             activityCountProvider,
-            logsManager
+            logsManager,
+            isFirstForUserUseCase
         )
     }
 

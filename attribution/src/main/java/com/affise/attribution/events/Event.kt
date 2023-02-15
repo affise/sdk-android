@@ -14,6 +14,11 @@ abstract class Event {
     private val predefinedParameters = mutableMapOf<PredefinedParameters, String>()
 
     /**
+     * Is first for user, default false
+     */
+    private var firstForUser: Boolean = false
+
+    /**
      * Serialize event to JSONObject
      *
      * @return JSONObject
@@ -46,7 +51,11 @@ abstract class Event {
      *
      * @return is first for user or not
      */
-    fun isFirstForUser(): Boolean = false
+    fun isFirstForUser(): Boolean = firstForUser
+
+    fun setFirstForUser(firstForUser: Boolean) {
+        this.firstForUser = firstForUser
+    }
 
     /**
      * Add predefined [parameter] with [value] to event

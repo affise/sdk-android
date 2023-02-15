@@ -14,7 +14,7 @@ import java.util.Calendar
 /**
  * Storage of events
  *
- * @property context to retriev app dir
+ * @property context to retrieve app dir
  * @property logsManager for error logging
  */
 internal class EventsStorageImpl(

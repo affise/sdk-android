@@ -22,7 +22,8 @@ internal class StoreEventUseCaseImpl(
     private val eventsManager: EventsManager,
     private val preferencesUseCase: PreferencesUseCaseImpl,
     private val activityCountProvider: CurrentActiveActivityCountProvider,
-    private val logsManager: LogsManager
+    private val logsManager: LogsManager,
+    private val isFirstForUserUseCase: IsFirstForUserUseCase
 ) : StoreEventUseCase {
 
     /**
@@ -31,6 +32,9 @@ internal class StoreEventUseCaseImpl(
     override fun storeEvent(event: Event) {
         if (isTrackingEnabled() || event !is GDPREvent) {
             executorServiceProvider.provideExecutorService().execute {
+                //Update event for isFirstForUser
+                isFirstForUserUseCase.updateEvent(event)
+
                 //Save event
                 repository.storeEvent(event, CloudConfig.getUrls())
 
