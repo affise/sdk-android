@@ -1,10 +1,12 @@
 package com.affise.app.ui.activity.main
 
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.Navigation
 import com.affise.app.R
 import com.affise.app.databinding.ActivityMainBinding
 import com.affise.app.ui.fragments.menu.adapters.Menu
+import com.affise.attribution.Affise
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
@@ -17,6 +19,13 @@ class MainActivity : DaggerAppCompatActivity(), MenuHolder {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Affise.registerDeeplinkCallback {
+            AlertDialog.Builder(this)
+                .setMessage(it.toString())
+                .create().show()
+            true
+        }
 
         with(ActivityMainBinding.inflate(layoutInflater)) {
             setContentView(root)

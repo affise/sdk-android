@@ -50,8 +50,11 @@ internal class StoreEventUseCaseImpl(
     override fun storeWebEvent(event: String) {
         if (isTrackingEnabled() || event != GDPREvent.EVENT_NAME) {
             executorServiceProvider.provideExecutorService().execute {
+                //Update event for isFirstForUser
+                val updatedEvent = isFirstForUserUseCase.updateWebEvent(event)
+
                 //Save event
-                repository.storeWebEvent(event, CloudConfig.getUrls())
+                repository.storeWebEvent(updatedEvent, CloudConfig.getUrls())
 
                 //Send events
                 eventsManager.sendEvents()

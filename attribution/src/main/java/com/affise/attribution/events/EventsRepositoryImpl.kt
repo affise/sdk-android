@@ -52,7 +52,7 @@ internal class EventsRepositoryImpl(
         //Gei event id
         val id = data.getString(Parameters.AFFISE_EVENT_ID)
 
-        //Crreate serialized event
+        //Create serialized event
         val serializedEvent = SerializedEvent(id, data)
 
         //For al urls

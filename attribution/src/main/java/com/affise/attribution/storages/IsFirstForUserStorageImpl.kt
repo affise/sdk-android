@@ -23,7 +23,7 @@ internal class IsFirstForUserStorageImpl(
 
     override fun getEventsNames(): List<String> {
         try {
-            return getEventsFile().useLines { it.toList() }.filter { it.isBlank() }
+            return getEventsFile().readLines().map { it.trim() }
         } catch (e: Exception) {
             logsManager.addSdkError(e)
         }

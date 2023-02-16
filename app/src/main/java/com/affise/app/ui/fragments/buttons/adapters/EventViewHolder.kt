@@ -3,53 +3,7 @@ package com.affise.app.ui.fragments.buttons.adapters
 import androidx.recyclerview.widget.RecyclerView
 import com.affise.app.databinding.ListItemEventBinding
 import com.affise.attribution.events.Event
-import com.affise.attribution.events.predefined.AchieveLevelEvent
-import com.affise.attribution.events.predefined.AddPaymentInfoEvent
-import com.affise.attribution.events.predefined.AddToCartEvent
-import com.affise.attribution.events.predefined.AddToWishlistEvent
-import com.affise.attribution.events.predefined.ClickAdvEvent
-import com.affise.attribution.events.predefined.CompleteRegistrationEvent
-import com.affise.attribution.events.predefined.CompleteStreamEvent
-import com.affise.attribution.events.predefined.CompleteTrialEvent
-import com.affise.attribution.events.predefined.CompleteTutorialEvent
-import com.affise.attribution.events.predefined.ContentItemsViewEvent
-import com.affise.attribution.events.predefined.CustomId01Event
-import com.affise.attribution.events.predefined.CustomId02Event
-import com.affise.attribution.events.predefined.CustomId03Event
-import com.affise.attribution.events.predefined.CustomId04Event
-import com.affise.attribution.events.predefined.CustomId05Event
-import com.affise.attribution.events.predefined.CustomId06Event
-import com.affise.attribution.events.predefined.CustomId07Event
-import com.affise.attribution.events.predefined.CustomId08Event
-import com.affise.attribution.events.predefined.CustomId09Event
-import com.affise.attribution.events.predefined.CustomId10Event
-import com.affise.attribution.events.predefined.DeepLinkedEvent
-import com.affise.attribution.events.predefined.InitiatePurchaseEvent
-import com.affise.attribution.events.predefined.InitiateStreamEvent
-import com.affise.attribution.events.predefined.InviteEvent
-import com.affise.attribution.events.predefined.LastAttributedTouchEvent
-import com.affise.attribution.events.predefined.ListViewEvent
-import com.affise.attribution.events.predefined.LoginEvent
-import com.affise.attribution.events.predefined.OpenedFromPushNotificationEvent
-import com.affise.attribution.events.predefined.PurchaseEvent
-import com.affise.attribution.events.predefined.RateEvent
-import com.affise.attribution.events.predefined.ReEngageEvent
-import com.affise.attribution.events.predefined.ReserveEvent
-import com.affise.attribution.events.predefined.SearchEvent
-import com.affise.attribution.events.predefined.ShareEvent
-import com.affise.attribution.events.predefined.SpendCreditsEvent
-import com.affise.attribution.events.predefined.StartRegistrationEvent
-import com.affise.attribution.events.predefined.StartTrialEvent
-import com.affise.attribution.events.predefined.StartTutorialEvent
-import com.affise.attribution.events.predefined.SubscribeEvent
-import com.affise.attribution.events.predefined.TravelBookingEvent
-import com.affise.attribution.events.predefined.UnlockAchievementEvent
-import com.affise.attribution.events.predefined.UnsubscribeEvent
-import com.affise.attribution.events.predefined.UpdateEvent
-import com.affise.attribution.events.predefined.ViewAdvEvent
-import com.affise.attribution.events.predefined.ViewCartEvent
-import com.affise.attribution.events.predefined.ViewItemEvent
-import com.affise.attribution.events.predefined.ViewItemsEvent
+import com.affise.attribution.events.predefined.*
 import com.affise.attribution.events.subscription.*
 
 class EventViewHolder(
@@ -90,6 +44,7 @@ class EventViewHolder(
             is RateEvent -> bind(item, item.getName())
             is ReEngageEvent -> bind(item, item.getName())
             is ReserveEvent -> bind(item, item.getName())
+            is SalesEvent -> bind(item, item.getName())
             is SearchEvent -> bind(item, item.getName())
             is ShareEvent -> bind(item, item.getName())
             is SpendCreditsEvent -> bind(item, item.getName())

@@ -50,7 +50,7 @@ For kotlin build script build.gradle.kts use:
 ```kotlin
 dependencies {
     // Add Affise library 
-    implementation("com.affise:attribution:1.4.8")
+    implementation("com.affise:attribution:1.4.9")
     // Add install referrer
     implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -61,7 +61,7 @@ For groovy build script build.gradle use:
 ```groovy
 dependencies {
     // Add Affise library 
-    implementation 'com.affise:attribution:1.4.8'
+    implementation 'com.affise:attribution:1.4.9'
     // Add install referrer
     implementation 'com.android.installreferrer:installreferrer:2.2'
 }

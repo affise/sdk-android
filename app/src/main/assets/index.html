@@ -504,6 +504,22 @@
 </button>
 <br>
 <button class="button" onclick="
+        var event = new SalesEvent(
+            {phone:1,case:1},
+             Date.now(),
+            'apple'
+        );
+
+        event.addPredefinedParameter('affise_p_order_id', '23123');
+        event.addPredefinedParameter('affise_p_price', '2.19$');
+        event.addPredefinedParameter('affise_p_quantity', '1');
+
+        Affise.sendEvent(event)
+      ">
+    SALES
+</button>
+<br>
+<button class="button" onclick="
         var event = new SearchEvent(
             ['eco milk','grass'],
              Date.now(),

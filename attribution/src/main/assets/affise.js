@@ -471,6 +471,19 @@ class ReserveEvent extends Event {
     }
 }
 
+class SalesEvent extends Event {
+    constructor(sales, timeStampMillis, userData) {
+        super('Sales');
+
+        this.affise_event_first_for_user = false;
+        this.affise_event_user_data = userData;
+        this.affise_event_data = {
+            affise_event_sales: sales,
+            affise_event_sales_timestamp: timeStampMillis
+        };
+    }
+}
+
 class SearchEvent extends Event {
     constructor(search, timeStampMillis, userData) {
         super('Search');
