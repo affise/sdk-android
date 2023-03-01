@@ -99,6 +99,7 @@ internal class PropertiesProviderFactory(
         deviceTypeProvider = DeviceTypeProvider(app),
         osNameProvider = OsNameProvider(buildConfigPropertiesProvider),
         platformProvider = PlatformNameProvider(),
+        sdkPlatformProvider = SdkPlatformNameProvider(),
         apiLevelOsProvider = ApiLevelOSProvider(buildConfigPropertiesProvider),
         affSdkVersionProvider = AffSDKVersionProvider(),
         osVersionProvider = OSVersionProvider(buildConfigPropertiesProvider),

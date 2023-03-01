@@ -51,7 +51,9 @@ internal class CurrentActiveActivityCountProviderImpl(
         if (onStoppedSubscription == null) {
             onStoppedSubscription = ActivityLifecycleCallback { _ ->
                 //Update open activity count
-                activityCount -= 1
+                if (activityCount > 0) {
+                    activityCount -= 1
+                }
 
                 //Notify new count
                 activityCountListener.forEach {

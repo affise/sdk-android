@@ -53,16 +53,7 @@ class SessionManagerImpl(
         activityCountProvider.addActivityCountListener { count ->
             //Check open activity count
             if (count > 0) {
-                //App is open
-                isOpenApp = true
-
-                /**
-                 * Check create open app time
-                 */
-                if (openAppTime == null) {
-                    //open app time
-                    openAppTime = SystemClock.elapsedRealtime()
-                }
+                sessionStart()
             } else {
                 //Update session status if need
                 checkSessionToStart()
@@ -82,6 +73,19 @@ class SessionManagerImpl(
                 //Drop open app time
                 openAppTime = null
             }
+        }
+    }
+
+    override fun sessionStart() {
+        //App is open
+        isOpenApp = true
+
+        /**
+         * Check create open app time
+         */
+        if (openAppTime == null) {
+            //open app time
+            openAppTime = SystemClock.elapsedRealtime()
         }
     }
 

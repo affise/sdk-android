@@ -77,6 +77,7 @@ object Parameters {
     const val DEVICE_TYPE = "device_type"
     const val OS_NAME = "os_name"
     const val PLATFORM = "platform"
+    const val SDK_PLATFORM = "sdk_platform"
     const val API_LEVEL_OS = "api_level_os"
     const val AFFISE_SDK_VERSION = "affise_sdk_version"
     const val OS_VERSION = "os_version"

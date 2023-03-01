@@ -44,4 +44,6 @@ interface SessionManager {
      * @return session count
      */
     fun getSessionCount(): Long
+
+    fun sessionStart()
 }

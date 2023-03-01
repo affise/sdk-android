@@ -4,9 +4,9 @@ import com.affise.attribution.platform.SdkPlatform
 import com.affise.attribution.parameters.base.StringPropertyProvider
 
 /**
- * Provider for parameter [Parameters.PLATFORM]
+ * Provider for parameter [Parameters.SDK_PLATFORM]
  */
-class PlatformNameProvider : StringPropertyProvider() {
+class SdkPlatformNameProvider : StringPropertyProvider() {
 
-    override fun provide(): String = SdkPlatform.ANDROID
+    override fun provide(): String = SdkPlatform.info
 }

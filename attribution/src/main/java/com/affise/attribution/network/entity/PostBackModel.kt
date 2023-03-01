@@ -62,6 +62,7 @@ data class PostBackModel(
     val deviceType: String,
     val osName: String,
     val platform: String,
+    val sdkPlatform: String,
     val apiLevelOs: String,
     val affSdkVersion: String,
     val osVersion: String,

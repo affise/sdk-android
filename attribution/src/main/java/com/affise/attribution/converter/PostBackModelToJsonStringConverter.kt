@@ -100,6 +100,7 @@ class PostBackModelToJsonStringConverter : Converter<List<PostBackModel>, String
         put(Parameters.DEVICE_TYPE, obj.deviceType)
         put(Parameters.OS_NAME, obj.osName)
         put(Parameters.PLATFORM, obj.platform)
+        put(Parameters.SDK_PLATFORM, obj.sdkPlatform)
         put(Parameters.API_LEVEL_OS, obj.apiLevelOs)
         put(Parameters.AFFISE_SDK_VERSION, obj.affSdkVersion)
         put(Parameters.OS_VERSION, obj.osVersion)

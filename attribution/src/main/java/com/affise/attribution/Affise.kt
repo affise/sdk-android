@@ -1,6 +1,7 @@
 package com.affise.attribution
 
 import android.app.Application
+import android.net.Uri
 import android.webkit.WebView
 import com.affise.attribution.deeplink.OnDeeplinkCallback
 import com.affise.attribution.events.Event
@@ -9,6 +10,7 @@ import com.affise.attribution.events.autoCatchingClick.AutoCatchingType
 import com.affise.attribution.events.predefined.GDPREvent
 import com.affise.attribution.init.AffiseInitProperties
 import com.affise.attribution.parameters.PushTokenProvider
+import com.affise.attribution.platform.SdkPlatform
 import com.affise.attribution.referrer.OnReferrerCallback
 
 /**
@@ -192,5 +194,30 @@ object Affise {
     @JvmStatic
     fun getReferrerValue(key: ReferrerKey, callback: OnReferrerCallback?) {
         api?.retrieveInstallReferrerUseCase?.getReferrerValue(key, callback)
+    }
+
+    object _crossPlatform  {
+        /**
+         * Handle Deeplink [uri] for cross platform
+         */
+        fun handleDeeplink(uri: String) {
+            api?.deeplinkManager?.handleDeeplink(Uri.parse(uri))
+        }
+
+        fun start() {
+            api?.sessionManager?.sessionStart()
+        }
+
+        fun react() {
+            SdkPlatform.react()
+        }
+
+        fun flutter() {
+            SdkPlatform.flutter()
+        }
+
+        fun unity() {
+            SdkPlatform.unity()
+        }
     }
 }
