@@ -3,6 +3,7 @@ package com.affise.attribution.logs
 import com.affise.attribution.converter.LogToSerializedLogConverter
 import com.affise.attribution.events.predefined.AffiseLog
 import com.affise.attribution.events.predefined.AffiseLogType
+import com.affise.attribution.utils.generateUUID
 import com.google.common.truth.Truth
 import io.mockk.every
 import io.mockk.mockk
@@ -30,9 +31,9 @@ class LogToSerializedLogConverterTest {
 
         val converter = LogToSerializedLogConverter()
 
-        mockkStatic(UUID::class) {
+        mockkStatic(::generateUUID) {
             every {
-                UUID.randomUUID()
+                generateUUID()
             } returns UUID(0, 0)
 
             mockkStatic(Calendar::class) {

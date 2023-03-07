@@ -131,6 +131,14 @@ class PostBackModelToJsonStringConverter : Converter<List<PostBackModel>, String
         put(Parameters.AFFISE_EVENTS_COUNT, eventsArray.length())
         put(EVENTS_KEY, eventsArray)
 
+        //SdkEvents
+        val sdkEventsArray = JSONArray()
+        obj.internalEvents?.forEach { event ->
+            sdkEventsArray.put(event.data)
+        }
+        put(Parameters.AFFISE_INTERNAL_EVENTS_COUNT, sdkEventsArray.length())
+        put(INTERNAL_EVENTS_KEY, sdkEventsArray)
+
         //Logs
         val logsArray = JSONArray()
         obj.logs?.forEach { log ->
@@ -152,5 +160,6 @@ class PostBackModelToJsonStringConverter : Converter<List<PostBackModel>, String
         private const val EVENTS_KEY = "events"
         private const val SDK_EVENTS_KEY = "sdk_events"
         private const val METRICS_EVENTS_KEY = "metrics_events"
+        private const val INTERNAL_EVENTS_KEY = "internal_events"
     }
 }

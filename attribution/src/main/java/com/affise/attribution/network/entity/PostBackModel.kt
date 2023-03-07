@@ -84,5 +84,6 @@ data class PostBackModel(
     val pushtoken: String,
     val events: List<SerializedEvent>? = null,
     val logs: List<SerializedLog>? = null,
-    val metrics: List<SerializedEvent>? = null
+    val metrics: List<SerializedEvent>? = null,
+    val internalEvents: List<SerializedEvent>? = null,
 )

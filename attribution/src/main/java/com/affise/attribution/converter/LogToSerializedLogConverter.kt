@@ -2,9 +2,9 @@ package com.affise.attribution.converter
 
 import com.affise.attribution.events.predefined.AffiseLog
 import com.affise.attribution.logs.SerializedLog
+import com.affise.attribution.utils.generateUUID
 import org.json.JSONObject
 import java.util.Calendar
-import java.util.UUID
 
 /**
  * Converter AffiseLog to SerializedLog
@@ -16,7 +16,7 @@ class LogToSerializedLogConverter : Converter<AffiseLog, SerializedLog> {
      */
     override fun convert(from: AffiseLog): SerializedLog {
         //Generate id
-        val id = UUID.randomUUID().toString()
+        val id = generateUUID().toString()
 
         //Type of log
         val type = from.name.type

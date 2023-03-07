@@ -3,11 +3,11 @@ package com.affise.attribution.storages
 import android.content.Context
 import com.affise.attribution.converter.JsonObjectToMetricsEventConverter
 import com.affise.attribution.metrics.MetricsEvent
+import com.affise.attribution.utils.generateUUID
 import org.json.JSONObject
 import java.io.File
 import java.io.FileReader
 import java.io.FileWriter
-import java.util.UUID
 
 /**
  * Storage of metrics
@@ -110,7 +110,7 @@ internal class MetricsStorageImpl(
             }
 
         //Generate new file
-        val file = File(dir, UUID.randomUUID().toString())
+        val file = File(dir, generateUUID().toString())
 
         //Save metrics event to file
         FileWriter(file).use {

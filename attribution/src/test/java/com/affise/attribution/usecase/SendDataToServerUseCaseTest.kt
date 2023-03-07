@@ -3,6 +3,7 @@ package com.affise.attribution.usecase
 import com.affise.attribution.events.EventsRepository
 import com.affise.attribution.events.SerializedEvent
 import com.affise.attribution.executors.ExecutorServiceProvider
+import com.affise.attribution.internal.InternalEventsRepository
 import com.affise.attribution.logs.LogsManager
 import com.affise.attribution.logs.LogsRepository
 import com.affise.attribution.logs.SerializedLog
@@ -51,6 +52,8 @@ class SendDataToServerUseCaseTest {
 
     private val eventsRepository: EventsRepository = mockk()
 
+    private val internalEventsRepository: InternalEventsRepository = mockk()
+
     private val metricsRepository: MetricsRepository = mockk()
 
     private val logRepository: LogsRepository = mockk {
@@ -74,6 +77,7 @@ class SendDataToServerUseCaseTest {
             propertiesProvider,
             cloudRepository,
             eventsRepository,
+            internalEventsRepository,
             sendServiceProvider,
             logRepository,
             metricsRepository,

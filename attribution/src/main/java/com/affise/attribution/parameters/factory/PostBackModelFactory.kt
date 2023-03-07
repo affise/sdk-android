@@ -102,7 +102,8 @@ internal class PostBackModelFactory(
     fun create(
         events: List<SerializedEvent> = emptyList(),
         logs: List<SerializedLog> = emptyList(),
-        metrics: List<SerializedEvent> = emptyList()
+        metrics: List<SerializedEvent> = emptyList(),
+        internalEvents: List<SerializedEvent> = emptyList(),
     ): PostBackModel {
         val createdTime = createdTimeProvider.provideWithDefault()
 
@@ -190,6 +191,7 @@ internal class PostBackModelFactory(
             events = events,
             logs = logs,
             metrics = metrics,
+            internalEvents = internalEvents,
         )
     }
 }

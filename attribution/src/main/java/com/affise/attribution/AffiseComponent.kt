@@ -56,6 +56,10 @@ import com.affise.attribution.parameters.factory.PostBackModelFactory
 import com.affise.attribution.preferences.ApplicationLifecyclePreferencesRepositoryImpl
 import com.affise.attribution.preferences.ApplicationLifetimePreferencesRepositoryImpl
 import com.affise.attribution.referrer.AffiseReferrerDataToStringConverter
+import com.affise.attribution.internal.*
+import com.affise.attribution.internal.InternalEventsRepository
+import com.affise.attribution.internal.InternalEventsRepositoryImpl
+import com.affise.attribution.internal.StoreInternalEventUseCase
 import com.affise.attribution.session.CurrentActiveActivityCountProvider
 import com.affise.attribution.session.CurrentActiveActivityCountProviderImpl
 import com.affise.attribution.session.SessionManager
@@ -128,10 +132,24 @@ internal class AffiseComponent(
     }
 
     /**
+     * Provides [InternalEventsStorage]
+     */
+    private val internalEventsStorage: InternalEventsStorage by lazy {
+        InternalEventsStorageImpl(app, logsManager)
+    }
+
+    /**
      * Provides [Converter] from [Event] to [SerializedEvent]
      */
     private val eventToSerializedEventConverter: Converter<Event, SerializedEvent> by lazy {
         EventToSerializedEventConverter()
+    }
+
+    /**
+     * Provides [Converter] from [InternalEvent] to [SerializedEvent]
+     */
+    private val internalEventToSerializedEventConverter: Converter<InternalEvent, SerializedEvent> by lazy {
+        InternalEventToSerializedEventConverter()
     }
 
     /**
@@ -143,6 +161,18 @@ internal class AffiseComponent(
             eventToSerializedEventConverter,
             logsManager,
             eventsStorage
+        )
+    }
+
+    /**
+     * InternalEventsRepository
+     */
+    private val internalEventsRepository: InternalEventsRepository by lazy {
+        InternalEventsRepositoryImpl(
+            converterToBase64,
+            internalEventToSerializedEventConverter,
+            logsManager,
+            internalEventsStorage
         )
     }
 
@@ -216,6 +246,7 @@ internal class AffiseComponent(
             postBackModelFactory,
             cloudRepository,
             eventsRepository,
+            internalEventsRepository,
             ExecutorServiceProviderImpl("Sending Worker"),
             logsRepository,
             metricsRepository,
@@ -274,6 +305,16 @@ internal class AffiseComponent(
             activityCountProvider,
             logsManager,
             isFirstForUserUseCase
+        )
+    }
+
+    /**
+     * StoreInternalEventUseCase
+     */
+    private val storeInternalEventUseCase: StoreInternalEventUseCase by lazy {
+        StoreInternalEventUseCaseImpl(
+            ExecutorServiceProviderImpl("Internal Event Worker"),
+            internalEventsRepository
         )
     }
 
@@ -352,7 +393,11 @@ internal class AffiseComponent(
      * SessionManager
      */
     override val sessionManager: SessionManager by lazy {
-        SessionManagerImpl(sharedPreferences, activityCountProvider)
+        SessionManagerImpl(
+            sharedPreferences,
+            activityCountProvider,
+            storeInternalEventUseCase
+        )
     }
 
     /**

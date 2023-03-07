@@ -200,22 +200,27 @@ object Affise {
         /**
          * Handle Deeplink [uri] for cross platform
          */
+        @JvmStatic
         fun handleDeeplink(uri: String) {
             api?.deeplinkManager?.handleDeeplink(Uri.parse(uri))
         }
 
+        @JvmStatic
         fun start() {
             api?.sessionManager?.sessionStart()
         }
 
+        @JvmStatic
         fun react() {
             SdkPlatform.react()
         }
 
+        @JvmStatic
         fun flutter() {
             SdkPlatform.flutter()
         }
 
+        @JvmStatic
         fun unity() {
             SdkPlatform.unity()
         }

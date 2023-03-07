@@ -10,11 +10,13 @@ import com.affise.attribution.network.CloudConfig
 import com.affise.attribution.network.CloudRepository
 import com.affise.attribution.parameters.factory.PostBackModelFactory
 import com.affise.attribution.preferences.models.OfflineModeEnabledException
+import com.affise.attribution.internal.InternalEventsRepository
 
 internal class SendDataToServerUseCaseImpl(
     private val postBackModelFactory: PostBackModelFactory,
     private val cloudRepository: CloudRepository,
     private val eventsRepository: EventsRepository,
+    private val internalEventsRepository: InternalEventsRepository,
     private val sendServiceProvider: ExecutorServiceProvider,
     private val logsRepository: LogsRepository,
     private val metricsRepository: MetricsRepository,
@@ -79,8 +81,11 @@ internal class SendDataToServerUseCaseImpl(
             //Get metrics
             val metrics = metricsRepository.getMetrics(url)
 
+            //Get internal events
+            val internalEvents = internalEventsRepository.getEvents(url)
+
             //Generate data
-            val data = listOf(postBackModelFactory.create(events, logs, metrics))
+            val data = listOf(postBackModelFactory.create(events, logs, metrics, internalEvents))
 
             try {
                 //Send data for single url
@@ -94,6 +99,9 @@ internal class SendDataToServerUseCaseImpl(
 
                 //Remove sent metrics
                 metricsRepository.deleteMetrics(url)
+
+                //Remove sent internal events
+                internalEventsRepository.deleteEvent(internalEvents.map { it.id }, url)
             } catch (cloudException: Throwable) {
                 //Log error
                 logsManager.addNetworkError(cloudException)

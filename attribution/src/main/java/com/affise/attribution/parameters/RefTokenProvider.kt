@@ -3,7 +3,7 @@ package com.affise.attribution.parameters
 import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import com.affise.attribution.parameters.base.StringPropertyProvider
-import java.util.UUID
+import com.affise.attribution.utils.generateUUID
 
 /**
  * Provider for parameter [Parameters.REFTOKEN]
@@ -22,7 +22,7 @@ class RefTokenProvider(
         //Check token
         return if (token == null) {
             //If token is empty generate new token
-            val newToken = UUID.randomUUID().toString()
+            val newToken = generateUUID().toString()
 
             //Save token to preferences
             preferences.edit().apply {

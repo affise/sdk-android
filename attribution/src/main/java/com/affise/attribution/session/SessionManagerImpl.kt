@@ -4,16 +4,20 @@ import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.os.SystemClock
 import com.affise.attribution.parameters.Parameters
-import java.util.Calendar
+import com.affise.attribution.internal.StoreInternalEventUseCase
+import com.affise.attribution.internal.predefined.SessionStartInternalEvent
+import com.affise.attribution.utils.delayRun
+import java.util.*
 
 data class SessionData(
     val lifetimeSessionCount: Long = 0,
     val affiseSessionCount: Long = 0
 )
 
-class SessionManagerImpl(
+internal class SessionManagerImpl(
     private val preferences: SharedPreferences,
-    private val activityCountProvider: CurrentActiveActivityCountProvider
+    private val activityCountProvider: CurrentActiveActivityCountProvider,
+    private val internalEventUseCase: StoreInternalEventUseCase
 ) : SessionManager {
 
     private var sessionData: SessionData = SessionData(
@@ -87,6 +91,17 @@ class SessionManagerImpl(
             //open app time
             openAppTime = SystemClock.elapsedRealtime()
         }
+
+        delayRun(TIME_TO_START_SESSION) {
+            if (sessionTime() == 0L) return@delayRun
+            //Send sdk events
+            internalEventUseCase.storeInternalEvent(
+                SessionStartInternalEvent(
+                    affiseSessionCount = getSessionCount(),
+                    lifetimeSessionCount = getLifetimeSessionTime()
+                )
+            )
+        }
     }
 
     /**
@@ -119,6 +134,18 @@ class SessionManagerImpl(
     private fun checkSessionToStart() {
         if (sessionActive) return
 
+        //if session started
+        if (sessionTime() > 0) {
+            sessionActive = true
+
+            //Save new session
+            addNewSession()
+        }
+    }
+
+    private fun sessionTime(): Long {
+        if (sessionActive) return 0
+
         //Check open app time
         openAppTime?.let { startTime ->
             //Time current session
@@ -126,12 +153,10 @@ class SessionManagerImpl(
 
             //if session started
             if (time > 0) {
-                sessionActive = true
-
-                //Save new session
-                addNewSession()
+                return time
             }
         }
+        return 0
     }
 
     /**

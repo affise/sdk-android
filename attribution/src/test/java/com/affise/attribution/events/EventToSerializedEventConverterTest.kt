@@ -1,5 +1,6 @@
 package com.affise.attribution.events
 
+import com.affise.attribution.utils.generateUUID
 import com.google.common.truth.Truth
 import io.mockk.every
 import io.mockk.mockk
@@ -17,21 +18,21 @@ import java.util.*
 class EventToSerializedEventConverterTest {
     @Before
     fun setUp() {
-        mockkStatic(UUID::class)
         mockkStatic(Calendar::class)
+        mockkStatic(::generateUUID)
     }
 
     @After
     fun tearDown() {
-        unmockkStatic(UUID::class)
         unmockkStatic(Calendar::class)
+        unmockkStatic(::generateUUID)
     }
 
     @Test
     fun `verify convert`() {
         val uuid = UUID.fromString("be07d122-3f3c-11ec-9bbc-0242ac130002")
         every {
-            UUID.randomUUID()
+            generateUUID()
         } returns uuid
         val calendar: Calendar = mockk {
             every {

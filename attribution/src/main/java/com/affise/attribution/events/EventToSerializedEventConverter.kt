@@ -2,9 +2,9 @@ package com.affise.attribution.events
 
 import com.affise.attribution.converter.Converter
 import com.affise.attribution.parameters.Parameters
+import com.affise.attribution.utils.generateUUID
 import org.json.JSONObject
 import java.util.Calendar
-import java.util.UUID
 
 /**
  * Converter Event to SerializedEvent
@@ -16,7 +16,7 @@ class EventToSerializedEventConverter : Converter<Event, SerializedEvent> {
      */
     override fun convert(from: Event): SerializedEvent {
         //Generate id
-        val id = UUID.randomUUID().toString()
+        val id = generateUUID().toString()
 
         //Create JSONObject
         val json = JSONObject().apply {

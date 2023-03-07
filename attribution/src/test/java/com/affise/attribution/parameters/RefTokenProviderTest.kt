@@ -1,6 +1,7 @@
 package com.affise.attribution.parameters
 
 import android.content.SharedPreferences
+import com.affise.attribution.utils.generateUUID
 import com.google.common.truth.Truth
 import io.mockk.every
 import io.mockk.mockk
@@ -20,12 +21,12 @@ class RefTokenProviderTest {
 
     @Before
     fun setUp() {
-        mockkStatic(UUID::class)
+        mockkStatic(::generateUUID)
     }
 
     @After
     fun tearDown() {
-        unmockkStatic(UUID::class)
+        unmockkStatic(::generateUUID)
     }
 
     @Test
@@ -33,7 +34,7 @@ class RefTokenProviderTest {
         val spKey = "com.affise.attribution.parameters.REFTOKEN"
         val generatedUUID = "00000000-0000-0000-0000-000000000000"
         every {
-            UUID.randomUUID()
+            generateUUID()
         } returns UUID(0, 0)
 
         val editor: SharedPreferences.Editor = mockk {

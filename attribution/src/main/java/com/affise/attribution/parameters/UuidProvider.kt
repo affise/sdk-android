@@ -1,12 +1,12 @@
 package com.affise.attribution.parameters
 
 import com.affise.attribution.parameters.base.StringPropertyProvider
-import java.util.*
+import com.affise.attribution.utils.generateUUID
 
 /**
  * Provider for parameter [Parameters.UUID]
  */
 class UuidProvider : StringPropertyProvider() {
 
-    override fun provide(): String? = UUID.randomUUID()?.toString()
+    override fun provide(): String? = generateUUID().toString()
 }

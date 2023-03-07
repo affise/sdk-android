@@ -1,5 +1,6 @@
 package com.affise.attribution.parameters
 
+import com.affise.attribution.utils.generateUUID
 import com.google.common.truth.Truth
 import io.mockk.every
 import io.mockk.mockkStatic
@@ -13,9 +14,9 @@ class UuidProviderTest {
 
     @Test
     fun provide() {
-        mockkStatic(UUID::class) {
+        mockkStatic(::generateUUID) {
             every {
-                UUID.randomUUID()
+                generateUUID()
             } returns UUID(0, 0)
 
             val actualUuid = UuidProvider().provide()

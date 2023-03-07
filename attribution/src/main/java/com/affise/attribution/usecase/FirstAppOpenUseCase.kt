@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import com.affise.attribution.parameters.Parameters
 import com.affise.attribution.session.CurrentActiveActivityCountProvider
+import com.affise.attribution.utils.generateUUID
 import java.util.*
 
 internal class FirstAppOpenUseCase(
@@ -32,13 +33,13 @@ internal class FirstAppOpenUseCase(
         val firstOpenDate = Calendar.getInstance().timeInMillis
 
         //Create affDevId
-        val affDevId = UUID.randomUUID().toString()
+        val affDevId = generateUUID().toString()
 
         //Create affAltDevId
-        val affAltDevId = UUID.randomUUID().toString()
+        val affAltDevId = generateUUID().toString()
 
         //Create randomUserId
-        val randomUserId = UUID.randomUUID().toString()
+        val randomUserId = generateUUID().toString()
 
         //Save properties
         preferences.edit().apply {
