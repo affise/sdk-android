@@ -50,7 +50,7 @@ For kotlin build script build.gradle.kts use:
 ```kotlin
 dependencies {
     // Add Affise library 
-    implementation("com.affise:attribution:1.5.1")
+    implementation("com.affise:attribution:1.5.2")
     // Add install referrer
     implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -61,7 +61,7 @@ For groovy build script build.gradle use:
 ```groovy
 dependencies {
     // Add Affise library 
-    implementation 'com.affise:attribution:1.5.1'
+    implementation 'com.affise:attribution:1.5.2'
     // Add install referrer
     implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -309,6 +309,7 @@ With above example you can implement other events:
 - `TravelBookingEvent`
 - `UnlockAchievementEvent`
 - `UnsubscribeEvent`
+- `UnsubscriptionEvent`
 - `UpdateEvent`
 - `ViewAdvEvent`
 - `ViewCartEvent`
@@ -751,6 +752,7 @@ Just like with native SDK, javascript enviroment also provides default events th
 - `RenewedSubscriptionEvent`
 - `RenewedSubscriptionFromRetryEvent`
 - `ReserveEvent`
+- `SalesEvent`
 - `SearchEvent`
 - `ShareEvent`
 - `SpendCreditsEvent`
@@ -764,6 +766,7 @@ Just like with native SDK, javascript enviroment also provides default events th
 - `TrialInRetryEvent`
 - `UnlockAchievementEvent`
 - `UnsubscribeEvent`
+- `UnsubscriptionEvent`
 - `UpdateEvent`
 - `ViewAdvEvent`
 - `ViewCartEvent`

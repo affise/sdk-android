@@ -882,3 +882,14 @@ class ConvertedTrialFromRetryEvent extends SubscriptionEvent {
         );
     }
 }
+
+class UnsubscriptionEvent extends SubscriptionEvent {
+    constructor(data, userData) {
+        super(
+            data,
+            userData,
+            'affise_unsubscription',
+            'affise_sub_unsubscription'
+        );
+    }
+}

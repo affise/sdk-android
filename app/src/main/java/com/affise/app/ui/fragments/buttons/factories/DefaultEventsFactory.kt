@@ -124,8 +124,20 @@ class DefaultEventsFactory : EventsFactory {
             createReactivatedSubscriptionEvent(),
             createRenewedSubscriptionFromRetryEvent(),
             createConvertedOfferFromRetryEvent(),
-            createConvertedTrialFromRetryEvent()
+            createConvertedTrialFromRetryEvent(),
+            createUnsubscriptionEvent()
         )
+    }
+
+    private fun createUnsubscriptionEvent() = UnsubscriptionEvent(
+        JSONObject().apply {
+            put("affise_event_revenue", 2.99)
+            put("affise_event_currency", "USD")
+            put("affise_event_product_id", 278459628375)
+        },
+        "Unsubscription"
+    ).apply {
+        addPredefinedParameter(PredefinedParameters.REVENUE, "225522 $")
     }
 
     private fun createConvertedTrialFromRetryEvent() = ConvertedTrialFromRetryEvent(

@@ -80,6 +80,7 @@ class EventViewHolder(
             is RenewedSubscriptionFromRetryEvent -> bind(item, item.subtype)
             is ConvertedOfferFromRetryEvent -> bind(item, item.subtype)
             is ConvertedTrialFromRetryEvent -> bind(item, item.subtype)
+            is UnsubscriptionEvent -> bind(item, item.subtype)
         }
     }
 

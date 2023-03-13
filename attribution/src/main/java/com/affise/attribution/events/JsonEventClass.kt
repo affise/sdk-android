@@ -57,6 +57,7 @@ fun JSONObject.classOfEvent(): Class<out Event>? {
         "ViewCart" -> ViewCartEvent::class.java
         "ViewItem" -> ViewItemEvent::class.java
         "ViewItems" -> ViewItemsEvent::class.java
+        SubscriptionParameters.AFFISE_UNSUBSCRIPTION,
         SubscriptionParameters.AFFISE_SUBSCRIPTION_ACTIVATION,
         SubscriptionParameters.AFFISE_SUBSCRIPTION_CANCELLATION,
         SubscriptionParameters.AFFISE_SUBSCRIPTION_ENTERED_BILLING_RETRY,
@@ -89,6 +90,7 @@ private fun subscriptionEventClass(subtype: String?): Class<out BaseSubscription
         SubscriptionParameters.AFFISE_SUB_CONVERTED_TRIAL_FROM_RETRY -> ConvertedTrialFromRetryEvent::class.java
         SubscriptionParameters.AFFISE_SUB_CONVERTED_OFFER_FROM_RETRY -> ConvertedOfferFromRetryEvent::class.java
         SubscriptionParameters.AFFISE_SUB_RENEWED_SUBSCRIPTION_FROM_RETRY -> RenewedSubscriptionFromRetryEvent::class.java
+        SubscriptionParameters.AFFISE_SUB_UNSUBSCRIPTION -> UnsubscriptionEvent::class.java
         else -> null
     }
 }
