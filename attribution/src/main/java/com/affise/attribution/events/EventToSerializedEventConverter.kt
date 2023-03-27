@@ -3,8 +3,8 @@ package com.affise.attribution.events
 import com.affise.attribution.converter.Converter
 import com.affise.attribution.parameters.Parameters
 import com.affise.attribution.utils.generateUUID
+import com.affise.attribution.utils.timestamp
 import org.json.JSONObject
-import java.util.Calendar
 
 /**
  * Converter Event to SerializedEvent
@@ -30,7 +30,7 @@ class EventToSerializedEventConverter : Converter<Event, SerializedEvent> {
             put(Parameters.AFFISE_EVENT_CATEGORY, from.getCategory())
 
             //Add timestamp
-            put(Parameters.AFFISE_EVENT_TIMESTAMP, Calendar.getInstance().time.time)
+            put(Parameters.AFFISE_EVENT_TIMESTAMP, timestamp())
 
             //Add is first for user Or not
             put(Parameters.AFFISE_EVENT_FIRST_FOR_USER, from.isFirstForUser())

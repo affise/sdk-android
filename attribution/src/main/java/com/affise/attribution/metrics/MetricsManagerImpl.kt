@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.affise.attribution.converter.StringToSHA1Converter
 import com.affise.attribution.utils.ActivityActionsManager
-import java.util.Calendar
+import com.affise.attribution.utils.timestamp
 
 /**
  * MetricsManager
@@ -68,7 +68,7 @@ internal class MetricsManagerImpl(
         //Check if activity is open
         if (!openActivities.containsKey(activityName)) {
             //Add activity to hash map with time of it opened
-            openActivities[activityName] = Calendar.getInstance().timeInMillis
+            openActivities[activityName] = timestamp()
         }
     }
 
@@ -88,7 +88,7 @@ internal class MetricsManagerImpl(
                     //Set data of open activity to usecase
                     metricsUseCase.addOpenActivityTime(
                         activity.javaClass.simpleName,
-                        Calendar.getInstance().timeInMillis - startTime
+                        timestamp() - startTime
                     )
                 }
             }

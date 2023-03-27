@@ -1,10 +1,12 @@
 package com.affise.attribution.usecase
 
-import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import com.affise.attribution.parameters.Parameters
 import com.affise.attribution.session.CurrentActiveActivityCountProvider
+import com.affise.attribution.utils.*
 import com.affise.attribution.utils.generateUUID
+import com.affise.attribution.utils.saveBoolean
+import com.affise.attribution.utils.saveLong
 import java.util.*
 
 internal class FirstAppOpenUseCase(
@@ -19,6 +21,7 @@ internal class FirstAppOpenUseCase(
         if (preferences.getLong(FIRST_OPENED_DATE_KEY, 0) == 0L) {
             onAppFirstOpen()
         }
+        checkSaveUUIDs()
 
         //init session observer
         activityCountProvider.init()
@@ -27,28 +30,32 @@ internal class FirstAppOpenUseCase(
     /**
      * Generate properties on app first open
      */
-    @SuppressLint("ApplySharedPref")
     private fun onAppFirstOpen() {
         //Create first open date
-        val firstOpenDate = Calendar.getInstance().timeInMillis
+        val firstOpenDate = timestamp()
 
-        //Create affDevId
-        val affDevId = generateUUID().toString()
-
-        //Create affAltDevId
-        val affAltDevId = generateUUID().toString()
-
-        //Create randomUserId
-        val randomUserId = generateUUID().toString()
+        checkSaveUUIDs()
 
         //Save properties
-        preferences.edit().apply {
-            putLong(FIRST_OPENED_DATE_KEY, firstOpenDate)
-            putString(AFF_DEVICE_ID, affDevId)
-            putString(AFF_ALT_DEVICE_ID, affAltDevId)
-            putString(Parameters.RANDOM_USER_ID, randomUserId)
-            putBoolean(FIRST_OPENED, true)
-        }.commit()
+        preferences.saveBoolean(FIRST_OPENED, true)
+        preferences.saveLong(FIRST_OPENED_DATE_KEY, firstOpenDate)
+    }
+
+    private fun checkSaveUUIDs() {
+        preferences.apply {
+            //Create affDevId
+            checkSaveString(AFF_DEVICE_ID) {
+                generateUUID().toString()
+            }
+            //Create affAltDevId
+            checkSaveString(AFF_ALT_DEVICE_ID) {
+                generateUUID().toString()
+            }
+            //Create randomUserId
+            checkSaveString(Parameters.RANDOM_USER_ID) {
+                generateUUID().toString()
+            }
+        }
     }
 
     /**

@@ -5,11 +5,11 @@ import android.content.Context
 import com.affise.attribution.events.SerializedEvent
 import com.affise.attribution.logs.LogsManager
 import com.affise.attribution.internal.InternalEventsParams
+import com.affise.attribution.utils.timestamp
 import org.json.JSONObject
 import java.io.File
 import java.io.FileReader
 import java.io.FileWriter
-import java.util.Calendar
 
 /**
  * Storage of internal events
@@ -55,7 +55,7 @@ internal class InternalEventsStorageImpl(
         ?.filter { it.isFile }
         ?.filter { file ->
             //Filter old files
-            (file.lastModified() > Calendar.getInstance().timeInMillis - InternalEventsParams.INTERNAL_EVENTS_STORE_TIME).also { isActual ->
+            (file.lastModified() > timestamp() - InternalEventsParams.INTERNAL_EVENTS_STORE_TIME).also { isActual ->
                 if (!isActual) {
                     //Delete old files
                     file.runCatching { delete() }

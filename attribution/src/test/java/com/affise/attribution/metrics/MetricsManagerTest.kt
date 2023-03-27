@@ -7,12 +7,12 @@ import com.affise.attribution.converter.StringToSHA1Converter
 import com.affise.attribution.utils.ActivityActionsManager
 import com.affise.attribution.utils.ActivityClickCallback
 import com.affise.attribution.utils.ActivityLifecycleCallback
+import com.affise.attribution.utils.timestamp
 import com.google.common.truth.Truth
 import io.mockk.*
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import java.util.*
 
 /**
  * Test for [MetricsManagerImpl]
@@ -91,15 +91,15 @@ class MetricsManagerTest {
     fun `init true`() {
         metricsManager.setEnabledMetrics(true)
 
-        mockkStatic(Calendar::class) {
+        mockkStatic(::timestamp) {
             every {
-                Calendar.getInstance().timeInMillis
+                timestamp()
             } returns 0
 
             startedListeners.captured.handle(activity)
 
             every {
-                Calendar.getInstance().timeInMillis
+                timestamp()
             } returns 100
 
             stoppedListeners.captured.handle(activity)
@@ -117,15 +117,15 @@ class MetricsManagerTest {
     fun `init false`() {
         metricsManager.setEnabledMetrics(false)
 
-        mockkStatic(Calendar::class) {
+        mockkStatic(::timestamp) {
             every {
-                Calendar.getInstance().timeInMillis
+                timestamp()
             } returns 0
 
             startedListeners.captured.handle(activity)
 
             every {
-                Calendar.getInstance().timeInMillis
+                timestamp()
             } returns 100
 
             stoppedListeners.captured.handle(activity)
@@ -143,9 +143,9 @@ class MetricsManagerTest {
     fun `init true stop with out start`() {
         metricsManager.setEnabledMetrics(true)
 
-        mockkStatic(Calendar::class) {
+        mockkStatic(::timestamp) {
             every {
-                Calendar.getInstance().timeInMillis
+                timestamp()
             } returns 100
 
             stoppedListeners.captured.handle(activity)
@@ -163,21 +163,21 @@ class MetricsManagerTest {
     fun `init true second stop with out second start`() {
         metricsManager.setEnabledMetrics(true)
 
-        mockkStatic(Calendar::class) {
+        mockkStatic(::timestamp) {
             every {
-                Calendar.getInstance().timeInMillis
+                timestamp()
             } returns 0
 
             startedListeners.captured.handle(activity)
 
             every {
-                Calendar.getInstance().timeInMillis
+                timestamp()
             } returns 100
 
             stoppedListeners.captured.handle(activity)
 
             every {
-                Calendar.getInstance().timeInMillis
+                timestamp()
             } returns 1000
 
             stoppedListeners.captured.handle(activity)

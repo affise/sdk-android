@@ -4,13 +4,13 @@ import com.affise.attribution.converter.LogToSerializedLogConverter
 import com.affise.attribution.events.predefined.AffiseLog
 import com.affise.attribution.events.predefined.AffiseLogType
 import com.affise.attribution.utils.generateUUID
+import com.affise.attribution.utils.timestamp
 import com.google.common.truth.Truth
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkStatic
 import io.mockk.verifyAll
 import org.junit.Test
-import java.util.Calendar
 import java.util.UUID
 
 class LogToSerializedLogConverterTest {
@@ -36,9 +36,9 @@ class LogToSerializedLogConverterTest {
                 generateUUID()
             } returns UUID(0, 0)
 
-            mockkStatic(Calendar::class) {
+            mockkStatic(::timestamp) {
                 every {
-                    Calendar.getInstance().timeInMillis
+                    timestamp()
                 } returns 1638265456848
 
                 val result = converter.convert(log)
@@ -50,7 +50,7 @@ class LogToSerializedLogConverterTest {
                     logName.type
                     log.name
                     log.value
-                    Calendar.getInstance().timeInMillis
+                    timestamp()
                 }
             }
         }

@@ -7,6 +7,7 @@ import com.affise.attribution.parameters.Parameters
 import com.affise.attribution.internal.StoreInternalEventUseCase
 import com.affise.attribution.internal.predefined.SessionStartInternalEvent
 import com.affise.attribution.utils.delayRun
+import com.affise.attribution.utils.timestamp
 import java.util.*
 
 data class SessionData(
@@ -63,7 +64,7 @@ internal class SessionManagerImpl(
                 checkSessionToStart()
 
                 //Save date time of user quit or hide app
-                closeAppDateTime = Calendar.getInstance().timeInMillis
+                closeAppDateTime = timestamp()
 
                 //App is close
                 isOpenApp = false
@@ -110,7 +111,7 @@ internal class SessionManagerImpl(
      */
     override fun getLastInteractionTime() = when {
         //Current time if app is open
-        isOpenApp -> Calendar.getInstance().timeInMillis
+        isOpenApp -> timestamp()
         //lastInteractionTime is session is active
         else -> closeAppDateTime
     }

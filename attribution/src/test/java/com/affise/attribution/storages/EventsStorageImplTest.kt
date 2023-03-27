@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.affise.attribution.events.SerializedEvent
 import com.affise.attribution.logs.LogsManager
+import com.affise.attribution.utils.timestamp
 import com.google.common.truth.Truth
 import io.mockk.*
 import org.json.JSONObject
@@ -13,7 +14,6 @@ import org.junit.rules.TemporaryFolder
 import java.io.File
 import java.io.FileReader
 import java.io.FileWriter
-import java.util.*
 
 /**
  * Test for [EventsStorageImpl]
@@ -143,16 +143,10 @@ class EventsStorageImplTest {
     fun `verify get event in group old`() {
         createTempFile(key, test1EventId, testEvent)
 
-        val calendar: Calendar = mockk {
+        mockkStatic(::timestamp) {
             every {
-                timeInMillis
+                timestamp()
             } returns System.currentTimeMillis() + EVENTS_STORE_TIME
-        }
-
-        mockkStatic(Calendar::class) {
-            every {
-                Calendar.getInstance()
-            } returns calendar
 
             val storage = EventsStorageImpl(context, logsManager)
             val events = storage.getEvents(key)
@@ -161,11 +155,10 @@ class EventsStorageImplTest {
 
             verifyAll {
                 context.getDir(rootEventFolder, Context.MODE_PRIVATE)
-                calendar.timeInMillis
+                timestamp()
                 editor wasNot Called
                 logsManager wasNot Called
             }
-
         }
     }
 

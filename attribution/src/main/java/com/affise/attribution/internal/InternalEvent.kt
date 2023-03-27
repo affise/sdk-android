@@ -1,7 +1,7 @@
 package com.affise.attribution.internal
 
+import com.affise.attribution.utils.timestamp
 import org.json.JSONObject
-import java.util.*
 
 /**
  * Base internal event
@@ -18,7 +18,7 @@ abstract class InternalEvent {
     /**
      * Event timestamp
      */
-    fun getTimestamp(): Long = Calendar.getInstance().timeInMillis
+    fun getTimestamp(): Long = timestamp()
 
     /**
      * Serialize event to JSONObject

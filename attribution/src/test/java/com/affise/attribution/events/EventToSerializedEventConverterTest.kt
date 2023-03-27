@@ -1,6 +1,7 @@
 package com.affise.attribution.events
 
 import com.affise.attribution.utils.generateUUID
+import com.affise.attribution.utils.timestamp
 import com.google.common.truth.Truth
 import io.mockk.every
 import io.mockk.mockk
@@ -18,13 +19,13 @@ import java.util.*
 class EventToSerializedEventConverterTest {
     @Before
     fun setUp() {
-        mockkStatic(Calendar::class)
+        mockkStatic(::timestamp)
         mockkStatic(::generateUUID)
     }
 
     @After
     fun tearDown() {
-        unmockkStatic(Calendar::class)
+        unmockkStatic(::timestamp)
         unmockkStatic(::generateUUID)
     }
 
@@ -34,18 +35,11 @@ class EventToSerializedEventConverterTest {
         every {
             generateUUID()
         } returns uuid
-        val calendar: Calendar = mockk {
-            every {
-                time
-            } returns mockk {
-                every {
-                    time
-                } returns 1636229513985
-            }
-        }
+
         every {
-            Calendar.getInstance()
-        } returns calendar
+            timestamp()
+        } returns 1636229513985
+
         val converter = EventToSerializedEventConverter()
 
         val event: Event = mockk {
