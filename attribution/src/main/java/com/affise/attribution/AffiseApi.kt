@@ -1,7 +1,6 @@
 package com.affise.attribution
 
 import android.content.SharedPreferences
-import com.affise.attribution.advertising.AdvertisingIdManager
 import com.affise.attribution.deeplink.DeeplinkManagerImpl
 import com.affise.attribution.events.EventsManager
 import com.affise.attribution.events.StoreEventUseCase
@@ -10,7 +9,6 @@ import com.affise.attribution.init.InitPropertiesStorage
 import com.affise.attribution.init.SetPropertiesWhenAppInitializedUseCase
 import com.affise.attribution.logs.LogsManager
 import com.affise.attribution.metrics.MetricsManager
-import com.affise.attribution.oaid.OaidManager
 import com.affise.attribution.parameters.InstallReferrerProvider
 import com.affise.attribution.session.SessionManager
 import com.affise.attribution.test.CrashApplicationUseCase
@@ -29,9 +27,7 @@ internal interface AffiseApi {
     val firstAppOpenUseCase: FirstAppOpenUseCase
     val sessionManager: SessionManager
     val eventsManager: EventsManager
-    val advertisingIdManager: AdvertisingIdManager
     val storeEventUseCase: StoreEventUseCase
-    val oaidManager: OaidManager
     val sharedPreferences: SharedPreferences
     val logsManager: LogsManager
     val webBridgeManager: WebBridgeManager

@@ -8,7 +8,7 @@ plugins {
     id 'org.jetbrains.dokka' version "1.7.20"
 }
 
-def affiseVersion = '1.5.3'
+def affiseVersion = '1.5.4-beta'
 
 android {
     compileSdkVersion 31
@@ -65,12 +65,6 @@ dependencies {
 
     //Installreferrer
     implementation "com.android.installreferrer:installreferrer:2.2"
-
-    //Oaid sdk
-    compileOnly files('libs/oaid_sdk_1.0.26.aar')
-
-    //Gaid
-    compileOnly 'com.google.android.gms:play-services-ads:21.4.0'
 
     //Tests
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'

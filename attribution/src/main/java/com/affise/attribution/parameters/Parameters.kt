@@ -41,12 +41,9 @@ object Parameters {
     const val UNINSTALL_TIME = "uninstall_time" //todo research
     const val REINSTALL_TIME = "reinstall_time" //todo research
     const val LAST_SESSION_TIME = "last_session_time"
-    const val CONNECTION_TYPE = "connection_type"
     const val CPU_TYPE = "cpu_type"
     const val HARDWARE_NAME = "hardware_name"
-    const val NETWORK_TYPE = "network_type"
     const val DEVICE_MANUFACTURER = "device_manufacturer"
-    const val PROXY_IP_ADDRESS = "proxy_ip_address" // todo hold research
     const val DEEPLINK_CLICK = "deeplink_click" // todo
     const val DEVICE_ATLAS_ID = "device_atlas_id" // todo
     const val AFFISE_DEVICE_ID = "affise_device_id"
@@ -54,12 +51,6 @@ object Parameters {
     const val ADID = "adid" // todo hold question
     const val ANDROID_ID = "android_id"
     const val ANDROID_ID_MD5 = "android_id_md5"
-    const val MAC_SHA1 = "mac_sha1"
-    const val MAC_MD5 = "mac_md5"
-    const val GAID_ADID = "gaid_adid"
-    const val GAID_ADID_MD5 = "gaid_adid_md5"
-    const val OAID = "oaid"
-    const val OAID_MD5 = "oaid_md5"
     const val ALTSTR_ADID = "altstr_adid" //todo hold
     const val FIREOS_ADID = "fireos_adid" //todo hold
     const val COLOROS_ADID = "coloros_adid" //todo hold
@@ -69,7 +60,6 @@ object Parameters {
     const val USER_AGENT = "user_agent"
     const val MCCODE = "mccode"
     const val MNCODE = "mncode"
-    const val ISP = "isp"
     const val REGION = "region"
     const val COUNTRY = "country"
     const val LANGUAGE = "language"

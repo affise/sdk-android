@@ -2,13 +2,11 @@ package com.affise.attribution.parameters.base
 
 import android.app.Application
 import android.content.SharedPreferences
-import com.affise.attribution.advertising.AdvertisingIdManager
 import com.affise.attribution.build.BuildConfigPropertiesProvider
 import com.affise.attribution.converter.Converter
 import com.affise.attribution.deeplink.DeeplinkClickRepository
 import com.affise.attribution.init.InitPropertiesStorage
 import com.affise.attribution.logs.LogsManager
-import com.affise.attribution.oaid.OaidManager
 import com.affise.attribution.parameters.*
 import com.affise.attribution.parameters.factory.PostBackModelFactory
 import com.affise.attribution.session.SessionManager
@@ -20,11 +18,9 @@ import com.affise.attribution.utils.SystemAppChecker
  * Factory for [PostBackModelFactory]
  */
 internal class PropertiesProviderFactory(
-    private val advertisingIdManager: AdvertisingIdManager,
     private val buildConfigPropertiesProvider: BuildConfigPropertiesProvider,
     private val app: Application,
     private val firstAppOpenUseCase: FirstAppOpenUseCase,
-    private val oaidManager: OaidManager,
     private val retrieveInstallReferrerUseCase: RetrieveInstallReferrerUseCase,
     private val sessionManager: SessionManager,
     private val sharedPreferences: SharedPreferences,
@@ -37,7 +33,6 @@ internal class PropertiesProviderFactory(
     private val installReferrerProvider: InstallReferrerProvider
 ) {
 
-    private val macProvider = MacProvider(logsManager)
     private val androidIdProvider = AndroidIdProvider(app)
 
     fun create(): PostBackModelFactory = PostBackModelFactory(
@@ -63,12 +58,9 @@ internal class PropertiesProviderFactory(
         createdTimeMilliProvider = CreatedTimeMilliProvider(),
         createdTimeHourProvider = CreatedTimeHourProvider(),
         lastSessionTimeProvider = LastSessionTimeProvider(sessionManager),
-        connectionTypeProvider = ConnectionTypeProvider(app),
         cpuTypeProvider = CpuTypeProvider(buildConfigPropertiesProvider),
         hardwareNameProvider = HardwareNameProvider(buildConfigPropertiesProvider),
-        networkTypeProvider = NetworkTypeProvider(app),
         deviceManufacturerProvider = DeviceManufacturerProvider(buildConfigPropertiesProvider),
-        proxyIpAddressProvider = ProxyIpAddressProvider(app, buildConfigPropertiesProvider),
         deeplinkClickProvider = DeeplinkClickPropertyProvider(deeplinkClickRepository),
         deviceAtlasIdProvider = "", //TODO
         affDeviceIdProvider = AffiseDeviceIdProvider(firstAppOpenUseCase),
@@ -76,12 +68,6 @@ internal class PropertiesProviderFactory(
         adidProvider = "", //TODO
         androidIdProvider = androidIdProvider,
         androidIdMd5Provider = AndroidIdMD5Provider(androidIdProvider, stringToMd5Converter),
-        macSha1Provider = MacSha1Provider(macProvider, stringToSha1Converter),
-        macMd5Provider = MacMD5Provider(macProvider, stringToMd5Converter),
-        gaidAdidProvider = GoogleAdvertisingIdProvider(advertisingIdManager),
-        gaidAdidMd5Provider = GoogleAdvertisingIdMd5Provider(advertisingIdManager, stringToMd5Converter),
-        oaidProvider = OaidProvider(oaidManager),
-        oaidMd5Provider = OaidMD5Provider(oaidManager, stringToMd5Converter),
         altstrAdidProvider = "", //TODO
         fireosAdidProvider = "", //TODO
         colorosAdidProvider = "", //TODO
@@ -91,7 +77,6 @@ internal class PropertiesProviderFactory(
         userAgentProvider = UserAgentProvider(),
         mccodeProvider = MCCProvider(app),
         mncodeProvider = MNCProvider(app),
-        ispProvider = IspNameProvider(app),
         regionProvider = RegionProvider(),
         countryProvider = CountryProvider(),
         languageProvider = LanguageProvider(),

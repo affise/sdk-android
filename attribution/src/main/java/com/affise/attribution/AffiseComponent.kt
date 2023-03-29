@@ -4,8 +4,6 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
-import com.affise.attribution.advertising.AdvertisingIdManager
-import com.affise.attribution.advertising.AdvertisingIdManagerImpl
 import com.affise.attribution.build.BuildConfigPropertiesProviderImpl
 import com.affise.attribution.converter.Converter
 import com.affise.attribution.converter.ConverterToBase64
@@ -48,8 +46,6 @@ import com.affise.attribution.metrics.MetricsUseCaseImpl
 import com.affise.attribution.network.CloudRepository
 import com.affise.attribution.network.CloudRepositoryImpl
 import com.affise.attribution.network.HttpClientImpl
-import com.affise.attribution.oaid.OaidManager
-import com.affise.attribution.oaid.OaidManagerImpl
 import com.affise.attribution.parameters.InstallReferrerProvider
 import com.affise.attribution.parameters.base.PropertiesProviderFactory
 import com.affise.attribution.parameters.factory.PostBackModelFactory
@@ -95,11 +91,9 @@ internal class AffiseComponent(
      */
     private val postBackModelFactory: PostBackModelFactory by lazy {
         PropertiesProviderFactory(
-            advertisingIdManager,
             BuildConfigPropertiesProviderImpl(),
             app,
             firstAppOpenUseCase,
-            oaidManager,
             retrieveInstallReferrerUseCase,
             sessionManager,
             sharedPreferences,
@@ -408,27 +402,6 @@ internal class AffiseComponent(
     }
 
     /**
-     * AdvertisingIdManager
-     */
-    override val advertisingIdManager: AdvertisingIdManager by lazy {
-        AdvertisingIdManagerImpl(
-            ExecutorServiceProviderImpl("GAID Worker"),
-            logsManager
-        )
-    }
-
-    /**
-     * OaidManager
-     */
-    override val oaidManager: OaidManager by lazy {
-        OaidManagerImpl(
-            logsManager,
-            ExecutorServiceProviderImpl("OAID Worker"),
-            BuildConfigPropertiesProviderImpl()
-        )
-    }
-
-    /**
      * WebBridgeManager
      */
     override val webBridgeManager: WebBridgeManager by lazy {
@@ -474,8 +447,6 @@ internal class AffiseComponent(
             eventsManager.init()
         })
         setPropertiesWhenInitUseCase.init(initProperties)
-        advertisingIdManager.init(app)
-        oaidManager.init(app)
         deeplinkManager.init()
         autoCatchingClickProvider.init(initProperties.autoCatchingClickEvents)
         metricsManager.setEnabledMetrics(initProperties.enabledMetrics)
