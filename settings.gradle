@@ -1,3 +1,6 @@
 include ':attribution'
 include ':app'
 rootProject.name = "AffiseAttributionLib"
+include ':module-advertising'
+include ':module-network'
+include ':module-phone'

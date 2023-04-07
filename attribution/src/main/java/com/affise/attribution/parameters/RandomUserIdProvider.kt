@@ -12,5 +12,8 @@ internal class RandomUserIdProvider(
     private val useCase: FirstAppOpenUseCase
 ) : StringPropertyProvider() {
 
+    override val order: Float = 49.0f
+    override val key: String = Parameters.RANDOM_USER_ID
+
     override fun provide(): String? = useCase.getRandomUserId()
 }

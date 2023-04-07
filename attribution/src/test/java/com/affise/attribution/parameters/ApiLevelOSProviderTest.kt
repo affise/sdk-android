@@ -4,7 +4,6 @@ import com.affise.attribution.build.BuildConfigPropertiesProvider
 import com.google.common.truth.Truth
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.mockkStatic
 import org.junit.Test
 
 /**

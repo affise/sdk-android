@@ -12,5 +12,8 @@ class ReferrerInstallVersionProvider(
     private val useCase: RetrieveInstallReferrerUseCase
 ) : StringPropertyProvider() {
 
+    override val order: Float = 13.0f
+    override val key: String = Parameters.REFERRER_INSTALL_VERSION
+
     override fun provide(): String? = useCase.getInstallReferrer()?.installVersion
 }

@@ -13,6 +13,9 @@ class OsNameProvider(
     private val buildConfigPropertiesProvider: BuildConfigPropertiesProvider
 ) : StringPropertyProvider() {
 
+    override val order: Float = 43.0f
+    override val key: String = Parameters.OS_NAME
+
     /**
      * Returns release name, like: honeycomb, kitkat
      */

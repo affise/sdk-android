@@ -13,6 +13,9 @@ class ReferrerClickTimestampProvider(
     private val useCase: RetrieveInstallReferrerUseCase
 ) : LongPropertyProvider() {
 
+    override val order: Float = 15.0f
+    override val key: String = Parameters.REFERRER_CLICK_TIME
+
     override fun provide(): Long? = useCase.getInstallReferrer()
         ?.referrerClickTimestampSeconds
         ?.takeIf { it != 0L }

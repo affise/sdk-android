@@ -8,7 +8,7 @@ import java.net.URL
 
 internal class CloudRepositoryImpl(
     private val httpClient: HttpClient,
-    private val userAgentProvider: UserAgentProvider,
+    private val userAgentProvider: UserAgentProvider?,
     private val converter: Converter<@JvmSuppressWildcards List<PostBackModel>, @JvmSuppressWildcards String>
 ) : CloudRepository {
 
@@ -58,7 +58,7 @@ internal class CloudRepositoryImpl(
      * Create headers
      */
     private fun createHeaders() = mapOf(
-        "User-Agent" to (userAgentProvider.provideWithDefault()),
+        "User-Agent" to (userAgentProvider?.provideWithDefault() ?: ""),
         "Content-Type" to "application/json; charset=utf-8"
     )
 

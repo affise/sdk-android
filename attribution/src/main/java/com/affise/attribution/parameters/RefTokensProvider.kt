@@ -14,6 +14,9 @@ class RefTokensProvider(
     private val preferences: SharedPreferences
 ) : StringPropertyProvider() {
 
+    override val order: Float = 33.0f
+    override val key: String = Parameters.REFTOKENS
+
     @SuppressLint("ApplySharedPref")
     override fun provide(): String {
         //Get token

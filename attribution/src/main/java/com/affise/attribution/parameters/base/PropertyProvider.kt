@@ -3,7 +3,7 @@ package com.affise.attribution.parameters.base
 /**
  * Base property provider
  */
-abstract class PropertyProvider<T> {
+abstract class PropertyProvider<T> : Provider {
 
     /**
      * Default value of provider
@@ -57,7 +57,7 @@ abstract class LongPropertyProvider : PropertyProvider<Long>() {
 /**
  * Base string property provider with param
  */
-abstract class StringWithParamPropertyProvider {
+abstract class StringWithParamPropertyProvider : Provider {
 
     /**
      * Default value of provider

@@ -25,6 +25,6 @@ private fun generateType1UUID(): UUID {
     return UUID(most64SigBits, least64SigBits)
 }
 
-internal fun generateUUID() : UUID {
+fun generateUUID() : UUID {
     return generateType1UUID()
 }

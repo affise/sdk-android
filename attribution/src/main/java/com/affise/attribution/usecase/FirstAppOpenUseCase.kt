@@ -5,6 +5,7 @@ import com.affise.attribution.parameters.Parameters
 import com.affise.attribution.session.CurrentActiveActivityCountProvider
 import com.affise.attribution.utils.*
 import com.affise.attribution.utils.generateUUID
+import com.affise.attribution.utils.timestamp
 import com.affise.attribution.utils.saveBoolean
 import com.affise.attribution.utils.saveLong
 import java.util.*

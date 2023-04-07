@@ -12,5 +12,8 @@ class DeviceManufacturerProvider(
     private val propertiesProvider: BuildConfigPropertiesProvider
 ) : StringPropertyProvider() {
 
+    override val order: Float = 24.0f
+    override val key: String = Parameters.DEVICE_MANUFACTURER
+
     override fun provide(): String? = propertiesProvider.getManufacturer()
 }

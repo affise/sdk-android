@@ -16,6 +16,9 @@ class AppVersionRawProvider(
     private val logsManager: LogsManager
 ) : StringPropertyProvider() {
 
+    override val order: Float = 4.0f
+    override val key: String = Parameters.APP_VERSION_RAW
+
     @Suppress("DEPRECATION")
     override fun provide(): String? = try {
         context

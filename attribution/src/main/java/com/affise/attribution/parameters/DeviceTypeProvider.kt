@@ -15,6 +15,9 @@ class DeviceTypeProvider(
     private val app: Application
 ) : StringPropertyProvider() {
 
+    override val order: Float = 42.0f
+    override val key: String = Parameters.DEVICE_TYPE
+
     override fun provide() = detectDeviceTypeByUIMode()
         ?: if (isTablet()) "tablet" else "smartphone"
 

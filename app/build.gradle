@@ -8,8 +8,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion 31
-    buildToolsVersion "30.0.3"
+    compileSdk 33
 
     buildFeatures {
         viewBinding true
@@ -17,8 +16,8 @@ android {
 
     defaultConfig {
         applicationId "com.affise.app"
-        minSdkVersion 21
-        targetSdkVersion 31
+        minSdk 21
+        targetSdk 33
         versionCode 1
         versionName "1.0 build (${buildTime()})"
 
@@ -52,8 +51,8 @@ dependencies {
     implementation "com.google.firebase:firebase-core:20.0.2"
     implementation 'com.google.firebase:firebase-messaging-ktx:23.0.0'
 
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
 
     implementation "androidx.navigation:navigation-fragment-ktx:2.4.0"
     implementation "androidx.navigation:navigation-ui-ktx:2.4.0"
@@ -70,15 +69,18 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.13.0'
 
     implementation(project("::attribution"))
+    implementation(project("::module-advertising"))
+    implementation(project("::module-network"))
+    implementation(project("::module-phone"))
 
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
 
     implementation "com.fasterxml.jackson.core:jackson-core:2.11.1"
     implementation "com.fasterxml.jackson.core:jackson-databind:2.11.1"
 
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    testImplementation "junit:junit:$testJunit"
+    androidTestImplementation "androidx.test.ext:junit:$testAndroidxJunit"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$testEspressoCore"
 }
 
 static def buildTime() {

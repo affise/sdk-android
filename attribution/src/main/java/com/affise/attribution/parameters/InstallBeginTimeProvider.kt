@@ -12,6 +12,9 @@ class InstallBeginTimeProvider(
     private val useCase: RetrieveInstallReferrerUseCase
 ) : LongPropertyProvider() {
 
+    override val order: Float = 11.0f
+    override val key: String = Parameters.INSTALL_BEGIN_TIME
+
     override fun provide(): Long? = useCase.getInstallReferrer()
         ?.installBeginTimestampSeconds
         ?.takeIf { it != 0L }

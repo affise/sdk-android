@@ -48,12 +48,8 @@ object Parameters {
     const val DEVICE_ATLAS_ID = "device_atlas_id" // todo
     const val AFFISE_DEVICE_ID = "affise_device_id"
     const val AFFISE_ALT_DEVICE_ID = "affise_alt_device_id"
-    const val ADID = "adid" // todo hold question
     const val ANDROID_ID = "android_id"
     const val ANDROID_ID_MD5 = "android_id_md5"
-    const val ALTSTR_ADID = "altstr_adid" //todo hold
-    const val FIREOS_ADID = "fireos_adid" //todo hold
-    const val COLOROS_ADID = "coloros_adid" //todo hold
     const val REFTOKEN = "reftoken"
     const val REFTOKENS = "reftokens"
     const val REFERRER = "referrer"

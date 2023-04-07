@@ -11,6 +11,8 @@ import com.affise.attribution.usecase.FirstAppOpenUseCase
 internal class AffiseAltDeviceIdProvider(
     private val useCase: FirstAppOpenUseCase
 ) : StringPropertyProvider() {
+    override val order: Float = 28.0f
+    override val key: String = Parameters.AFFISE_ALT_DEVICE_ID
 
     override fun provide(): String? = useCase.getAffiseAltDeviseId()
 }

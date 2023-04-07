@@ -12,5 +12,8 @@ class HardwareNameProvider(
     private val propertiesProvider: BuildConfigPropertiesProvider
 ) : StringPropertyProvider() {
 
+    override val order: Float = 23.0f
+    override val key: String = Parameters.HARDWARE_NAME
+
     override fun provide(): String? = propertiesProvider.getHardware()
 }

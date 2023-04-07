@@ -12,5 +12,8 @@ internal class AffSDKSecretIdProvider(
     private val initProperties: InitPropertiesStorage
 ) : StringPropertyProvider() {
 
+    override val order: Float = 63.0f
+    override val key: String = Parameters.AFFISE_SDK_SECRET_ID
+
     override fun provide(): String? = initProperties.getProperties()?.secretId
 }

@@ -12,5 +12,8 @@ class MNCProvider(
     private val app: Application
 ) : StringPropertyProvider() {
 
+    override val order: Float = 37.0f
+    override val key: String = Parameters.MNCODE
+
     override fun provide(): String = app.resources.configuration.mnc.toString()
 }

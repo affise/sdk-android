@@ -12,5 +12,8 @@ class CpuTypeProvider(
     private val buildPropertiesProvider: BuildConfigPropertiesProvider
 ) : StringPropertyProvider() {
 
+    override val order: Float = 22.0f
+    override val key: String = Parameters.CPU_TYPE
+
     override fun provide(): String = buildPropertiesProvider.getSupportedABIs().joinToString()
 }

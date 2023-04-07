@@ -12,5 +12,8 @@ class TimeSessionProvider(
     private val sessionManager: SessionManager
 ) : LongPropertyProvider() {
 
+    override val order: Float = 55.0f
+    override val key: String = Parameters.TIME_SESSION
+
     override fun provide(): Long = sessionManager.getSessionTime()
 }

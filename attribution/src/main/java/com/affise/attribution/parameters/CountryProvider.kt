@@ -8,5 +8,8 @@ import java.util.Locale
  */
 class CountryProvider : StringPropertyProvider() {
 
+    override val order: Float = 39.0f
+    override val key: String = Parameters.COUNTRY
+
     override fun provide(): String? = Locale.getDefault().country
 }

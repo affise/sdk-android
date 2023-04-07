@@ -8,5 +8,8 @@ import com.affise.attribution.parameters.base.StringPropertyProvider
  */
 class SdkPlatformNameProvider : StringPropertyProvider() {
 
+    override val order: Float = 45.0f
+    override val key: String = Parameters.SDK_PLATFORM
+
     override fun provide(): String = SdkPlatform.info
 }

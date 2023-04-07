@@ -19,6 +19,9 @@ class StoreProvider(
     private val systemAppChecker: SystemAppChecker
 ) : StringPropertyProvider() {
 
+    override val order: Float = 5.0f
+    override val key: String = Parameters.STORE
+
     /**
      * Installer name
      */

@@ -1,13 +1,11 @@
 package com.affise.attribution.usecase
 
 import com.affise.attribution.events.GDPREventRepository
-import com.affise.attribution.events.SerializedEvent
 import com.affise.attribution.events.predefined.GDPREvent
 import com.affise.attribution.executors.ExecutorServiceProvider
 import com.affise.attribution.network.CloudConfig
 import com.affise.attribution.network.CloudRepository
 import com.affise.attribution.parameters.factory.PostBackModelFactory
-import org.json.JSONObject
 
 internal class SendGDPREventUseCaseImpl(
     private val repository: GDPREventRepository,

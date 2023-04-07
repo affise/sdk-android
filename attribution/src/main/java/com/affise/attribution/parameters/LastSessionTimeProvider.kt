@@ -12,5 +12,8 @@ class LastSessionTimeProvider(
     private val sessionManager: SessionManager
 ) : LongPropertyProvider() {
 
+    override val order: Float = 21.0f
+    override val key: String = Parameters.LAST_SESSION_TIME
+
     override fun provide(): Long? = sessionManager.getLastInteractionTime()
 }

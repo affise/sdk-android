@@ -12,5 +12,8 @@ class DeeplinkProvider(
     private val deeplinkClickRepository: DeeplinkClickRepository
 ) : StringPropertyProvider() {
 
+    override val order: Float = 58.0f
+    override val key: String = Parameters.AFFISE_DEEPLINK
+
     override fun provide(): String = deeplinkClickRepository.getDeeplink() ?: defaultValue
 }

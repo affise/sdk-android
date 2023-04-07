@@ -8,5 +8,8 @@ import com.affise.attribution.utils.generateUUID
  */
 class UuidProvider : StringPropertyProvider() {
 
+    override val order: Float = 64.0f
+    override val key: String = Parameters.UUID
+
     override fun provide(): String? = generateUUID().toString()
 }

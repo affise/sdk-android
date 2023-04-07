@@ -14,6 +14,9 @@ class AndroidIdProvider(
     private val app: Application
 ) : StringPropertyProvider() {
 
+    override val order: Float = 30.0f
+    override val key: String = Parameters.ANDROID_ID
+
     @SuppressLint("HardwareIds")
     override fun provide(): String? = Settings.Secure.getString(
         app.contentResolver,

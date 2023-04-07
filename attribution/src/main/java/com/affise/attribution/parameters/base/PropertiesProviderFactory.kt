@@ -7,6 +7,8 @@ import com.affise.attribution.converter.Converter
 import com.affise.attribution.deeplink.DeeplinkClickRepository
 import com.affise.attribution.init.InitPropertiesStorage
 import com.affise.attribution.logs.LogsManager
+import com.affise.attribution.parameters.CustomLongProvider
+import com.affise.attribution.parameters.EmptyStringProvider
 import com.affise.attribution.parameters.*
 import com.affise.attribution.parameters.factory.PostBackModelFactory
 import com.affise.attribution.session.SessionManager
@@ -33,76 +35,82 @@ internal class PropertiesProviderFactory(
     private val installReferrerProvider: InstallReferrerProvider
 ) {
 
-    private val androidIdProvider = AndroidIdProvider(app)
+    fun create(): PostBackModelFactory {
+        val androidIdProvider = AndroidIdProvider(app)
+        val firstOpenTimeProvider = FirstOpenTimeProvider(firstAppOpenUseCase)
+        val lastSessionTimeProvider = LastSessionTimeProvider(sessionManager)
 
-    fun create(): PostBackModelFactory = PostBackModelFactory(
-        uuidProvider = UuidProvider(),
-        affiseAppIdProvider = AffiseAppIdProvider(initPropertiesStorage),
-        affisePkgAppNameProvider = AffisePackageAppNameProvider(app),
-        appVersionProvider = AppVersionProvider(app, logsManager),
-        appVersionRawProvider = AppVersionRawProvider(app, logsManager),
-        storeProvider = StoreProvider(app, logsManager, SystemAppChecker(app)),
-        installedTimeProvider = InstalledTimeProvider(app, logsManager),
-        firstOpenTimeProvider = FirstOpenTimeProvider(firstAppOpenUseCase),
-        installedHourProvider = InstalledHourProvider(app),
-        firstOpenHourProvider = FirstOpenHourProvider(firstAppOpenUseCase),
-        installFirstEventProvider = InstallFirstEventProvider(firstAppOpenUseCase),
-        installBeginTimeProvider = InstallBeginTimeProvider(retrieveInstallReferrerUseCase),
-        installFinishTimeProvider = InstallFinishTimeProvider(firstAppOpenUseCase),
-        referrerInstallVersionProvider = ReferrerInstallVersionProvider(retrieveInstallReferrerUseCase),
-        referralTimeProvider = ReferralTimeProvider(retrieveInstallReferrerUseCase),
-        referrerClickTimestampProvider = ReferrerClickTimestampProvider(retrieveInstallReferrerUseCase),
-        referrerClickTimestampServerProvider = ReferrerClickTimestampServerProvider(retrieveInstallReferrerUseCase),
-        referrerGooglePlayInstantProvider = ReferrerGooglePlayInstantProvider(retrieveInstallReferrerUseCase),
-        createdTimeProvider = CreatedTimeProvider(),
-        createdTimeMilliProvider = CreatedTimeMilliProvider(),
-        createdTimeHourProvider = CreatedTimeHourProvider(),
-        lastSessionTimeProvider = LastSessionTimeProvider(sessionManager),
-        cpuTypeProvider = CpuTypeProvider(buildConfigPropertiesProvider),
-        hardwareNameProvider = HardwareNameProvider(buildConfigPropertiesProvider),
-        deviceManufacturerProvider = DeviceManufacturerProvider(buildConfigPropertiesProvider),
-        deeplinkClickProvider = DeeplinkClickPropertyProvider(deeplinkClickRepository),
-        deviceAtlasIdProvider = "", //TODO
-        affDeviceIdProvider = AffiseDeviceIdProvider(firstAppOpenUseCase),
-        affaltDeviceIdProvider = AffiseAltDeviceIdProvider(firstAppOpenUseCase),
-        adidProvider = "", //TODO
-        androidIdProvider = androidIdProvider,
-        androidIdMd5Provider = AndroidIdMD5Provider(androidIdProvider, stringToMd5Converter),
-        altstrAdidProvider = "", //TODO
-        fireosAdidProvider = "", //TODO
-        colorosAdidProvider = "", //TODO
-        reftokenProvider = RefTokenProvider(sharedPreferences),
-        reftokensProvider = RefTokensProvider(sharedPreferences),
-        referrerProvider = installReferrerProvider,
-        userAgentProvider = UserAgentProvider(),
-        mccodeProvider = MCCProvider(app),
-        mncodeProvider = MNCProvider(app),
-        regionProvider = RegionProvider(),
-        countryProvider = CountryProvider(),
-        languageProvider = LanguageProvider(),
-        deviceNameProvider = DeviceNameProvider(app),
-        deviceTypeProvider = DeviceTypeProvider(app),
-        osNameProvider = OsNameProvider(buildConfigPropertiesProvider),
-        platformProvider = PlatformNameProvider(),
-        sdkPlatformProvider = SdkPlatformNameProvider(),
-        apiLevelOsProvider = ApiLevelOSProvider(buildConfigPropertiesProvider),
-        affSdkVersionProvider = AffSDKVersionProvider(),
-        osVersionProvider = OSVersionProvider(buildConfigPropertiesProvider),
-        randomUserIdProvider = RandomUserIdProvider(firstAppOpenUseCase),
-        affSdkPosProvider = IsProductionPropertyProvider(initPropertiesStorage),
-        timezoneDevProvider = TimezoneDeviceProvider(),
-        affEventTokenProvider = "", //TODO
-        affEventNameProvider = "", //TODO
-        lastTimeSessionProvider = LastSessionTimeProvider(sessionManager),
-        timeSessionProvider = TimeSessionProvider(sessionManager),
-        affSessionCountProvider = AffiseSessionCountProvider(sessionManager),
-        lifetimeSessionCountProvider = LifetimeSessionCountProvider(sessionManager),
-        affDeeplinkProvider = DeeplinkProvider(deeplinkClickRepository),
-        affpartParamNameProvider = AffPartParamNamePropertyProvider(initPropertiesStorage),
-        affpartParamNameTokenProvider = AffPartParamNameTokenPropertyProvider(initPropertiesStorage),
-        affAppTokenProvider = AffAppTokenPropertyProvider(initPropertiesStorage, stringToSha256Converter),
-        labelProvider = "", //TODO
-        affsdkSecretIdProvider = AffSDKSecretIdProvider(initPropertiesStorage),
-        pushtokenProvider = PushTokenProvider(sharedPreferences)
-    )
+        return PostBackModelFactory(
+            providers = listOf(
+                UuidProvider(),
+                AffiseAppIdProvider(initPropertiesStorage),
+                AffisePackageAppNameProvider(app),
+                AppVersionProvider(app, logsManager),
+                AppVersionRawProvider(app, logsManager),
+                StoreProvider(app, logsManager, SystemAppChecker(app)),
+                InstalledTimeProvider(app, logsManager),
+                firstOpenTimeProvider,
+                InstalledHourProvider(app),
+                FirstOpenHourProvider(firstAppOpenUseCase),
+                InstallFirstEventProvider(firstAppOpenUseCase),
+                InstallBeginTimeProvider(retrieveInstallReferrerUseCase),
+                InstallFinishTimeProvider(firstAppOpenUseCase),
+                ReferrerInstallVersionProvider(retrieveInstallReferrerUseCase),
+                ReferralTimeProvider(retrieveInstallReferrerUseCase),
+                ReferrerClickTimestampProvider(retrieveInstallReferrerUseCase),
+                ReferrerClickTimestampServerProvider(retrieveInstallReferrerUseCase),
+                ReferrerGooglePlayInstantProvider(retrieveInstallReferrerUseCase),
+                CreatedTimeProvider(),
+                CreatedTimeMilliProvider(),
+                CreatedTimeHourProvider(),
+                CustomLongProvider(Parameters.LAST_TIME_SESSION, 54.0f) {
+                    lastSessionTimeProvider.provide()
+                        ?.takeIf { it > 0 }
+                        ?: firstOpenTimeProvider.provideWithDefault()
+                },
+                CpuTypeProvider(buildConfigPropertiesProvider),
+                HardwareNameProvider(buildConfigPropertiesProvider),
+                DeviceManufacturerProvider(buildConfigPropertiesProvider),
+                DeeplinkClickPropertyProvider(deeplinkClickRepository),
+                EmptyStringProvider(Parameters.DEVICE_ATLAS_ID, 26.0f),
+                AffiseDeviceIdProvider(firstAppOpenUseCase),
+                AffiseAltDeviceIdProvider(firstAppOpenUseCase),
+                androidIdProvider,
+                AndroidIdMD5Provider(androidIdProvider, stringToMd5Converter),
+                RefTokenProvider(sharedPreferences),
+                RefTokensProvider(sharedPreferences),
+                installReferrerProvider,
+                UserAgentProvider(),
+                MCCProvider(app),
+                MNCProvider(app),
+                RegionProvider(),
+                CountryProvider(),
+                LanguageProvider(),
+                DeviceNameProvider(app),
+                DeviceTypeProvider(app),
+                OsNameProvider(buildConfigPropertiesProvider),
+                PlatformNameProvider(),
+                SdkPlatformNameProvider(),
+                ApiLevelOSProvider(buildConfigPropertiesProvider),
+                AffSDKVersionProvider(),
+                OSVersionProvider(buildConfigPropertiesProvider),
+                RandomUserIdProvider(firstAppOpenUseCase),
+                IsProductionPropertyProvider(initPropertiesStorage),
+                TimezoneDeviceProvider(),
+                EmptyStringProvider(Parameters.AFFISE_EVENT_TOKEN, 52.0f),
+                EmptyStringProvider(Parameters.AFFISE_EVENT_NAME, 53.0f),
+                lastSessionTimeProvider,
+                TimeSessionProvider(sessionManager),
+                AffiseSessionCountProvider(sessionManager),
+                LifetimeSessionCountProvider(sessionManager),
+                DeeplinkProvider(deeplinkClickRepository),
+                AffPartParamNamePropertyProvider(initPropertiesStorage),
+                AffPartParamNameTokenPropertyProvider(initPropertiesStorage),
+                AffAppTokenPropertyProvider(initPropertiesStorage, stringToSha256Converter),
+                EmptyStringProvider(Parameters.LABEL, 62.0f),
+//                AffSDKSecretIdProvider(initPropertiesStorage),
+                PushTokenProvider(sharedPreferences),
+            )
+        )
+    }
 }

@@ -12,6 +12,9 @@ internal class InstallFinishTimeProvider(
     private val useCase: FirstAppOpenUseCase
 ) : LongPropertyProvider() {
 
+    override val order: Float = 12.0f
+    override val key: String = Parameters.INSTALL_FINISH_TIME
+
     override fun provide(): Long? = useCase.getFirstOpenDate()
         ?.time
         ?.takeIf { it != 0L }

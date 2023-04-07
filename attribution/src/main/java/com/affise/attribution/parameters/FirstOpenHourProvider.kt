@@ -14,6 +14,9 @@ internal class FirstOpenHourProvider(
     private val useCase: FirstAppOpenUseCase
 ) : LongPropertyProvider() {
 
+    override val order: Float = 9.0f
+    override val key: String = Parameters.FIRST_OPEN_HOUR
+
     override fun provide(): Long? = useCase.getFirstOpenDate()
         ?.time
         ?.takeIf { it != 0L }

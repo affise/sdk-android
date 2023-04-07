@@ -13,6 +13,9 @@ class ReferrerGooglePlayInstantProvider(
     private val referrerUseCase: RetrieveInstallReferrerUseCase
 ) : BooleanPropertyProvider() {
 
+    override val order: Float = 17.0f
+    override val key: String = Parameters.REFERRER_GOOGLE_PLAY_INSTANT
+
     override fun provide(): Boolean? = referrerUseCase.getInstallReferrer()
         ?.googlePlayInstantParam
 }

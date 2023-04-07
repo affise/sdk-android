@@ -12,6 +12,9 @@ class IsProductionPropertyProvider(
     private val initProperties: InitPropertiesStorage
 ) : StringPropertyProvider() {
 
+    override val order: Float = 50.0f
+    override val key: String = Parameters.AFFISE_SDK_POS
+
     override fun provide(): String = if (initProperties.getProperties()?.isProduction == true) {
         TYPE_PRODUCTION
     } else {

@@ -14,6 +14,9 @@ class AffAppTokenPropertyProvider(
     private val stringToSHA256Converter: Converter<String, String>
 ) : StringWithParamPropertyProvider() {
 
+    override val order: Float = 61.0f
+    override val key: String = Parameters.AFFISE_APP_TOKEN
+
     override fun provideWithParam(param: String): String = stringToSHA256Converter.convert(
         initProperties.getProperties()?.affiseAppId +
             param +

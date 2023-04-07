@@ -8,5 +8,8 @@ import com.affise.attribution.utils.timestamp
  */
 class CreatedTimeMilliProvider : LongPropertyProvider() {
 
+    override val order: Float = 19.0f
+    override val key: String = Parameters.CREATED_TIME_MILLI
+
     override fun provide(): Long = timestamp()
 }

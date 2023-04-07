@@ -12,5 +12,8 @@ class MCCProvider(
     private val app: Application
 ) : StringPropertyProvider() {
 
+    override val order: Float = 36.0f
+    override val key: String = Parameters.MCCODE
+
     override fun provide(): String = app.resources.configuration.mcc.toString()
 }

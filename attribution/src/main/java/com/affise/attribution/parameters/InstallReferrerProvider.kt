@@ -17,6 +17,9 @@ class InstallReferrerProvider(
     private val referrerUseCase: RetrieveInstallReferrerUseCase
 ) : StringPropertyProvider() {
 
+    override val order: Float = 34.0f
+    override val key: String = Parameters.REFERRER
+
     override fun provide(): String? {
         //Check referrer in partner_key
         val referrer = try {

@@ -12,6 +12,9 @@ internal class AffiseSessionCountProvider(
     private val sessionManager: SessionManager
 ) : LongPropertyProvider() {
 
+    override val order: Float = 56.0f
+    override val key: String = Parameters.AFFISE_SESSION_COUNT
+
     override fun provide(): Long = sessionManager.getSessionCount()
         .let { if (it == 0L) 1L else it }
 }

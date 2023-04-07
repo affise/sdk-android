@@ -12,5 +12,8 @@ class DeeplinkClickPropertyProvider(
     private val deeplinkClickRepository: DeeplinkClickRepository
 ) : BooleanPropertyProvider() {
 
+    override val order: Float = 25.0f
+    override val key: String = Parameters.DEEPLINK_CLICK
+
     override fun provide(): Boolean = deeplinkClickRepository.isDeeplinkClick()
 }

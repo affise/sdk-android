@@ -12,5 +12,8 @@ internal class AffiseDeviceIdProvider(
     private val useCase: FirstAppOpenUseCase
 ) : StringPropertyProvider() {
 
+    override val order: Float = 27.0f
+    override val key: String = Parameters.AFFISE_DEVICE_ID
+
     override fun provide(): String? = useCase.getAffiseDeviseId()
 }

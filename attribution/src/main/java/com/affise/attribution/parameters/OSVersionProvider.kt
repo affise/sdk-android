@@ -12,5 +12,8 @@ class OSVersionProvider(
     private val buildConfigPropertiesProvider: BuildConfigPropertiesProvider
 ) : StringPropertyProvider() {
 
+    override val order: Float = 48.0f
+    override val key: String = Parameters.OS_VERSION
+
     override fun provide(): String? = buildConfigPropertiesProvider.getReleaseName()
 }

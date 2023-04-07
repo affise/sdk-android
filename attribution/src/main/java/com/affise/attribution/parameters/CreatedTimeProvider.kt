@@ -8,6 +8,9 @@ import java.util.Calendar
  */
 class CreatedTimeProvider : LongPropertyProvider() {
 
+    override val order: Float = 18.0f
+    override val key: String = Parameters.CREATED_TIME
+
     override fun provide(): Long = Calendar.getInstance().apply {
         //Remove millisecond
         set(Calendar.MILLISECOND, 0)

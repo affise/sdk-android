@@ -5,77 +5,40 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
 import com.affise.attribution.build.BuildConfigPropertiesProviderImpl
-import com.affise.attribution.converter.Converter
-import com.affise.attribution.converter.ConverterToBase64
+import com.affise.attribution.converter.*
 import com.affise.attribution.converter.JsonObjectToMetricsEventConverter
-import com.affise.attribution.converter.LogToSerializedLogConverter
-import com.affise.attribution.converter.PostBackModelToJsonStringConverter
-import com.affise.attribution.converter.StringToAffiseReferrerDataConverter
-import com.affise.attribution.converter.StringToMD5Converter
-import com.affise.attribution.converter.StringToSHA1Converter
-import com.affise.attribution.converter.StringToSHA256Converter
+import com.affise.attribution.build.BuildConfigPropertiesProvider
+import com.affise.attribution.executors.ExecutorServiceProviderImpl
+import com.affise.attribution.logs.LogsManager
 import com.affise.attribution.deeplink.DeeplinkClickRepository
 import com.affise.attribution.deeplink.DeeplinkClickRepositoryImpl
 import com.affise.attribution.deeplink.DeeplinkManagerImpl
 import com.affise.attribution.deeplink.InstallReferrerToDeeplinkUriConverter
 import com.affise.attribution.events.*
-import com.affise.attribution.events.EventsRepository
-import com.affise.attribution.events.EventsRepositoryImpl
-import com.affise.attribution.events.GDPREventRepository
-import com.affise.attribution.events.StoreEventUseCaseImpl
 import com.affise.attribution.events.autoCatchingClick.AutoCatchingClickProvider
-import com.affise.attribution.executors.ExecutorServiceProviderImpl
-import com.affise.attribution.init.AffiseInitProperties
-import com.affise.attribution.init.InitPropertiesStorage
-import com.affise.attribution.init.InitPropertiesStorageImpl
-import com.affise.attribution.init.SetPropertiesWhenAppInitializedUseCase
-import com.affise.attribution.init.SetPropertiesWhenAppInitializedUseCaseImpl
-import com.affise.attribution.logs.AffiseThreadUncaughtExceptionHandlerImpl
-import com.affise.attribution.logs.LogsManager
-import com.affise.attribution.logs.LogsManagerImpl
-import com.affise.attribution.logs.LogsRepository
-import com.affise.attribution.logs.LogsRepositoryImpl
-import com.affise.attribution.logs.StoreLogsUseCase
-import com.affise.attribution.logs.StoreLogsUseCaseImpl
-import com.affise.attribution.metrics.MetricsManager
-import com.affise.attribution.metrics.MetricsManagerImpl
-import com.affise.attribution.metrics.MetricsRepository
-import com.affise.attribution.metrics.MetricsRepositoryImpl
-import com.affise.attribution.metrics.MetricsUseCase
-import com.affise.attribution.metrics.MetricsUseCaseImpl
+import com.affise.attribution.init.*
+import com.affise.attribution.internal.*
+import com.affise.attribution.logs.*
+import com.affise.attribution.metrics.*
+import com.affise.attribution.modules.AffiseModuleManager
 import com.affise.attribution.network.CloudRepository
 import com.affise.attribution.network.CloudRepositoryImpl
 import com.affise.attribution.network.HttpClientImpl
 import com.affise.attribution.parameters.InstallReferrerProvider
+import com.affise.attribution.parameters.UserAgentProvider
 import com.affise.attribution.parameters.base.PropertiesProviderFactory
 import com.affise.attribution.parameters.factory.PostBackModelFactory
 import com.affise.attribution.preferences.ApplicationLifecyclePreferencesRepositoryImpl
 import com.affise.attribution.preferences.ApplicationLifetimePreferencesRepositoryImpl
 import com.affise.attribution.referrer.AffiseReferrerDataToStringConverter
-import com.affise.attribution.internal.*
-import com.affise.attribution.internal.InternalEventsRepository
-import com.affise.attribution.internal.InternalEventsRepositoryImpl
-import com.affise.attribution.internal.StoreInternalEventUseCase
 import com.affise.attribution.session.CurrentActiveActivityCountProvider
 import com.affise.attribution.session.CurrentActiveActivityCountProviderImpl
 import com.affise.attribution.session.SessionManager
 import com.affise.attribution.session.SessionManagerImpl
 import com.affise.attribution.storages.*
-import com.affise.attribution.storages.EventsStorage
-import com.affise.attribution.storages.EventsStorageImpl
-import com.affise.attribution.storages.LogsStorage
-import com.affise.attribution.storages.LogsStorageImpl
-import com.affise.attribution.storages.MetricsStorage
-import com.affise.attribution.storages.MetricsStorageImpl
 import com.affise.attribution.test.CrashApplicationUseCase
 import com.affise.attribution.test.CrashApplicationUseCaseImpl
-import com.affise.attribution.usecase.EraseUserDataUseCaseImpl
-import com.affise.attribution.usecase.FirstAppOpenUseCase
-import com.affise.attribution.usecase.PreferencesUseCaseImpl
-import com.affise.attribution.usecase.RetrieveInstallReferrerUseCase
-import com.affise.attribution.usecase.SendDataToServerUseCase
-import com.affise.attribution.usecase.SendDataToServerUseCaseImpl
-import com.affise.attribution.usecase.SendGDPREventUseCaseImpl
+import com.affise.attribution.usecase.*
 import com.affise.attribution.utils.ActivityActionsManager
 import com.affise.attribution.utils.ActivityActionsManagerImpl
 import com.affise.attribution.utils.EncryptedSharedPreferences
@@ -91,15 +54,15 @@ internal class AffiseComponent(
      */
     private val postBackModelFactory: PostBackModelFactory by lazy {
         PropertiesProviderFactory(
-            BuildConfigPropertiesProviderImpl(),
+            buildConfigPropertiesProvider,
             app,
             firstAppOpenUseCase,
             retrieveInstallReferrerUseCase,
             sessionManager,
             sharedPreferences,
             initPropertiesStorage,
-            StringToMD5Converter(logsManager),
-            StringToSHA1Converter(),
+            stringToMD5Converter,
+            stringToSHA1Converter,
             StringToSHA256Converter(),
             logsManager,
             isDeeplinkClickRepository,
@@ -107,8 +70,20 @@ internal class AffiseComponent(
         ).create()
     }
 
+    private val stringToMD5Converter: StringToMD5Converter by lazy {
+        StringToMD5Converter(logsManager)
+    }
+
+    private val stringToSHA1Converter: StringToSHA1Converter by lazy {
+        StringToSHA1Converter()
+    }
+
     private val converterToBase64: ConverterToBase64 by lazy {
         ConverterToBase64()
+    }
+
+    private val buildConfigPropertiesProvider: BuildConfigPropertiesProvider by lazy {
+        BuildConfigPropertiesProviderImpl()
     }
 
     /**
@@ -207,7 +182,7 @@ internal class AffiseComponent(
      * MetricsManager
      */
     override val metricsManager: MetricsManager by lazy {
-        MetricsManagerImpl(activityActionsManager, metricsUseCase, StringToSHA1Converter())
+        MetricsManagerImpl(activityActionsManager, metricsUseCase, stringToSHA1Converter)
     }
 
     /**
@@ -223,7 +198,7 @@ internal class AffiseComponent(
     private val cloudRepository: CloudRepository by lazy {
         CloudRepositoryImpl(
             HttpClientImpl(),
-            postBackModelFactory.userAgentProvider,
+            postBackModelFactory.getProvider<UserAgentProvider>(),
             PostBackModelToJsonStringConverter()
         )
     }
@@ -436,6 +411,14 @@ internal class AffiseComponent(
         )
     }
 
+    private val moduleManager: AffiseModuleManager by lazy {
+        AffiseModuleManager(
+            app,
+            logsManager,
+            postBackModelFactory
+        )
+    }
+
     /**
      * Init properties
      */
@@ -443,7 +426,7 @@ internal class AffiseComponent(
         sendGDPREventUseCase.sendForgetMeEvent()
         firstAppOpenUseCase.onAppCreated()
         sessionManager.init()
-        retrieveInstallReferrerUseCase.startInstallReferrerRetrieve( onFinished = {
+        retrieveInstallReferrerUseCase.startInstallReferrerRetrieve(onFinished = {
             eventsManager.init()
         })
         setPropertiesWhenInitUseCase.init(initProperties)
@@ -456,6 +439,14 @@ internal class AffiseComponent(
             logsManager
         )
             .also(Thread::setDefaultUncaughtExceptionHandler)
+
+        moduleManager.init(
+            dependencies = listOf(
+                buildConfigPropertiesProvider,
+                stringToMD5Converter,
+                stringToSHA1Converter,
+            )
+        )
     }
 
     companion object {

@@ -10,6 +10,9 @@ import kotlin.math.absoluteValue
  */
 class TimezoneDeviceProvider : StringPropertyProvider() {
 
+    override val order: Float = 51.0f
+    override val key: String = Parameters.TIMEZONE_DEV
+
     /**
      * Returns timezone formatted in UTC template, for ex: UTC+0200
      */

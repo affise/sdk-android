@@ -10,7 +10,7 @@ import java.security.NoSuchAlgorithmException
  *
  * @property logsManager for error logging
  */
-internal class StringToMD5Converter(
+class StringToMD5Converter(
     private val logsManager: LogsManager
 ) : Converter<String, String> {
 

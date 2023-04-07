@@ -7,5 +7,8 @@ import com.affise.attribution.parameters.base.StringPropertyProvider
  */
 class UserAgentProvider : StringPropertyProvider() {
 
+    override val order: Float = 35.0f
+    override val key: String = Parameters.USER_AGENT
+
     override fun provide(): String? = System.getProperty("http.agent")
 }

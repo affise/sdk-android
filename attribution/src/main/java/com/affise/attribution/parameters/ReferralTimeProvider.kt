@@ -12,6 +12,9 @@ class ReferralTimeProvider(
     private val referrerUseCase: RetrieveInstallReferrerUseCase
 ) : LongPropertyProvider() {
 
+    override val order: Float = 14.0f
+    override val key: String = Parameters.REFERRAL_TIME
+
     override fun provide(): Long? = referrerUseCase.getInstallReferrer()
         ?.installBeginTimestampServerSeconds
 }
