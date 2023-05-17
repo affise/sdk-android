@@ -3,9 +3,6 @@ import java.text.SimpleDateFormat
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
-    id 'maven-publish'
-    id 'signing'
-    id 'org.jetbrains.dokka' version "$dokkaVersion"
 }
 
 android {
@@ -84,87 +81,17 @@ static def buildTime() {
     return df.format(new Date())
 }
 
-def localPropsFile = project.rootProject.file('local.properties')
-if (localPropsFile.exists()) {
-    Properties prop = new Properties()
-    new FileInputStream(localPropsFile).withCloseable { is ->
-        prop.load(is)
-    }
-    prop.each { name, value ->
-        ext[name] = value
-    }
-}
-
-task androidJavadocsJar(type: Jar, dependsOn: dokkaJavadoc) {
-    archiveClassifier.set('javadoc')
-    from dokkaJavadoc.outputDirectory
-}
-
-task androidSourcesJar(type: Jar) {
-    archiveClassifier.set('sources')
-    from android.sourceSets.main.java.srcDirs
-}
+apply from: '../publish.gradle'
 
 afterEvaluate {
     publishing {
         publications {
             release(MavenPublication) {
-                from components.release
-
-                groupId = 'com.affise'
                 artifactId = 'attribution'
-                version = "$affiseVersion"
-
-                artifact androidJavadocsJar
-                artifact androidSourcesJar
-
                 pom {
-                    name = 'attribution'
                     description = 'Affise Attribution Library'
-                    url = 'https://affise.com/'
-
-                    licenses {
-                        license {
-                            name = 'MIT license'
-                        }
-                    }
-                    scm {
-                        connection = 'scm:git:git://github.com:affise/sdk-android.git'
-                        developerConnection = 'scm:git:ssh://github.com:affise/sdk-android.git'
-                        url = 'https://github.com/affise/sdk-android'
-                    }
-                    developers {
-                        developer {
-                            name = 'Sergey Korney'
-                            email = 's.korney@affise.com'
-                        }
-                    }
                 }
             }
         }
-
-        repositories {
-           maven {
-               if (project.hasProperty("mvnSnapshot") && mvnSnapshot.toBoolean()) {
-                   url "https://s01.oss.sonatype.org/content/repositories/snapshots/"
-               } else {
-                   url "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
-               }
-
-               if (project.hasProperty("sonatypeUsername") && project.hasProperty("sonatypePassword")) {
-                   credentials{
-                       username sonatypeUsername
-                       password sonatypePassword
-                   }
-               }
-           }
-        }
-    }
-}
-
-signing {
-    if (project.hasProperty("signingKeyId") && project.hasProperty("signingKey") && project.hasProperty("signingPassword")) {
-        useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
-        sign publishing.publications
     }
 }

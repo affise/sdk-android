@@ -32,7 +32,6 @@
         - [Predefined event parameters JS](#predefined-event-parameters-js)
         - [Custom events JS](#custom-events-js)
 - [Requirements](#requirements)
-- [Licence](#licence)
 
 # Description
 
@@ -715,9 +714,7 @@ var event = new AddPaymentInfoEvent(
 
 event.addPredefinedParameter('affise_p_purchase_currency', 'USD');
 
-Affise.sendEvent(event)
-            
-});
+Affise.sendEvent(event);
 ```
 
 Just like with native SDK, javascript enviroment also provides default events that can be passed from webview:
@@ -798,9 +795,7 @@ var event = ...
 
 event.addPredefinedParameter('affise_p_purchase_currency', 'USD');
 
-Affise.sendEvent(event)
-            
-});
+Affise.sendEvent(event);
 ```
 
 #### Custom events JS
@@ -821,14 +816,3 @@ class AchieveLevelEvent extends Event {
     }
 }});
 ```
-
-## Licence
-The Affise SDK is licensed under the MIT License.
-
-Copyright (c) 2022 Affise, Inc. | https://affise.com
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
