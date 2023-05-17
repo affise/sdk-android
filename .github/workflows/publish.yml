@@ -1,0 +1,109 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  publish:
+    name: Publish Affise Libraries
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
+      - name: Cache Gradle and wrapper
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Grant Permission for Gradlew to Execute
+        run: chmod +x gradlew
+
+      - name: Nexus Publish
+        env:
+          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+          SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
+          SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
+          SNAPSHOT: ${{ secrets.SNAPSHOT }}
+        run: |
+          ./gradlew :attribution:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
+          ./gradlew :module-advertising:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
+          ./gradlew :module-network:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
+          ./gradlew :module-phone:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
+
+      - name: Version Tag
+        id: version_tag
+        run: |
+          echo Version: ${GITHUB_REF_NAME#v}
+          echo "VERSION=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Affise Attribution Android SDK ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Attribution AAR 🗳
+        id: upload-attribution-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: attribution/build/outputs/aar/attribution-release.aar
+          asset_name: attribution-${{ steps.version_tag.outputs.VERSION }}.aar
+          asset_content_type: application/aar
+
+      - name: Upload Release Module Advertising AAR 🗳
+        id: upload-module-advertising-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: module-advertising/build/outputs/aar/module-advertising-release.aar
+          asset_name: module-advertising-${{ steps.version_tag.outputs.VERSION }}.aar
+          asset_content_type: application/aar
+
+      - name: Upload Release Module Network AAR 🗳
+        id: upload-module-network-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: module-network/build/outputs/aar/module-network-release.aar
+          asset_name: module-network-${{ steps.version_tag.outputs.VERSION }}.aar
+          asset_content_type: application/aar
+
+      - name: Upload Release Module Phone AAR 🗳
+        id: upload-module-phone-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: module-phone/build/outputs/aar/module-phone-release.aar
+          asset_name: module-phone-${{ steps.version_tag.outputs.VERSION }}.aar
+          asset_content_type: application/aar
