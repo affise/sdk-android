@@ -11,8 +11,22 @@ data class AffiseInitProperties(
     val partParamName: String? = null,
     val partParamNameToken: String? = null,
     val appToken: String? = null,
-    val secretId: String? = null,
+    val secretKey: String? = null,
     val autoCatchingClickEvents: List<AutoCatchingType>? = null,
     val enabledMetrics: Boolean = false,
 //    val flags: List<AffiseFlag>? = null,
-)
+) {
+    constructor(
+        affiseAppId: String?,
+        secretKey: String? = null
+    ) : this(
+        affiseAppId = affiseAppId,
+        isProduction = true,
+        partParamName = null,
+        partParamNameToken = null,
+        appToken = null,
+        secretKey = secretKey,
+        autoCatchingClickEvents = null,
+        enabledMetrics = false
+    )
+}

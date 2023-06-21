@@ -26,9 +26,9 @@ class InitPropertiesStorageImpl : InitPropertiesStorage {
     }
 
     /**
-     * Update SecretId in Affise init properties
+     * Update SDK Secret Key in Affise init properties
      */
-    override fun updateSecretId(secretId: String) {
-        properties = properties?.copy(secretId = secretId)
+    override fun updateSecretKey(secretKey: String) {
+        properties = properties?.copy(secretKey = secretKey)
     }
 }

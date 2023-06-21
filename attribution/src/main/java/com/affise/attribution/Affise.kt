@@ -9,6 +9,8 @@ import com.affise.attribution.referrer.ReferrerKey
 import com.affise.attribution.events.autoCatchingClick.AutoCatchingType
 import com.affise.attribution.events.predefined.GDPREvent
 import com.affise.attribution.init.AffiseInitProperties
+import com.affise.attribution.modules.AffiseModules
+import com.affise.attribution.modules.OnKeyValueCallback
 import com.affise.attribution.parameters.PushTokenProvider
 import com.affise.attribution.platform.SdkPlatform
 import com.affise.attribution.referrer.OnReferrerCallback
@@ -91,11 +93,11 @@ object Affise {
     }
 
     /**
-     * Set new secretId
+     * Set new SDK Secret Key
      */
     @JvmStatic
-    fun setSecretId(secretId: String) {
-        api?.initPropertiesStorage?.updateSecretId(secretId)
+    fun setSecretId(secretKey: String) {
+        api?.initPropertiesStorage?.updateSecretKey(secretKey)
     }
 
     /**
@@ -194,6 +196,14 @@ object Affise {
     @JvmStatic
     fun getReferrerValue(key: ReferrerKey, callback: OnReferrerCallback?) {
         api?.retrieveInstallReferrerUseCase?.getReferrerValue(key, callback)
+    }
+
+    /**
+     * Get module status
+     */
+    @JvmStatic
+    fun getStatus(module: AffiseModules, onComplete: OnKeyValueCallback) {
+        api?.moduleManager?.status(module, onComplete)
     }
 
     object _crossPlatform  {

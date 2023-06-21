@@ -26,7 +26,7 @@ class App : DaggerApplication() {
             partParamNameToken = "partParamNameToken",
             appToken = "app-token",
             isProduction = false,
-            secretId = preferences.getString(SECRET_ID_KEY, "be07d122-3f3c-11ec-9bbc-0242ac130002"),
+            secretKey = preferences.getString(SECRET_ID_KEY, "be07d122-3f3c-11ec-9bbc-0242ac130002"),
             autoCatchingClickEvents = preferences.getStringSet(App.AUTO_CATCHING_TYPES_KEY, null)
                 ?.map { AutoCatchingType.valueOf(it) }
                 ?: emptyList(),
@@ -34,6 +34,10 @@ class App : DaggerApplication() {
         )
 
         Affise.init(this, props)
+
+//        Affise.getStatus(AffiseModules.Status) {
+//            Log.d(this.javaClass.simpleName, "!> $it")
+//        }
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> =

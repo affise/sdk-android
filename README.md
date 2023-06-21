@@ -1,37 +1,46 @@
-# Affise Attribution Android library
+# Affise Attribution Android Library
 
+| Artifact | Version |
+| -------- | ------- |
+| com.affise:attribution  | <a href="https://mvnrepository.com/artifact/com.affise/attribution"><img src="https://img.shields.io/maven-central/v/com.affise/attribution?label=latest"  alt="version" /></a> |
+| com.affise:module-advertising  | <a href="https://mvnrepository.com/artifact/com.affise/module-advertising"><img src="https://img.shields.io/maven-central/v/com.affise/module-advertising?label=latest"  alt="version" /></a> |
+| com.affise:module-network  | <a href="https://mvnrepository.com/artifact/com.affise/module-network"><img src="https://img.shields.io/maven-central/v/com.affise/module-network?label=latest" alt="version" /></a> |
+| com.affise:module-phone  | <a href="https://mvnrepository.com/artifact/com.affise/module-phone"><img src="https://img.shields.io/maven-central/v/com.affise/module-phone?label=latest" alt="version" /></a> |
+| com.affise:module-status  | <a href="https://mvnrepository.com/artifact/com.affise/module-status"><img src="https://img.shields.io/maven-central/v/com.affise/module-status?label=latest" alt="version" /></a> |
+
+- [Affise Attribution Android Library](#affise-attribution-android-library)
 - [Description](#description)
-- [Quick start](#quick-start)
-- [Integration](#integration)
+  - [Quick start](#quick-start)
+  - [Integration](#integration)
     - [Integrate as dependency](#integrate-as-dependency)
     - [Integrate as file dependency](#integrate-as-file-dependency)
     - [Initialize](#initialize)
+    - [Requirements](#requirements)
 - [Features](#features)
-    - [Device identifiers collection](#device-identifiers-collection)
-    - [Events tracking](#events-tracking)
-    - [Custom events tracking](#custom-events-tracking)
-    - [Predefined event parameters](#predefined-event-parameters)
-    - [Events buffering](#events-buffering)
-    - [Install referrer tracking](#install-referrer-tracking)
-    - [Advertising Identifier (google) tracking](#advertising-identifier-google-tracking)
-    - [Open Advertising Identifier (huawei) tracking](#open-advertising-identifier-huawei-tracking)
-    - [Push token tracking](#push-token-tracking)
-    - [Reinstall Uninstall tracking](#reinstall-uninstall-tracking)
-    - [APK preinstall tracking](#apk-preinstall-tracking)
-    - [Deeplinks](#deeplinks)
-    - [Offline mode](#offline-mode)
-    - [Disable tracking](#disable-tracking)
-    - [Disable background tracking](#disable-background-tracking)
-    - [GDPR right to be forgotten](#gdpr-right-to-be-forgotten)
-    - [Get referrer](#get-referrer)
-    - [Get referrer parameter](#get-referrer-parameter)
-        - [Referrer keys](#referrer-keys)
-    - [Web view tracking](#webview-tracking)
-        - [Initialize webview](#initialize-webview) 
-        - [Events tracking JS](#events-tracking-js) 
-        - [Predefined event parameters JS](#predefined-event-parameters-js)
-        - [Custom events JS](#custom-events-js)
-- [Requirements](#requirements)
+  - [Device identifiers collection](#device-identifiers-collection)
+  - [Events tracking](#events-tracking)
+  - [Custom events tracking](#custom-events-tracking)
+  - [Predefined event parameters](#predefined-event-parameters)
+  - [Events buffering](#events-buffering)
+  - [Advertising Identifier (google) tracking](#advertising-identifier-google-tracking)
+  - [Open Advertising Identifier (huawei) tracking](#open-advertising-identifier-huawei-tracking)
+  - [Install referrer tracking](#install-referrer-tracking)
+  - [Push token tracking](#push-token-tracking)
+  - [Reinstall Uninstall tracking](#reinstall-uninstall-tracking)
+  - [APK preinstall tracking](#apk-preinstall-tracking)
+  - [Deeplinks](#deeplinks)
+  - [Offline mode](#offline-mode)
+  - [Disable tracking](#disable-tracking)
+  - [Disable background tracking](#disable-background-tracking)
+  - [GDPR right to be forgotten](#gdpr-right-to-be-forgotten)
+  - [Get referrer](#get-referrer)
+  - [Get referrer parameter](#get-referrer-parameter)
+    - [Referrer keys](#referrer-keys)
+  - [Webview tracking](#webview-tracking)
+    - [Initialize webview](#initialize-webview)
+    - [Events tracking JS](#events-tracking-js)
+    - [Predefined event parameters JS](#predefined-event-parameters-js)
+    - [Custom events JS](#custom-events-js)
 
 # Description
 
@@ -49,11 +58,12 @@ For kotlin build script build.gradle.kts use:
 ```kotlin
 dependencies {
     // Add Affise library 
-    implementation("com.affise:attribution:1.5.4")
+    implementation("com.affise:attribution:1.5.6")
     // Add Affise modules 
-    implementation("com.affise:module-advertising:1.5.4")
-    implementation("com.affise:module-network:1.5.4")
-    implementation("com.affise:module-phone:1.5.4")
+    implementation("com.affise:module-advertising:1.5.6")
+    implementation("com.affise:module-network:1.5.6")
+    implementation("com.affise:module-phone:1.5.6")
+    implementation("com.affise:module-status:1.5.6")
     // Add install referrer
     implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -64,11 +74,12 @@ For groovy build script build.gradle use:
 ```groovy
 dependencies {
     // Add Affise library 
-    implementation 'com.affise:attribution:1.5.4'
+    implementation 'com.affise:attribution:1.5.6'
     // Add Affise modules 
-    implementation 'com.affise:module-advertising:1.5.4'
-    implementation 'com.affise:module-network:1.5.4'
-    implementation 'com.affise:module-phone:1.5.4'
+    implementation 'com.affise:module-advertising:1.5.6'
+    implementation 'com.affise:module-network:1.5.6'
+    implementation 'com.affise:module-phone:1.5.6'
+    implementation 'com.affise:module-status:1.5.6'
     // Add install referrer
     implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -76,9 +87,9 @@ dependencies {
 
 ### Integrate as file dependency
 
-Download latest Affise SDK (`attribution-1.5.4.aar`)
+Download latest Affise SDK (`attribution-1.5.6.aar`)
 from [releases page](https://github.com/affise/sdk-android/releases) and place this binary to gradle application
-module lib directory `app/libs/attribution-1.5.4.aar`
+module lib directory `app/libs/attribution-1.5.6.aar`
 
 Add library as gradle file dependency to application module build script
 Add install referrer library
@@ -89,11 +100,12 @@ For kotlin build script build.gradle.kts use:
 dependencies {
     // ...
     // Add Affise library 
-    implementation(files("libs/attribution-1.5.4.aar"))
+    implementation(files("libs/attribution-1.5.6.aar"))
     // Add Affise modules 
-    implementation(files("libs/module-advertising-1.5.4.aar"))
-    implementation(files("libs/module-network-1.5.4.aar"))
-    implementation(files("libs/module-phone-1.5.4.aar"))
+    implementation(files("libs/module-advertising-1.5.6.aar"))
+    implementation(files("libs/module-network-1.5.6.aar"))
+    implementation(files("libs/module-phone-1.5.6.aar"))
+    implementation(files("libs/module-status-1.5.6.aar"))
     // Add install referrer
     implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -105,11 +117,12 @@ For groovy build script build.gradle use:
 dependencies {
     // ...  
     // Add Affise library 
-    implementation files('libs/attribution-1.5.4.aar')
+    implementation files('libs/attribution-1.5.6.aar')
     // Add Affise modules 
-    implementation files('libs/module-advertising-1.5.4.aar')
-    implementation files('libs/module-network-1.5.4.aar')
-    implementation files('libs/module-phone-1.5.4.aar')
+    implementation files('libs/module-advertising-1.5.6.aar')
+    implementation files('libs/module-network-1.5.6.aar')
+    implementation files('libs/module-phone-1.5.6.aar')
+    implementation files('libs/module-status-1.5.6.aar')
     // Add install referrer
     implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -127,13 +140,7 @@ class App : Application() {
         super.onCreate()
         val properties = AffiseInitProperties(
             "Your appId", //Change to your app id
-            !BuildConfig.DEBUG, //Add your custom rule to determine if this is a production build
-            null, //Change to your partParamName
-            null, //Change to your partParamNameToken
-            null, //Change to your appToken
-            "Your secretId", //Change to your secretId
-            emptyList(), // Types to handles interception of clicks on activity
-            false // Affise metrics
+            "Your SDK secretKey", //Change to your SDK secretKey
         )
         Affise.init(this, properties)
     }
@@ -150,19 +157,12 @@ public class App extends Application {
 
         AffiseInitProperties properties = new AffiseInitProperties(
             "Your appId", //Change to your app id
-            !BuildConfig.DEBUG, //Add your custom rule to determine if this is a production build
-            null, //Change to your partParamName
-            null, //Change to your partParamNameToken
-            null, //Change to your appToken
-            "Your secretId", //Change to your secretId
-            Collections.emptyList(), // Types to handles interception of clicks on activity
-            false // Affise metrics
+            "Your SDK secretKey" //Change to your SDK secretKey
         );
         Affise.init(this, properties);
     }
 }
 ```
-
 
 ### Requirements
 
@@ -178,7 +178,7 @@ For a minimal working functionality your app needs to declare internet permissio
 
 # Features
 
-### Device identifiers collection
+## Device identifiers collection
 
 To match users with events and data library is sending, these identifiers are collected:
 
@@ -263,7 +263,7 @@ To match users with events and data library is sending, these identifiers are co
 - `EVENTS`
 - `AFFISE_EVENTS_COUNT`
 
-### Events tracking
+## Events tracking
 
 For example, we want to track what items usually user adds to shopping cart. To send event first create it with
 following code
@@ -333,7 +333,7 @@ With above example you can implement other events:
 - `ViewItemEvent`
 - `ViewItemsEvent`
 
-### Custom events tracking
+## Custom events tracking
 
 Use any of custom events if default doesn't fit your scenario:
 
@@ -348,7 +348,7 @@ Use any of custom events if default doesn't fit your scenario:
 - `CustomId09Event`
 - `CustomId10Event`
 
-### Predefined event parameters
+## Predefined event parameters
 
 To enrich your event with another dimension, you can use predefined parameters for most common cases. 
 Add it to any event:
@@ -383,7 +383,9 @@ class Presenter {
     }
 }
 ```
+
 In examples above `PredefinedParameters.DESCRIPTION` is used, but many others is available:
+
 - `ADREV_AD_TYPE`
 - `CITY`
 - `COUNTRY`
@@ -457,28 +459,27 @@ In examples above `PredefinedParameters.DESCRIPTION` is used, but many others is
 - `PARAM_08`
 - `PARAM_09`
 
-### Events buffering
+## Events buffering
 
 Affise library will send any pending events with first opportunity,
 but if there is no network connection or device is disabled, events are kept locally for 7 days before deletion.
 
-
-### Advertising Identifier (google) tracking
+## Advertising Identifier (google) tracking
 
 Advertising Identifier (google) tracking is supported automatically, no actions needed
 
-### Open Advertising Identifier (huawei) tracking
+## Open Advertising Identifier (huawei) tracking
 
 Open Advertising Identifier is supported automatically, no actions needed
 
-### Install referrer tracking
+## Install referrer tracking
 
 Install referrer tracking is supported automatically, no actions needed
 
-### Push token tracking
+## Push token tracking
 
 To let affise track push token you need to receive it from your push service provider, and pass to Affise library.
-First add firebase integration to your app completing theese steps: https://firebase.google.com/docs/cloud-messaging/android/client
+First add firebase integration to your app completing theese steps: [Firebase Docs](https://firebase.google.com/docs/cloud-messaging/android/client)
 
 After you have done with firebase inegration, add to your cloud messaging service `onNewToken` method `Affise.addPushToken(token)`
 
@@ -490,19 +491,21 @@ class FirebaseCloudMessagingService : FirebaseMessagingService() {
     }
 }
 ```
-### Reinstall Uninstall tracking
+
+## Reinstall Uninstall tracking
 
 Affise automaticly track reinstall events by using silent-push technology, to make this feature work, pass push token when it is recreated by user and on you application starts up
+
 ```kotlin
 Affise.addPushToken(token)
 ```
 
-### APK preinstall tracking
+## APK preinstall tracking
 
 SDK is also supports scenario when APK is installed not from one of application markets, such as google play, huawei appgallery or amazon appstore
 To use this feature, create file with name `partner_key` in your app assets directory, and write unique identifier inside, this key will be passed to our backend so you can track events by partner later in your Affise console.
 
-### Deeplinks
+## Deeplinks
 
 To integrate applink support you need:
 
@@ -517,9 +520,11 @@ To integrate applink support you need:
   <data android:host="YOUR_AFFISE_APP_ID.affattr.com" />
 </intent-filter>
 ```
+
 - register applink callback right after Affise.init(..)
 
 for kotlin:
+
 ```kotlin
 Affise.init(..)
 Affise.registerDeeplinkCallback { uri ->
@@ -534,7 +539,8 @@ Affise.registerDeeplinkCallback { uri ->
 }
 ```
 
-for java: 
+for java:
+
 ```java
 Affise.registerDeeplinkCallback(uri -> {
   String screen = uri.getQueryParameter("screen");
@@ -548,7 +554,7 @@ Affise.registerDeeplinkCallback(uri -> {
 });
 ```
 
-### Offline mode
+## Offline mode
 
 In some scenarious you would want to limit Affise network usage, to pause that activity call anywhere in your application following code after Affise init:
 
@@ -557,6 +563,7 @@ Affise.init(..)
 Affise.setOfflineModeEnabled(enabled = true) // to enable offline mode
 Affise.setOfflineModeEnabled(enabled = false) // to disable offline mode
 ```
+
 While offline mode is enabled, your metrics and other events are kept locally, and will be delivered once offline mode is disabled.
 Offline mode is persistent as Application lifecycle, and will be disabled with process termination automaticly.
 To check current offline mode status call:
@@ -565,7 +572,7 @@ To check current offline mode status call:
 Affise.isOfflineModeEnabled() // returns true or false describing current tracking state
 ```
 
-### Disable tracking
+## Disable tracking
 
 To disable any tracking activity, storing events and gathering device identifiers and metrics call anywhere in your application following code after Affise init:
 
@@ -585,7 +592,7 @@ To check current status of tracking call:
 Affise.isTrackingEnabled() // returns true or false describing current tracking state
 ```
 
-### Disable background tracking
+## Disable background tracking
 
 To disable any background tracking activity, storing events and gathering device identifiers and metrics call anywhere in your application following code after Affise init:
 
@@ -605,7 +612,7 @@ To check current status of background tracking call:
 Affise.isBackgroundTrackingEnabled() // returns true or false describing current background tracking state
 ```
 
-### GDPR right to be forgotten
+## GDPR right to be forgotten
 
 Under the EU's General Data Protection Regulation (GDPR): An individual has the right to have their personal data erased.
 To provide this functionality to user, as the app developer, you can call 
@@ -614,6 +621,7 @@ To provide this functionality to user, as the app developer, you can call
 Affise.init(..)
 Affise.forget() // to forget users data
 ```
+
 After processing such request our backend servers will delete all users data. 
 To prevent library from generating new events, disable tracking just before calling Affise.forget: 
 
@@ -623,7 +631,7 @@ Affise.setTrackingEnabled(enabled = false)
 Affise.forget() // to forget users data
 ```
 
-### Get referrer
+## Get referrer
 
 Use the next public method of SDK
 
@@ -631,11 +639,12 @@ Use the next public method of SDK
 Affise.getReferrer()
 ```
 
-### Get referrer parameter
+## Get referrer parameter
 
 Use the next public method of SDK to get referrer parameter by
 
 For kotlin:
+
 ```kotlin
 Affise.getReferrerValue(ReferrerKey.CLICK_ID) { value ->
 
@@ -643,13 +652,14 @@ Affise.getReferrerValue(ReferrerKey.CLICK_ID) { value ->
 ```
 
 For java:
+
 ```java
 Affise.getReferrerValue(ReferrerKey.CLICK_ID, value -> {
 
 });
 ```
 
-#### Referrer keys
+### Referrer keys
 
 In examples above `ReferrerKey.CLICK_ID` is used, but many others is available:
 
@@ -684,11 +694,12 @@ In examples above `ReferrerKey.CLICK_ID` is used, but many others is available:
 - `SUB_4`
 - `SUB_5`
 
-### Webview tracking
-#### Initialize webview
+## Webview tracking
+
+### Initialize webview
+
 To integrate the library into the JavaScript environment, we added a bridge between JavaScript and the native SDK. Now you can send events and use the functionality of the native library directly from Webview.
 Here are step by step instructions:
-
 
 ```kotlin
 // retreive webview from view hierarhy
@@ -697,12 +708,12 @@ val webView = findViewById<WebView>(R.Id.your_webview_id)
 webView.javaScriptEnabled = true
 // initialize webview with Affise native library
 Affise.registerWebView(webView)
-    
 ```
-    
+
 Other Javascript enviroment features is described below.
 
-#### Events tracking JS
+### Events tracking JS
+
 after webview is initialized you send events from JavaScript enviroment 
 
 ```javascript
@@ -718,6 +729,7 @@ Affise.sendEvent(event);
 ```
 
 Just like with native SDK, javascript enviroment also provides default events that can be passed from webview:
+
 - `AchieveLevelEvent`
 - `AddPaymentInfoEvent`
 - `AddToCartEvent`
@@ -788,8 +800,10 @@ Just like with native SDK, javascript enviroment also provides default events th
 - `ViewItemEvent`
 - `ViewItemsEvent`
 
-#### Predefined event parameters JS
+### Predefined event parameters JS
+
 Each event can be extended with custom event parameters. By calling `addPredefinedParameter` function you can pass predefined parameters name and value, for example:
+
 ```javascript
 var event = ...
 
@@ -798,7 +812,7 @@ event.addPredefinedParameter('affise_p_purchase_currency', 'USD');
 Affise.sendEvent(event);
 ```
 
-#### Custom events JS
+### Custom events JS
 
 If above event functionality still limits your usecase, you can allways extend `Event` class to override fields you are missing
 
@@ -814,5 +828,5 @@ class AchieveLevelEvent extends Event {
             affise_event_achieve_level_timestamp: timeStampMillis
         };
     }
-}});
+}
 ```

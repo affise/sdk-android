@@ -1,7 +1,45 @@
-var Affise = class {
-  static sendEvent(event) {
-    AffiseBridge.sendEvent(JSON.stringify(event));
-  }
+const AffiseEventHandler = class { 
+    static eventName = () => "AffiseEvent";
+
+    static dispatchEvent(name, id, data) {
+        window.dispatchEvent(new CustomEvent(AffiseEventHandler.eventName(), {
+            detail: {
+                id: id,
+                name: name,
+                data: data
+            }
+        }));
+    }
+    
+    static handle(name, id, onComplete) {
+        let callback = (e) => {
+            if (typeof onComplete !== "function") return;
+            if (e.detail.name !== name) return;
+            if (e.detail.id !== id) return;
+            onComplete(e.detail.data);
+            window.removeEventListener(AffiseEventHandler.eventName(), callback);
+        };
+        window.addEventListener(AffiseEventHandler.eventName(), callback);
+    }
+};
+
+const AffiseModules = {
+    Advertising: "Advertising",
+    Network: "Network",
+    Phone: "Phone",
+    Status: "Status",
+};
+
+const Affise = class {
+    static sendEvent(event) {
+        AffiseBridge.sendEvent(JSON.stringify(event));
+    }
+
+    static getStatus(module, onComplete) {
+        let id = `${Date.now()}`;
+        AffiseEventHandler.handle("getStatus", id, onComplete);
+        AffiseBridge.getStatus(module, id);
+    }
 };
 
 class PredefinedParameters{

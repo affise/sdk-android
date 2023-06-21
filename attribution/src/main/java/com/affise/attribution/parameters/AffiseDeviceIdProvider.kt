@@ -8,7 +8,7 @@ import com.affise.attribution.usecase.FirstAppOpenUseCase
  *
  * @property useCase to retrieve affise device id
  */
-internal class AffiseDeviceIdProvider(
+class AffiseDeviceIdProvider(
     private val useCase: FirstAppOpenUseCase
 ) : StringPropertyProvider() {
 

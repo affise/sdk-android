@@ -18,7 +18,7 @@ interface InitPropertiesStorage {
     fun setProperties(model: AffiseInitProperties)
 
     /**
-     * Update secretId in Affise init properties
+     * Update SDK Secret Key in Affise init properties
      */
-    fun updateSecretId(secretId: String)
+    fun updateSecretKey(secretKey: String)
 }

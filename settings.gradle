@@ -2,5 +2,6 @@ include ':attribution'
 include ':module-advertising'
 include ':module-network'
 include ':module-phone'
+include ':module-status'
 include ':app'
 rootProject.name = "AffiseAttributionLib"

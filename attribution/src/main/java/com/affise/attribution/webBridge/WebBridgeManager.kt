@@ -3,11 +3,17 @@ package com.affise.attribution.webBridge
 import android.annotation.SuppressLint
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
+import com.affise.attribution.converter.StringToKeyValueConverter
 import com.affise.attribution.events.StoreEventUseCase
+import com.affise.attribution.modules.AffiseModuleManager
+import com.affise.attribution.modules.AffiseModules
+import org.json.JSONArray
+import org.json.JSONObject
 
 @SuppressLint("JavascriptInterface")
 internal class WebBridgeManager(
-    private val storeEventUseCase: StoreEventUseCase
+    private val storeEventUseCase: StoreEventUseCase,
+    private val moduleManager: AffiseModuleManager
 ) {
 
     /**
@@ -45,6 +51,31 @@ internal class WebBridgeManager(
         event?.let {
             //Store event
             storeEventUseCase.storeWebEvent(it)
+        }
+    }
+
+    @JavascriptInterface
+    fun getStatus(module: String?, id: String?) {
+        val affiseModules = module?.let {
+            AffiseModules.valueOf(it)
+        } ?: return
+
+        moduleManager.status(affiseModules) { data ->
+            val json = data.map { JSONObject().apply {
+                put(StringToKeyValueConverter.KEY, it.key)
+                put(StringToKeyValueConverter.VALUE, it.value)
+            } }.apply {
+                JSONArray(this)
+            }
+            post("getStatus", id, json.toString())
+        }
+    }
+
+    private fun post(name: String, id: String?, data: String) {
+        webView?.post {
+            run {
+                webView?.evaluateJavascript("AffiseEventHandler.dispatchEvent('$name','$id','$data');", null)
+            }
         }
     }
 

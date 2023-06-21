@@ -1,4 +1,5 @@
 name: Publish
+run-name: Publish ${{ github.ref_name }}
 
 on:
   push:
@@ -46,6 +47,7 @@ jobs:
           ./gradlew :module-advertising:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
           ./gradlew :module-network:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
           ./gradlew :module-phone:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
+          ./gradlew :module-status:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
 
       - name: Version Tag
         id: version_tag
@@ -106,4 +108,15 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: module-phone/build/outputs/aar/module-phone-release.aar
           asset_name: module-phone-${{ steps.version_tag.outputs.VERSION }}.aar
+          asset_content_type: application/aar
+
+      - name: Upload Release Module Status AAR 🗳
+        id: upload-module-status-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: module-status/build/outputs/aar/module-status-release.aar
+          asset_name: module-status-${{ steps.version_tag.outputs.VERSION }}.aar
           asset_content_type: application/aar

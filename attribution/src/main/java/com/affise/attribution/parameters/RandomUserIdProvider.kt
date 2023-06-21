@@ -8,7 +8,7 @@ import com.affise.attribution.usecase.FirstAppOpenUseCase
  *
  * @property useCase to retrieve random user id
  */
-internal class RandomUserIdProvider(
+class RandomUserIdProvider(
     private val useCase: FirstAppOpenUseCase
 ) : StringPropertyProvider() {
 

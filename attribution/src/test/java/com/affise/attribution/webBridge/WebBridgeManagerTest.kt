@@ -13,7 +13,7 @@ class WebBridgeManagerTest {
 
     private val storeEventUseCase = mockk<StoreEventUseCase>()
 
-    private val webBridgeManager = WebBridgeManager(storeEventUseCase)
+    private val webBridgeManager = WebBridgeManager(storeEventUseCase, moduleManager)
 
     @Test
     fun registerWebView() {

@@ -23,6 +23,7 @@ import com.affise.attribution.metrics.*
 import com.affise.attribution.modules.AffiseModuleManager
 import com.affise.attribution.network.CloudRepository
 import com.affise.attribution.network.CloudRepositoryImpl
+import com.affise.attribution.network.HttpClient
 import com.affise.attribution.network.HttpClientImpl
 import com.affise.attribution.parameters.InstallReferrerProvider
 import com.affise.attribution.parameters.UserAgentProvider
@@ -193,11 +194,18 @@ internal class AffiseComponent(
     }
 
     /**
+     * HttpClient
+     */
+    private val httpClient: HttpClient by lazy {
+        HttpClientImpl()
+    }
+
+    /**
      * CloudRepository
      */
     private val cloudRepository: CloudRepository by lazy {
         CloudRepositoryImpl(
-            HttpClientImpl(),
+            httpClient,
             postBackModelFactory.getProvider<UserAgentProvider>(),
             PostBackModelToJsonStringConverter()
         )
@@ -380,7 +388,10 @@ internal class AffiseComponent(
      * WebBridgeManager
      */
     override val webBridgeManager: WebBridgeManager by lazy {
-        WebBridgeManager(storeEventUseCase)
+        WebBridgeManager(
+            storeEventUseCase,
+            moduleManager
+        )
     }
 
     /**
@@ -411,7 +422,7 @@ internal class AffiseComponent(
         )
     }
 
-    private val moduleManager: AffiseModuleManager by lazy {
+    override val moduleManager: AffiseModuleManager by lazy {
         AffiseModuleManager(
             app,
             logsManager,
@@ -445,6 +456,7 @@ internal class AffiseComponent(
                 buildConfigPropertiesProvider,
                 stringToMD5Converter,
                 stringToSHA1Converter,
+                httpClient
             )
         )
     }

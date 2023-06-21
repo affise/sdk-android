@@ -20,7 +20,7 @@ class AffAppTokenPropertyProviderTest {
                 getProperties()?.affiseAppId
             } returns "affiseAppId"
             every {
-                getProperties()?.secretId
+                getProperties()?.secretKey
             } returns "secretId"
         }
 
@@ -37,7 +37,7 @@ class AffAppTokenPropertyProviderTest {
 
         verifyAll {
             initProps.getProperties()?.affiseAppId
-            initProps.getProperties()?.secretId
+            initProps.getProperties()?.secretKey
             converter.convert("affiseAppId0secretId")
         }
     }

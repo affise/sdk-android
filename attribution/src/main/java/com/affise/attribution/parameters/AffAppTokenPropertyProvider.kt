@@ -20,6 +20,6 @@ class AffAppTokenPropertyProvider(
     override fun provideWithParam(param: String): String = stringToSHA256Converter.convert(
         initProperties.getProperties()?.affiseAppId +
             param +
-            initProperties.getProperties()?.secretId
+            initProperties.getProperties()?.secretKey
     )
 }

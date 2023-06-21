@@ -10,7 +10,7 @@ import com.affise.attribution.utils.saveBoolean
 import com.affise.attribution.utils.saveLong
 import java.util.*
 
-internal class FirstAppOpenUseCase(
+class FirstAppOpenUseCase(
     private val preferences: SharedPreferences,
     private val activityCountProvider: CurrentActiveActivityCountProvider
 ) {

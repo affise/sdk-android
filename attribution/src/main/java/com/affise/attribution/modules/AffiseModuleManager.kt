@@ -11,13 +11,20 @@ internal class AffiseModuleManager(
     private val postBackModelFactory: PostBackModelFactory,
 ) {
 
+    private var modules: MutableMap<AffiseModules, AffiseModule> = mutableMapOf()
+
     fun init(dependencies: List<Any>) {
-        AffiseModules.modules.forEach { module ->
-            getClass(module)?.let {
-                it.init(application, logsManager, dependencies)
+        AffiseModules.values().forEach { module ->
+            getClass(module.module)?.let {
+                it.init(application, logsManager, dependencies, postBackModelFactory.getProviders())
                 postBackModelFactory.addProviders(it.providers())
+                modules[module] = it
             }
         }
+    }
+
+    fun status(module: AffiseModules, onComplete: OnKeyValueCallback) {
+        modules[module]?.status(onComplete)
     }
 
     private fun getClass(className: String): AffiseModule? = try {
