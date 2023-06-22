@@ -7,11 +7,11 @@ import android.net.Uri
 import com.affise.attribution.converter.Converter
 import com.affise.attribution.converter.StringToAffiseReferrerDataConverter
 import com.affise.attribution.deeplink.DeeplinkManager
-import com.affise.attribution.referrer.ReferrerKey
 import com.affise.attribution.logs.LogsManager
 import com.affise.attribution.referrer.AffiseReferrerData
 import com.affise.attribution.referrer.AffiseReferrerDataToStringConverter
 import com.affise.attribution.referrer.OnReferrerCallback
+import com.affise.attribution.referrer.ReferrerKey
 import com.affise.attribution.referrer.getPartnerKey
 import com.android.installreferrer.api.InstallReferrerClient
 import com.android.installreferrer.api.InstallReferrerStateListener
@@ -56,9 +56,11 @@ class RetrieveInstallReferrerUseCase(
                             )
                         }
                     }
+
                     InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED -> {
                         // API not available on the current Play Store app.
                     }
+
                     InstallReferrerClient.InstallReferrerResponse.SERVICE_UNAVAILABLE -> {
                         // Connection couldn't be established.
                     }
@@ -75,20 +77,31 @@ class RetrieveInstallReferrerUseCase(
     }
 
     /**
+     * Get referrer value
+     */
+    fun getReferrer(callback: OnReferrerCallback?) {
+        handleReferrer(getReferrer(), callback)
+    }
+
+    /**
      * Get referrer uri value by key
      */
     fun getReferrerValue(key: ReferrerKey, callback: OnReferrerCallback?) {
+        handleReferrer(getReferrerValue(key), callback)
+    }
+
+    private fun handleReferrer(referrer: String?, callback: OnReferrerCallback?) {
         getInstallReferrer()?.let {
-            callback?.handleReferrer(getReferrerValue(key))
+            callback?.handleReferrer(referrer)
             return
         }
 
         onReferrerFinished = {
-            callback?.handleReferrer(getReferrerValue(key))
+            callback?.handleReferrer(referrer)
         }
     }
 
-    private fun getReferrerValue(key: ReferrerKey): String? {
+    private fun getReferrer(): String? {
         //Check referrer in partner_key
         val referrer = app.getPartnerKey()
 
@@ -97,10 +110,12 @@ class RetrieveInstallReferrerUseCase(
             getInstallReferrer()?.installReferrer
         } else {
             referrer
-        }?.let {
-            val uri = Uri.parse("https://referrer/?$it")
-            uri.getQueryParameter(key.type)
         }
+    }
+
+    private fun getReferrerValue(key: ReferrerKey): String? = getReferrer().let {
+        val uri = Uri.parse("https://referrer/?$it")
+        uri.getQueryParameter(key.type)
     }
 
     /**

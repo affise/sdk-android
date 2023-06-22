@@ -10,7 +10,6 @@ import com.affise.attribution.init.SetPropertiesWhenAppInitializedUseCase
 import com.affise.attribution.logs.LogsManager
 import com.affise.attribution.metrics.MetricsManager
 import com.affise.attribution.modules.AffiseModuleManager
-import com.affise.attribution.parameters.InstallReferrerProvider
 import com.affise.attribution.session.SessionManager
 import com.affise.attribution.test.CrashApplicationUseCase
 import com.affise.attribution.usecase.RetrieveInstallReferrerUseCase
@@ -40,7 +39,6 @@ internal interface AffiseApi {
     val sendGDPREventUseCase: SendGDPREventUseCaseImpl
     val metricsManager: MetricsManager
     val crashApplicationUseCase: CrashApplicationUseCase
-    val installReferrerProvider: InstallReferrerProvider
     val retrieveInstallReferrerUseCase: RetrieveInstallReferrerUseCase
     val moduleManager: AffiseModuleManager
 }

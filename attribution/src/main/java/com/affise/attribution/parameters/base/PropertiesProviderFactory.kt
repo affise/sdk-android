@@ -28,11 +28,9 @@ internal class PropertiesProviderFactory(
     private val sharedPreferences: SharedPreferences,
     private val initPropertiesStorage: InitPropertiesStorage,
     private val stringToMd5Converter: Converter<String, String>,
-    private val stringToSha1Converter: Converter<String, String>,
     private val stringToSha256Converter: Converter<String, String>,
     private val logsManager: LogsManager,
     private val deeplinkClickRepository: DeeplinkClickRepository,
-    private val installReferrerProvider: InstallReferrerProvider
 ) {
 
     fun create(): PostBackModelFactory {
@@ -79,7 +77,7 @@ internal class PropertiesProviderFactory(
                 AndroidIdMD5Provider(androidIdProvider, stringToMd5Converter),
                 RefTokenProvider(sharedPreferences),
                 RefTokensProvider(sharedPreferences),
-                installReferrerProvider,
+                InstallReferrerProvider(app, retrieveInstallReferrerUseCase),
                 UserAgentProvider(),
                 MCCProvider(app),
                 MNCProvider(app),

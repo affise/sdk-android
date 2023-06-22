@@ -25,7 +25,6 @@ import com.affise.attribution.network.CloudRepository
 import com.affise.attribution.network.CloudRepositoryImpl
 import com.affise.attribution.network.HttpClient
 import com.affise.attribution.network.HttpClientImpl
-import com.affise.attribution.parameters.InstallReferrerProvider
 import com.affise.attribution.parameters.UserAgentProvider
 import com.affise.attribution.parameters.base.PropertiesProviderFactory
 import com.affise.attribution.parameters.factory.PostBackModelFactory
@@ -63,11 +62,9 @@ internal class AffiseComponent(
             sharedPreferences,
             initPropertiesStorage,
             stringToMD5Converter,
-            stringToSHA1Converter,
-            StringToSHA256Converter(),
+            stringToSHA256Converter,
             logsManager,
             isDeeplinkClickRepository,
-            installReferrerProvider
         ).create()
     }
 
@@ -77,6 +74,10 @@ internal class AffiseComponent(
 
     private val stringToSHA1Converter: StringToSHA1Converter by lazy {
         StringToSHA1Converter()
+    }
+
+    private val stringToSHA256Converter: StringToSHA256Converter by lazy {
+        StringToSHA256Converter()
     }
 
     private val converterToBase64: ConverterToBase64 by lazy {
@@ -308,10 +309,6 @@ internal class AffiseComponent(
             logsManager,
             InstallReferrerToDeeplinkUriConverter()
         )
-    }
-
-    override val installReferrerProvider by lazy {
-        InstallReferrerProvider(app, retrieveInstallReferrerUseCase)
     }
 
     /**

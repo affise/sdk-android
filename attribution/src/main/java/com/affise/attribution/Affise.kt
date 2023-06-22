@@ -187,8 +187,9 @@ object Affise {
      * Get referrer
      */
     @JvmStatic
-    fun getReferrer(): String? = api?.installReferrerProvider?.provide()
-
+    fun getReferrer(callback: OnReferrerCallback?) {
+        api?.retrieveInstallReferrerUseCase?.getReferrer(callback)
+    }
 
     /**
      * Get referrer Value
