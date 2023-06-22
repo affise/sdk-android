@@ -12,6 +12,7 @@ import com.affise.attribution.logs.LogsManager
 import com.affise.attribution.referrer.AffiseReferrerData
 import com.affise.attribution.referrer.AffiseReferrerDataToStringConverter
 import com.affise.attribution.referrer.OnReferrerCallback
+import com.affise.attribution.referrer.getPartnerKey
 import com.android.installreferrer.api.InstallReferrerClient
 import com.android.installreferrer.api.InstallReferrerStateListener
 import com.android.installreferrer.api.ReferrerDetails
@@ -88,7 +89,15 @@ class RetrieveInstallReferrerUseCase(
     }
 
     private fun getReferrerValue(key: ReferrerKey): String? {
-        return getInstallReferrer()?.installReferrer?.let {
+        //Check referrer in partner_key
+        val referrer = app.getPartnerKey()
+
+        //if partner_key is empty or null use installReferrer
+        return if (referrer.isNullOrEmpty()) {
+            getInstallReferrer()?.installReferrer
+        } else {
+            referrer
+        }?.let {
             val uri = Uri.parse("https://referrer/?$it")
             uri.getQueryParameter(key.type)
         }

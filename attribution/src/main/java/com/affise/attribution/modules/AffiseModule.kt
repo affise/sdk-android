@@ -40,7 +40,11 @@ abstract class AffiseModule {
 
     abstract fun providers(): List<PropertyProvider<*>>
 
-    open fun status(onComplete: OnKeyValueCallback) = Unit
+    open fun status(onComplete: OnKeyValueCallback) {
+        onComplete.handle(listOf(
+            AffiseKeyValue(key = "state", value = "enabled")
+        ))
+    }
 
     inline fun <reified T> get(): T? {
         return dependencies?.firstOrNull { it is T } as? T

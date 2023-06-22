@@ -2,9 +2,8 @@ package com.affise.attribution.parameters
 
 import android.app.Application
 import com.affise.attribution.parameters.base.StringPropertyProvider
+import com.affise.attribution.referrer.getPartnerKey
 import com.affise.attribution.usecase.RetrieveInstallReferrerUseCase
-import java.io.BufferedReader
-import java.io.InputStreamReader
 
 /**
  * Provider for parameter [Parameters.REFERRER]
@@ -22,31 +21,7 @@ class InstallReferrerProvider(
 
     override fun provide(): String? {
         //Check referrer in partner_key
-        val referrer = try {
-            //Create InputStream
-            app.assets.open("partner_key").use { inputStream ->
-                //Create BufferedReader
-                BufferedReader(InputStreamReader(inputStream)).use { bufferedReader ->
-                    //Create StringBuilder
-                    val builder = StringBuilder()
-                    //Create temp line
-                    var line: String?
-
-                    //Read file
-                    do {
-                        line = bufferedReader.readLine()?.also {
-                            builder.append(it)
-                        }
-                    } while (line != null)
-
-                    //Crete String result
-                    builder.toString()
-                }
-            }
-        } catch (throwable: Throwable) {
-            //logsManager.addDeviceError(throwable)
-            null
-        }
+        val referrer = app.getPartnerKey()
 
         //if partner_key is empty or null use installReferrer
         return if (referrer.isNullOrEmpty()) {
