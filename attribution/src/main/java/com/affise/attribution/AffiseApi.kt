@@ -10,6 +10,7 @@ import com.affise.attribution.init.SetPropertiesWhenAppInitializedUseCase
 import com.affise.attribution.logs.LogsManager
 import com.affise.attribution.metrics.MetricsManager
 import com.affise.attribution.modules.AffiseModuleManager
+import com.affise.attribution.parameters.factory.PostBackModelFactory
 import com.affise.attribution.session.SessionManager
 import com.affise.attribution.test.CrashApplicationUseCase
 import com.affise.attribution.usecase.RetrieveInstallReferrerUseCase
@@ -41,4 +42,5 @@ internal interface AffiseApi {
     val crashApplicationUseCase: CrashApplicationUseCase
     val retrieveInstallReferrerUseCase: RetrieveInstallReferrerUseCase
     val moduleManager: AffiseModuleManager
+    val postBackModelFactory: PostBackModelFactory
 }

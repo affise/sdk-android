@@ -36,7 +36,7 @@ class App : DaggerApplication() {
         Affise.init(this, props)
 
 //        Affise.getStatus(AffiseModules.Status) {
-//            Log.d(this.javaClass.simpleName, "!> $it")
+//            Log.d(this.javaClass.simpleName, "$it")
 //        }
     }
 

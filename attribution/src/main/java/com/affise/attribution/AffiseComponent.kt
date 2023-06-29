@@ -52,7 +52,7 @@ internal class AffiseComponent(
     /**
      * PostBackModelFactory
      */
-    private val postBackModelFactory: PostBackModelFactory by lazy {
+    override val postBackModelFactory: PostBackModelFactory by lazy {
         PropertiesProviderFactory(
             buildConfigPropertiesProvider,
             app,

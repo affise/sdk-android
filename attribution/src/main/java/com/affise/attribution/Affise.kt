@@ -11,7 +11,9 @@ import com.affise.attribution.events.predefined.GDPREvent
 import com.affise.attribution.init.AffiseInitProperties
 import com.affise.attribution.modules.AffiseModules
 import com.affise.attribution.modules.OnKeyValueCallback
+import com.affise.attribution.parameters.AffiseDeviceIdProvider
 import com.affise.attribution.parameters.PushTokenProvider
+import com.affise.attribution.parameters.RandomUserIdProvider
 import com.affise.attribution.platform.SdkPlatform
 import com.affise.attribution.referrer.OnReferrerCallback
 
@@ -205,6 +207,22 @@ object Affise {
     @JvmStatic
     fun getStatus(module: AffiseModules, onComplete: OnKeyValueCallback) {
         api?.moduleManager?.status(module, onComplete)
+    }
+
+    /**
+     * Get random User Id
+     */
+    @JvmStatic
+    fun getRandomUserId(): String? {
+        return api?.postBackModelFactory?.getProvider<RandomUserIdProvider>()?.provide()
+    }
+
+    /**
+     * Get random Device Id
+     */
+    @JvmStatic
+    fun getRandomDeviceId(): String? {
+        return api?.postBackModelFactory?.getProvider<AffiseDeviceIdProvider>()?.provide()
     }
 
     object _crossPlatform  {
