@@ -296,60 +296,60 @@ class Presenter {
 
 With above example you can implement other events:
 
-- `AchieveLevelEvent`
-- `AddPaymentInfoEvent`
-- `AddToCartEvent`
-- `AddToWishlistEvent`
-- `ClickAdvEvent`
-- `CompleteRegistrationEvent`
-- `CompleteStreamEvent`
-- `CompleteTrialEvent`
-- `CompleteTutorialEvent`
-- `ContentItemsViewEvent`
-- `DeepLinkedEvent`
-- `InitiatePurchaseEvent`
-- `InitiateStreamEvent`
-- `InviteEvent`
-- `LastAttributedTouchEvent`
-- `ListViewEvent`
-- `LoginEvent`
-- `OpenedFromPushNotificationEvent`
-- `PurchaseEvent`
-- `RateEvent`
-- `ReEngageEvent`
-- `ReserveEvent`
-- `SalesEvent`
-- `SearchEvent`
-- `ShareEvent`
-- `SpendCreditsEvent`
-- `StartRegistrationEvent`
-- `StartTrialEvent`
-- `StartTutorialEvent`
-- `SubscribeEvent`
-- `TravelBookingEvent`
-- `UnlockAchievementEvent`
-- `UnsubscribeEvent`
-- `UnsubscriptionEvent`
-- `UpdateEvent`
-- `ViewAdvEvent`
-- `ViewCartEvent`
-- `ViewItemEvent`
-- `ViewItemsEvent`
+- `AchieveLevel`
+- `AddPaymentInfo`
+- `AddToCart`
+- `AddToWishlist`
+- `ClickAdv`
+- `CompleteRegistration`
+- `CompleteStream`
+- `CompleteTrial`
+- `CompleteTutorial`
+- `ContentItemsView`
+- `DeepLinked`
+- `InitiatePurchase`
+- `InitiateStream`
+- `Invite`
+- `LastAttributedTouch`
+- `ListView`
+- `Login`
+- `OpenedFromPushNotification`
+- `Purchase`
+- `Rate`
+- `ReEngage`
+- `Reserve`
+- `Sales`
+- `Search`
+- `Share`
+- `SpendCredits`
+- `StartRegistration`
+- `StartTrial`
+- `StartTutorial`
+- `Subscribe`
+- `TravelBooking`
+- `UnlockAchievement`
+- `Unsubscribe`
+- `Unsubscription`
+- `Update`
+- `ViewAdv`
+- `ViewCart`
+- `ViewItem`
+- `ViewItems`
 
 ## Custom events tracking
 
 Use any of custom events if default doesn't fit your scenario:
 
-- `CustomId01Event`
-- `CustomId02Event`
-- `CustomId03Event`
-- `CustomId04Event`
-- `CustomId05Event`
-- `CustomId06Event`
-- `CustomId07Event`
-- `CustomId08Event`
-- `CustomId09Event`
-- `CustomId10Event`
+- `CustomId01`
+- `CustomId02`
+- `CustomId03`
+- `CustomId04`
+- `CustomId05`
+- `CustomId06`
+- `CustomId07`
+- `CustomId08`
+- `CustomId09`
+- `CustomId10`
 
 ## Predefined event parameters
 
