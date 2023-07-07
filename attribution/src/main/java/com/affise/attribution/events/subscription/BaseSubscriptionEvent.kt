@@ -1,6 +1,7 @@
 package com.affise.attribution.events.subscription
 
 import com.affise.attribution.events.NativeEvent
+import com.affise.attribution.events.property.AffisePropertyBuilder
 import org.json.JSONObject
 
 /**
@@ -8,8 +9,8 @@ import org.json.JSONObject
  */
 abstract class BaseSubscriptionEvent(
     private val data: JSONObject,
-    private val userData: String? = null
-) : NativeEvent() {
+    private val userData: String? = null,
+) : NativeEvent(timeStampMillis = System.currentTimeMillis(), userData = userData) {
 
     /**
      * Type of subscription
@@ -22,20 +23,12 @@ abstract class BaseSubscriptionEvent(
      */
     abstract val subtype: String
 
-    /**
-     * Serialize SubscriptionEvent to JSONObject
-     *
-     * @return JSONObject of SubscriptionEvent
-     */
-    override fun serialize() = JSONObject().apply {
-        //Add subtype
-        put(SubscriptionParameters.AFFISE_SUBSCRIPTION_EVENT_TYPE_KEY, subtype)
-
-        //Add data
-        data.keys().forEach { key ->
-            put(key, data.get(key))
+    override fun serializeBuilder(): AffisePropertyBuilder = super.serializeBuilder()
+        .addRaw(SubscriptionParameters.AFFISE_SUBSCRIPTION_EVENT_TYPE_KEY, subtype).apply {
+            data.keys().forEach { key ->
+                addRaw(key, data.get(key))
+            }
         }
-    }
 
     /**
      * Name of event
@@ -43,11 +36,4 @@ abstract class BaseSubscriptionEvent(
      * @return name
      */
     override fun getName() = type
-
-    /**
-     * User data
-     *
-     * @return userData
-     */
-    override fun getUserData() = userData
 }

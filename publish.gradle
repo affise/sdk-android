@@ -21,7 +21,7 @@ task androidSourcesJar(type: Jar) {
 afterEvaluate {
     publishing {
         publications {
-            release(MavenPublication) {
+            aar(MavenPublication) {
                 from components.release
 
                 groupId = 'com.affise'

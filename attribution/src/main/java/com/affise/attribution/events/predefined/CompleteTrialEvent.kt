@@ -6,37 +6,36 @@ import org.json.JSONObject
 /**
  * Event CompleteTrial
  *
- * @property trial the JSON Object describing the meaning of the event.
- * @property timeStampMillis the timestamp event in milliseconds.
  * @property userData any custom string data.
+ * @property timeStampMillis the timestamp event in milliseconds.
  */
 class CompleteTrialEvent(
-    private val trial: JSONObject,
-    private val timeStampMillis: Long,
-    private val userData: String? = null
-) : NativeEvent() {
-
+    private val userData: String? = null,
+    private val timeStampMillis: Long = System.currentTimeMillis(),
+) : NativeEvent(
+    userData = userData,
+    timeStampMillis = timeStampMillis
+) {
     /**
-     * Serialize CompleteTrialEvent to JSONObject
+     * Event CompleteTrial
      *
-     * @return JSONObject of CompleteTrialEvent
+     * @property trial the JSON Object describing the meaning of the event.
+     * @property timeStampMillis the timestamp event in milliseconds.
+     * @property userData any custom string data.
      */
-    override fun serialize() = JSONObject().apply {
-        put("affise_event_complete_trial", trial)
-        put("affise_event_complete_trial_timestamp", timeStampMillis)
+    @Deprecated(
+        message = "This constructor will be removed if future",
+        replaceWith = ReplaceWith("CompleteTrialEvent(userData, timeStampMillis)"),
+        level = DeprecationLevel.WARNING
+    )
+    constructor(
+        trial: JSONObject = JSONObject(),
+        timeStampMillis: Long = System.currentTimeMillis(),
+        userData: String? = null,
+    ) : this(
+        userData = userData,
+        timeStampMillis = timeStampMillis,
+    ) {
+        anyData = trial
     }
-
-    /**
-     * Name of event
-     *
-     * @return name
-     */
-    override fun getName() = "CompleteTrial"
-
-    /**
-     * User data
-     *
-     * @return userData
-     */
-    override fun getUserData() = userData
 }

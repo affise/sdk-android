@@ -44,7 +44,7 @@ class EventToSerializedEventConverter : Converter<Event, SerializedEvent> {
             put(
                 Parameters.AFFISE_PARAMETERS,
                 from.getPredefinedParameters()
-                    .mapKeys { it.key.value }
+                    .mapKeys { it.key.value() }
                     .let(::JSONObject)
             )
         }

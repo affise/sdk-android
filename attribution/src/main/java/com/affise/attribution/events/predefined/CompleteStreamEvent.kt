@@ -6,37 +6,36 @@ import org.json.JSONObject
 /**
  * Event CompleteStream
  *
- * @property stream the JSON Object describing the meaning of the event.
- * @property timeStampMillis the timestamp event in milliseconds.
  * @property userData any custom string data.
+ * @property timeStampMillis the timestamp event in milliseconds.
  */
 class CompleteStreamEvent(
-    private val stream: JSONObject,
-    private val timeStampMillis: Long,
-    private val userData: String? = null
-) : NativeEvent() {
-
+    private val userData: String? = null,
+    private val timeStampMillis: Long = System.currentTimeMillis(),
+) : NativeEvent(
+    userData = userData,
+    timeStampMillis = timeStampMillis
+) {
     /**
-     * Serialize CompleteStreamEvent to JSONObject
+     * Event CompleteStream
      *
-     * @return JSONObject of CompleteStreamEvent
+     * @property stream the JSON Object describing the meaning of the event.
+     * @property timeStampMillis the timestamp event in milliseconds.
+     * @property userData any custom string data.
      */
-    override fun serialize() = JSONObject().apply {
-        put("affise_event_complete_stream", stream)
-        put("affise_event_complete_stream_timestamp", timeStampMillis)
+    @Deprecated(
+        message = "This constructor will be removed if future",
+        replaceWith = ReplaceWith("CompleteStreamEvent(userData, timeStampMillis)"),
+        level = DeprecationLevel.WARNING
+    )
+    constructor(
+        stream: JSONObject = JSONObject(),
+        timeStampMillis: Long = System.currentTimeMillis(),
+        userData: String? = null,
+    ) : this(
+        userData = userData,
+        timeStampMillis = timeStampMillis,
+    ) {
+        anyData = stream
     }
-
-    /**
-     * Name of event
-     *
-     * @return name
-     */
-    override fun getName() = "CompleteStream"
-
-    /**
-     * User data
-     *
-     * @return userData
-     */
-    override fun getUserData() = userData
 }

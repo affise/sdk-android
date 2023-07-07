@@ -6,37 +6,36 @@ import org.json.JSONObject
 /**
  * Event Unsubscribe
  *
- * @property unsubscribe the JSON Object describing the meaning of the event.
- * @property timeStampMillis the timestamp event in milliseconds.
  * @property userData any custom string data.
+ * @property timeStampMillis the timestamp event in milliseconds.
  */
 class UnsubscribeEvent(
-    private val unsubscribe: JSONObject,
-    private val timeStampMillis: Long,
-    private val userData: String? = null
-) : NativeEvent() {
-
+    private val userData: String? = null,
+    private val timeStampMillis: Long = System.currentTimeMillis(),
+) : NativeEvent(
+    userData = userData,
+    timeStampMillis = timeStampMillis
+) {
     /**
-     * Serialize UnsubscribeEvent to JSONObject
+     * Event Unsubscribe
      *
-     * @return JSONObject of UnsubscribeEvent
+     * @property unsubscribe the JSON Object describing the meaning of the event.
+     * @property timeStampMillis the timestamp event in milliseconds.
+     * @property userData any custom string data.
      */
-    override fun serialize() = JSONObject().apply {
-        put("affise_event_unsubscribe", unsubscribe)
-        put("affise_event_unsubscribe_timestamp", timeStampMillis)
+    @Deprecated(
+        message = "This constructor will be removed if future",
+        replaceWith = ReplaceWith("UnsubscribeEvent(userData, timeStampMillis)"),
+        level = DeprecationLevel.WARNING
+    )
+    constructor(
+        unsubscribe: JSONObject = JSONObject(),
+        timeStampMillis: Long = System.currentTimeMillis(),
+        userData: String? = null,
+    ) : this(
+        userData = userData,
+        timeStampMillis = timeStampMillis,
+    ) {
+        anyData = unsubscribe
     }
-
-    /**
-     * Name of event
-     *
-     * @return name
-     */
-    override fun getName() = "Unsubscribe"
-
-    /**
-     * User data
-     *
-     * @return userData
-     */
-    override fun getUserData() = userData
 }

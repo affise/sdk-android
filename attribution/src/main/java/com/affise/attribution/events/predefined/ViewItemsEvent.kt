@@ -2,39 +2,40 @@ package com.affise.attribution.events.predefined
 
 import com.affise.attribution.events.NativeEvent
 import org.json.JSONArray
-import org.json.JSONObject
 
 /**
  * Event ViewItems
  *
- * @property items the JSON array describing the meaning of the event.
  * @property userData any custom string data.
+ * @property timeStampMillis the timestamp event in milliseconds.
  */
 class ViewItemsEvent(
-    private val items: JSONArray,
-    private val userData: String? = null
-) : NativeEvent() {
-
+    private val userData: String? = null,
+    private val timeStampMillis: Long = System.currentTimeMillis(),
+) : NativeEvent(
+    userData = userData,
+    timeStampMillis = timeStampMillis
+) {
     /**
-     * Serialize ViewItemsEvent to JSONObject
+     * Event ViewItems
      *
-     * @return JSONObject of ViewItemsEvent
+     * @property items the JSON array describing the meaning of the event.
+     * @property userData any custom string data.
+     * @property timeStampMillis the timestamp event in milliseconds.
      */
-    override fun serialize() = JSONObject().apply {
-        put("affise_event_view_items", items)
+    @Deprecated(
+        message = "This constructor will be removed if future",
+        replaceWith = ReplaceWith("ViewItemsEvent(userData, timeStampMillis)"),
+        level = DeprecationLevel.WARNING
+    )
+    constructor(
+        items: JSONArray = JSONArray(),
+        userData: String? = null,
+        timeStampMillis: Long = System.currentTimeMillis(),
+    ) : this(
+        userData = userData,
+        timeStampMillis = timeStampMillis,
+    ) {
+        anyData = items
     }
-
-    /**
-     * Name of event
-     *
-     * @return name
-     */
-    override fun getName() = "ViewItems"
-
-    /**
-     * User data
-     *
-     * @return userData
-     */
-    override fun getUserData() = userData
 }

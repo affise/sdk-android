@@ -6,37 +6,36 @@ import org.json.JSONObject
 /**
  * Event StartRegistration
  *
- * @property registration the JSON Object describing the meaning of the event.
- * @property timeStampMillis the timestamp event in milliseconds.
  * @property userData any custom string data.
+ * @property timeStampMillis the timestamp event in milliseconds.
  */
 class StartRegistrationEvent(
-    private val registration: JSONObject,
-    private val timeStampMillis: Long,
-    private val userData: String? = null
-) : NativeEvent() {
-
+    private val userData: String? = null,
+    private val timeStampMillis: Long = System.currentTimeMillis(),
+) : NativeEvent(
+    userData = userData,
+    timeStampMillis = timeStampMillis
+) {
     /**
-     * Serialize StartRegistrationEvent to JSONObject
+     * Event StartRegistration
      *
-     * @return JSONObject of StartRegistrationEvent
+     * @property registration the JSON Object describing the meaning of the event.
+     * @property timeStampMillis the timestamp event in milliseconds.
+     * @property userData any custom string data.
      */
-    override fun serialize() = JSONObject().apply {
-        put("affise_event_start_registration", registration)
-        put("affise_event_start_registration_timestamp", timeStampMillis)
+    @Deprecated(
+        message = "This constructor will be removed if future",
+        replaceWith = ReplaceWith("StartRegistrationEvent(userData, timeStampMillis)"),
+        level = DeprecationLevel.WARNING
+    )
+    constructor(
+        registration: JSONObject = JSONObject(),
+        timeStampMillis: Long = System.currentTimeMillis(),
+        userData: String? = null,
+    ) : this(
+        userData = userData,
+        timeStampMillis = timeStampMillis,
+    ) {
+        anyData = registration
     }
-
-    /**
-     * Name of event
-     *
-     * @return name
-     */
-    override fun getName() = "StartRegistration"
-
-    /**
-     * User data
-     *
-     * @return userData
-     */
-    override fun getUserData() = userData
 }

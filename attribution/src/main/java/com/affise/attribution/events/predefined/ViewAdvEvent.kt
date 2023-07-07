@@ -6,37 +6,36 @@ import org.json.JSONObject
 /**
  * Event ViewAdv
  *
- * @property ad the JSON Object describing the meaning of the event.
- * @property timeStampMillis the timestamp event in milliseconds.
  * @property userData any custom string data.
+ * @property timeStampMillis the timestamp event in milliseconds.
  */
 class ViewAdvEvent(
-    private val ad: JSONObject,
-    private val timeStampMillis: Long,
-    private val userData: String? = null
-) : NativeEvent() {
-
+    private val userData: String? = null,
+    private val timeStampMillis: Long = System.currentTimeMillis(),
+) : NativeEvent(
+    userData = userData,
+    timeStampMillis = timeStampMillis
+) {
     /**
-     * Serialize ViewAdvEvent to JSONObject
+     * Event ViewAdv
      *
-     * @return JSONObject of ViewAdvEvent
+     * @property ad the JSON Object describing the meaning of the event.
+     * @property timeStampMillis the timestamp event in milliseconds.
+     * @property userData any custom string data.
      */
-    override fun serialize() = JSONObject().apply {
-        put("affise_event_view_adv", ad)
-        put("affise_event_view_adv_timestamp", timeStampMillis)
+    @Deprecated(
+        message = "This constructor will be removed if future",
+        replaceWith = ReplaceWith("ViewAdvEvent(userData, timeStampMillis)"),
+        level = DeprecationLevel.WARNING
+    )
+    constructor(
+        ad: JSONObject = JSONObject(),
+        timeStampMillis: Long = System.currentTimeMillis(),
+        userData: String? = null,
+    ) : this(
+        userData = userData,
+        timeStampMillis = timeStampMillis,
+    ) {
+        anyData = ad
     }
-
-    /**
-     * Name of event
-     *
-     * @return name
-     */
-    override fun getName() = "ViewAdv"
-
-    /**
-     * User data
-     *
-     * @return userData
-     */
-    override fun getUserData() = userData
 }

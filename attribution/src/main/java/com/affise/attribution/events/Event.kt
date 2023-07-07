@@ -1,7 +1,14 @@
 package com.affise.attribution.events
 
-import com.affise.attribution.events.predefined.PredefinedParameters
+import com.affise.attribution.events.parameters.Predefined
+import com.affise.attribution.events.parameters.PredefinedFloat
+import com.affise.attribution.events.parameters.PredefinedListObject
+import com.affise.attribution.events.parameters.PredefinedListString
+import com.affise.attribution.events.parameters.PredefinedLong
+import com.affise.attribution.events.parameters.PredefinedObject
+import com.affise.attribution.events.parameters.PredefinedString
 import org.json.JSONObject
+import java.math.BigDecimal
 
 /**
  * Base event
@@ -11,7 +18,7 @@ abstract class Event {
     /**
      * Event predefined parameters
      */
-    private val predefinedParameters = mutableMapOf<PredefinedParameters, String>()
+    private val predefinedParameters = mutableMapOf<Predefined, Any>()
 
     /**
      * Is first for user, default false
@@ -58,9 +65,43 @@ abstract class Event {
     }
 
     /**
-     * Add predefined [parameter] with [value] to event
+     * Add predefined [parameter] with [value] of String to event
      */
-    fun addPredefinedParameter(parameter: PredefinedParameters, value: String) {
+    fun addPredefinedParameter(parameter: PredefinedString, value: String) {
+        predefinedParameters[parameter] = value
+    }
+    /**
+     * Add predefined [parameter] with [value] of List<String> to event
+     */
+    fun addPredefinedParameter(parameter: PredefinedListString, value: List<String>) {
+        predefinedParameters[parameter] = value
+    }
+
+    /**
+     * Add predefined [parameter] with [value] of Long to event
+     */
+    fun addPredefinedParameter(parameter: PredefinedLong, value: Long) {
+        predefinedParameters[parameter] = value
+    }
+
+    /**
+     * Add predefined [parameter] with [value] of BigDecimal to event
+     */
+    fun addPredefinedParameter(parameter: PredefinedFloat, value: BigDecimal) {
+        predefinedParameters[parameter] = value
+    }
+
+    /**
+     * Add predefined [parameter] with [value] of JSONObject to event
+     */
+    fun addPredefinedParameter(parameter: PredefinedObject, value: JSONObject) {
+        predefinedParameters[parameter] = value
+    }
+
+    /**
+     * Add predefined [parameter] with [value] of List<JSONObject> to event
+     */
+    fun addPredefinedParameter(parameter: PredefinedListObject, value: List<JSONObject>) {
         predefinedParameters[parameter] = value
     }
 
@@ -69,5 +110,5 @@ abstract class Event {
      *
      * @return map of predefined parameter
      */
-    fun getPredefinedParameters(): Map<PredefinedParameters, String> = predefinedParameters.toMap()
+    fun getPredefinedParameters(): Map<Predefined, Any> = predefinedParameters.toMap()
 }

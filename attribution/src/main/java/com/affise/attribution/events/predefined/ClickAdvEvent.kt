@@ -1,42 +1,40 @@
 package com.affise.attribution.events.predefined
 
 import com.affise.attribution.events.NativeEvent
-import org.json.JSONObject
 
 /**
  * Event ClickAdv
  *
- * @property advertisement the describing the meaning of the event.
- * @property timeStampMillis the timestamp event in milliseconds.
  * @property userData any custom string data.
+ * @property timeStampMillis the timestamp event in milliseconds.
  */
 class ClickAdvEvent(
-    private val advertisement: String,
-    private val timeStampMillis: Long,
-    private val userData: String? = null
-) : NativeEvent() {
-
+    private val userData: String? = null,
+    private val timeStampMillis: Long = System.currentTimeMillis(),
+) : NativeEvent(
+    userData = userData,
+    timeStampMillis = timeStampMillis
+) {
     /**
-     * Serialize ClickAdvEvent to JSONObject
+     * Event ClickAdv
      *
-     * @return JSONObject of ClickAdvEvent
+     * @property advertisement the describing the meaning of the event.
+     * @property timeStampMillis the timestamp event in milliseconds.
+     * @property userData any custom string data.
      */
-    override fun serialize() = JSONObject().apply {
-        put("affise_event_click_adv", advertisement)
-        put("affise_event_click_adv_timestamp", timeStampMillis)
+    @Deprecated(
+        message = "This constructor will be removed if future",
+        replaceWith = ReplaceWith("ClickAdvEvent(userData, timeStampMillis)"),
+        level = DeprecationLevel.WARNING
+    )
+    constructor(
+        advertisement: String = "",
+        timeStampMillis: Long = System.currentTimeMillis(),
+        userData: String? = null,
+    ) : this(
+        userData = userData,
+        timeStampMillis = timeStampMillis,
+    ) {
+        anyData = advertisement
     }
-
-    /**
-     * Name of event
-     *
-     * @return name
-     */
-    override fun getName() = "ClickAdv"
-
-    /**
-     * User data
-     *
-     * @return userData
-     */
-    override fun getUserData() = userData
 }

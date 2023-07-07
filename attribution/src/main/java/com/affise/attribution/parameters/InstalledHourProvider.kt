@@ -17,6 +17,7 @@ class InstalledHourProvider(
     override val order: Float = 8.0f
     override val key: String = Parameters.INSTALLED_HOUR
 
+    @Suppress("DEPRECATION")
     override fun provide(): Long? = context
         .packageManager
         .getPackageInfo(context.packageName, 0)

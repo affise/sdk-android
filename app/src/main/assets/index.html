@@ -24,17 +24,18 @@
 </head>
 <body>
 <button class="button" onclick="
-        var event = new AchieveLevelEvent(
-            {old_level:69,new_level:70},
-             Date.now(),
-            'warlock'
-        );
+        var event = new AchieveLevelEvent({
+          userData: 'warlock',
+          timeStampMillis: Date.now(),
+        });
 
-        event.addPredefinedParameter('affise_p_deep_link', 'https://new-game.lt');
-        event.addPredefinedParameter('affise_p_score', '25013');
-        event.addPredefinedParameter('affise_p_level', '70');
-        event.addPredefinedParameter('affise_p_success', 'true');
-        event.addPredefinedParameter('affise_p_tutorial_id', '12');
+        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
+        
+        event.addPredefinedParameter(PredefinedString.DEEP_LINK, 'https://new-game.lt');
+        event.addPredefinedParameter(PredefinedLong.SCORE, 25013);
+        event.addPredefinedParameter(PredefinedLong.LEVEL, 70);
+        event.addPredefinedParameter(PredefinedString.SUCCESS, 'true');
+        event.addPredefinedParameter(PredefinedString.TUTORIAL_ID, '12');
 
         Affise.sendEvent(event)
       ">
@@ -42,13 +43,11 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new AddPaymentInfoEvent(
-            {card:4138,type:'phone'},
-             Date.now(),
-            'taxi'
-        );
+        var event = new AddPaymentInfoEvent({
+          userData: 'taxi',
+        });
 
-        event.addPredefinedParameter('affise_p_purchase_currency', 'USD');
+        event.addPredefinedParameter(PredefinedString.PURCHASE_CURRENCY, 'USD');
 
         Affise.sendEvent(event)
       ">
@@ -56,12 +55,11 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new AddToCartEvent(
-            {items:'vegetables'},
-             Date.now()
-        );
+        var event = new AddToCartEvent({
+          userData: 'vegetables',
+        });
 
-        event.addPredefinedParameter('affise_p_description', 'best before 2029');
+        event.addPredefinedParameter(PredefinedString.DESCRIPTION, 'best before 2029');
 
         Affise.sendEvent(event)
       ">
@@ -69,16 +67,14 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new AddToWishlistEvent(
-            {items:'sdk'},
-             Date.now(),
-            'next year'
-        );
+        var event = new AddToWishlistEvent({
+          userData: 'next year',
+        });
 
-        event.addPredefinedParameter('affise_p_country', 'Russia');
-        event.addPredefinedParameter('affise_p_city', 'Voronezh');
-        event.addPredefinedParameter('affise_p_lat', '42');
-        event.addPredefinedParameter('affise_p_long', '24');
+        event.addPredefinedParameter(PredefinedString.COUNTRY, 'Russia');
+        event.addPredefinedParameter(PredefinedString.CITY, 'Voronezh');
+        event.addPredefinedParameter(PredefinedFloat.LAT, 42);
+        event.addPredefinedParameter(PredefinedFloat.LONG, 24);
 
         Affise.sendEvent(event)
       ">
@@ -86,22 +82,20 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new ClickAdvEvent(
-            'facebook-meta',
-             Date.now(),
-            'header'
-        );
+        var event = new ClickAdvEvent({
+          userData: 'header: facebook-meta',
+        });
 
-        event.addPredefinedParameter('affise_p_param_01', 'PARAM_01');
-        event.addPredefinedParameter('affise_p_param_02', 'PARAM_02');
-        event.addPredefinedParameter('affise_p_param_03', 'PARAM_03');
-        event.addPredefinedParameter('affise_p_param_04', 'PARAM_04');
-        event.addPredefinedParameter('affise_p_param_05', 'PARAM_05');
-        event.addPredefinedParameter('affise_p_param_06', 'PARAM_06');
-        event.addPredefinedParameter('affise_p_param_07', 'PARAM_07');
-        event.addPredefinedParameter('affise_p_param_08', 'PARAM_08');
-        event.addPredefinedParameter('affise_p_param_09', 'PARAM_09');
-        event.addPredefinedParameter('affise_p_param_10', 'PARAM_10');
+        event.addPredefinedParameter(PredefinedString.PARAM_01, 'PARAM_01');
+        event.addPredefinedParameter(PredefinedString.PARAM_02, 'PARAM_02');
+        event.addPredefinedParameter(PredefinedString.PARAM_03, 'PARAM_03');
+        event.addPredefinedParameter(PredefinedString.PARAM_04, 'PARAM_04');
+        event.addPredefinedParameter(PredefinedString.PARAM_05, 'PARAM_05');
+        event.addPredefinedParameter(PredefinedString.PARAM_06, 'PARAM_06');
+        event.addPredefinedParameter(PredefinedString.PARAM_07, 'PARAM_07');
+        event.addPredefinedParameter(PredefinedString.PARAM_08, 'PARAM_08');
+        event.addPredefinedParameter(PredefinedString.PARAM_09, 'PARAM_09');
+        event.addPredefinedParameter(PredefinedString.PARAM_10, 'PARAM_10');
 
         Affise.sendEvent(event)
       ">
@@ -109,15 +103,13 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new CompleteRegistrationEvent(
-            {email:'dog@gmail.com'},
-             Date.now(),
-            'promo'
-        );
+        var event = new CompleteRegistrationEvent({
+          userData: 'promo',
+        });
 
-        event.addPredefinedParameter('affise_p_validated', '02.11.2021');
-        event.addPredefinedParameter('affise_p_review_text', 'approve');
-        event.addPredefinedParameter('affise_p_customer_segment', 'DOG');
+        event.addPredefinedParameter(PredefinedString.VALIDATED, '02.11.2021');
+        event.addPredefinedParameter(PredefinedString.REVIEW_TEXT, 'approve');
+        event.addPredefinedParameter(PredefinedString.CUSTOMER_SEGMENT, 'DOG');
 
         Affise.sendEvent(event)
       ">
@@ -125,13 +117,11 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new CompleteStreamEvent(
-            {streamer:'cat',max_viewers:'29'},
-             Date.now(),
-            '23 hours'
-        );
+        var event = new CompleteStreamEvent({
+          userData: '23 hours',
+        });
 
-        event.addPredefinedParameter('affise_p_revenue', '225522 $');
+        event.addPredefinedParameter(PredefinedFloat.REVENUE, 225522);
 
         Affise.sendEvent(event)
       ">
@@ -139,13 +129,11 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new CompleteTrialEvent(
-            {player:'ghost'},
-             Date.now(),
-            'time'
-        );
+        var event = new CompleteTrialEvent({
+          userData: 'time',
+        });
 
-        event.addPredefinedParameter('affise_p_registration_method', 'SMS');
+        event.addPredefinedParameter(PredefinedString.REGISTRATION_METHOD, 'SMS');
 
         Affise.sendEvent(event)
       ">
@@ -153,13 +141,11 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new CompleteTutorialEvent(
-            {name:'intro'},
-             Date.now(),
-            'intro'
-        );
+        var event = new CompleteTutorialEvent({
+          userData: 'intro',
+        });
 
-        event.addPredefinedParameter('affise_p_registration_method', 'SMS');
+        event.addPredefinedParameter(PredefinedString.REGISTRATION_METHOD, 'SMS');
 
         Affise.sendEvent(event)
       ">
@@ -167,16 +153,27 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new ContentItemsViewEvent(
-            [{item:'book'},{item:'guitar'}],
-            'personal'
-        );
+        var event = new ContactEvent({
+          userData: 'contact',
+        });
 
-        event.addPredefinedParameter('affise_p_content', 'Greatest Hits');
-        event.addPredefinedParameter('affise_p_content_id', '2561');
-        event.addPredefinedParameter('affise_p_content_list', 'songs, videos');
-        event.addPredefinedParameter('affise_p_content_type', 'MATURE');
-        event.addPredefinedParameter('affise_p_currency', 'USD');
+        event.addPredefinedParameter(PredefinedString.REGISTRATION_METHOD, 'SMS');
+
+        Affise.sendEvent(event)
+      ">
+    CONTACT
+</button>
+<br>
+<button class="button" onclick="
+        var event = new ContentItemsViewEvent({
+          userData: 'personal',
+        });
+ 
+        event.addPredefinedParameter(PredefinedObject.CONTENT, {data: 'Greatest Hits'});
+        event.addPredefinedParameter(PredefinedListString.CONTENT_IDS, ['22', '2561']);
+        event.addPredefinedParameter(PredefinedListObject.CONTENT_LIST, [{content:'songs'}, {content:'videos'}]);
+        event.addPredefinedParameter(PredefinedString.CONTENT_TYPE, 'MATURE');
+        event.addPredefinedParameter(PredefinedString.CURRENCY, 'USD');
 
         Affise.sendEvent(event)
       ">
@@ -184,13 +181,11 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new CustomId01Event(
-            'custom',
-            Date.now(),
-            'custom'
-        );
+        var event = new CustomId01Event({
+          userData: 'custom',
+        });
 
-        event.addPredefinedParameter('affise_p_param_01', 'param1');
+        event.addPredefinedParameter(PredefinedString.PARAM_01, 'param1');
 
         Affise.sendEvent(event)
       ">
@@ -198,13 +193,11 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new CustomId02Event(
-            'custom',
-             Date.now(),
-            'custom'
-        );
+        var event = new CustomId02Event({
+          userData: 'custom',
+        });
 
-        event.addPredefinedParameter('affise_p_param_01', 'param1');
+        event.addPredefinedParameter(PredefinedString.PARAM_01, 'param1');
 
         Affise.sendEvent(event)
       ">
@@ -212,13 +205,11 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new CustomId03Event(
-            'custom',
-             Date.now(),
-            'custom'
-        );
+        var event = new CustomId03Event({
+          userData: 'custom',
+        });
 
-        event.addPredefinedParameter('affise_p_param_01', 'param1');
+        event.addPredefinedParameter(PredefinedString.PARAM_01, 'param1');
 
         Affise.sendEvent(event)
       ">
@@ -226,13 +217,11 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new CustomId04Event(
-            'custom',
-             Date.now(),
-            'custom'
-        );
+        var event = new CustomId04Event({
+          userData: 'custom',
+        });
 
-        event.addPredefinedParameter('affise_p_param_01', 'param1');
+        event.addPredefinedParameter(PredefinedString.PARAM_01, 'param1');
 
         Affise.sendEvent(event)
       ">
@@ -240,13 +229,11 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new CustomId05Event(
-            'custom',
-             Date.now(),
-            'custom'
-        );
+        var event = new CustomId05Event({
+          userData: 'custom',
+        });
 
-        event.addPredefinedParameter('affise_p_param_01', 'param1');
+        event.addPredefinedParameter(PredefinedString.PARAM_01, 'param1');
 
         Affise.sendEvent(event)
       ">
@@ -254,13 +241,11 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new CustomId06Event(
-            'custom',
-             Date.now(),
-            'custom'
-        );
+        var event = new CustomId06Event({
+          userData: 'custom',
+        });
 
-        event.addPredefinedParameter('affise_p_param_01', 'param1');
+        event.addPredefinedParameter(PredefinedString.PARAM_01, 'param1');
 
         Affise.sendEvent(event)
       ">
@@ -268,13 +253,11 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new CustomId07Event(
-            'custom',
-             Date.now(),
-            'custom'
-        );
+        var event = new CustomId07Event({
+          userData: 'custom',
+        });
 
-        event.addPredefinedParameter('affise_p_param_01', 'param1');
+        event.addPredefinedParameter(PredefinedString.PARAM_01, 'param1');
 
         Affise.sendEvent(event)
       ">
@@ -282,13 +265,11 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new CustomId08Event(
-            'custom',
-             Date.now(),
-            'custom'
-        );
+        var event = new CustomId08Event({
+          userData: 'custom',
+        });
 
-        event.addPredefinedParameter('affise_p_param_01', 'param1');
+        event.addPredefinedParameter(PredefinedString.PARAM_01, 'param1');
 
         Affise.sendEvent(event)
       ">
@@ -296,13 +277,11 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new CustomId09Event(
-            'custom',
-             Date.now(),
-            'custom'
-        );
+        var event = new CustomId09Event({
+          userData: 'custom',
+        });
 
-        event.addPredefinedParameter('affise_p_param_01', 'param1');
+        event.addPredefinedParameter(PredefinedString.PARAM_01, 'param1');
 
         Affise.sendEvent(event)
       ">
@@ -310,13 +289,11 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new CustomId10Event(
-            'custom',
-             Date.now(),
-            'custom'
-        );
+        var event = new CustomId10Event({
+          userData: 'custom',
+        });
 
-        event.addPredefinedParameter('affise_p_param_01', 'param1');
+        event.addPredefinedParameter(PredefinedString.PARAM_01, 'param1');
 
         Affise.sendEvent(event)
       ">
@@ -324,14 +301,25 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new DeepLinkedEvent(
-            true,
-            'referrer: google'
-        );
+        var event = new CustomizeProductEvent({
+          userData: 'custom',
+        });
 
-        event.addPredefinedParameter('affise_p_adrev_ad_type', 'interstitial');
-        event.addPredefinedParameter('affise_p_region', 'ASIA');
-        event.addPredefinedParameter('affise_p_class', 'student');
+        event.addPredefinedParameter(PredefinedString.PARAM_01, 'param1');
+
+        Affise.sendEvent(event)
+      ">
+    CUSTOMID10
+</button>
+<br>
+<button class="button" onclick="
+        var event = new DeepLinkedEvent({
+          userData: 'referrer: google',
+        });
+
+        event.addPredefinedParameter(PredefinedString.ADREV_AD_TYPE, 'interstitial');
+        event.addPredefinedParameter(PredefinedString.REGION, 'ASIA');
+        event.addPredefinedParameter(PredefinedString.CLASS, 'student');
 
         Affise.sendEvent(event)
       ">
@@ -339,15 +327,55 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new InitiatePurchaseEvent(
-            {payment:'card'},
-             Date.now(),
-            'best price'
-        );
+        var event = new DonateEvent({
+          userData: 'donate',
+        });
+        
+        event.addPredefinedParameter(PredefinedString.ORDER_ID, '23123');
+        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
+        event.addPredefinedParameter(PredefinedLong.QUANTITY, 1);
 
-        event.addPredefinedParameter('affise_p_order_id', '23123');
-        event.addPredefinedParameter('affise_p_price', '2.19$');
-        event.addPredefinedParameter('affise_p_quantity', '1');
+        Affise.sendEvent(event)
+      ">
+    DONATE
+</button>
+<br>
+<button class="button" onclick="
+        var event = new FindLocationEvent({
+          userData: 'location',
+        });
+        
+        event.addPredefinedParameter(PredefinedString.ORDER_ID, '23123');
+        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
+        event.addPredefinedParameter(PredefinedLong.QUANTITY, 1);
+
+        Affise.sendEvent(event)
+      ">
+    FINDLOCATION
+</button>
+<br>
+<button class="button" onclick="
+        var event = new InitiateCheckoutEvent({
+          userData: 'checkout',
+        });
+        
+        event.addPredefinedParameter(PredefinedString.ORDER_ID, '23123');
+        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
+        event.addPredefinedParameter(PredefinedLong.QUANTITY, 1);
+
+        Affise.sendEvent(event)
+      ">
+    INITIATECHECKOUT
+</button>
+<br>
+<button class="button" onclick="
+        var event = new InitiatePurchaseEvent({
+          userData: 'cusbest pricetom',
+        });
+        
+        event.addPredefinedParameter(PredefinedString.ORDER_ID, '23123');
+        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
+        event.addPredefinedParameter(PredefinedLong.QUANTITY, 1);
 
         Affise.sendEvent(event)
       ">
@@ -355,14 +383,12 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new InitiateStreamEvent(
-            {streamer:'car',date:'02.03.2021'},
-             Date.now(),
-            'shooter'
-        );
+        var event = new InitiateStreamEvent({
+          userData: 'shooter',
+        });
 
-        event.addPredefinedParameter('affise_p_coupon_code', '25XLKM');
-        event.addPredefinedParameter('affise_p_virtual_currency_name', 'BTC');
+        event.addPredefinedParameter(PredefinedString.COUPON_CODE, '25XLKM');
+        event.addPredefinedParameter(PredefinedString.VIRTUAL_CURRENCY_NAME, 'BTC');
 
         Affise.sendEvent(event)
       ">
@@ -370,13 +396,11 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new InviteEvent(
-            {invitation:'mail',date:'02.03.2021'},
-             Date.now(),
-            'dancing'
-        );
+        var event = new InviteEvent({
+          userData: 'dancing',
+        });
 
-        event.addPredefinedParameter('affise_p_param_01', 'param1');
+        event.addPredefinedParameter(PredefinedString.PARAM_01, 'param1');
 
         Affise.sendEvent(event)
       ">
@@ -384,14 +408,11 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new LastAttributedTouchEvent(
-            'CLICK',
-             Date.now(),
-             {header:2},
-            'tablet'
-        );
+        var event = new LastAttributedTouchEvent({
+          userData: 'tablet',
+        });
 
-        event.addPredefinedParameter('affise_p_subscription_id', 'lasAK22');
+        event.addPredefinedParameter(PredefinedString.SUBSCRIPTION_ID, 'lasAK22');
 
         Affise.sendEvent(event)
       ">
@@ -399,15 +420,27 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new ListViewEvent(
-            {clothes:2},
-            'items'
-        );
+        var event = new LeadEvent({
+          userData: 'lead',
+        });
 
-        event.addPredefinedParameter('affise_p_payment_info_available', 'card');
-        event.addPredefinedParameter('affise_p_search_string', 'best car wash');
-        event.addPredefinedParameter('affise_p_suggested_destinations', 'crete, spain');
-        event.addPredefinedParameter('affise_p_suggested_hotels', 'beach resort, marina spa');
+        event.addPredefinedParameter(PredefinedString.PAYMENT_INFO_AVAILABLE, 'card');
+        event.addPredefinedParameter(PredefinedString.SEARCH_STRING, 'best car wash');
+
+        Affise.sendEvent(event)
+      ">
+    LEAD
+</button>
+<br>
+<button class="button" onclick="
+        var event = new ListViewEvent({
+          userData: 'items',
+        });
+
+        event.addPredefinedParameter(PredefinedString.PAYMENT_INFO_AVAILABLE, 'card');
+        event.addPredefinedParameter(PredefinedString.SEARCH_STRING, 'best car wash');
+        event.addPredefinedParameter(PredefinedString.SUGGESTED_DESTINATIONS, 'crete, spain');
+        event.addPredefinedParameter(PredefinedString.SUGGESTED_HOTELS, 'beach resort, marina spa');
 
         Affise.sendEvent(event)
       ">
@@ -415,13 +448,11 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new LoginEvent(
-            {email:'cat@gmail.com'},
-             Date.now(),
-            'web'
-        );
+        var event = new LoginEvent({
+          userData: 'web',
+        });
 
-        event.addPredefinedParameter('affise_p_param_01', 'param1');
+        event.addPredefinedParameter(PredefinedString.PARAM_01, 'param1');
 
         Affise.sendEvent(event)
       ">
@@ -429,12 +460,11 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new OpenedFromPushNotificationEvent(
-            'silent',
-            'active'
-        );
+        var event = new OpenedFromPushNotificationEvent({
+          userData: 'active',
+        });
 
-        event.addPredefinedParameter('affise_p_param_01', 'param1');
+        event.addPredefinedParameter(PredefinedString.PARAM_01, 'param1');
 
         Affise.sendEvent(event)
       ">
@@ -442,15 +472,13 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new PurchaseEvent(
-            {phone:1,case:1},
-             Date.now(),
-            'apple'
-        );
+        var event = new PurchaseEvent({
+          userData: 'apple',
+        });
 
-        event.addPredefinedParameter('affise_p_order_id', '23123');
-        event.addPredefinedParameter('affise_p_price', '2.19$');
-        event.addPredefinedParameter('affise_p_quantity', '1');
+        event.addPredefinedParameter(PredefinedString.ORDER_ID, '23123');
+        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
+        event.addPredefinedParameter(PredefinedLong.QUANTITY, 1);
 
         Affise.sendEvent(event)
       ">
@@ -458,16 +486,14 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new RateEvent(
-            {rating:5},
-             Date.now(),
-            'no bugs'
-        );
+        var event = new RateEvent({
+          userData: 'no bugs',
+        });
 
-        event.addPredefinedParameter('affise_p_preferred_neighborhoods', '2');
-        event.addPredefinedParameter('affise_p_preferred_num_stops', '4');
-        event.addPredefinedParameter('affise_p_preferred_price_range', '10-22');
-        event.addPredefinedParameter('affise_p_preferred_star_ratings', '4.6');
+        event.addPredefinedParameter(PredefinedString.PREFERRED_NEIGHBORHOODS, '2');
+        event.addPredefinedParameter(PredefinedLong.PREFERRED_NUM_STOPS, 4);
+        event.addPredefinedParameter(PredefinedFloat.PREFERRED_PRICE_RANGE, 10.22);
+        event.addPredefinedParameter(PredefinedLong.PREFERRED_STAR_RATINGS, 4);
 
         Affise.sendEvent(event)
       ">
@@ -475,12 +501,11 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new ReEngageEvent(
-            'data',
-            'web'
-        );
+        var event = new ReEngageEvent({
+          userData: 'data',
+        });
 
-        event.addPredefinedParameter('affise_p_customer_user_id', '4');
+        event.addPredefinedParameter(PredefinedString.CUSTOMER_USER_ID, '4');
 
         Affise.sendEvent(event)
       ">
@@ -488,15 +513,13 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new ReserveEvent(
-            [{ticket:'movie'},{food:'coke'}],
-             Date.now(),
-            'discount'
-        );
+        var event = new ReserveEvent({
+          userData: 'discount',
+        });
 
-        event.addPredefinedParameter('affise_p_order_id', '23123');
-        event.addPredefinedParameter('affise_p_price', '2.19$');
-        event.addPredefinedParameter('affise_p_quantity', '1');
+        event.addPredefinedParameter(PredefinedString.ORDER_ID, '23123');
+        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
+        event.addPredefinedParameter(PredefinedLong.QUANTITY, 1);
 
         Affise.sendEvent(event)
       ">
@@ -504,15 +527,13 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new SalesEvent(
-            {phone:1,case:1},
-             Date.now(),
-            'apple'
-        );
+        var event = new SalesEvent({
+          userData: 'apple',
+        });
 
-        event.addPredefinedParameter('affise_p_order_id', '23123');
-        event.addPredefinedParameter('affise_p_price', '2.19$');
-        event.addPredefinedParameter('affise_p_quantity', '1');
+        event.addPredefinedParameter(PredefinedString.ORDER_ID, '23123');
+        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
+        event.addPredefinedParameter(PredefinedLong.QUANTITY, 1);
 
         Affise.sendEvent(event)
       ">
@@ -520,13 +541,25 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new SearchEvent(
-            ['eco milk','grass'],
-             Date.now(),
-            'browser'
-        );
+        var event = new ScheduleEvent({
+          userData: 'schedule',
+        });
 
-        event.addPredefinedParameter('affise_p_param_01', 'param1');
+        event.addPredefinedParameter(PredefinedString.ORDER_ID, '23123');
+        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
+        event.addPredefinedParameter(PredefinedLong.QUANTITY, 1);
+
+        Affise.sendEvent(event)
+      ">
+    SCHEDULE
+</button>
+<br>
+<button class="button" onclick="
+        var event = new SearchEvent({
+          userData: 'browser',
+        });
+
+        event.addPredefinedParameter(PredefinedString.PARAM_01, 'param1');
 
         Affise.sendEvent(event)
       ">
@@ -534,13 +567,11 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new ShareEvent(
-            {post_id:'252242',post_img:'img.webp'},
-             Date.now(),
-            'telegram'
-        );
+        var event = new ShareEvent({
+          userData: 'telegram',
+        });
 
-        event.addPredefinedParameter('affise_p_receipt_id', '22');
+        event.addPredefinedParameter(PredefinedString.RECEIPT_ID, '22');
 
         Affise.sendEvent(event)
       ">
@@ -548,13 +579,11 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new SpendCreditsEvent(
-            2142,
-            Date.now(),
-            'boosters'
-        );
+        var event = new SpendCreditsEvent({
+          userData: 'boosters',
+        });
 
-        event.addPredefinedParameter('affise_p_param_01', 'param1');
+        event.addPredefinedParameter(PredefinedString.PARAM_01, 'param1');
 
         Affise.sendEvent(event)
       ">
@@ -562,13 +591,11 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new StartRegistrationEvent(
-            {time:'19:22:11'},
-            Date.now(),
-            'referrer'
-        );
+        var event = new StartRegistrationEvent({
+          userData: 'referrer',
+        });
 
-        event.addPredefinedParameter('affise_p_param_01', 'param1');
+        event.addPredefinedParameter(PredefinedString.PARAM_01, 'param1');
 
         Affise.sendEvent(event)
       ">
@@ -576,13 +603,11 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new StartTrialEvent(
-            {time:'19:22:11'},
-            Date.now(),
-            '30-days'
-        );
+        var event = new StartTrialEvent({
+          userData: '30-days',
+        });
 
-        event.addPredefinedParameter('affise_p_param_01', 'param1');
+        event.addPredefinedParameter(PredefinedString.PARAM_01, 'param1');
 
         Affise.sendEvent(event)
       ">
@@ -590,13 +615,11 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new StartTutorialEvent(
-            {time:'19:22:11',reward:'22'},
-            Date.now(),
-            'video-feature'
-        );
+        var event = new StartTutorialEvent({
+          userData: 'video-feature',
+        });
 
-        event.addPredefinedParameter('affise_p_param_01', 'param1');
+        event.addPredefinedParameter(PredefinedString.PARAM_01, 'param1');
 
         Affise.sendEvent(event)
       ">
@@ -604,13 +627,23 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new SubscribeEvent(
-            {streamer:'cat'},
-            Date.now(),
-            'wire'
-        );
+        var event = new SubmitApplicationEvent({
+          userData: 'submit',
+        });
 
-        event.addPredefinedParameter('affise_p_param_01', 'param1');
+        event.addPredefinedParameter(PredefinedString.PARAM_01, 'param1');
+
+        Affise.sendEvent(event)
+      ">
+    SUBMITAPPLICATION
+</button>
+<br>
+<button class="button" onclick="
+        var event = new SubscribeEvent({
+          userData: 'wire',
+        });
+
+        event.addPredefinedParameter(PredefinedString.PARAM_01, 'param1');
 
         Affise.sendEvent(event)
       ">
@@ -618,24 +651,23 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new TravelBookingEvent(
-            ['may','august'],
-            'booking'
-        );
+        var event = new TravelBookingEvent({
+          userData: 'booking',
+        });
 
-        event.addPredefinedParameter('affise_p_num_adults', '1');
-        event.addPredefinedParameter('affise_p_num_children', '2');
-        event.addPredefinedParameter('affise_p_num_infants', '1');
-        event.addPredefinedParameter('affise_p_date_a', '30.12.2020');
-        event.addPredefinedParameter('affise_p_date_b', '01.01.2021');
-        event.addPredefinedParameter('affise_p_departing_arrival_date', '01.01.2021');
-        event.addPredefinedParameter('affise_p_departing_departure_date', '30.12.2020');
-        event.addPredefinedParameter('affise_p_destination_a', 'usa');
-        event.addPredefinedParameter('affise_p_destination_b', 'mexico');
-        event.addPredefinedParameter('affise_p_destination_list', 'usa, mexico');
-        event.addPredefinedParameter('affise_p_hotel_score', '5');
-        event.addPredefinedParameter('affise_p_travel_start', '01.12.2020');
-        event.addPredefinedParameter('affise_p_travel_end', '01.12.2021');
+        event.addPredefinedParameter(PredefinedLong.NUM_ADULTS, 1);
+        event.addPredefinedParameter(PredefinedLong.NUM_CHILDREN, 2);
+        event.addPredefinedParameter(PredefinedLong.NUM_INFANTS, 1);
+        event.addPredefinedParameter(PredefinedLong.DATE_A, 1609268400000);
+        event.addPredefinedParameter(PredefinedLong.DATE_B, 1609441200000);
+        event.addPredefinedParameter(PredefinedLong.DEPARTING_ARRIVAL_DATE, 1609441200000);
+        event.addPredefinedParameter(PredefinedLong.DEPARTING_DEPARTURE_DATE, 1609268400000);
+        event.addPredefinedParameter(PredefinedString.DESTINATION_A, 'usa');
+        event.addPredefinedParameter(PredefinedString.DESTINATION_B, 'mexico');
+        event.addPredefinedParameter(PredefinedString.DESTINATION_LIST, 'usa, mexico');
+        event.addPredefinedParameter(PredefinedLong.HOTEL_SCORE, 5);
+        event.addPredefinedParameter(PredefinedLong.TRAVEL_START, 1606762800000);
+        event.addPredefinedParameter(PredefinedLong.TRAVEL_END, 1638298800000);
 
         Affise.sendEvent(event)
       ">
@@ -643,14 +675,12 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new UnlockAchievementEvent(
-            {achievement:'new level'},
-            Date.now(),
-            'best damage'
-        );
+        var event = new UnlockAchievementEvent({
+          userData: 'best damage',
+        });
 
-        event.addPredefinedParameter('affise_p_user_score', '12552');
-        event.addPredefinedParameter('affise_p_achievement_id', '1334-1225-ASDZ');
+        event.addPredefinedParameter(PredefinedLong.USER_SCORE, '12552');
+        event.addPredefinedParameter(PredefinedString.ACHIEVEMENT_ID, '1334-1225-ASDZ');
 
         Affise.sendEvent(event)
       ">
@@ -658,13 +688,11 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new UnsubscribeEvent(
-            {reason:'span'},
-            Date.now(),
-            '02.01.2021'
-        );
+        var event = new UnsubscribeEvent({
+          userData: '02.01.2021',
+        });
 
-        event.addPredefinedParameter('affise_p_param_01', 'param1');
+        event.addPredefinedParameter(PredefinedString.PARAM_01, 'param1');
 
         Affise.sendEvent(event)
       ">
@@ -672,15 +700,14 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new UpdateEvent(
-            ['com.facebook'],
-            'firmware'
-        );
+        var event = new UpdateEvent({
+          userData: 'firmware',
+        });
 
-        event.addPredefinedParameter('affise_p_event_start', '01.02.2021');
-        event.addPredefinedParameter('affise_p_event_end', '01.01.2022');
-        event.addPredefinedParameter('affise_p_new_version', '8');
-        event.addPredefinedParameter('affise_p_old_version', '1.8');
+        event.addPredefinedParameter(PredefinedLong.EVENT_START, 1612119600000);
+        event.addPredefinedParameter(PredefinedLong.EVENT_END, 1640977200000);
+        event.addPredefinedParameter(PredefinedString.NEW_VERSION, '8');
+        event.addPredefinedParameter(PredefinedString.OLD_VERSION, '1.8');
 
         Affise.sendEvent(event)
       ">
@@ -688,14 +715,12 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new ViewAdvEvent(
-            {source:'amazon'},
-            Date.now(),
-            'skip'
-        );
+        var event = new ViewAdvEvent({
+          userData: 'skip',
+        });
 
-        event.addPredefinedParameter('affise_p_returning_arrival_date', '01.12.2021');
-        event.addPredefinedParameter('affise_p_returning_departure_date', '01.12.2020');
+        event.addPredefinedParameter(PredefinedLong.RETURNING_ARRIVAL_DATE, 1638298800000);
+        event.addPredefinedParameter(PredefinedLong.RETURNING_DEPARTURE_DATE, 1669834800000);
 
         Affise.sendEvent(event)
       ">
@@ -703,12 +728,11 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new ViewCartEvent(
-            {cart_value:'25.22$',cart_items:'2'},
-            'main'
-        );
+        var event = new ViewCartEvent({
+          userData: 'main',
+        });
 
-        event.addPredefinedParameter('affise_p_param_01', 'param1');
+        event.addPredefinedParameter(PredefinedString.PARAM_01, 'param1');
 
         Affise.sendEvent(event)
       ">
@@ -716,13 +740,24 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new ViewItemEvent(
-            {section_name:'header'},
-            'main'
-        );
+        var event = new ViewContentEvent({
+          userData: 'ViewContent',
+        });
 
-        event.addPredefinedParameter('affise_p_max_rating_value', '5');
-        event.addPredefinedParameter('affise_p_rating_value', '4.9');
+        event.addPredefinedParameter(PredefinedString.PARAM_01, 'param1');
+
+        Affise.sendEvent(event)
+      ">
+    VIEWCONTENT
+</button>
+<br>
+<button class="button" onclick="
+        var event = new ViewItemEvent({
+          userData: 'main',
+        });
+
+        event.addPredefinedParameter(PredefinedLong.MAX_RATING_VALUE, 5);
+        event.addPredefinedParameter(PredefinedLong.RATING_VALUE, 4);
 
         Affise.sendEvent(event)
       ">
@@ -730,18 +765,12 @@
 </button>
 <br>
 <button class="button" onclick="
-        var event = new ViewItemsEvent(
-            [
-                {section_name:'header'},
-                {section_name:'section-1'},
-                {section_name:'section-2'},
-                {section_name:'footer'}
-            ],
-            'main'
-        );
+        var event = new ViewItemsEvent({
+          userData: 'main',
+        });
 
-        event.addPredefinedParameter('affise_p_max_rating_value', '5');
-        event.addPredefinedParameter('affise_p_rating_value', '4.9');
+        event.addPredefinedParameter(PredefinedLong.MAX_RATING_VALUE, 5);
+        event.addPredefinedParameter(PredefinedLong.RATING_VALUE, 4);
 
         Affise.sendEvent(event)
       ">
@@ -752,11 +781,15 @@
 
 <button class="button" onclick="
         var event = new InitialSubscriptionEvent(
-            {affise_event_revenue:2.99,affise_event_currency:'USD',affise_event_product_id:278459628375},
+            {
+              affise_event_revenue:2.99,
+              affise_event_currency:'USD',
+              affise_event_product_id:278459628375
+            },
             'Subscription Plus'
         );
 
-        event.addPredefinedParameter('affise_p_revenue', '225522 $');
+        event.addPredefinedParameter(PredefinedFloat.REVENUE, 225522);
 
         Affise.sendEvent(event)
       ">
@@ -765,11 +798,15 @@
 <br>
 <button class="button" onclick="
         var event = new InitialTrialEvent(
-            {affise_event_revenue:2.99,affise_event_currency:'USD',affise_event_product_id:278459628375},
+            {
+              affise_event_revenue:2.99,
+              affise_event_currency:'USD',
+              affise_event_product_id:278459628375
+            },
             'Subscription Plus'
         );
 
-        event.addPredefinedParameter('affise_p_revenue', '225522 $');
+        event.addPredefinedParameter(PredefinedFloat.REVENUE, 225522);
 
         Affise.sendEvent(event)
       ">
@@ -778,11 +815,15 @@
 <br>
 <button class="button" onclick="
         var event = new InitialOfferEvent(
-            {affise_event_revenue:2.99,affise_event_currency:'USD',affise_event_product_id:278459628375},
+            {
+              affise_event_revenue:2.99,
+              affise_event_currency:'USD',
+              affise_event_product_id:278459628375
+            },
             'Subscription Plus'
         );
 
-        event.addPredefinedParameter('affise_p_revenue', '225522 $');
+        event.addPredefinedParameter(PredefinedFloat.REVENUE, 225522);
 
         Affise.sendEvent(event)
       ">
@@ -791,11 +832,15 @@
 <br>
 <button class="button" onclick="
         var event = new ConvertedTrialEvent(
-            {affise_event_revenue:2.99,affise_event_currency:'USD',affise_event_product_id:278459628375},
+            {
+              affise_event_revenue:2.99,
+              affise_event_currency:'USD',
+              affise_event_product_id:278459628375
+            },
             'Subscription Plus'
         );
 
-        event.addPredefinedParameter('affise_p_revenue', '225522 $');
+        event.addPredefinedParameter(PredefinedFloat.REVENUE, 225522);
 
         Affise.sendEvent(event)
       ">
@@ -804,11 +849,15 @@
 <br>
 <button class="button" onclick="
         var event = new ConvertedOfferEvent(
-            {affise_event_revenue:2.99,affise_event_currency:'USD',affise_event_product_id:278459628375},
+            {
+              affise_event_revenue:2.99,
+              affise_event_currency:'USD',
+              affise_event_product_id:278459628375
+            },
             'Subscription Plus'
         );
 
-        event.addPredefinedParameter('affise_p_revenue', '225522 $');
+        event.addPredefinedParameter(PredefinedFloat.REVENUE, 225522);
 
         Affise.sendEvent(event)
       ">
@@ -817,11 +866,15 @@
 <br>
 <button class="button" onclick="
         var event = new TrialInRetryEvent(
-            {affise_event_revenue:2.99,affise_event_currency:'USD',affise_event_product_id:278459628375},
+            {
+              affise_event_revenue:2.99,
+              affise_event_currency:'USD',
+              affise_event_product_id:278459628375
+            },
             'Subscription Plus'
         );
 
-        event.addPredefinedParameter('affise_p_revenue', '225522 $');
+        event.addPredefinedParameter(PredefinedFloat.REVENUE, 225522);
 
         Affise.sendEvent(event)
       ">
@@ -830,11 +883,15 @@
 <br>
 <button class="button" onclick="
         var event = new OfferInRetryEvent(
-            {affise_event_revenue:2.99,affise_event_currency:'USD',affise_event_product_id:278459628375},
+            {
+              affise_event_revenue:2.99,
+              affise_event_currency:'USD',
+              affise_event_product_id:278459628375
+            },
             'Subscription Plus'
         );
 
-        event.addPredefinedParameter('affise_p_revenue', '225522 $');
+        event.addPredefinedParameter(PredefinedFloat.REVENUE, 225522);
 
         Affise.sendEvent(event)
       ">
@@ -843,11 +900,15 @@
 <br>
 <button class="button" onclick="
         var event = new SubscriptionInRetryEvent(
-            {affise_event_revenue:2.99,affise_event_currency:'USD',affise_event_product_id:278459628375},
+            {
+              affise_event_revenue:2.99,
+              affise_event_currency:'USD',
+              affise_event_product_id:278459628375
+            },
             'Subscription Plus'
         );
 
-        event.addPredefinedParameter('affise_p_revenue', '225522 $');
+        event.addPredefinedParameter(PredefinedFloat.REVENUE, 225522);
 
         Affise.sendEvent(event)
       ">
@@ -856,11 +917,15 @@
 <br>
 <button class="button" onclick="
         var event = new RenewedSubscriptionEvent(
-            {affise_event_revenue:2.99,affise_event_currency:'USD',affise_event_product_id:278459628375},
+            {
+              affise_event_revenue:2.99,
+              affise_event_currency:'USD',
+              affise_event_product_id:278459628375
+            },
             'Subscription Plus'
         );
 
-        event.addPredefinedParameter('affise_p_revenue', '225522 $');
+        event.addPredefinedParameter(PredefinedFloat.REVENUE, 225522);
 
         Affise.sendEvent(event)
       ">
@@ -869,11 +934,15 @@
 <br>
 <button class="button" onclick="
         var event = new FailedSubscriptionFromRetryEvent(
-            {affise_event_revenue:2.99,affise_event_currency:'USD',affise_event_product_id:278459628375},
+            {
+              affise_event_revenue:2.99,
+              affise_event_currency:'USD',
+              affise_event_product_id:278459628375
+            },
             'Subscription Plus'
         );
 
-        event.addPredefinedParameter('affise_p_revenue', '225522 $');
+        event.addPredefinedParameter(PredefinedFloat.REVENUE, 225522);
 
         Affise.sendEvent(event)
       ">
@@ -882,11 +951,15 @@
 <br>
 <button class="button" onclick="
         var event = new FailedOfferFromRetryEvent(
-            {affise_event_revenue:2.99,affise_event_currency:'USD',affise_event_product_id:278459628375},
+            {
+              affise_event_revenue:2.99,
+              affise_event_currency:'USD',
+              affise_event_product_id:278459628375
+            },
             'Subscription Plus'
         );
 
-        event.addPredefinedParameter('affise_p_revenue', '225522 $');
+        event.addPredefinedParameter(PredefinedFloat.REVENUE, 225522);
 
         Affise.sendEvent(event)
       ">
@@ -895,11 +968,15 @@
 <br>
 <button class="button" onclick="
         var event = new FailedTrialFromRetryEvent(
-            {affise_event_revenue:2.99,affise_event_currency:'USD',affise_event_product_id:278459628375},
+            {
+              affise_event_revenue:2.99,
+              affise_event_currency:'USD',
+              affise_event_product_id:278459628375
+            },
             'Subscription Plus'
         );
 
-        event.addPredefinedParameter('affise_p_revenue', '225522 $');
+        event.addPredefinedParameter(PredefinedFloat.REVENUE, 225522);
 
         Affise.sendEvent(event)
       ">
@@ -908,11 +985,15 @@
 <br>
 <button class="button" onclick="
         var event = new FailedSubscriptionEvent(
-            {affise_event_revenue:2.99,affise_event_currency:'USD',affise_event_product_id:278459628375},
+            {
+              affise_event_revenue:2.99,
+              affise_event_currency:'USD',
+              affise_event_product_id:278459628375
+            },
             'Subscription Plus'
         );
 
-        event.addPredefinedParameter('affise_p_revenue', '225522 $');
+        event.addPredefinedParameter(PredefinedFloat.REVENUE, 225522);
 
         Affise.sendEvent(event)
       ">
@@ -921,11 +1002,15 @@
 <br>
 <button class="button" onclick="
         var event = new FailedOfferiseEvent(
-            {affise_event_revenue:2.99,affise_event_currency:'USD',affise_event_product_id:278459628375},
+            {
+              affise_event_revenue:2.99,
+              affise_event_currency:'USD',
+              affise_event_product_id:278459628375
+            },
             'Subscription Plus'
         );
 
-        event.addPredefinedParameter('affise_p_revenue', '225522 $');
+        event.addPredefinedParameter(PredefinedFloat.REVENUE, 225522);
 
         Affise.sendEvent(event)
       ">
@@ -934,11 +1019,15 @@
 <br>
 <button class="button" onclick="
         var event = new FailedTrialEvent(
-            {affise_event_revenue:2.99,affise_event_currency:'USD',affise_event_product_id:278459628375},
+            {
+              affise_event_revenue:2.99,
+              affise_event_currency:'USD',
+              affise_event_product_id:278459628375
+            },
             'Subscription Plus'
         );
 
-        event.addPredefinedParameter('affise_p_revenue', '225522 $');
+        event.addPredefinedParameter(PredefinedFloat.REVENUE, 225522);
 
         Affise.sendEvent(event)
       ">
@@ -947,11 +1036,15 @@
 <br>
 <button class="button" onclick="
         var event = new ReactivatedSubscriptionEvent(
-            {affise_event_revenue:2.99,affise_event_currency:'USD',affise_event_product_id:278459628375},
+            {
+              affise_event_revenue:2.99,
+              affise_event_currency:'USD',
+              affise_event_product_id:278459628375
+            },
             'Subscription Plus'
         );
 
-        event.addPredefinedParameter('affise_p_revenue', '225522 $');
+        event.addPredefinedParameter(PredefinedFloat.REVENUE, 225522);
 
         Affise.sendEvent(event)
       ">
@@ -960,11 +1053,15 @@
 <br>
 <button class="button" onclick="
         var event = new RenewedSubscriptionFromRetryEvent(
-            {affise_event_revenue:2.99,affise_event_currency:'USD',affise_event_product_id:278459628375},
+            {
+              affise_event_revenue:2.99,
+              affise_event_currency:'USD',
+              affise_event_product_id:278459628375
+            },
             'Subscription Plus'
         );
 
-        event.addPredefinedParameter('affise_p_revenue', '225522 $');
+        event.addPredefinedParameter(PredefinedFloat.REVENUE, 225522);
 
         Affise.sendEvent(event)
       ">
@@ -973,11 +1070,15 @@
 <br>
 <button class="button" onclick="
         var event = new ConvertedOfferFromRetryEvent(
-            {affise_event_revenue:2.99,affise_event_currency:'USD',affise_event_product_id:278459628375},
+            {
+              affise_event_revenue:2.99,
+              affise_event_currency:'USD',
+              affise_event_product_id:278459628375
+            },
             'Subscription Plus'
         );
 
-        event.addPredefinedParameter('affise_p_revenue', '225522 $');
+        event.addPredefinedParameter(PredefinedFloat.REVENUE, 225522);
 
         Affise.sendEvent(event)
       ">
@@ -986,11 +1087,32 @@
 <br>
 <button class="button" onclick="
         var event = new ConvertedTrialFromRetryEvent(
-            {affise_event_revenue:2.99,affise_event_currency:'USD',affise_event_product_id:278459628375},
+            {
+              affise_event_revenue:2.99,
+              affise_event_currency:'USD',
+              affise_event_product_id:278459628375
+            },
             'Subscription Plus'
         );
 
-        event.addPredefinedParameter('affise_p_revenue', '225522 $');
+        event.addPredefinedParameter(PredefinedFloat.REVENUE, 225522);
+
+        Affise.sendEvent(event)
+      ">
+    affise_sub_converted_trial_from_retry
+</button>
+<br>
+<button class="button" onclick="
+        var event = new UnsubscriptionEvent(
+            {
+              affise_event_revenue:2.99,
+              affise_event_currency:'USD',
+              affise_event_product_id:278459628375
+            },
+            'Subscription Plus'
+        );
+
+        event.addPredefinedParameter(PredefinedFloat.REVENUE, 225522);
 
         Affise.sendEvent(event)
       ">

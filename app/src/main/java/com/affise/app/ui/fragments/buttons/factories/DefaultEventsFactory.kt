@@ -1,6 +1,11 @@
 package com.affise.app.ui.fragments.buttons.factories
 
 import com.affise.attribution.events.Event
+import com.affise.attribution.events.parameters.PredefinedFloat
+import com.affise.attribution.events.parameters.PredefinedListObject
+import com.affise.attribution.events.parameters.PredefinedLong
+import com.affise.attribution.events.parameters.PredefinedObject
+import com.affise.attribution.events.parameters.PredefinedString
 import com.affise.attribution.events.predefined.AchieveLevelEvent
 import com.affise.attribution.events.predefined.AddPaymentInfoEvent
 import com.affise.attribution.events.predefined.AddToCartEvent
@@ -10,6 +15,7 @@ import com.affise.attribution.events.predefined.CompleteRegistrationEvent
 import com.affise.attribution.events.predefined.CompleteStreamEvent
 import com.affise.attribution.events.predefined.CompleteTrialEvent
 import com.affise.attribution.events.predefined.CompleteTutorialEvent
+import com.affise.attribution.events.predefined.ContactEvent
 import com.affise.attribution.events.predefined.ContentItemsViewEvent
 import com.affise.attribution.events.predefined.CustomId01Event
 import com.affise.attribution.events.predefined.CustomId02Event
@@ -21,39 +27,66 @@ import com.affise.attribution.events.predefined.CustomId07Event
 import com.affise.attribution.events.predefined.CustomId08Event
 import com.affise.attribution.events.predefined.CustomId09Event
 import com.affise.attribution.events.predefined.CustomId10Event
+import com.affise.attribution.events.predefined.CustomizeProductEvent
 import com.affise.attribution.events.predefined.DeepLinkedEvent
+import com.affise.attribution.events.predefined.DonateEvent
+import com.affise.attribution.events.predefined.FindLocationEvent
+import com.affise.attribution.events.predefined.InitiateCheckoutEvent
 import com.affise.attribution.events.predefined.InitiatePurchaseEvent
 import com.affise.attribution.events.predefined.InitiateStreamEvent
 import com.affise.attribution.events.predefined.InviteEvent
 import com.affise.attribution.events.predefined.LastAttributedTouchEvent
+import com.affise.attribution.events.predefined.LeadEvent
 import com.affise.attribution.events.predefined.ListViewEvent
 import com.affise.attribution.events.predefined.LoginEvent
 import com.affise.attribution.events.predefined.OpenedFromPushNotificationEvent
-import com.affise.attribution.events.predefined.PredefinedParameters
 import com.affise.attribution.events.predefined.PurchaseEvent
 import com.affise.attribution.events.predefined.RateEvent
 import com.affise.attribution.events.predefined.ReEngageEvent
 import com.affise.attribution.events.predefined.ReserveEvent
 import com.affise.attribution.events.predefined.SalesEvent
+import com.affise.attribution.events.predefined.ScheduleEvent
 import com.affise.attribution.events.predefined.SearchEvent
 import com.affise.attribution.events.predefined.ShareEvent
 import com.affise.attribution.events.predefined.SpendCreditsEvent
 import com.affise.attribution.events.predefined.StartRegistrationEvent
 import com.affise.attribution.events.predefined.StartTrialEvent
 import com.affise.attribution.events.predefined.StartTutorialEvent
+import com.affise.attribution.events.predefined.SubmitApplicationEvent
 import com.affise.attribution.events.predefined.SubscribeEvent
-import com.affise.attribution.events.predefined.TouchType
 import com.affise.attribution.events.predefined.TravelBookingEvent
 import com.affise.attribution.events.predefined.UnlockAchievementEvent
 import com.affise.attribution.events.predefined.UnsubscribeEvent
 import com.affise.attribution.events.predefined.UpdateEvent
 import com.affise.attribution.events.predefined.ViewAdvEvent
 import com.affise.attribution.events.predefined.ViewCartEvent
+import com.affise.attribution.events.predefined.ViewContentEvent
 import com.affise.attribution.events.predefined.ViewItemEvent
 import com.affise.attribution.events.predefined.ViewItemsEvent
-import com.affise.attribution.events.subscription.*
-import org.json.JSONArray
+import com.affise.attribution.events.subscription.ConvertedOfferEvent
+import com.affise.attribution.events.subscription.ConvertedOfferFromRetryEvent
+import com.affise.attribution.events.subscription.ConvertedTrialEvent
+import com.affise.attribution.events.subscription.ConvertedTrialFromRetryEvent
+import com.affise.attribution.events.subscription.FailedOfferFromRetryEvent
+import com.affise.attribution.events.subscription.FailedOfferiseEvent
+import com.affise.attribution.events.subscription.FailedSubscriptionEvent
+import com.affise.attribution.events.subscription.FailedSubscriptionFromRetryEvent
+import com.affise.attribution.events.subscription.FailedTrialEvent
+import com.affise.attribution.events.subscription.FailedTrialFromRetryEvent
+import com.affise.attribution.events.subscription.InitialOfferEvent
+import com.affise.attribution.events.subscription.InitialSubscriptionEvent
+import com.affise.attribution.events.subscription.InitialTrialEvent
+import com.affise.attribution.events.subscription.OfferInRetryEvent
+import com.affise.attribution.events.subscription.ReactivatedSubscriptionEvent
+import com.affise.attribution.events.subscription.RenewedSubscriptionEvent
+import com.affise.attribution.events.subscription.RenewedSubscriptionFromRetryEvent
+import com.affise.attribution.events.subscription.SubscriptionInRetryEvent
+import com.affise.attribution.events.subscription.TrialInRetryEvent
+import com.affise.attribution.events.subscription.UnsubscriptionEvent
 import org.json.JSONObject
+import java.math.BigDecimal
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class DefaultEventsFactory : EventsFactory {
     override fun createEvents(): List<Event> {
@@ -67,6 +100,7 @@ class DefaultEventsFactory : EventsFactory {
             createCompleteStreamEvent(),
             createCompleteTrialEvent(),
             createCompleteTutorialEvent(),
+            createContactEvent(),
             createContentItemsViewEvent(),
             createCustomId01Event(),
             createCustomId02Event(),
@@ -78,11 +112,16 @@ class DefaultEventsFactory : EventsFactory {
             createCustomId08Event(),
             createCustomId09Event(),
             createCustomId10Event(),
+            createCustomizeProductEvent(),
             createDeepLinkedEvent(),
+            createDonateEvent(),
+            createFindLocationEvent(),
+            createInitiateCheckoutEvent(),
             createInitiatePurchaseEvent(),
             createInitiateStreamEvent(),
             createInviteEvent(),
             createLastAttributedTouchEvent(),
+            createLeadEvent(),
             createListViewEvent(),
             createLoginEvent(),
             createOpenedFromPushNotificationEvent(),
@@ -91,12 +130,14 @@ class DefaultEventsFactory : EventsFactory {
             createReEngageEvent(),
             createReserveEvent(),
             createSalesEvent(),
+            createScheduleEvent(),
             createSearchEvent(),
             createShareEvent(),
             createSpendCreditsEvent(),
             createStartRegistrationEvent(),
             createStartTrialEvent(),
             createStartTutorialEvent(),
+            createSubmitApplicationEvent(),
             createSubscribeEvent(),
             createTravelBookingEvent(),
             createUnlockAchievementEvent(),
@@ -104,6 +145,7 @@ class DefaultEventsFactory : EventsFactory {
             createUpdateEvent(),
             createViewAdvEvent(),
             createViewCartEvent(),
+            createViewContentEvent(),
             createViewItemEvent(),
             createViewItemsEvent(),
             createInitialSubscriptionEvent(),
@@ -137,7 +179,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Unsubscription"
     ).apply {
-        addPredefinedParameter(PredefinedParameters.REVENUE, "225522 $")
+        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
     }
 
     private fun createConvertedTrialFromRetryEvent() = ConvertedTrialFromRetryEvent(
@@ -148,7 +190,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedParameters.REVENUE, "225522 $")
+        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
     }
 
     private fun createConvertedOfferFromRetryEvent() = ConvertedOfferFromRetryEvent(
@@ -159,7 +201,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedParameters.REVENUE, "225522 $")
+        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
     }
 
     private fun createRenewedSubscriptionFromRetryEvent() = RenewedSubscriptionFromRetryEvent(
@@ -170,7 +212,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedParameters.REVENUE, "225522 $")
+        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
     }
 
     private fun createReactivatedSubscriptionEvent() = ReactivatedSubscriptionEvent(
@@ -181,7 +223,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedParameters.REVENUE, "225522 $")
+        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
     }
 
     private fun createFailedTrialEvent() = FailedTrialEvent(
@@ -192,7 +234,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedParameters.REVENUE, "225522 $")
+        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
     }
 
     private fun createFailedOfferiseEvent() = FailedOfferiseEvent(
@@ -203,7 +245,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedParameters.REVENUE, "225522 $")
+        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
     }
 
     private fun createFailedSubscriptionEvent() = FailedSubscriptionEvent(
@@ -214,7 +256,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedParameters.REVENUE, "225522 $")
+        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
     }
 
     private fun createFailedTrialFromRetryEvent() = FailedTrialFromRetryEvent(
@@ -225,7 +267,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedParameters.REVENUE, "225522 $")
+        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
     }
 
     private fun createFailedOfferFromRetryEvent() = FailedOfferFromRetryEvent(
@@ -236,7 +278,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedParameters.REVENUE, "225522 $")
+        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
     }
 
     private fun createFailedSubscriptionFromRetryEvent() = FailedSubscriptionFromRetryEvent(
@@ -247,7 +289,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedParameters.REVENUE, "225522 $")
+        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
     }
 
     private fun createRenewedSubscriptionEvent() = RenewedSubscriptionEvent(
@@ -258,7 +300,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedParameters.REVENUE, "225522 $")
+        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
     }
 
     private fun createTrialInRetryEvent() = TrialInRetryEvent(
@@ -269,7 +311,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedParameters.REVENUE, "225522 $")
+        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
     }
 
     private fun createOfferInRetryEvent() = OfferInRetryEvent(
@@ -280,7 +322,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedParameters.REVENUE, "225522 $")
+        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
     }
 
     private fun createSubscriptionInRetryEvent() = SubscriptionInRetryEvent(
@@ -291,7 +333,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedParameters.REVENUE, "225522 $")
+        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
     }
 
     private fun createInitialOfferEvent() = InitialOfferEvent(
@@ -302,7 +344,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedParameters.REVENUE, "225522 $")
+        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
     }
 
     private fun createInitialTrialEvent() = InitialTrialEvent(
@@ -313,7 +355,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedParameters.REVENUE, "225522 $")
+        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
     }
 
     private fun createInitialSubscriptionEvent() = InitialSubscriptionEvent(
@@ -324,7 +366,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedParameters.REVENUE, "225522 $")
+        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
     }
 
     private fun createConvertedTrialEvent() = ConvertedTrialEvent(
@@ -335,7 +377,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedParameters.REVENUE, "225522 $")
+        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
     }
 
     private fun createConvertedOfferEvent() = ConvertedOfferEvent(
@@ -346,487 +388,478 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedParameters.REVENUE, "225522 $")
+        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
     }
 
     private fun createAchieveLevelEvent(): Event {
-        val level = JSONObject().apply {
-            put("old_level", 69)
-            put("new_level", 70)
-        }
-        return AchieveLevelEvent(level, System.currentTimeMillis(), "warlock").apply {
-            addPredefinedParameter(PredefinedParameters.DEEP_LINK, "https://new-game.lt")
-            addPredefinedParameter(PredefinedParameters.SCORE, "25013")
-            addPredefinedParameter(PredefinedParameters.LEVEL, "70")
-            addPredefinedParameter(PredefinedParameters.SUCCESS, "true")
-            addPredefinedParameter(PredefinedParameters.TUTORIAL_ID, "12")
+        return AchieveLevelEvent(userData = "warlock").apply {
+            addPredefinedParameter(PredefinedString.DEEP_LINK, "https://new-game.lt")
+            addPredefinedParameter(PredefinedLong.SCORE, 25013L)
+            addPredefinedParameter(PredefinedLong.LEVEL, 70L)
+            addPredefinedParameter(PredefinedString.SUCCESS, "true")
+            addPredefinedParameter(PredefinedString.TUTORIAL_ID, "12")
         }
     }
 
     private fun createAddPaymentInfoEvent(): Event {
-        val data = JSONObject().apply {
-            put("card", 4138)
-            put("type", "phone")
-        }
-        return AddPaymentInfoEvent(data, System.currentTimeMillis(), "taxi").apply {
-            addPredefinedParameter(PredefinedParameters.PURCHASE_CURRENCY, "USD")
+        return AddPaymentInfoEvent(userData = "taxi").apply {
+            addPredefinedParameter(PredefinedString.PURCHASE_CURRENCY, "USD")
         }
     }
 
     private fun createAddToCartEvent(): Event {
-        val products =
-            listOf("milk", "cookies", "meat", "vegetables").shuffled().take(1).joinToString()
-        val items = JSONObject().apply {
-            put("items", products)
-        }
-        return AddToCartEvent(items, System.currentTimeMillis()).apply {
-            addPredefinedParameter(PredefinedParameters.DESCRIPTION, "best before 2029")
+        return AddToCartEvent(userData = "milk, cookies, meat, vegetables").apply {
+            addPredefinedParameter(PredefinedString.DESCRIPTION, "best before 2029")
         }
     }
 
     private fun createAddToWishlistEvent(): Event {
-        val wishes = listOf("car", "house", "sdk").shuffled().take(1).joinToString()
-        val items = JSONObject().apply {
-            put("items", wishes)
-        }
-        return AddToWishlistEvent(items, System.currentTimeMillis(), "next year").apply {
-            addPredefinedParameter(PredefinedParameters.COUNTRY, "Russia")
-            addPredefinedParameter(PredefinedParameters.CITY, "Voronezh")
-            addPredefinedParameter(PredefinedParameters.LAT, "42")
-            addPredefinedParameter(PredefinedParameters.LONG, "24")
+        return AddToWishlistEvent(userData = "next year").apply {
+            addPredefinedParameter(PredefinedString.COUNTRY, "Russia")
+            addPredefinedParameter(PredefinedString.CITY, "Voronezh")
+            addPredefinedParameter(PredefinedFloat.LAT, BigDecimal("42"))
+            addPredefinedParameter(PredefinedFloat.LONG, BigDecimal("24"))
         }
     }
 
     private fun createClickAdvEvent(): Event {
-        return ClickAdvEvent("facebook-meta", System.currentTimeMillis(), "header").apply {
-            addPredefinedParameter(PredefinedParameters.PARAM_01, "PARAM_01")
-            addPredefinedParameter(PredefinedParameters.PARAM_02, "PARAM_02")
-            addPredefinedParameter(PredefinedParameters.PARAM_03, "PARAM_03")
-            addPredefinedParameter(PredefinedParameters.PARAM_04, "PARAM_04")
-            addPredefinedParameter(PredefinedParameters.PARAM_05, "PARAM_05")
-            addPredefinedParameter(PredefinedParameters.PARAM_06, "PARAM_06")
-            addPredefinedParameter(PredefinedParameters.PARAM_07, "PARAM_07")
-            addPredefinedParameter(PredefinedParameters.PARAM_08, "PARAM_08")
-            addPredefinedParameter(PredefinedParameters.PARAM_09, "PARAM_09")
-            addPredefinedParameter(PredefinedParameters.PARAM_10, "PARAM_10")
+        return ClickAdvEvent(userData = "header").apply {
+            addPredefinedParameter(PredefinedString.PARAM_01, "PARAM_01")
+            addPredefinedParameter(PredefinedString.PARAM_02, "PARAM_02")
+            addPredefinedParameter(PredefinedString.PARAM_03, "PARAM_03")
+            addPredefinedParameter(PredefinedString.PARAM_04, "PARAM_04")
+            addPredefinedParameter(PredefinedString.PARAM_05, "PARAM_05")
+            addPredefinedParameter(PredefinedString.PARAM_06, "PARAM_06")
+            addPredefinedParameter(PredefinedString.PARAM_07, "PARAM_07")
+            addPredefinedParameter(PredefinedString.PARAM_08, "PARAM_08")
+            addPredefinedParameter(PredefinedString.PARAM_09, "PARAM_09")
+            addPredefinedParameter(PredefinedString.PARAM_10, "PARAM_10")
         }
     }
 
     private fun createCompleteRegistrationEvent(): Event {
-        val data = JSONObject().apply {
-            put("email", "dog@gmail.com")
-        }
-        return CompleteRegistrationEvent(data, System.currentTimeMillis(), "promo").apply {
-            addPredefinedParameter(PredefinedParameters.VALIDATED, "02.11.2021")
-            addPredefinedParameter(PredefinedParameters.REVIEW_TEXT, "approve")
-            addPredefinedParameter(PredefinedParameters.CUSTOMER_SEGMENT, "DOG")
+        return CompleteRegistrationEvent(userData = "promo").apply {
+            addPredefinedParameter(PredefinedString.VALIDATED, "02.11.2021")
+            addPredefinedParameter(PredefinedString.REVIEW_TEXT, "approve")
+            addPredefinedParameter(PredefinedString.CUSTOMER_SEGMENT, "DOG")
         }
     }
 
     private fun createCompleteStreamEvent(): Event {
-        val data = JSONObject().apply {
-            put("streamer", "cat")
-            put("max_viewers", "29")
-        }
-        return CompleteStreamEvent(data, System.currentTimeMillis(), "23 hours").apply {
-            addPredefinedParameter(PredefinedParameters.REVENUE, "225522 $")
+        return CompleteStreamEvent(userData = "23 hours").apply {
+            addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
         }
     }
 
     private fun createCompleteTrialEvent(): Event {
-        val data = JSONObject().apply {
-            put("player", "ghost")
-        }
-        return CompleteTrialEvent(data, System.currentTimeMillis(), "time").apply {
-            addPredefinedParameter(PredefinedParameters.REGISTRATION_METHOD, "SMS")
+        return CompleteTrialEvent(userData = "time").apply {
+            addPredefinedParameter(PredefinedString.REGISTRATION_METHOD, "SMS")
         }
     }
 
     private fun createCompleteTutorialEvent(): Event {
-        val data = JSONObject().apply {
-            put("name", "intro")
+        return CompleteTutorialEvent(userData = "intro").apply {
+            addPredefinedParameter(PredefinedString.REGISTRATION_METHOD, "SMS")
         }
-        return CompleteTutorialEvent(data, System.currentTimeMillis(), "intro").apply {
-            addPredefinedParameter(PredefinedParameters.REGISTRATION_METHOD, "SMS")
+    }
+
+    private fun createContactEvent(): Event {
+        return ContactEvent(
+            userData = "contact"
+        ).apply {
+            addPredefinedParameter(PredefinedString.REGISTRATION_METHOD, "SMS")
         }
     }
 
     private fun createContentItemsViewEvent(): Event {
-        val data = listOf(
-            JSONObject().apply {
-                put("item", "book")
-            },
-            JSONObject().apply {
-                put("item", "guitar")
-            }
-        )
-        return ContentItemsViewEvent(data, "personal").apply {
-            addPredefinedParameter(PredefinedParameters.CONTENT, "Greatest Hits")
-            addPredefinedParameter(PredefinedParameters.CONTENT_ID, "2561")
-            addPredefinedParameter(PredefinedParameters.CONTENT_LIST, "songs, videos")
-            addPredefinedParameter(PredefinedParameters.CONTENT_TYPE, "MATURE")
-            addPredefinedParameter(PredefinedParameters.CURRENCY, "USD")
+        return ContentItemsViewEvent(userData = "personal").apply {
+            addPredefinedParameter(PredefinedObject.CONTENT, JSONObject().apply {
+                put("collection", "Greatest Hits")
+            })
+            addPredefinedParameter(PredefinedString.CONTENT_ID, "2561")
+            addPredefinedParameter(PredefinedListObject.CONTENT_LIST, listOf(
+                JSONObject().apply {
+                    put("content", "songs, videos")
+                }
+            ))
+            addPredefinedParameter(PredefinedString.CONTENT_TYPE, "MATURE")
+            addPredefinedParameter(PredefinedString.CURRENCY, "USD")
         }
     }
 
     private fun createCustomId01Event(): Event {
-        return CustomId01Event("custom", System.currentTimeMillis(), "custom").apply {
-            addPredefinedParameter(PredefinedParameters.PARAM_01, "param1")
+        return CustomId01Event(userData = "custom").apply {
+            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
         }
     }
 
     private fun createCustomId02Event(): Event {
-        return CustomId02Event("custom", System.currentTimeMillis(), "custom").apply {
-            addPredefinedParameter(PredefinedParameters.PARAM_01, "param1")
+        return CustomId02Event(userData = "custom").apply {
+            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
         }
     }
 
     private fun createCustomId03Event(): Event {
-        return CustomId03Event("custom", System.currentTimeMillis(), "custom").apply {
-            addPredefinedParameter(PredefinedParameters.PARAM_01, "param1")
+        return CustomId03Event(userData = "custom").apply {
+            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
         }
     }
 
     private fun createCustomId04Event(): Event {
-        return CustomId04Event("custom", System.currentTimeMillis(), "custom").apply {
-            addPredefinedParameter(PredefinedParameters.PARAM_01, "param1")
+        return CustomId04Event(userData = "custom").apply {
+            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
         }
     }
 
     private fun createCustomId05Event(): Event {
-        return CustomId05Event("custom", System.currentTimeMillis(), "custom").apply {
-            addPredefinedParameter(PredefinedParameters.PARAM_01, "param1")
+        return CustomId05Event(userData = "custom").apply {
+            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
         }
     }
 
     private fun createCustomId06Event(): Event {
-        return CustomId06Event("custom", System.currentTimeMillis(), "custom").apply {
-            addPredefinedParameter(PredefinedParameters.PARAM_01, "param1")
+        return CustomId06Event(userData = "custom").apply {
+            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
         }
     }
 
     private fun createCustomId07Event(): Event {
-        return CustomId07Event("custom", System.currentTimeMillis(), "custom").apply {
-            addPredefinedParameter(PredefinedParameters.PARAM_01, "param1")
+        return CustomId07Event(userData = "custom").apply {
+            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
         }
     }
 
     private fun createCustomId08Event(): Event {
-        return CustomId08Event("custom", System.currentTimeMillis(), "custom").apply {
-            addPredefinedParameter(PredefinedParameters.PARAM_01, "param1")
+        return CustomId08Event(userData = "custom").apply {
+            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
         }
     }
 
     private fun createCustomId09Event(): Event {
-        return CustomId09Event("custom", System.currentTimeMillis(), "custom").apply {
-            addPredefinedParameter(PredefinedParameters.PARAM_01, "param1")
+        return CustomId09Event(userData = "custom").apply {
+            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
         }
     }
 
     private fun createCustomId10Event(): Event {
-        return CustomId10Event("custom", System.currentTimeMillis(), "custom").apply {
-            addPredefinedParameter(PredefinedParameters.PARAM_01, "param1")
+        return CustomId10Event(userData = "custom").apply {
+            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
+        }
+    }
+
+    private fun createCustomizeProductEvent(): Event {
+        return CustomizeProductEvent(
+            userData = "Customize"
+        ).apply {
+            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
         }
     }
 
     private fun createDeepLinkedEvent(): Event {
-        return DeepLinkedEvent(true, "referrer: google").apply {
-            addPredefinedParameter(PredefinedParameters.ADREV_AD_TYPE, "interstitial")
-            addPredefinedParameter(PredefinedParameters.REGION, "ASIA")
-            addPredefinedParameter(PredefinedParameters.CLASS, "student")
+        return DeepLinkedEvent(userData = "referrer: google").apply {
+            addPredefinedParameter(PredefinedString.ADREV_AD_TYPE, "interstitial")
+            addPredefinedParameter(PredefinedString.REGION, "ASIA")
+            addPredefinedParameter(PredefinedString.CLASS, "student")
+        }
+    }
+
+    private fun createDonateEvent(): Event {
+        return DonateEvent(
+            userData = "donate",
+            timeStampMillis = System.currentTimeMillis(),
+        ).apply {
+            addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
+            addPredefinedParameter(PredefinedFloat.PRICE, BigDecimal("2.19"))
+            addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
+        }
+    }
+
+    private fun createFindLocationEvent(): Event {
+        return FindLocationEvent(
+            userData = "location",
+            timeStampMillis = System.currentTimeMillis(),
+        ).apply {
+            addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
+            addPredefinedParameter(PredefinedFloat.PRICE, BigDecimal("2.19"))
+            addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
+        }
+    }
+
+    private fun createInitiateCheckoutEvent(): Event {
+        return InitiateCheckoutEvent(
+            userData = "checkout",
+            timeStampMillis = System.currentTimeMillis(),
+        ).apply {
+            addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
+            addPredefinedParameter(PredefinedFloat.PRICE, BigDecimal("2.19"))
+            addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
         }
     }
 
     private fun createInitiatePurchaseEvent(): Event {
-        val data = JSONObject().apply {
-            put("payment", "card")
-        }
-        return InitiatePurchaseEvent(data, System.currentTimeMillis(), "best price").apply {
-            addPredefinedParameter(PredefinedParameters.ORDER_ID, "23123")
-            addPredefinedParameter(PredefinedParameters.PRICE, "2.19$")
-            addPredefinedParameter(PredefinedParameters.QUANTITY, "1")
+        return InitiatePurchaseEvent(userData = "best price").apply {
+            addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
+            addPredefinedParameter(PredefinedFloat.PRICE, BigDecimal("2.19"))
+            addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
         }
     }
 
     private fun createInitiateStreamEvent(): Event {
-        val data = JSONObject().apply {
-            put("streamer", "car")
-            put("date", "02.03.2021")
-        }
-        return InitiateStreamEvent(data, System.currentTimeMillis(), "shooter").apply {
-            addPredefinedParameter(PredefinedParameters.COUPON_CODE, "25XLKM")
-            addPredefinedParameter(PredefinedParameters.VIRTUAL_CURRENCY_NAME, "BTC")
+        return InitiateStreamEvent(userData = "shooter").apply {
+            addPredefinedParameter(PredefinedString.COUPON_CODE, "25XLKM")
+            addPredefinedParameter(PredefinedString.VIRTUAL_CURRENCY_NAME, "BTC")
         }
     }
 
     private fun createInviteEvent(): Event {
-        val data = JSONObject().apply {
-            put("invitation", "mail")
-            put("date", "02.03.2021")
-        }
-        return InviteEvent(data, System.currentTimeMillis(), "dancing").apply {
-            addPredefinedParameter(PredefinedParameters.PARAM_01, "param1")
+        return InviteEvent(userData = "dancing").apply {
+            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
         }
     }
 
     private fun createLastAttributedTouchEvent(): Event {
-        val touchData = JSONObject().apply {
-            put("header", 2)
-        }
         return LastAttributedTouchEvent(
-            TouchType.CLICK,
-            System.currentTimeMillis(),
-            touchData,
-            "tablet"
+            userData = "tablet"
         ).apply {
-            addPredefinedParameter(PredefinedParameters.SUBSCRIPTION_ID, "lasAK22")
+            addPredefinedParameter(PredefinedString.SUBSCRIPTION_ID, "lasAK22")
+        }
+    }
+
+    private fun createLeadEvent(): Event {
+        return LeadEvent(
+            userData = "lead",
+            timeStampMillis = System.currentTimeMillis(),
+        ).apply {
+            addPredefinedParameter(PredefinedString.PAYMENT_INFO_AVAILABLE, "card")
+            addPredefinedParameter(PredefinedString.SEARCH_STRING, "best car wash")
         }
     }
 
     private fun createListViewEvent(): Event {
-        val data = JSONObject().apply {
-            put("clothes", 2)
-        }
-        return ListViewEvent(data, "items").apply {
-            addPredefinedParameter(PredefinedParameters.PAYMENT_INFO_AVAILABLE, "card")
-            addPredefinedParameter(PredefinedParameters.SEARCH_STRING, "best car wash")
-            addPredefinedParameter(PredefinedParameters.SUGGESTED_DESTINATIONS, "crete, spain")
+        return ListViewEvent(userData = "items").apply {
+            addPredefinedParameter(PredefinedString.PAYMENT_INFO_AVAILABLE, "card")
+            addPredefinedParameter(PredefinedString.SEARCH_STRING, "best car wash")
+            addPredefinedParameter(PredefinedString.SUGGESTED_DESTINATIONS, "crete, spain")
             addPredefinedParameter(
-                PredefinedParameters.SUGGESTED_HOTELS,
+                PredefinedString.SUGGESTED_HOTELS,
                 "beach resort, marina spa"
             )
         }
     }
 
     private fun createLoginEvent(): Event {
-        val data = JSONObject().apply {
-            put("email", "cat@gmail.com")
-        }
-        return LoginEvent(data, System.currentTimeMillis(), "web").apply {
-            addPredefinedParameter(PredefinedParameters.PARAM_01, "param1")
+        return LoginEvent(userData = "web").apply {
+            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
         }
     }
 
     private fun createOpenedFromPushNotificationEvent(): Event {
-        return OpenedFromPushNotificationEvent("silent", "active").apply {
-            addPredefinedParameter(PredefinedParameters.PARAM_01, "param1")
+        return OpenedFromPushNotificationEvent(userData = "active").apply {
+            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
         }
     }
 
     private fun createPurchaseEvent(): Event {
-        val data = JSONObject().apply {
-            put("phone", 1)
-            put("case", 1)
-        }
-        return PurchaseEvent(data, System.currentTimeMillis(), "apple").apply {
-            addPredefinedParameter(PredefinedParameters.ORDER_ID, "23123")
-            addPredefinedParameter(PredefinedParameters.PRICE, "2.19$")
-            addPredefinedParameter(PredefinedParameters.QUANTITY, "1")
+        return PurchaseEvent(userData = "apple").apply {
+            addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
+            addPredefinedParameter(PredefinedFloat.PRICE, BigDecimal("2.19"))
+            addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
         }
     }
 
     private fun createRateEvent(): Event {
-        val data = JSONObject().apply {
-            put("rating", 5)
-        }
-        return RateEvent(data, System.currentTimeMillis(), "no bugs").apply {
-            addPredefinedParameter(PredefinedParameters.PREFERRED_NEIGHBORHOODS, "2")
-            addPredefinedParameter(PredefinedParameters.PREFERRED_NUM_STOPS, "4")
-            addPredefinedParameter(PredefinedParameters.PREFERRED_PRICE_RANGE, "10-22")
-            addPredefinedParameter(PredefinedParameters.PREFERRED_STAR_RATINGS, "4.6")
+        return RateEvent(userData = "no bugs").apply {
+            addPredefinedParameter(PredefinedString.PREFERRED_NEIGHBORHOODS, "2")
+            addPredefinedParameter(PredefinedLong.PREFERRED_NUM_STOPS, 4L)
+            addPredefinedParameter(
+                PredefinedFloat.PREFERRED_PRICE_RANGE,
+                BigDecimal("10.22")
+            )
+            addPredefinedParameter(PredefinedLong.PREFERRED_STAR_RATINGS, 6L)
         }
     }
 
     private fun createReEngageEvent(): Event {
-        return ReEngageEvent("data", "web").apply {
-            addPredefinedParameter(PredefinedParameters.CUSTOMER_USER_ID, "4")
+        return ReEngageEvent(userData = "web").apply {
+            addPredefinedParameter(PredefinedString.CUSTOMER_USER_ID, "4")
         }
     }
 
     private fun createReserveEvent(): Event {
-        val data = JSONObject().apply {
-            put("ticket", "movie")
-        }
-        val data2 = JSONObject().apply {
-            put("food", "coke")
-        }
-        return ReserveEvent(listOf(data, data2), System.currentTimeMillis(), "discount").apply {
-            addPredefinedParameter(PredefinedParameters.ORDER_ID, "23123")
-            addPredefinedParameter(PredefinedParameters.PRICE, "2.19$")
-            addPredefinedParameter(PredefinedParameters.QUANTITY, "1")
+        return ReserveEvent(userData = "discount").apply {
+            addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
+            addPredefinedParameter(PredefinedFloat.PRICE, BigDecimal("2.19"))
+            addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
         }
     }
 
     private fun createSalesEvent(): Event {
-        val data = JSONObject().apply {
-            put("phone", 1)
-            put("case", 1)
+        return SalesEvent(userData = "apple").apply {
+            addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
+            addPredefinedParameter(PredefinedFloat.PRICE, BigDecimal("2.19"))
+            addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
         }
-        return SalesEvent(data, System.currentTimeMillis(), "apple").apply {
-            addPredefinedParameter(PredefinedParameters.ORDER_ID, "23123")
-            addPredefinedParameter(PredefinedParameters.PRICE, "2.19$")
-            addPredefinedParameter(PredefinedParameters.QUANTITY, "1")
+    }
+
+    private fun createScheduleEvent(): Event {
+        return ScheduleEvent(
+            userData = "schedule",
+            timeStampMillis = System.currentTimeMillis(),
+        ).apply {
+            addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
+            addPredefinedParameter(PredefinedFloat.PRICE, BigDecimal("2.19"))
+            addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
         }
     }
 
     private fun createSearchEvent(): Event {
-        val data = JSONArray().apply {
-            put("eco milk")
-            put("grass")
-        }
-        return SearchEvent(data, System.currentTimeMillis(), "browser").apply {
-            addPredefinedParameter(PredefinedParameters.PARAM_01, "param1")
+        return SearchEvent(userData = "browser").apply {
+            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
         }
     }
 
     private fun createShareEvent(): Event {
-        val data = JSONObject().apply {
-            put("post_id", "252242")
-            put("post_img", "img.webp")
-        }
-
-        return ShareEvent(data, System.currentTimeMillis(), "telegram").apply {
-            addPredefinedParameter(PredefinedParameters.RECEIPT_ID, "22")
+        return ShareEvent(userData = "telegram").apply {
+            addPredefinedParameter(PredefinedString.RECEIPT_ID, "22")
         }
     }
 
     private fun createSpendCreditsEvent(): Event {
-        return SpendCreditsEvent(2142, System.currentTimeMillis(), "boosters").apply {
-            addPredefinedParameter(PredefinedParameters.PARAM_01, "param1")
+        return SpendCreditsEvent(userData = "boosters").apply {
+            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
         }
     }
 
     private fun createStartRegistrationEvent(): Event {
-        val data = JSONObject().apply {
-            put("time", "19:22:11")
-        }
-        return StartRegistrationEvent(data, System.currentTimeMillis(), "referrer").apply {
-            addPredefinedParameter(PredefinedParameters.PARAM_01, "param1")
+        return StartRegistrationEvent(userData = "referrer").apply {
+            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
         }
     }
 
     private fun createStartTrialEvent(): Event {
-        val data = JSONObject().apply {
-            put("time", "19:22:11")
-        }
-        return StartTrialEvent(data, System.currentTimeMillis(), "30-days").apply {
-            addPredefinedParameter(PredefinedParameters.PARAM_01, "param1")
+        return StartTrialEvent(userData = "30-days").apply {
+            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
         }
     }
 
     private fun createStartTutorialEvent(): Event {
-        val data = JSONObject().apply {
-            put("time", "19:22:11")
-            put("reward", "22")
+        return StartTutorialEvent(userData = "video-feature").apply {
+            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
         }
+    }
 
-        return StartTutorialEvent(data, System.currentTimeMillis(), "video-feature").apply {
-            addPredefinedParameter(PredefinedParameters.PARAM_01, "param1")
+    private fun createSubmitApplicationEvent(): Event {
+        return SubmitApplicationEvent(
+            userData = "submit",
+            timeStampMillis = System.currentTimeMillis(),
+        ).apply {
+            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
         }
     }
 
     private fun createSubscribeEvent(): Event {
-        val data = JSONObject().apply {
-            put("streamer", "cat")
-        }
-        return SubscribeEvent(data, System.currentTimeMillis(), "wire").apply {
-            addPredefinedParameter(PredefinedParameters.PARAM_01, "param1")
+        return SubscribeEvent(userData = "wire").apply {
+            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
         }
     }
 
     private fun createTravelBookingEvent(): Event {
-        val data = JSONArray().apply {
-            put("may")
-            put("august")
-        }
-        return TravelBookingEvent(data, "booking").apply {
-            addPredefinedParameter(PredefinedParameters.NUM_ADULTS, "1")
-            addPredefinedParameter(PredefinedParameters.NUM_CHILDREN, "2")
-            addPredefinedParameter(PredefinedParameters.NUM_INFANTS, "1")
-            addPredefinedParameter(PredefinedParameters.DATE_A, "30.12.2020")
-            addPredefinedParameter(PredefinedParameters.DATE_B, "01.01.2021")
-            addPredefinedParameter(PredefinedParameters.DEPARTING_ARRIVAL_DATE, "01.01.2021")
-            addPredefinedParameter(PredefinedParameters.DEPARTING_DEPARTURE_DATE, "30.12.2020")
-            addPredefinedParameter(PredefinedParameters.DESTINATION_A, "usa")
-            addPredefinedParameter(PredefinedParameters.DESTINATION_B, "mexico")
-            addPredefinedParameter(PredefinedParameters.DESTINATION_LIST, "usa, mexico")
-            addPredefinedParameter(PredefinedParameters.HOTEL_SCORE, "5")
-            addPredefinedParameter(PredefinedParameters.TRAVEL_START, "01.12.2020")
-            addPredefinedParameter(PredefinedParameters.TRAVEL_END, "01.12.2021")
+        return TravelBookingEvent(userData = "booking").apply {
+            addPredefinedParameter(PredefinedLong.NUM_ADULTS, 1L)
+            addPredefinedParameter(PredefinedLong.NUM_CHILDREN, 2L)
+            addPredefinedParameter(PredefinedLong.NUM_INFANTS, 1L)
+            "30.12.2020".toTimestamp()?.let {
+                addPredefinedParameter(PredefinedLong.DATE_A, it)
+            }
+            "01.01.2021".toTimestamp()?.let {
+                addPredefinedParameter(PredefinedLong.DATE_B, it)
+            }
+            "01.01.2021".toTimestamp()?.let {
+                addPredefinedParameter(PredefinedLong.DEPARTING_ARRIVAL_DATE, it)
+            }
+            "30.12.2020".toTimestamp()?.let {
+                addPredefinedParameter(PredefinedLong.DEPARTING_DEPARTURE_DATE, it)
+            }
+            addPredefinedParameter(PredefinedString.DESTINATION_A, "usa")
+            addPredefinedParameter(PredefinedString.DESTINATION_B, "mexico")
+            addPredefinedParameter(PredefinedString.DESTINATION_LIST, "usa, mexico")
+            addPredefinedParameter(PredefinedLong.HOTEL_SCORE, 5L)
+            "01.12.2020".toTimestamp()?.let {
+                addPredefinedParameter(PredefinedLong.TRAVEL_START, it)
+            }
+            "01.12.2021".toTimestamp()?.let {
+                addPredefinedParameter(PredefinedLong.TRAVEL_END, it)
+            }
         }
     }
 
     private fun createUnlockAchievementEvent(): Event {
-        val data = JSONObject().apply {
-            put("achievement", "new level")
-        }
-        return UnlockAchievementEvent(data, System.currentTimeMillis(), "best damage").apply {
-            addPredefinedParameter(PredefinedParameters.USER_SCORE, "12552")
-            addPredefinedParameter(PredefinedParameters.ACHIEVEMENT_ID, "1334-1225-ASDZ")
+        return UnlockAchievementEvent(userData = "best damage").apply {
+            addPredefinedParameter(PredefinedLong.USER_SCORE, 12552L)
+            addPredefinedParameter(PredefinedString.ACHIEVEMENT_ID, "1334-1225-ASDZ")
         }
     }
 
     private fun createUnsubscribeEvent(): Event {
-        val data = JSONObject().apply {
-            put("reason", "span")
-        }
-        return UnsubscribeEvent(data, System.currentTimeMillis(), "02.01.2021").apply {
-            addPredefinedParameter(PredefinedParameters.PARAM_01, "param1")
+        return UnsubscribeEvent(userData = "02.01.2021").apply {
+            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
         }
     }
 
     private fun createUpdateEvent(): Event {
-        val data = JSONArray().apply {
-            put("com.facebook")
-        }
-        return UpdateEvent(data, "firmware").apply {
-            addPredefinedParameter(PredefinedParameters.EVENT_START, "01.02.2021")
-            addPredefinedParameter(PredefinedParameters.EVENT_END, "01.01.2022")
-            addPredefinedParameter(PredefinedParameters.NEW_VERSION, "8")
-            addPredefinedParameter(PredefinedParameters.OLD_VERSION, "1.8")
+        return UpdateEvent(userData = "firmware").apply {
+            "01.02.2021".toTimestamp()?.let {
+                addPredefinedParameter(PredefinedLong.EVENT_START, it)
+            }
+            "01.01.2022".toTimestamp()?.let {
+                addPredefinedParameter(PredefinedLong.EVENT_END, it)
+            }
+            addPredefinedParameter(PredefinedString.NEW_VERSION, "8")
+            addPredefinedParameter(PredefinedString.OLD_VERSION, "1.8")
         }
     }
 
     private fun createViewAdvEvent(): Event {
-        val data = JSONObject().apply {
-            put("source", "amazon")
-        }
-        return ViewAdvEvent(data, System.currentTimeMillis(), "skip").apply {
-            addPredefinedParameter(PredefinedParameters.RETURNING_ARRIVAL_DATE, "01.12.2021")
-            addPredefinedParameter(PredefinedParameters.RETURNING_DEPARTURE_DATE, "01.12.2020")
+        return ViewAdvEvent(userData = "skip").apply {
+            "01.12.2021".toTimestamp()?.let {
+                addPredefinedParameter(PredefinedLong.RETURNING_ARRIVAL_DATE, it)
+            }
+            "01.12.2021".toTimestamp()?.let {
+                addPredefinedParameter(PredefinedLong.RETURNING_DEPARTURE_DATE, it)
+            }
         }
     }
 
     private fun createViewCartEvent(): Event {
-        val data = JSONObject().apply {
-            put("cart_value", "25.22$")
-            put("cart_items", "2")
+        return ViewCartEvent(userData = "main").apply {
+            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
         }
-        return ViewCartEvent(data, "main").apply {
-            addPredefinedParameter(PredefinedParameters.PARAM_01, "param1")
+    }
+
+    private fun createViewContentEvent(): Event {
+        return ViewContentEvent(
+            userData = "ViewContent",
+            timeStampMillis = System.currentTimeMillis(),
+        ).apply {
+            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
         }
     }
 
     private fun createViewItemEvent(): Event {
-        val data = JSONObject().apply {
-            put("section_name", "header")
-        }
-        return ViewItemEvent(data, "main").apply {
-            addPredefinedParameter(PredefinedParameters.MAX_RATING_VALUE, "5")
-            addPredefinedParameter(PredefinedParameters.RATING_VALUE, "4.9")
+        return ViewItemEvent(userData = "main").apply {
+            addPredefinedParameter(PredefinedLong.MAX_RATING_VALUE, 5L)
+            addPredefinedParameter(PredefinedLong.RATING_VALUE, 9L)
         }
     }
 
     private fun createViewItemsEvent(): Event {
-        val data = JSONArray().apply {
-            put(JSONObject().apply { put("section_name", "header") })
-            put(JSONObject().apply { put("section_name", "section-1") })
-            put(JSONObject().apply { put("section_name", "section-2") })
-            put(JSONObject().apply { put("section_name", "footer") })
+        return ViewItemsEvent(userData = "main").apply {
+            addPredefinedParameter(PredefinedLong.MAX_RATING_VALUE, 5L)
+            addPredefinedParameter(PredefinedLong.RATING_VALUE, 9L)
         }
-        return ViewItemsEvent(data, "main").apply {
-            addPredefinedParameter(PredefinedParameters.MAX_RATING_VALUE, "5")
-            addPredefinedParameter(PredefinedParameters.RATING_VALUE, "4.9")
-        }
+    }
+
+    private fun String.toTimestamp(format: String = "dd.MM.yyyy"): Long? {
+        return SimpleDateFormat(format, Locale.getDefault()).parse(this)?.time
     }
 }

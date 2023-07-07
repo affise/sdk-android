@@ -1,45 +1,53 @@
 package com.affise.attribution.events.predefined
 
 import com.affise.attribution.events.NativeEvent
+import com.affise.attribution.events.property.AffisePropertyBuilder
 import org.json.JSONObject
 
 /**
  * Event LastAttributedTouch
  *
- * @property touchType type in CLICK, WEB_TO_APP_AUTO_REDIRECT, IMPRESSION
- * @property timeStampMillis the timestamp event in milliseconds.
- * @property touchData the JSON Object describing the meaning of the event.
  * @property userData any custom string data.
+ * @property timeStampMillis the timestamp event in milliseconds.
  */
 class LastAttributedTouchEvent(
-    private val touchType: TouchType,
-    private val timeStampMillis: Long,
-    private val touchData: JSONObject,
-    private val userData: String? = null
-) : NativeEvent() {
+    private val userData: String? = null,
+    private val timeStampMillis: Long = System.currentTimeMillis(),
+) : NativeEvent(
+    userData = userData,
+    timeStampMillis = timeStampMillis
+) {
+    private var touchType: TouchType? = null
+    private var touchData: JSONObject? = null
 
     /**
-     * Serialize LastAttributedTouchEvent to JSONObject
+     * Event LastAttributedTouch
      *
-     * @return JSONObject of LastAttributedTouchEvent
+     * @property touchType type in CLICK, WEB_TO_APP_AUTO_REDIRECT, IMPRESSION
+     * @property timeStampMillis the timestamp event in milliseconds.
+     * @property touchData the JSON Object describing the meaning of the event.
+     * @property userData any custom string data.
      */
-    override fun serialize() = JSONObject().apply {
-        put("affise_event_last_attributed_touch_type", touchType)
-        put("affise_event_last_attributed_touch_timestamp", timeStampMillis)
-        put("affise_event_last_attributed_touch_data", touchData)
+    @Deprecated(
+        message = "This constructor will be removed if future",
+        replaceWith = ReplaceWith("LastAttributedTouchEvent(userData, timeStampMillis)"),
+        level = DeprecationLevel.WARNING
+    )
+    constructor(
+        touchType: TouchType,
+        timeStampMillis: Long = System.currentTimeMillis(),
+        touchData: JSONObject,
+        userData: String? = null,
+    ) : this(
+        userData = userData,
+        timeStampMillis = timeStampMillis,
+    ) {
+        this.touchType = touchType
+        this.touchData = touchData
     }
 
-    /**
-     * Name of event
-     *
-     * @return name
-     */
-    override fun getName() = "LastAttributedTouch"
-
-    /**
-     * User data
-     *
-     * @return userData
-     */
-    override fun getUserData() = userData
+    override fun serializeBuilder(): AffisePropertyBuilder =
+        super.serializeBuilder()
+            .add("type", touchType)
+            .add("data", touchData)
 }

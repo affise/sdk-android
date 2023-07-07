@@ -19,6 +19,7 @@ class AppVersionProvider(
     override val order: Float = 3.0f
     override val key: String = Parameters.APP_VERSION
 
+    @Suppress("DEPRECATION")
     override fun provide(): String? = try {
         context.packageManager
             .getPackageInfo(context.packageName, 0)

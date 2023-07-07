@@ -1,42 +1,40 @@
 package com.affise.attribution.events.predefined
 
 import com.affise.attribution.events.NativeEvent
-import org.json.JSONObject
 
 /**
  * Event SpendCredits
  *
- * @property credits the value of the event.
- * @property timeStampMillis the timestamp event in milliseconds.
  * @property userData any custom string data.
+ * @property timeStampMillis the timestamp event in milliseconds.
  */
 class SpendCreditsEvent(
-    private val credits: Long,
-    private val timeStampMillis: Long,
-    private val userData: String? = null
-) : NativeEvent() {
-
+    private val userData: String? = null,
+    private val timeStampMillis: Long = System.currentTimeMillis(),
+) : NativeEvent(
+    userData = userData,
+    timeStampMillis = timeStampMillis
+) {
     /**
-     * Serialize SpendCreditsEvent to JSONObject
+     * Event SpendCredits
      *
-     * @return JSONObject of SpendCreditsEvent
+     * @property credits the value of the event.
+     * @property timeStampMillis the timestamp event in milliseconds.
+     * @property userData any custom string data.
      */
-    override fun serialize() = JSONObject().apply {
-        put("affise_event_spend_credits", credits)
-        put("affise_event_spend_credits_timestamp", timeStampMillis)
+    @Deprecated(
+        message = "This constructor will be removed if future",
+        replaceWith = ReplaceWith("SpendCreditsEvent(userData, timeStampMillis)"),
+        level = DeprecationLevel.WARNING
+    )
+    constructor(
+        credits: Long = 0L,
+        timeStampMillis: Long = System.currentTimeMillis(),
+        userData: String? = null,
+    ) : this(
+        userData = userData,
+        timeStampMillis = timeStampMillis,
+    ) {
+        anyData = credits
     }
-
-    /**
-     * Name of event
-     *
-     * @return name
-     */
-    override fun getName() = "SpendCredits"
-
-    /**
-     * User data
-     *
-     * @return userData
-     */
-    override fun getUserData() = userData
 }

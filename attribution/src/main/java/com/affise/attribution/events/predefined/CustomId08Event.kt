@@ -1,42 +1,41 @@
 package com.affise.attribution.events.predefined
 
 import com.affise.attribution.events.NativeEvent
-import org.json.JSONObject
 
 /**
  * Event CustomId08
  *
- * @property custom the describing the meaning of the event.
- * @property timeStampMillis the timestamp event in milliseconds.
  * @property userData any custom string data.
+ * @property timeStampMillis the timestamp event in milliseconds.
  */
 class CustomId08Event(
-    private val custom: String,
-    private val timeStampMillis: Long,
-    private val userData: String? = null
-) : NativeEvent() {
+    private val userData: String? = null,
+    private val timeStampMillis: Long = System.currentTimeMillis(),
+) : NativeEvent(
+    userData = userData,
+    timeStampMillis = timeStampMillis
+) {
 
     /**
-     * Serialize CustomId08Event to JSONObject
+     * Event CustomId08
      *
-     * @return JSONObject of CustomId08Event
+     * @property custom the describing the meaning of the event.
+     * @property timeStampMillis the timestamp event in milliseconds.
+     * @property userData any custom string data.
      */
-    override fun serialize() = JSONObject().apply {
-        put("affise_event_custom_id_08", custom)
-        put("affise_event_custom_id_08_timestamp", timeStampMillis)
+    @Deprecated(
+        message = "This constructor will be removed if future",
+        replaceWith = ReplaceWith("CustomId08Event(userData, timeStampMillis)"),
+        level = DeprecationLevel.WARNING
+    )
+    constructor(
+        custom: String = "",
+        timeStampMillis: Long = System.currentTimeMillis(),
+        userData: String? = null,
+    ) : this(
+        userData = userData,
+        timeStampMillis = timeStampMillis,
+    ) {
+        anyData = custom
     }
-
-    /**
-     * Name of event
-     *
-     * @return name
-     */
-    override fun getName() = "CustomId08"
-
-    /**
-     * User data
-     *
-     * @return userData
-     */
-    override fun getUserData() = userData
 }

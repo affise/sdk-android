@@ -6,34 +6,36 @@ import org.json.JSONObject
 /**
  * Event ListView
  *
- * @property list the JSON Object describing the meaning of the event.
  * @property userData any custom string data.
+ * @property timeStampMillis the timestamp event in milliseconds.
  */
 class ListViewEvent(
-    private val list: JSONObject,
-    private val userData: String? = null
-) : NativeEvent() {
-
+    private val userData: String? = null,
+    private val timeStampMillis: Long = System.currentTimeMillis(),
+) : NativeEvent(
+    userData = userData,
+    timeStampMillis = timeStampMillis
+) {
     /**
-     * Serialize ListViewEvent to JSONObject
+     * Event ListView
      *
-     * @return JSONObject of ListViewEvent
+     * @property list the JSON Object describing the meaning of the event.
+     * @property userData any custom string data.
+     * @property timeStampMillis the timestamp event in milliseconds.
      */
-    override fun serialize() = JSONObject().apply {
-        put("affise_event_list_view", list)
+    @Deprecated(
+        message = "This constructor will be removed if future",
+        replaceWith = ReplaceWith("ListViewEvent(userData, timeStampMillis)"),
+        level = DeprecationLevel.WARNING
+    )
+    constructor(
+        list: JSONObject = JSONObject(),
+        userData: String? = null,
+        timeStampMillis: Long = System.currentTimeMillis(),
+    ) : this(
+        userData = userData,
+        timeStampMillis = timeStampMillis,
+    ) {
+        anyData = list
     }
-
-    /**
-     * Name of event
-     *
-     * @return name
-     */
-    override fun getName() = "ListView"
-
-    /**
-     * User data
-     *
-     * @return userData
-     */
-    override fun getUserData() = userData
 }

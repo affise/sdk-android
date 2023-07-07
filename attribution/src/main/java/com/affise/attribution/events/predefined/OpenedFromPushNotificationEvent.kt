@@ -1,39 +1,40 @@
 package com.affise.attribution.events.predefined
 
 import com.affise.attribution.events.NativeEvent
-import org.json.JSONObject
 
 /**
  * Event OpenedFromPushNotification
  *
- * @property details the describing the meaning of the event.
  * @property userData any custom string data.
+ * @property timeStampMillis the timestamp event in milliseconds.
  */
 class OpenedFromPushNotificationEvent(
-    private val details: String,
-    private val userData: String? = null
-) : NativeEvent() {
-
+    private val userData: String? = null,
+    private val timeStampMillis: Long = System.currentTimeMillis(),
+) : NativeEvent(
+    userData = userData,
+    timeStampMillis = timeStampMillis
+) {
     /**
-     * Serialize OpenedFromPushNotification to JSONObject
+     * Event OpenedFromPushNotification
      *
-     * @return JSONObject of OpenedFromPushNotification
+     * @property details the describing the meaning of the event.
+     * @property userData any custom string data.
+     * @property timeStampMillis the timestamp event in milliseconds.
      */
-    override fun serialize() = JSONObject().apply {
-        put("affise_event_opened_from_push_notification", details)
+    @Deprecated(
+        message = "This constructor will be removed if future",
+        replaceWith = ReplaceWith("OpenedFromPushNotificationEvent(userData, timeStampMillis)"),
+        level = DeprecationLevel.WARNING
+    )
+    constructor(
+        details: String = "",
+        userData: String? = null,
+        timeStampMillis: Long = System.currentTimeMillis(),
+    ) : this(
+        userData = userData,
+        timeStampMillis = timeStampMillis,
+    ) {
+        anyData = details
     }
-
-    /**
-     * Name of event
-     *
-     * @return name
-     */
-    override fun getName() = "OpenedFromPushNotification"
-
-    /**
-     * User data
-     *
-     * @return userData
-     */
-    override fun getUserData() = userData
 }

@@ -1,39 +1,40 @@
 package com.affise.attribution.events.predefined
 
 import com.affise.attribution.events.NativeEvent
-import org.json.JSONObject
 
 /**
  * Event DeepLinked
  *
- * @property isLinked event from link or nor
  * @property userData any custom string data.
+ * @property timeStampMillis the timestamp event in milliseconds.
  */
 class DeepLinkedEvent(
-    private val isLinked: Boolean,
-    private val userData: String? = null
-) : NativeEvent() {
-
+    private val userData: String? = null,
+    private val timeStampMillis: Long = System.currentTimeMillis(),
+) : NativeEvent(
+    userData = userData,
+    timeStampMillis = timeStampMillis
+) {
     /**
-     * Serialize DeepLinkedEvent to JSONObject
+     * Event DeepLinked
      *
-     * @return JSONObject of DeepLinkedEvent
+     * @property isLinked event from link or nor
+     * @property userData any custom string data.
+     * @property timeStampMillis the timestamp event in milliseconds.
      */
-    override fun serialize() = JSONObject().apply {
-        put("affise_event_deep_linked", isLinked)
+    @Deprecated(
+        message = "This constructor will be removed if future",
+        replaceWith = ReplaceWith("DeepLinkedEvent(userData, timeStampMillis)"),
+        level = DeprecationLevel.WARNING
+    )
+    constructor(
+        isLinked: Boolean = false,
+        userData: String? = null,
+        timeStampMillis: Long = System.currentTimeMillis(),
+    ) : this(
+        userData = userData,
+        timeStampMillis = timeStampMillis,
+    ) {
+        anyData = isLinked
     }
-
-    /**
-     * Name of event
-     *
-     * @return name
-     */
-    override fun getName() = "DeepLinked"
-
-    /**
-     * User data
-     *
-     * @return userData
-     */
-    override fun getUserData() = userData
 }

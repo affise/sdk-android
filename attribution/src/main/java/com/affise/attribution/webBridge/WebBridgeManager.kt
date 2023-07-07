@@ -1,6 +1,7 @@
 package com.affise.attribution.webBridge
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import com.affise.attribution.converter.StringToKeyValueConverter
@@ -68,6 +69,16 @@ internal class WebBridgeManager(
                 JSONArray(this)
             }
             post("getStatus", id, json.toString())
+        }
+    }
+
+    @JavascriptInterface
+    fun log(level: String?, message: String?) {
+        when(level) {
+            "d" -> Log.d(this.javaClass.simpleName, message ?: "no debug details")
+            "e" -> Log.e(this.javaClass.simpleName, message ?: "no error details")
+            "w" -> Log.w(this.javaClass.simpleName, message ?: "no warning details")
+            else -> Log.i(this.javaClass.simpleName, message ?: "no info details")
         }
     }
 

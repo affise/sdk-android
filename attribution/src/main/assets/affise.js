@@ -1,933 +1,1499 @@
-const AffiseEventHandler = class { 
-    static eventName = () => "AffiseEvent";
+const AffiseEventHandler = class {
+  static eventName = () => "AffiseEvent";
 
-    static dispatchEvent(name, id, data) {
-        window.dispatchEvent(new CustomEvent(AffiseEventHandler.eventName(), {
-            detail: {
-                id: id,
-                name: name,
-                data: data
-            }
-        }));
-    }
-    
-    static handle(name, id, onComplete) {
-        let callback = (e) => {
-            if (typeof onComplete !== "function") return;
-            if (e.detail.name !== name) return;
-            if (e.detail.id !== id) return;
-            onComplete(e.detail.data);
-            window.removeEventListener(AffiseEventHandler.eventName(), callback);
-        };
-        window.addEventListener(AffiseEventHandler.eventName(), callback);
-    }
-};
+  static dispatchEvent(name, id, data) {
+    window.dispatchEvent(
+      new CustomEvent(AffiseEventHandler.eventName(), {
+        detail: {
+          id: id,
+          name: name,
+          data: data,
+        },
+      })
+    );
+  }
+
+  static handle(name, id, onComplete) {
+    let callback = (e) => {
+      if (typeof onComplete !== "function") return;
+      if (e.detail.name !== name) return;
+      if (e.detail.id !== id) return;
+      onComplete(e.detail.data);
+      window.removeEventListener(AffiseEventHandler.eventName(), callback);
+    };
+    window.addEventListener(AffiseEventHandler.eventName(), callback);
+  }
+}
 
 const AffiseModules = {
-    Advertising: "Advertising",
-    Network: "Network",
-    Phone: "Phone",
-    Status: "Status",
-};
+  Advertising: "Advertising",
+  Network: "Network",
+  Phone: "Phone",
+  Status: "Status",
+}
+
+const AffiseLog = class {
+  static d(message) {
+    this._log("d", message);
+  }
+  static e(message) {
+    this._log("e", message);
+  }
+  static w(message) {
+    this._log("w", message);
+  }
+  static i(message) {
+    this._log("i", message);
+  }
+  static _log(level, message) {
+    AffiseBridge.log(level, JSON.stringify(message));
+  }
+}
 
 const Affise = class {
-    static sendEvent(event) {
-        AffiseBridge.sendEvent(JSON.stringify(event));
-    }
+  static sendEvent(event) {
+    AffiseBridge.sendEvent(JSON.stringify(event));
+  }
 
-    static getStatus(module, onComplete) {
-        let id = `${Date.now()}`;
-        AffiseEventHandler.handle("getStatus", id, onComplete);
-        AffiseBridge.getStatus(module, id);
-    }
+  static getStatus(module, onComplete) {
+    let id = `${Date.now()}`;
+    AffiseEventHandler.handle("getStatus", id, onComplete);
+    AffiseBridge.getStatus(module, id);
+  }
+}
+
+class PredefinedParameters {
+  constructor(name, value) {
+    this.name = name;
+    this.value = value;
+  }
+}
+
+const PredefinedString = {
+  ADREV_AD_TYPE: "affise_p_adrev_ad_type",
+  CITY: "affise_p_city",
+  COUNTRY: "affise_p_country",
+  REGION: "affise_p_region",
+  CLASS: "affise_p_class",
+  CONTENT_ID: "affise_p_content_id",
+  CONTENT_TYPE: "affise_p_content_type",
+  CURRENCY: "affise_p_currency",
+  CUSTOMER_USER_ID: "affise_p_customer_user_id",
+  DESCRIPTION: "affise_p_description",
+  DESTINATION_A: "affise_p_destination_a",
+  DESTINATION_B: "affise_p_destination_b",
+  DESTINATION_LIST: "affise_p_destination_list",
+  ORDER_ID: "affise_p_order_id",
+  PAYMENT_INFO_AVAILABLE: "affise_p_payment_info_available",
+  PREFERRED_NEIGHBORHOODS: "affise_p_preferred_neighborhoods",
+  PURCHASE_CURRENCY: "affise_p_purchase_currency",
+  RECEIPT_ID: "affise_p_receipt_id",
+  REGISTRATION_METHOD: "affise_p_registration_method",
+  SEARCH_STRING: "affise_p_search_string",
+  SUBSCRIPTION_ID: "affise_p_subscription_id",
+  SUCCESS: "affise_p_success",
+  SUGGESTED_DESTINATIONS: "affise_p_suggested_destinations",
+  SUGGESTED_HOTELS: "affise_p_suggested_hotels",
+  VALIDATED: "affise_p_validated",
+  ACHIEVEMENT_ID: "affise_p_achievement_id",
+  COUPON_CODE: "affise_p_coupon_code",
+  CUSTOMER_SEGMENT: "affise_p_customer_segment",
+  DEEP_LINK: "affise_p_deep_link",
+  NEW_VERSION: "affise_p_new_version",
+  OLD_VERSION: "affise_p_old_version",
+  PARAM_01: "affise_p_param_01",
+  PARAM_02: "affise_p_param_02",
+  PARAM_03: "affise_p_param_03",
+  PARAM_04: "affise_p_param_04",
+  PARAM_05: "affise_p_param_05",
+  PARAM_06: "affise_p_param_06",
+  PARAM_07: "affise_p_param_07",
+  PARAM_08: "affise_p_param_08",
+  PARAM_09: "affise_p_param_09",
+  PARAM_10: "affise_p_param_10",
+  REVIEW_TEXT: "affise_p_review_text",
+  TUTORIAL_ID: "affise_p_tutorial_id",
+  VIRTUAL_CURRENCY_NAME: "affise_p_virtual_currency_name",
+  STATUS: "status",
 };
 
-class PredefinedParameters{
-    constructor(name, value) {
-        this.name = name;
-        this.value = value;
+const PredefinedLong = {
+  DATE_A: "affise_p_date_a",
+  DATE_B: "affise_p_date_b",
+  DEPARTING_ARRIVAL_DATE: "affise_p_departing_arrival_date",
+  DEPARTING_DEPARTURE_DATE: "affise_p_departing_departure_date",
+  HOTEL_SCORE: "affise_p_hotel_score",
+  LEVEL: "affise_p_level",
+  MAX_RATING_VALUE: "affise_p_max_rating_value",
+  NUM_ADULTS: "affise_p_num_adults",
+  NUM_CHILDREN: "affise_p_num_children",
+  NUM_INFANTS: "affise_p_num_infants",
+  PREFERRED_NUM_STOPS: "affise_p_preferred_num_stops",
+  PREFERRED_STAR_RATINGS: "affise_p_preferred_star_ratings",
+  QUANTITY: "affise_p_quantity",
+  RATING_VALUE: "affise_p_rating_value",
+  RETURNING_ARRIVAL_DATE: "affise_p_returning_arrival_date",
+  RETURNING_DEPARTURE_DATE: "affise_p_returning_departure_date",
+  SCORE: "affise_p_score",
+  TRAVEL_START: "affise_p_travel_start",
+  TRAVEL_END: "affise_p_travel_end",
+  USER_SCORE: "affise_p_user_score",
+  EVENT_START: "affise_p_event_start",
+  EVENT_END: "affise_p_event_end",
+  NUM_ITEMS: "numItems",
+};
+
+const PredefinedFloat = {
+  PREFERRED_PRICE_RANGE: "affise_p_preferred_price_range",
+  PRICE: "affise_p_price",
+  REVENUE: "affise_p_revenue",
+  LAT: "affise_p_lat",
+  LONG: "affise_p_long",
+};
+
+const PredefinedListString = {
+  CONTENT_IDS: "contentIds",
+};
+
+const PredefinedListObject = {
+  CONTENT_LIST: "affise_p_content_list",
+};
+
+const PredefinedObject = {
+  CONTENT: "affise_p_content",
+};
+
+const _predefinedType = [
+  {
+    prop: PredefinedString,
+    type: "string",
+  },
+  {
+    prop: PredefinedLong,
+    type: "number",
+    isLong: true,
+  },
+  {
+    prop: PredefinedFloat,
+    type: "number",
+    isFloat: true,
+  },
+  {
+    prop: PredefinedListString,
+    type: "string",
+    isArray: true,
+  },
+  {
+    prop: PredefinedListObject,
+    type: "object",
+    isArray: true,
+  },
+  {
+    prop: PredefinedObject,
+    type: "object",
+  },
+];
+
+class _util {
+  static isValidParameter(key, value, onComplete, onError) {
+    let errorMsg = null;
+    if (key === undefined || key === null) {
+      errorMsg = `PredefinedProperty is undefined for value ${value}`;
+      onError(errorMsg);
+      return false;
     }
+    const keyName = this._getKey(key);
+    for (const prefKey in _predefinedType) {
+      let obj = _predefinedType[prefKey];
+      if (obj === null || obj == undefined) break;
+      if (!Object.values(obj.prop).includes(key)) continue;
+      return this._isValid(obj, keyName, value, onComplete, onError);
+    }
+    errorMsg = `PredefinedProperty: ${key} not found`;
+    onError(errorMsg);
+    return false;
+  }
+
+  static _isValid(obj, keyName, value, onComplete, onError) {
+    let errorMsg = null;
+    if (this._asArray(obj)) {
+      return this._toArray(obj, keyName, value, onComplete, onError);
+    } else if (this._asFloat(obj)) {
+      return this._toFloat(obj, keyName, value, onComplete, onError);
+    } else if (this._asLong(obj)) {
+      return this._toLong(obj, keyName, value, onComplete, onError);
+    } else {
+      if (typeof value === obj.type) {
+        onComplete(value);
+        return true;
+      }
+      errorMsg = `property: \'${keyName}\' only support type: \'${
+        obj.type
+      }\', value: ${value} is type: \'${typeof value}\'`;
+      onError(errorMsg);
+      return false;
+    }
+    return false;
+  }
+
+  static _asFloat(obj) {
+    return obj.isFloat !== null && obj.isFloat !== undefined && obj.isFloat;
+  }
+
+  static _asLong(obj) {
+    return obj.isLong !== null && obj.isLong !== undefined && obj.isLong;
+  }
+
+  static _asArray(obj) {
+    return obj.isArray !== null && obj.isArray !== undefined && obj.isArray;
+  }
+
+  static _toFloat(obj, keyName, value, onComplete, onError) {
+    if (typeof value === obj.type) {
+      onComplete(`${value}`);
+      return true;
+    }
+    let errorMsg = `property: \'${keyName}\' only support type: \'${
+      obj.type
+    }\', value: \'${JSON.stringify(value)}\' is type: \'${typeof value}\'`;
+    onError(errorMsg);
+    return false;
+  }
+
+  static _toLong(obj, keyName, value, onComplete, onError) {
+    if (Number.isInteger(value)) {
+      onComplete(value);
+      return true;
+    }
+    let errorMsg = `property: \'${keyName}\' only support type: \'Integer ${
+      obj.type
+    }\', value: \'${JSON.stringify(value)}\' is type: \'${typeof value}\'`;
+    onError(errorMsg);
+    return false;
+  }
+
+  static _toArray(obj, keyName, value, onComplete, onError) {
+    let errorMsg = null;
+    if (!Array.isArray(value)) {
+      errorMsg = `property: \'${keyName}\' only support \'array of ${
+        obj.type
+      }\', value: \'${JSON.stringify(value)}\' is not array`;
+      onError(errorMsg);
+      return false;
+    }
+    if (value.length < 1) {
+      onComplete(value);
+      return true;
+    }
+    if (value.some((v) => Array.isArray(v))) {
+      let err = value.find((f) => Array.isArray(f));
+      errorMsg = `property: \'${keyName}\' only support \'array of ${
+        obj.type
+      }\', value: \'${JSON.stringify(err)}\' is array`;
+      onError(errorMsg);
+      return false;
+    }
+    if (value.every((v) => typeof v === obj.type)) {
+      onComplete(value);
+      return true;
+    }
+    let err = value.find((f) => typeof f !== obj.type);
+    errorMsg = `property: \'${keyName}\' only support type: \'array of ${
+      obj.type
+    }\', value: \'${JSON.stringify(err)}\' is type: \'${typeof err}\'`;
+    onError(errorMsg);
+    return false;
+  }
+
+  static _getKey(value) {
+    let obj;
+    let result = null;
+    for (const prefKey in _predefinedType) {
+      obj = _predefinedType[prefKey];
+      result = Object.keys(obj.prop).find((key) => obj.prop[key] === value);
+      if (result === undefined || result === null) continue;
+      return result;
+    }
+    return null;
+  }
+}
+
+class AffisePropertyBuilder {
+  constructor() {
+    this.prefix = "affise_event";
+    this.json = {};
+  }
+  init(name) {
+    this.name = this._toSnakeCase(name);
+    return this;
+  }
+  add(key, value) {
+    this.addRaw(this._eventProperty(key), value);
+    return this;
+  }
+  addRaw(key, value) {
+    this.json[key] = value;
+    return this;
+  }
+  build() {
+    return this.json;
+  }
+  _eventProperty(key) {
+    return `${this.prefix}${this.name}_${key}`;
+  }
+  _toSnakeCase(str) {
+    return str.replace(/([A-Z]|\d+)/g, (letter) => `_${letter.toLowerCase()}`);
+  }
 }
 
 class Event {
-    constructor(name) {
-        this.affise_event_id = this._generateUUID();
-        this.affise_event_name = name;
-        this.affise_event_category = 'web';
-        this.affise_event_timestamp = Date.now();
+  constructor(name, args) {
+    const defaults = { timeStampMillis: Date.now(), userData: null };
+    let params = { ...defaults, ...args };
+
+    this.affise_event_id = this._generateUUID();
+    this.affise_event_name = name;
+    this.affise_event_category = "web";
+    this.affise_event_timestamp = Date.now();
+    this.affise_event_first_for_user = false;
+    this.affise_event_user_data = params.userData;
+    this.affise_event_data = new AffisePropertyBuilder()
+      .init(name)
+      .add("timestamp", params.timeStampMillis)
+      .build();
+  }
+
+  addPredefinedParameter(key, value) {
+    if (typeof this.affise_parameters === "undefined") {
+      this.affise_parameters = {};
     }
 
-    addPredefinedParameter(key, value) {
-        if (typeof this.affise_parameters === 'undefined') {
-            this.affise_parameters = {};
-        }
-        this.affise_parameters[key] = value;
-    }
+    _util.isValidParameter(
+      key,
+      value,
+      (finalValue) => {
+        this.affise_parameters[key] = finalValue;
+      },
+      (err) => {
+        AffiseLog.w(`${this.affise_event_name}: ${err}`);
+      }
+    );
+  }
 
-    _generateUUID() {
-        var d = new Date().getTime();
-        var d2 = ((typeof performance !== 'undefined') && performance.now && (performance.now()*1000)) || 0;
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = Math.random() * 16;
-            if(d > 0){
-                r = (d + r)%16 | 0;
-                d = Math.floor(d/16);
-            } else {
-                r = (d2 + r)%16 | 0;
-                d2 = Math.floor(d2/16);
-            }
-            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-        });
-    }
+  _generateUUID() {
+    let d = new Date().getTime();
+    let d2 =
+      (typeof performance !== "undefined" &&
+        performance.now &&
+        performance.now() * 1000) ||
+      0;
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+      let r = Math.random() * 16;
+      if (d > 0) {
+        r = (d + r) % 16 | 0;
+        d = Math.floor(d / 16);
+      } else {
+        r = (d2 + r) % 16 | 0;
+        d2 = Math.floor(d2 / 16);
+      }
+      return (c === "x" ? r : (r & 0x3) | 0x8).toString(16);
+    });
+  }
 }
 
 class SubscriptionEvent extends Event {
-    constructor(data, userData, subscriptionKey, subscriptionSubKey) {
-        super(subscriptionKey);
+  constructor(data, userData, subscriptionKey, subscriptionSubKey) {
+    super(subscriptionKey, { userData: userData });
 
-        var event_data = {affise_event_type:subscriptionSubKey};
+    let event_data = {};
 
-        for(var key in data){
-           event_data[key] = data[key];
-        }
+    event_data[`affise_event_${subscriptionKey}_timestamp`] = Date.now();
+    event_data['affise_event_type'] = subscriptionSubKey;
 
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = event_data;
+    for (const key in data) {
+      event_data[key] = data[key];
     }
+
+    this.affise_event_data = event_data;
+  }
 }
 
 class AchieveLevelEvent extends Event {
-    constructor(level, timeStampMillis, userData) {
-        super('AchieveLevel');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_achieve_level: level,
-            affise_event_achieve_level_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event AchieveLevel
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("AchieveLevel", args);
+  }
 }
 
 class AddPaymentInfoEvent extends Event {
-    constructor(paymentInfo, timeStampMillis, userData) {
-        super('AddPaymentInfo');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_add_payment_info: paymentInfo,
-            affise_event_add_payment_info_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event AddPaymentInfo
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("AddPaymentInfo", args);
+  }
 }
 
 class AddToCartEvent extends Event {
-    constructor(addToCartObject, timeStampMillis, userData) {
-        super('AddToCart');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_add_to_cart: addToCartObject,
-            affise_event_add_to_cart_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event AddToCart
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("AddToCart", args);
+  }
 }
 
 class AddToWishlistEvent extends Event {
-    constructor(wishList, timeStampMillis, userData) {
-        super('AddToWishlist');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_add_to_wishlist: wishList,
-            affise_event_add_to_wishlist_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event AddToWishlist
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("AddToWishlist", args);
+  }
 }
 
 class ClickAdvEvent extends Event {
-    constructor(advertisement, timeStampMillis, userData) {
-        super('ClickAdv');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_click_adv: advertisement,
-            affise_event_click_adv_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event ClickAdv
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("ClickAdv", args);
+  }
 }
 
 class CompleteRegistrationEvent extends Event {
-    constructor(registration, timeStampMillis, userData) {
-        super('CompleteRegistration');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_complete_registration: registration,
-            affise_event_complete_registration_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event CompleteRegistration
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("CompleteRegistration", args);
+  }
 }
 
 class CompleteStreamEvent extends Event {
-    constructor(stream, timeStampMillis, userData) {
-        super('CompleteStream');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_complete_stream: stream,
-            affise_event_complete_stream_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event CompleteStream
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("CompleteStream", args);
+  }
 }
 
 class CompleteTrialEvent extends Event {
-    constructor(trial, timeStampMillis, userData) {
-        super('CompleteTrial');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_complete_trial: trial,
-            affise_event_complete_trial_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event CompleteTrial
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("CompleteTrial", args);
+  }
 }
 
 class CompleteTutorialEvent extends Event {
-    constructor(tutorial, timeStampMillis, userData) {
-        super('CompleteTutorial');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_complete_tutorial: tutorial,
-            affise_event_complete_tutorial_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event CompleteTutorial
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("CompleteTutorial", args);
+  }
+}
+class ContactEvent extends Event {
+  /**
+   * Event Contact
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("Contact", args);
+  }
 }
 
 class ContentItemsViewEvent extends Event {
-    constructor(objects, userData) {
-        super('ContentItemsView');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_content_items_view: objects
-        };
-    }
+  /**
+   * Event ContentItemsView
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("ContentItemsView", args);
+  }
 }
 
 class CustomId01Event extends Event {
-    constructor(custom, timeStampMillis, userData) {
-        super('CustomId01');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_custom_id_01: custom,
-            affise_event_custom_id_01_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event CustomId01
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("CustomId01", args);
+  }
 }
 
 class CustomId02Event extends Event {
-    constructor(custom, timeStampMillis, userData) {
-        super('CustomId02');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_custom_id_02: custom,
-            affise_event_custom_id_02_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event CustomId02
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("CustomId02", args);
+  }
 }
 
 class CustomId03Event extends Event {
-    constructor(custom, timeStampMillis, userData) {
-        super('CustomId03');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_custom_id_03: custom,
-            affise_event_custom_id_03_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event CustomId03
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("CustomId03", args);
+  }
 }
 
 class CustomId04Event extends Event {
-    constructor(custom, timeStampMillis, userData) {
-        super('CustomId04');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_custom_id_04: custom,
-            affise_event_custom_id_04_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event CustomId04
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("CustomId04", args);
+  }
 }
 
 class CustomId05Event extends Event {
-    constructor(custom, timeStampMillis, userData) {
-        super('CustomId05');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_custom_id_05: custom,
-            affise_event_custom_id_05_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event CustomId05
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("CustomId05", args);
+  }
 }
 
 class CustomId06Event extends Event {
-    constructor(custom, timeStampMillis, userData) {
-        super('CustomId06');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_custom_id_06: custom,
-            affise_event_custom_id_06_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event CustomId06
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("CustomId06", args);
+  }
 }
 
 class CustomId07Event extends Event {
-    constructor(custom, timeStampMillis, userData) {
-        super('CustomId07');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_custom_id_07: custom,
-            affise_event_custom_id_07_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event CustomId07
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("CustomId07", args);
+  }
 }
 
 class CustomId08Event extends Event {
-    constructor(custom, timeStampMillis, userData) {
-        super('CustomId08');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_custom_id_08: custom,
-            affise_event_custom_id_08_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event CustomId08
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("CustomId08", args);
+  }
 }
 
 class CustomId09Event extends Event {
-    constructor(custom, timeStampMillis, userData) {
-        super('CustomId09');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_custom_id_09: custom,
-            affise_event_custom_id_09_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event CustomId09
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("CustomId09", args);
+  }
 }
 
 class CustomId10Event extends Event {
-    constructor(custom, timeStampMillis, userData) {
-        super('CustomId10');
+  /**
+   * Event CustomId10
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("CustomId10", args);
+  }
+}
 
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_custom_id_10: custom,
-            affise_event_custom_id_10_timestamp: timeStampMillis
-        };
-    }
+class CustomizeProductEvent extends Event {
+  /**
+   * Event CustomizeProduct
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("CustomizeProduct", args);
+  }
 }
 
 class DeepLinkedEvent extends Event {
-    constructor(isLinked, userData) {
-        super('DeepLinked');
+  /**
+   * Event DeepLinked
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("DeepLinked", args);
+  }
+}
 
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_deep_linked: isLinked
-        };
-    }
+class DonateEvent extends Event {
+  /**
+   * Event Donate
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("Donate", args);
+  }
+}
+
+class FindLocationEvent extends Event {
+  /**
+   * Event FindLocation
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("FindLocation", args);
+  }
+}
+
+class InitiateCheckoutEvent extends Event {
+  /**
+   * Event InitiateCheckout
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("InitiateCheckout", args);
+  }
 }
 
 class InitiatePurchaseEvent extends Event {
-    constructor(purchaseData, timeStampMillis, userData) {
-        super('InitiatePurchase');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_initiate_purchase: purchaseData,
-            affise_event_initiate_purchase_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event InitiatePurchase
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("InitiatePurchase", args);
+  }
 }
 
 class InitiateStreamEvent extends Event {
-    constructor(stream, timeStampMillis, userData) {
-        super('InitiateStream');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_initiate_stream: stream,
-            affise_event_initiate_stream_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event InitiateStream
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("InitiateStream", args);
+  }
 }
 
 class InviteEvent extends Event {
-    constructor(invite, timeStampMillis, userData) {
-        super('Invite');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_invite: invite,
-            affise_event_invite_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event Invite
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("Invite", args);
+  }
 }
 
 class LastAttributedTouchEvent extends Event {
-    constructor(touchType, timeStampMillis, touchData, userData) {
-        super('LastAttributedTouch');
+  /**
+   * Event LastAttributedTouch
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("LastAttributedTouch", args);
+  }
+}
 
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_last_attributed_touch_type: touchType,
-            affise_event_last_attributed_touch_timestamp: timeStampMillis,
-            affise_event_last_attributed_touch_data: touchData
-        };
-    }
+class LeadEvent extends Event {
+  /**
+   * Event Lead
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("Lead", args);
+  }
 }
 
 class ListViewEvent extends Event {
-    constructor(list, userData) {
-        super('ListView');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_list_view: list
-        };
-    }
+  /**
+   * Event ListView
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("ListView", args);
+  }
 }
 
 class LoginEvent extends Event {
-    constructor(login, timeStampMillis, userData) {
-        super('Login');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_login: login,
-            affise_event_login_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event Login
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("Login", args);
+  }
 }
 
 class OpenedFromPushNotificationEvent extends Event {
-    constructor(details, userData) {
-        super('OpenedFromPushNotification');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_opened_from_push_notification: details
-        };
-    }
+  /**
+   * Event OpenedFromPushNotification
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("OpenedFromPushNotification", args);
+  }
 }
 
 class PurchaseEvent extends Event {
-    constructor(purchaseData, timeStampMillis, userData) {
-        super('Purchase');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_purchase: purchaseData,
-            affise_event_purchase_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event Purchase
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("Purchase", args);
+  }
 }
 
 class RateEvent extends Event {
-    constructor(rate, timeStampMillis, userData) {
-        super('Rate');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_rate: rate,
-            affise_event_rate_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event Rate
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("Rate", args);
+  }
 }
 
 class ReEngageEvent extends Event {
-    constructor(reEngage, userData) {
-        super('ReEngage');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_re_engage: reEngage
-        };
-    }
+  /**
+   * Event ReEngage
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("ReEngage", args);
+  }
 }
 
 class ReserveEvent extends Event {
-    constructor(reserve, timeStampMillis, userData) {
-        super('Reserve');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_reserve: reserve,
-            affise_event_reserve_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event Reserve
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("Reserve", args);
+  }
 }
 
 class SalesEvent extends Event {
-    constructor(sales, timeStampMillis, userData) {
-        super('Sales');
+  /**
+   * Event Sales
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("Sales", args);
+  }
+}
 
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_sales: sales,
-            affise_event_sales_timestamp: timeStampMillis
-        };
-    }
+class ScheduleEvent extends Event {
+  /**
+   * Event Schedule
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("Schedule", args);
+  }
 }
 
 class SearchEvent extends Event {
-    constructor(search, timeStampMillis, userData) {
-        super('Search');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_search: search,
-            affise_event_search_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event Search
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("Search", args);
+  }
 }
 
 class ShareEvent extends Event {
-    constructor(share, timeStampMillis, userData) {
-        super('Share');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_share: share,
-            affise_event_share_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event Share
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("Share", args);
+  }
 }
 
 class SpendCreditsEvent extends Event {
-    constructor(credits, timeStampMillis, userData) {
-        super('SpendCredits');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_spend_credits: credits,
-            affise_event_spend_credits_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event SpendCredits
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("SpendCredits", args);
+  }
 }
 
 class StartRegistrationEvent extends Event {
-    constructor(registration, timeStampMillis, userData) {
-        super('StartRegistration');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_start_registration: registration,
-            affise_event_start_registration_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event StartRegistration
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("StartRegistration", args);
+  }
 }
 
 class StartTrialEvent extends Event {
-    constructor(trial, timeStampMillis, userData) {
-        super('StartTrial');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_start_trial: trial,
-            affise_event_start_trial_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event StartTrial
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("StartTrial", args);
+  }
 }
 
 class StartTutorialEvent extends Event {
-    constructor(tutorial, timeStampMillis, userData) {
-        super('StartTutorial');
+  /**
+   * Event StartTutorial
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("StartTutorial", args);
+  }
+}
 
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_start_tutorial: tutorial,
-            affise_event_start_tutorial_timestamp: timeStampMillis
-        };
-    }
+class SubmitApplicationEvent extends Event {
+  /**
+   * Event SubmitApplication
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("SubmitApplication", args);
+  }
 }
 
 class SubscribeEvent extends Event {
-    constructor(tutorial, timeStampMillis, userData) {
-        super('Subscribe');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_subscribe: tutorial,
-            affise_event_subscribe_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event Subscribe
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("Subscribe", args);
+  }
 }
 
 class TravelBookingEvent extends Event {
-    constructor(details, userData) {
-        super('TravelBooking');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_travel_booking: details
-        };
-    }
+  /**
+   * Event TravelBooking
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("TravelBooking", args);
+  }
 }
 
 class UnlockAchievementEvent extends Event {
-    constructor(achievement, timeStampMillis, userData) {
-        super('UnlockAchievement');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_unlock_achievement: achievement,
-            affise_event_unlock_achievement_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event UnlockAchievement
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("UnlockAchievement", args);
+  }
 }
 
 class UnsubscribeEvent extends Event {
-    constructor(unsubscribe, timeStampMillis, userData) {
-        super('Unsubscribe');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_unsubscribe: unsubscribe,
-            affise_event_unsubscribe_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event Unsubscribe
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("Unsubscribe", args);
+  }
 }
 
 class UpdateEvent extends Event {
-    constructor(details, userData) {
-        super('Update');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_update: details
-        };
-    }
+  /**
+   * Event Update
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("Update", args);
+  }
 }
 
 class ViewAdvEvent extends Event {
-    constructor(ad, timeStampMillis, userData) {
-        super('ViewAdv');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_view_adv: ad,
-            affise_event_view_adv_timestamp: timeStampMillis
-        };
-    }
+  /**
+   * Event ViewAdv
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("ViewAdv", args);
+  }
 }
 
 class ViewCartEvent extends Event {
-    constructor(objects, userData) {
-        super('ViewCart');
+  /**
+   * Event ViewCart
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("ViewCart", args);
+  }
+}
 
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_view_cart: objects
-        };
-    }
+class ViewContentEvent extends Event {
+  /**
+   * Event ViewContent
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("ViewContent", args);
+  }
 }
 
 class ViewItemEvent extends Event {
-    constructor(item, userData) {
-        super('ViewItem');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_view_item: item
-        };
-    }
+  /**
+   * Event ViewItem
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("ViewItem", args);
+  }
 }
 
 class ViewItemsEvent extends Event {
-    constructor(items, userData) {
-        super('ViewItems');
-
-        this.affise_event_first_for_user = false;
-        this.affise_event_user_data = userData;
-        this.affise_event_data = {
-            affise_event_view_items: items
-        };
-    }
+  /**
+   * Event ViewItems
+   * 
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("ViewItems", args);
+  }
 }
 
 class InitialSubscriptionEvent extends SubscriptionEvent {
-    constructor(data, userData) {
-        super(
-            data,
-            userData,
-            'affise_subscription_activation',
-            'affise_sub_initial_subscription'
-        );
-    }
+  /**
+   * Event InitialSubscription
+   * 
+   * @param {object} data event data
+   * @param {string} userData any custom string data.
+   */
+  constructor(data, userData) {
+    super(
+      data,
+      userData,
+      "affise_subscription_activation",
+      "affise_sub_initial_subscription"
+    );
+  }
 }
 
 class InitialTrialEvent extends SubscriptionEvent {
-    constructor(data, userData) {
-        super(
-            data,
-            userData,
-            'affise_subscription_activation',
-            'affise_sub_initial_trial'
-        );
-    }
+  /**
+   * Event InitialTrial
+   * 
+   * @param {object} data event data
+   * @param {string} userData any custom string data.
+   */
+  constructor(data, userData) {
+    super(
+      data,
+      userData,
+      "affise_subscription_activation",
+      "affise_sub_initial_trial"
+    );
+  }
 }
 
 class InitialOfferEvent extends SubscriptionEvent {
-    constructor(data, userData) {
-        super(
-            data,
-            userData,
-            'affise_subscription_activation',
-            'affise_sub_initial_offer'
-        );
-    }
+  /**
+   * Event InitialOffer
+   * 
+   * @param {object} data event data
+   * @param {string} userData any custom string data.
+   */
+  constructor(data, userData) {
+    super(
+      data,
+      userData,
+      "affise_subscription_activation",
+      "affise_sub_initial_offer"
+    );
+  }
 }
 
 class ConvertedTrialEvent extends SubscriptionEvent {
-    constructor(data, userData) {
-        super(
-            data,
-            userData,
-            'affise_subscription_first_conversion',
-            'affise_sub_converted_trial'
-        );
-    }
+  /**
+   * Event ConvertedTrial
+   * 
+   * @param {object} data event data
+   * @param {string} userData any custom string data.
+   */
+  constructor(data, userData) {
+    super(
+      data,
+      userData,
+      "affise_subscription_first_conversion",
+      "affise_sub_converted_trial"
+    );
+  }
 }
 
 class ConvertedOfferEvent extends SubscriptionEvent {
-    constructor(data, userData) {
-        super(
-            data,
-            userData,
-            'affise_subscription_first_conversion',
-            'affise_sub_converted_offer'
-        );
-    }
+  /**
+   * Event ConvertedOffer
+   * 
+   * @param {object} data event data
+   * @param {string} userData any custom string data.
+   */
+  constructor(data, userData) {
+    super(
+      data,
+      userData,
+      "affise_subscription_first_conversion",
+      "affise_sub_converted_offer"
+    );
+  }
 }
 
 class TrialInRetryEvent extends SubscriptionEvent {
-    constructor(data, userData) {
-        super(
-            data,
-            userData,
-            'affise_subscription_entered_billing_retry',
-            'affise_sub_trial_in_retry'
-        );
-    }
+  /**
+   * Event TrialInRetry
+   * 
+   * @param {object} data event data
+   * @param {string} userData any custom string data.
+   */
+  constructor(data, userData) {
+    super(
+      data,
+      userData,
+      "affise_subscription_entered_billing_retry",
+      "affise_sub_trial_in_retry"
+    );
+  }
 }
 
 class OfferInRetryEvent extends SubscriptionEvent {
-    constructor(data, userData) {
-        super(
-            data,
-            userData,
-            'affise_subscription_entered_billing_retry',
-            'affise_sub_offer_in_retry'
-        );
-    }
+  /**
+   * Event OfferInRetry
+   * 
+   * @param {object} data event data
+   * @param {string} userData any custom string data.
+   */
+  constructor(data, userData) {
+    super(
+      data,
+      userData,
+      "affise_subscription_entered_billing_retry",
+      "affise_sub_offer_in_retry"
+    );
+  }
 }
 
 class SubscriptionInRetryEvent extends SubscriptionEvent {
-    constructor(data, userData) {
-        super(
-            data,
-            userData,
-            'affise_subscription_entered_billing_retry',
-            'affise_sub_subscription_in_retry'
-        );
-    }
+  /**
+   * Event SubscriptionInRetry
+   * 
+   * @param {object} data event data
+   * @param {string} userData any custom string data.
+   */
+  constructor(data, userData) {
+    super(
+      data,
+      userData,
+      "affise_subscription_entered_billing_retry",
+      "affise_sub_subscription_in_retry"
+    );
+  }
 }
 
 class RenewedSubscriptionEvent extends SubscriptionEvent {
-    constructor(data, userData) {
-        super(
-            data,
-            userData,
-            'affise_subscription_renewal',
-            'affise_sub_renewed_subscription'
-        );
-    }
+  /**
+   * Event RenewedSubscription
+   * 
+   * @param {object} data event data
+   * @param {string} userData any custom string data.
+   */
+  constructor(data, userData) {
+    super(
+      data,
+      userData,
+      "affise_subscription_renewal",
+      "affise_sub_renewed_subscription"
+    );
+  }
 }
 
 class FailedSubscriptionFromRetryEvent extends SubscriptionEvent {
-    constructor(data, userData) {
-        super(
-            data,
-            userData,
-            'affise_subscription_cancellation',
-            'affise_sub_failed_subscription_from_retry'
-        );
-    }
+  /**
+   * Event FailedSubscriptionFromRetry
+   * 
+   * @param {object} data event data
+   * @param {string} userData any custom string data.
+   */
+  constructor(data, userData) {
+    super(
+      data,
+      userData,
+      "affise_subscription_cancellation",
+      "affise_sub_failed_subscription_from_retry"
+    );
+  }
 }
 
 class FailedOfferFromRetryEvent extends SubscriptionEvent {
-    constructor(data, userData) {
-        super(
-            data,
-            userData,
-            'affise_subscription_cancellation',
-            'affise_sub_failed_offer_from_retry'
-        );
-    }
+  /**
+   * Event FailedOfferFromRetry
+   * 
+   * @param {object} data event data
+   * @param {string} userData any custom string data.
+   */
+  constructor(data, userData) {
+    super(
+      data,
+      userData,
+      "affise_subscription_cancellation",
+      "affise_sub_failed_offer_from_retry"
+    );
+  }
 }
 
 class FailedTrialFromRetryEvent extends SubscriptionEvent {
-    constructor(data, userData) {
-        super(
-            data,
-            userData,
-            'affise_subscription_cancellation',
-            'affise_sub_failed_trial_from_retry'
-        );
-    }
+  /**
+   * Event FailedTrialFromRetry
+   * 
+   * @param {object} data event data
+   * @param {string} userData any custom string data.
+   */
+  constructor(data, userData) {
+    super(
+      data,
+      userData,
+      "affise_subscription_cancellation",
+      "affise_sub_failed_trial_from_retry"
+    );
+  }
 }
 
 class FailedSubscriptionEvent extends SubscriptionEvent {
-    constructor(data, userData) {
-        super(
-            data,
-            userData,
-            'affise_subscription_cancellation',
-            'affise_sub_failed_subscription'
-        );
-    }
+  /**
+   * Event FailedSubscription
+   * 
+   * @param {object} data event data
+   * @param {string} userData any custom string data.
+   */
+  constructor(data, userData) {
+    super(
+      data,
+      userData,
+      "affise_subscription_cancellation",
+      "affise_sub_failed_subscription"
+    );
+  }
 }
 
 class FailedOfferiseEvent extends SubscriptionEvent {
-    constructor(data, userData) {
-        super(
-            data,
-            userData,
-            'affise_subscription_cancellation',
-            'affise_sub_failed_offer'
-        );
-    }
+  /**
+   * Event FailedOfferise
+   * 
+   * @param {object} data event data
+   * @param {string} userData any custom string data.
+   */
+  constructor(data, userData) {
+    super(
+      data,
+      userData,
+      "affise_subscription_cancellation",
+      "affise_sub_failed_offer"
+    );
+  }
 }
 
 class FailedTrialEvent extends SubscriptionEvent {
-    constructor(data, userData) {
-        super(
-            data,
-            userData,
-            'affise_subscription_cancellation',
-            'affise_sub_failed_trial'
-        );
-    }
+  /**
+   * Event FailedTrial
+   * 
+   * @param {object} data event data
+   * @param {string} userData any custom string data.
+   */
+  constructor(data, userData) {
+    super(
+      data,
+      userData,
+      "affise_subscription_cancellation",
+      "affise_sub_failed_trial"
+    );
+  }
 }
 
 class ReactivatedSubscriptionEvent extends SubscriptionEvent {
-    constructor(data, userData) {
-        super(
-            data,
-            userData,
-            'affise_subscription_reactivation',
-            'affise_sub_reactivated_subscription'
-        );
-    }
+  /**
+   * Event ReactivatedSubscription
+   * 
+   * @param {object} data event data
+   * @param {string} userData any custom string data.
+   */
+  constructor(data, userData) {
+    super(
+      data,
+      userData,
+      "affise_subscription_reactivation",
+      "affise_sub_reactivated_subscription"
+    );
+  }
 }
 
 class RenewedSubscriptionFromRetryEvent extends SubscriptionEvent {
-    constructor(data, userData) {
-        super(
-            data,
-            userData,
-            'affise_subscription_renewal_from_billing_retry',
-            'affise_sub_renewed_subscription_from_retry'
-        );
-    }
+  /**
+   * Event RenewedSubscriptionFromRetry
+   * 
+   * @param {object} data event data
+   * @param {string} userData any custom string data.
+   */
+  constructor(data, userData) {
+    super(
+      data,
+      userData,
+      "affise_subscription_renewal_from_billing_retry",
+      "affise_sub_renewed_subscription_from_retry"
+    );
+  }
 }
 
 class ConvertedOfferFromRetryEvent extends SubscriptionEvent {
-    constructor(data, userData) {
-        super(
-            data,
-            userData,
-            'affise_subscription_renewal_from_billing_retry',
-            'affise_sub_converted_offer_from_retry'
-        );
-    }
+  /**
+   * Event ConvertedOfferFromRetry
+   * 
+   * @param {object} data event data
+   * @param {string} userData any custom string data.
+   */
+  constructor(data, userData) {
+    super(
+      data,
+      userData,
+      "affise_subscription_renewal_from_billing_retry",
+      "affise_sub_converted_offer_from_retry"
+    );
+  }
 }
 
 class ConvertedTrialFromRetryEvent extends SubscriptionEvent {
-    constructor(data, userData) {
-        super(
-            data,
-            userData,
-            'affise_subscription_renewal_from_billing_retry',
-            'affise_sub_converted_trial_from_retry'
-        );
-    }
+  /**
+   * Event ConvertedTrialFromRetry
+   * 
+   * @param {object} data event data
+   * @param {string} userData any custom string data.
+   */
+  constructor(data, userData) {
+    super(
+      data,
+      userData,
+      "affise_subscription_renewal_from_billing_retry",
+      "affise_sub_converted_trial_from_retry"
+    );
+  }
 }
 
 class UnsubscriptionEvent extends SubscriptionEvent {
-    constructor(data, userData) {
-        super(
-            data,
-            userData,
-            'affise_unsubscription',
-            'affise_sub_unsubscription'
-        );
-    }
+  /**
+   * Event Unsubscription
+   * 
+   * @param {object} data event data
+   * @param {string} userData any custom string data.
+   */
+  constructor(data, userData) {
+    super(
+      data,
+      userData,
+      "affise_unsubscription",
+      "affise_sub_unsubscription"
+    );
+  }
 }

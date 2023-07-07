@@ -19,6 +19,7 @@ class SystemAppChecker(private val app: Application) {
      *
      * @return `true` if package is preloaded.
      */
+    @Suppress("DEPRECATION")
     private fun isSystemPreloaded() = try {
         app.packageManager.getApplicationInfo(app.packageName, 0).let {
             it.sourceDir.startsWith("/system/app/") || it.sourceDir.startsWith("/system/priv-app/")
@@ -32,6 +33,7 @@ class SystemAppChecker(private val app: Application) {
      *.
      * @return is app is system
      */
+    @Suppress("DEPRECATION")
     private fun isSystemAppByFLAG() = try {
         val applicationFlags = app.packageManager.getApplicationInfo(app.packageName, 0).flags
         val systemFlags = ApplicationInfo.FLAG_SYSTEM or ApplicationInfo.FLAG_UPDATED_SYSTEM_APP

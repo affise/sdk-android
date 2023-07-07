@@ -6,34 +6,35 @@ import org.json.JSONObject
 /**
  * Event ViewCart
  *
- * @property objects the JSON Object describing the meaning of the event.
  * @property userData any custom string data.
+ * @property timeStampMillis the timestamp event in milliseconds.
  */
 class ViewCartEvent(
-    private val objects: JSONObject,
-    private val userData: String? = null
-) : NativeEvent() {
-
+    private val userData: String? = null,
+    private val timeStampMillis: Long = System.currentTimeMillis(),
+) : NativeEvent(
+    userData = userData, timeStampMillis = timeStampMillis
+) {
     /**
-     * Serialize ViewCartEvent to JSONObject
+     * Event ViewCart
      *
-     * @return JSONObject of ViewCartEvent
+     * @property objects the JSON Object describing the meaning of the event.
+     * @property userData any custom string data.
+     * @property timeStampMillis the timestamp event in milliseconds.
      */
-    override fun serialize() = JSONObject().apply {
-        put("affise_event_view_cart", objects)
+    @Deprecated(
+        message = "This constructor will be removed if future",
+        replaceWith = ReplaceWith("ViewCartEvent(userData, timeStampMillis)"),
+        level = DeprecationLevel.WARNING
+    )
+    constructor(
+        objects: JSONObject = JSONObject(),
+        userData: String? = null,
+        timeStampMillis: Long = System.currentTimeMillis(),
+    ) : this(
+        userData = userData,
+        timeStampMillis = timeStampMillis,
+    ) {
+        anyData = objects
     }
-
-    /**
-     * Name of event
-     *
-     * @return name
-     */
-    override fun getName() = "ViewCart"
-
-    /**
-     * User data
-     *
-     * @return userData
-     */
-    override fun getUserData() = userData
 }

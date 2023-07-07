@@ -2,39 +2,40 @@ package com.affise.attribution.events.predefined
 
 import com.affise.attribution.events.NativeEvent
 import org.json.JSONArray
-import org.json.JSONObject
 
 /**
  * Event TravelBooking
  *
- * @property details the JSON array describing the meaning of the event.
  * @property userData any custom string data.
+ * @property timeStampMillis the timestamp event in milliseconds.
  */
 class TravelBookingEvent(
-    private val details: JSONArray,
-    private val userData: String? = null
-) : NativeEvent() {
-
+    private val userData: String? = null,
+    private val timeStampMillis: Long = System.currentTimeMillis(),
+) : NativeEvent(
+    userData = userData,
+    timeStampMillis = timeStampMillis
+) {
     /**
-     * Serialize TravelBookingEvent to JSONObject
+     * Event TravelBooking
      *
-     * @return JSONObject of TravelBookingEvent
+     * @property details the JSON array describing the meaning of the event.
+     * @property userData any custom string data.
+     * @property timeStampMillis the timestamp event in milliseconds.
      */
-    override fun serialize() = JSONObject().apply {
-        put("affise_event_travel_booking", details)
+    @Deprecated(
+        message = "This constructor will be removed if future",
+        replaceWith = ReplaceWith("TravelBookingEvent(userData, timeStampMillis)"),
+        level = DeprecationLevel.WARNING
+    )
+    constructor(
+        details: JSONArray = JSONArray(),
+        userData: String? = null,
+        timeStampMillis: Long = System.currentTimeMillis(),
+    ) : this(
+        userData = userData,
+        timeStampMillis = timeStampMillis,
+    ) {
+        anyData = details
     }
-
-    /**
-     * Name of event
-     *
-     * @return name
-     */
-    override fun getName() = "TravelBooking"
-
-    /**
-     * User data
-     *
-     * @return userData
-     */
-    override fun getUserData() = userData
 }

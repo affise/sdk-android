@@ -6,37 +6,37 @@ import org.json.JSONObject
 /**
  * Event AddPaymentInfo
  *
- * @property paymentInfo the JSON Object describing the meaning of the event.
- * @property timeStampMillis the timestamp event in milliseconds.
  * @property userData any custom string data.
+ * @property timeStampMillis the timestamp event in milliseconds.
  */
 class AddPaymentInfoEvent(
-    private val paymentInfo: JSONObject,
-    private val timeStampMillis: Long,
-    private val userData: String? = null
-) : NativeEvent() {
+    private val userData: String? = null,
+    private val timeStampMillis: Long = System.currentTimeMillis(),
+) : NativeEvent(
+    userData = userData,
+    timeStampMillis = timeStampMillis
+) {
 
     /**
-     * Serialize AddPaymentInfoEvent to JSONObject
+     * Event AddPaymentInfo
      *
-     * @return JSONObject of AddPaymentInfoEvent
+     * @property paymentInfo the JSON Object describing the meaning of the event.
+     * @property timeStampMillis the timestamp event in milliseconds.
+     * @property userData any custom string data.
      */
-    override fun serialize() = JSONObject().apply {
-        put("affise_event_add_payment_info", paymentInfo)
-        put("affise_event_add_payment_info_timestamp", timeStampMillis)
+    @Deprecated(
+        message = "This constructor will be removed if future",
+        replaceWith = ReplaceWith("AddPaymentInfoEvent(userData, timeStampMillis)"),
+        level = DeprecationLevel.WARNING
+    )
+    constructor(
+        paymentInfo: JSONObject = JSONObject(),
+        timeStampMillis: Long = System.currentTimeMillis(),
+        userData: String? = null,
+    ) : this(
+        userData = userData,
+        timeStampMillis = timeStampMillis,
+    ) {
+        anyData = paymentInfo
     }
-
-    /**
-     * Name of event
-     *
-     * @return name
-     */
-    override fun getName() = "AddPaymentInfo"
-
-    /**
-     * User data
-     *
-     * @return userData
-     */
-    override fun getUserData() = userData
 }

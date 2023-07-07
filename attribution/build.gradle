@@ -86,7 +86,7 @@ apply from: '../publish.gradle'
 afterEvaluate {
     publishing {
         publications {
-            release(MavenPublication) {
+            aar(MavenPublication) {
                 artifactId = 'attribution'
                 pom {
                     description = 'Affise Attribution Library'

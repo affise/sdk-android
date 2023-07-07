@@ -17,7 +17,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -52,7 +52,7 @@ apply from: '../publish.gradle'
 afterEvaluate {
     publishing {
         publications {
-            release(MavenPublication) {
+            aar(MavenPublication) {
                 artifactId = 'module-advertising'
                 pom {
                     description = 'Affise Attribution Library Advertising Module'
