@@ -84,7 +84,6 @@ import com.affise.attribution.events.subscription.SubscriptionInRetryEvent
 import com.affise.attribution.events.subscription.TrialInRetryEvent
 import com.affise.attribution.events.subscription.UnsubscriptionEvent
 import org.json.JSONObject
-import java.math.BigDecimal
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -179,7 +178,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Unsubscription"
     ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
+        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
     }
 
     private fun createConvertedTrialFromRetryEvent() = ConvertedTrialFromRetryEvent(
@@ -190,7 +189,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
+        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
     }
 
     private fun createConvertedOfferFromRetryEvent() = ConvertedOfferFromRetryEvent(
@@ -201,7 +200,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
+        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
     }
 
     private fun createRenewedSubscriptionFromRetryEvent() = RenewedSubscriptionFromRetryEvent(
@@ -212,7 +211,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
+        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
     }
 
     private fun createReactivatedSubscriptionEvent() = ReactivatedSubscriptionEvent(
@@ -223,7 +222,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
+        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
     }
 
     private fun createFailedTrialEvent() = FailedTrialEvent(
@@ -234,7 +233,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
+        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
     }
 
     private fun createFailedOfferiseEvent() = FailedOfferiseEvent(
@@ -245,7 +244,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
+        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
     }
 
     private fun createFailedSubscriptionEvent() = FailedSubscriptionEvent(
@@ -256,7 +255,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
+        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
     }
 
     private fun createFailedTrialFromRetryEvent() = FailedTrialFromRetryEvent(
@@ -267,7 +266,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
+        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
     }
 
     private fun createFailedOfferFromRetryEvent() = FailedOfferFromRetryEvent(
@@ -278,7 +277,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
+        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
     }
 
     private fun createFailedSubscriptionFromRetryEvent() = FailedSubscriptionFromRetryEvent(
@@ -289,7 +288,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
+        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
     }
 
     private fun createRenewedSubscriptionEvent() = RenewedSubscriptionEvent(
@@ -300,7 +299,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
+        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
     }
 
     private fun createTrialInRetryEvent() = TrialInRetryEvent(
@@ -311,7 +310,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
+        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
     }
 
     private fun createOfferInRetryEvent() = OfferInRetryEvent(
@@ -322,7 +321,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
+        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
     }
 
     private fun createSubscriptionInRetryEvent() = SubscriptionInRetryEvent(
@@ -333,7 +332,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
+        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
     }
 
     private fun createInitialOfferEvent() = InitialOfferEvent(
@@ -344,7 +343,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
+        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
     }
 
     private fun createInitialTrialEvent() = InitialTrialEvent(
@@ -355,7 +354,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
+        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
     }
 
     private fun createInitialSubscriptionEvent() = InitialSubscriptionEvent(
@@ -366,7 +365,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
+        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
     }
 
     private fun createConvertedTrialEvent() = ConvertedTrialEvent(
@@ -377,7 +376,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
+        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
     }
 
     private fun createConvertedOfferEvent() = ConvertedOfferEvent(
@@ -388,7 +387,7 @@ class DefaultEventsFactory : EventsFactory {
         },
         "Subscription Plus"
     ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
+        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
     }
 
     private fun createAchieveLevelEvent(): Event {
@@ -417,8 +416,8 @@ class DefaultEventsFactory : EventsFactory {
         return AddToWishlistEvent(userData = "next year").apply {
             addPredefinedParameter(PredefinedString.COUNTRY, "Russia")
             addPredefinedParameter(PredefinedString.CITY, "Voronezh")
-            addPredefinedParameter(PredefinedFloat.LAT, BigDecimal("42"))
-            addPredefinedParameter(PredefinedFloat.LONG, BigDecimal("24"))
+            addPredefinedParameter(PredefinedFloat.LAT, 42.0f)
+            addPredefinedParameter(PredefinedFloat.LONG, 24.0f)
         }
     }
 
@@ -447,7 +446,7 @@ class DefaultEventsFactory : EventsFactory {
 
     private fun createCompleteStreamEvent(): Event {
         return CompleteStreamEvent(userData = "23 hours").apply {
-            addPredefinedParameter(PredefinedFloat.REVENUE, BigDecimal("225522"))
+            addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
         }
     }
 
@@ -569,7 +568,7 @@ class DefaultEventsFactory : EventsFactory {
             timeStampMillis = System.currentTimeMillis(),
         ).apply {
             addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
-            addPredefinedParameter(PredefinedFloat.PRICE, BigDecimal("2.19"))
+            addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
             addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
         }
     }
@@ -580,7 +579,7 @@ class DefaultEventsFactory : EventsFactory {
             timeStampMillis = System.currentTimeMillis(),
         ).apply {
             addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
-            addPredefinedParameter(PredefinedFloat.PRICE, BigDecimal("2.19"))
+            addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
             addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
         }
     }
@@ -591,7 +590,7 @@ class DefaultEventsFactory : EventsFactory {
             timeStampMillis = System.currentTimeMillis(),
         ).apply {
             addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
-            addPredefinedParameter(PredefinedFloat.PRICE, BigDecimal("2.19"))
+            addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
             addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
         }
     }
@@ -599,7 +598,7 @@ class DefaultEventsFactory : EventsFactory {
     private fun createInitiatePurchaseEvent(): Event {
         return InitiatePurchaseEvent(userData = "best price").apply {
             addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
-            addPredefinedParameter(PredefinedFloat.PRICE, BigDecimal("2.19"))
+            addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
             addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
         }
     }
@@ -662,7 +661,7 @@ class DefaultEventsFactory : EventsFactory {
     private fun createPurchaseEvent(): Event {
         return PurchaseEvent(userData = "apple").apply {
             addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
-            addPredefinedParameter(PredefinedFloat.PRICE, BigDecimal("2.19"))
+            addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
             addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
         }
     }
@@ -673,7 +672,7 @@ class DefaultEventsFactory : EventsFactory {
             addPredefinedParameter(PredefinedLong.PREFERRED_NUM_STOPS, 4L)
             addPredefinedParameter(
                 PredefinedFloat.PREFERRED_PRICE_RANGE,
-                BigDecimal("10.22")
+                10.22f
             )
             addPredefinedParameter(PredefinedLong.PREFERRED_STAR_RATINGS, 6L)
         }
@@ -688,7 +687,7 @@ class DefaultEventsFactory : EventsFactory {
     private fun createReserveEvent(): Event {
         return ReserveEvent(userData = "discount").apply {
             addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
-            addPredefinedParameter(PredefinedFloat.PRICE, BigDecimal("2.19"))
+            addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
             addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
         }
     }
@@ -696,7 +695,7 @@ class DefaultEventsFactory : EventsFactory {
     private fun createSalesEvent(): Event {
         return SalesEvent(userData = "apple").apply {
             addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
-            addPredefinedParameter(PredefinedFloat.PRICE, BigDecimal("2.19"))
+            addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
             addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
         }
     }
@@ -707,7 +706,7 @@ class DefaultEventsFactory : EventsFactory {
             timeStampMillis = System.currentTimeMillis(),
         ).apply {
             addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
-            addPredefinedParameter(PredefinedFloat.PRICE, BigDecimal("2.19"))
+            addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
             addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
         }
     }

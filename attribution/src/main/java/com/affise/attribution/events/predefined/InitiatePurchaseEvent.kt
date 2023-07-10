@@ -24,7 +24,7 @@ class InitiatePurchaseEvent(
      * @property userData any custom string data.
      */
     @Deprecated(
-        message = "This constructor will be removed if future",
+        message = "This constructor will be removed in future",
         replaceWith = ReplaceWith("InitiatePurchaseEvent(userData, timeStampMillis)"),
         level = DeprecationLevel.WARNING
     )

@@ -67,12 +67,12 @@ For kotlin build script build.gradle.kts use:
 ```kotlin
 dependencies {
     // Add Affise library 
-    implementation("com.affise:attribution:1.6.0")
+    implementation("com.affise:attribution:1.6.1")
     // Add Affise modules 
-    implementation("com.affise:module-advertising:1.6.0")
-    implementation("com.affise:module-network:1.6.0")
-    implementation("com.affise:module-phone:1.6.0")
-    implementation("com.affise:module-status:1.6.0")
+    implementation("com.affise:module-advertising:1.6.1")
+    implementation("com.affise:module-network:1.6.1")
+    implementation("com.affise:module-phone:1.6.1")
+    implementation("com.affise:module-status:1.6.1")
     // Add install referrer
     implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -83,12 +83,12 @@ For groovy build script build.gradle use:
 ```groovy
 dependencies {
     // Add Affise library 
-    implementation 'com.affise:attribution:1.6.0'
+    implementation 'com.affise:attribution:1.6.1'
     // Add Affise modules 
-    implementation 'com.affise:module-advertising:1.6.0'
-    implementation 'com.affise:module-network:1.6.0'
-    implementation 'com.affise:module-phone:1.6.0'
-    implementation 'com.affise:module-status:1.6.0'
+    implementation 'com.affise:module-advertising:1.6.1'
+    implementation 'com.affise:module-network:1.6.1'
+    implementation 'com.affise:module-phone:1.6.1'
+    implementation 'com.affise:module-status:1.6.1'
     // Add install referrer
     implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -96,9 +96,9 @@ dependencies {
 
 ### Integrate as file dependency
 
-Download latest Affise SDK (`attribution-1.6.0.aar`)
+Download latest Affise SDK (`attribution-1.6.1.aar`)
 from [releases page](https://github.com/affise/sdk-android/releases) and place this binary to gradle application
-module lib directory `app/libs/attribution-1.6.0.aar`
+module lib directory `app/libs/attribution-1.6.1.aar`
 
 Add library as gradle file dependency to application module build script
 Add install referrer library
@@ -109,12 +109,12 @@ For kotlin build script build.gradle.kts use:
 dependencies {
     // ...
     // Add Affise library 
-    implementation(files("libs/attribution-1.6.0.aar"))
+    implementation(files("libs/attribution-1.6.1.aar"))
     // Add Affise modules 
-    implementation(files("libs/module-advertising-1.6.0.aar"))
-    implementation(files("libs/module-network-1.6.0.aar"))
-    implementation(files("libs/module-phone-1.6.0.aar"))
-    implementation(files("libs/module-status-1.6.0.aar"))
+    implementation(files("libs/module-advertising-1.6.1.aar"))
+    implementation(files("libs/module-network-1.6.1.aar"))
+    implementation(files("libs/module-phone-1.6.1.aar"))
+    implementation(files("libs/module-status-1.6.1.aar"))
     // Add install referrer
     implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -126,12 +126,12 @@ For groovy build script build.gradle use:
 dependencies {
     // ...  
     // Add Affise library 
-    implementation files('libs/attribution-1.6.0.aar')
+    implementation files('libs/attribution-1.6.1.aar')
     // Add Affise modules 
-    implementation files('libs/module-advertising-1.6.0.aar')
-    implementation files('libs/module-network-1.6.0.aar')
-    implementation files('libs/module-phone-1.6.0.aar')
-    implementation files('libs/module-status-1.6.0.aar')
+    implementation files('libs/module-advertising-1.6.1.aar')
+    implementation files('libs/module-network-1.6.1.aar')
+    implementation files('libs/module-phone-1.6.1.aar')
+    implementation files('libs/module-status-1.6.1.aar')
     // Add install referrer
     implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -140,6 +140,8 @@ dependencies {
 ### Initialize
 
 After library is added as dependency sync project with gradle files and initialize.
+
+> Demo app [App.kt](app/src/main/java/com/affise/app/application/App.kt)
 
 For kotlin use:
 
@@ -274,6 +276,8 @@ To match users with events and data library is sending, these identifiers are co
 
 ## Events tracking
 
+> Demo app [DefaultEventsFactory.kt](app/src/main/java/com/affise/app/ui/fragments/buttons/factories/DefaultEventsFactory.kt)
+
 For example, we want to track what items usually user adds to shopping cart. To send event first create it with
 following code
 
@@ -375,13 +379,23 @@ class Presenter {
     void onUserAddsItemsToCart(String items) {
         AddToCartEvent event = AddToCartEvent(items);
         event.addPredefinedParameter(PredefinedString.DESCRIPTION, "best before 2029");
+        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19f);
         
         Affise.sendEvent(event);
     }
 }
 ```
 
-In examples above `PredefinedString.DESCRIPTION` is used, but many others is available:
+In examples above `PredefinedString.DESCRIPTION` and `PredefinedFloat.PRICE` is used, but many others is available:
+
+| PredefinedParameter                           | Type             |
+|-----------------------------------------------|------------------|
+| [PredefinedString](#predefinedstring)         | String           |
+| [PredefinedLong](#predefinedlong)             | Long             |
+| [PredefinedFloat](#predefinedfloat)           | Float            |
+| [PredefinedObject](#predefinedobject)         | JSONObject       |
+| [PredefinedListObject](#predefinedlistobject) | List<JSONObject> |
+| [PredefinedListString](#predefinedliststring) | List<String>     |
 
 ### PredefinedString
 

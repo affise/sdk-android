@@ -8,7 +8,6 @@ import com.affise.attribution.events.parameters.PredefinedLong
 import com.affise.attribution.events.parameters.PredefinedObject
 import com.affise.attribution.events.parameters.PredefinedString
 import org.json.JSONObject
-import java.math.BigDecimal
 
 /**
  * Base event
@@ -85,9 +84,9 @@ abstract class Event {
     }
 
     /**
-     * Add predefined [parameter] with [value] of BigDecimal to event
+     * Add predefined [parameter] with [value] of float to event
      */
-    fun addPredefinedParameter(parameter: PredefinedFloat, value: BigDecimal) {
+    fun addPredefinedParameter(parameter: PredefinedFloat, value: Float) {
         predefinedParameters[parameter] = value
     }
 

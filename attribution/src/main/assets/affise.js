@@ -250,7 +250,7 @@ class _util {
 
   static _toFloat(obj, keyName, value, onComplete, onError) {
     if (typeof value === obj.type) {
-      onComplete(`${value}`);
+      onComplete(value);
       return true;
     }
     let errorMsg = `property: \'${keyName}\' only support type: \'${

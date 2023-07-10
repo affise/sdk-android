@@ -24,7 +24,7 @@ class TravelBookingEvent(
      * @property timeStampMillis the timestamp event in milliseconds.
      */
     @Deprecated(
-        message = "This constructor will be removed if future",
+        message = "This constructor will be removed in future",
         replaceWith = ReplaceWith("TravelBookingEvent(userData, timeStampMillis)"),
         level = DeprecationLevel.WARNING
     )
