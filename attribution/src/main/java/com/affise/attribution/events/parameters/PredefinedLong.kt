@@ -27,8 +27,7 @@ enum class PredefinedLong(private val value: String): Predefined {
     TRAVEL_END("affise_p_travel_end"),
     USER_SCORE("affise_p_user_score"),
     EVENT_START("affise_p_event_start"),
-    EVENT_END("affise_p_event_end"),
-    NUM_ITEMS("numItems");
+    EVENT_END("affise_p_event_end");
 
     override fun value(): String = this.value
 }

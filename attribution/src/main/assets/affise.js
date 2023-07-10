@@ -114,7 +114,7 @@ const PredefinedString = {
   REVIEW_TEXT: "affise_p_review_text",
   TUTORIAL_ID: "affise_p_tutorial_id",
   VIRTUAL_CURRENCY_NAME: "affise_p_virtual_currency_name",
-  STATUS: "status",
+  STATUS: "affise_p_status",
 };
 
 const PredefinedLong = {
@@ -140,7 +140,6 @@ const PredefinedLong = {
   USER_SCORE: "affise_p_user_score",
   EVENT_START: "affise_p_event_start",
   EVENT_END: "affise_p_event_end",
-  NUM_ITEMS: "numItems",
 };
 
 const PredefinedFloat = {
@@ -152,7 +151,7 @@ const PredefinedFloat = {
 };
 
 const PredefinedListString = {
-  CONTENT_IDS: "contentIds",
+  CONTENT_IDS: "affise_p_content_ids",
 };
 
 const PredefinedListObject = {

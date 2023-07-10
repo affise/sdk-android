@@ -50,7 +50,7 @@ enum class PredefinedString(private val value: String): Predefined {
     REVIEW_TEXT("affise_p_review_text" ),
     TUTORIAL_ID("affise_p_tutorial_id" ),
     VIRTUAL_CURRENCY_NAME("affise_p_virtual_currency_name" ),
-    STATUS("status");
+    STATUS("affise_p_status");
 
     override fun value(): String = this.value
 }
