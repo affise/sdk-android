@@ -310,12 +310,18 @@ With above example you can implement other events:
 - `CompleteStream`
 - `CompleteTrial`
 - `CompleteTutorial`
+- `Contact`
 - `ContentItemsView`
+- `CustomizeProduct`
 - `DeepLinked`
+- `Donate`
+- `FindLocation`
+- `InitiateCheckout`
 - `InitiatePurchase`
 - `InitiateStream`
 - `Invite`
 - `LastAttributedTouch`
+- `Lead`
 - `ListView`
 - `Login`
 - `OpenedFromPushNotification`
@@ -324,22 +330,44 @@ With above example you can implement other events:
 - `ReEngage`
 - `Reserve`
 - `Sales`
+- `Schedule`
 - `Search`
 - `Share`
 - `SpendCredits`
 - `StartRegistration`
 - `StartTrial`
 - `StartTutorial`
+- `SubmitApplication`
 - `Subscribe`
 - `TravelBooking`
 - `UnlockAchievement`
 - `Unsubscribe`
-- `Unsubscription`
 - `Update`
 - `ViewAdv`
 - `ViewCart`
+- `ViewContent`
 - `ViewItem`
 - `ViewItems`
+- `InitialSubscription`
+- `InitialTrial`
+- `InitialOffer`
+- `ConvertedTrial`
+- `ConvertedOffer`
+- `TrialInRetry`
+- `OfferInRetry`
+- `SubscriptionInRetry`
+- `RenewedSubscription`
+- `FailedSubscriptionFromRetry`
+- `FailedOfferFromRetry`
+- `FailedTrialFromRetry`
+- `FailedSubscription`
+- `FailedOfferise`
+- `FailedTrial`
+- `ReactivatedSubscription`
+- `RenewedSubscriptionFromRetry`
+- `ConvertedOfferFromRetry`
+- `ConvertedTrialFromRetry`
+- `Unsubscription`
 
 ## Custom events tracking
 
@@ -394,8 +422,8 @@ In examples above `PredefinedString.DESCRIPTION` and `PredefinedFloat.PRICE` is 
 | [PredefinedLong](#predefinedlong)             | Long             |
 | [PredefinedFloat](#predefinedfloat)           | Float            |
 | [PredefinedObject](#predefinedobject)         | JSONObject       |
-| [PredefinedListObject](#predefinedlistobject) | List<JSONObject> |
-| [PredefinedListString](#predefinedliststring) | List<String>     |
+| [PredefinedListObject](#predefinedlistobject) | List&lt;JSONObject&gt; |
+| [PredefinedListString](#predefinedliststring) | List&lt;String&gt;     |
 
 ### PredefinedString
 
@@ -808,7 +836,9 @@ Other Javascript environment features is described below.
 
 ### Events tracking JS
 
-after WebView is initialized you send events from JavaScript environment 
+> Demo app [index.html](app/src/main/assets/index.html)
+
+After WebView is initialized you send events from JavaScript environment 
 
 ```javascript
 let event = new AddPaymentInfoEvent({
@@ -909,6 +939,7 @@ Each event can be extended with custom event parameters. By calling `addPredefin
 let event = ...
 
 event.addPredefinedParameter(PredefinedString.PURCHASE_CURRENCY, 'USD');
+event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
 
 Affise.sendEvent(event);
 ```
