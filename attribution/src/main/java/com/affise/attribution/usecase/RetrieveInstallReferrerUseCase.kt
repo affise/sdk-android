@@ -34,6 +34,8 @@ class RetrieveInstallReferrerUseCase(
 
     private var onReferrerFinished: (() -> Unit)? = null
 
+    private var callbacks: MutableMap<OnReferrerCallback, ReferrerKey?> = mutableMapOf()
+
     fun startInstallReferrerRetrieve(onFinished: (() -> Unit)? = null) {
         //Create referrer client
         referrerClient = InstallReferrerClient.newBuilder(app)
@@ -80,42 +82,66 @@ class RetrieveInstallReferrerUseCase(
      * Get referrer value
      */
     fun getReferrer(callback: OnReferrerCallback?) {
-        handleReferrer(getReferrer(), callback)
+        addCallback(callback)
+        handleReferrer()
     }
 
     /**
      * Get referrer uri value by key
      */
     fun getReferrerValue(key: ReferrerKey, callback: OnReferrerCallback?) {
-        handleReferrer(getReferrerValue(key), callback)
+        addCallback(callback, key)
+        handleReferrer()
     }
 
-    private fun handleReferrer(referrer: String?, callback: OnReferrerCallback?) {
+    private fun handleReferrer() {
         getInstallReferrer()?.let {
-            callback?.handleReferrer(referrer)
+            handleCallbacks()
             return
         }
 
         onReferrerFinished = {
-            callback?.handleReferrer(referrer)
+            handleCallbacks()
+        }
+    }
+
+    private fun addCallback(callback: OnReferrerCallback?, key: ReferrerKey? = null) {
+        callback?.let {
+            callbacks[it] = key
+        }
+    }
+
+    private fun handleCallbacks() {
+        val referrer = getReferrer()
+        callbacks.forEach {
+            val result = if (it.value != null) {
+                getReferrerValue(referrer, it.value)
+            } else {
+                referrer
+            }
+
+            it.key.handleReferrer(result)
+            callbacks.remove(it.key)
         }
     }
 
     private fun getReferrer(): String? {
         //Check referrer in partner_key
-        val referrer = app.getPartnerKey()
+        val partnerKey = app.getPartnerKey()
 
         //if partner_key is empty or null use installReferrer
-        return if (referrer.isNullOrEmpty()) {
+        return if (partnerKey.isNullOrEmpty()) {
             getInstallReferrer()?.installReferrer
         } else {
-            referrer
+            partnerKey
         }
     }
 
-    private fun getReferrerValue(key: ReferrerKey): String? = getReferrer().let {
-        val uri = Uri.parse("https://referrer/?$it")
-        uri.getQueryParameter(key.type)
+    private fun getReferrerValue(referrer: String?, key: ReferrerKey?): String? {
+        referrer ?: return null
+        key ?: return null
+        return Uri.parse("https://referrer/?$referrer")
+            .getQueryParameter(key.type)
     }
 
     /**

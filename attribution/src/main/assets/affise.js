@@ -62,13 +62,6 @@ const Affise = class {
   }
 }
 
-class PredefinedParameters {
-  constructor(name, value) {
-    this.name = name;
-    this.value = value;
-  }
-}
-
 const PredefinedString = {
   ADREV_AD_TYPE: "affise_p_adrev_ad_type",
   CITY: "affise_p_city",

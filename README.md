@@ -67,12 +67,12 @@ For kotlin build script build.gradle.kts use:
 ```kotlin
 dependencies {
     // Add Affise library 
-    implementation("com.affise:attribution:1.6.2")
+    implementation("com.affise:attribution:1.6.3")
     // Add Affise modules 
-    implementation("com.affise:module-advertising:1.6.2")
-    implementation("com.affise:module-network:1.6.2")
-    implementation("com.affise:module-phone:1.6.2")
-    implementation("com.affise:module-status:1.6.2")
+    implementation("com.affise:module-advertising:1.6.3")
+    implementation("com.affise:module-network:1.6.3")
+    implementation("com.affise:module-phone:1.6.3")
+    implementation("com.affise:module-status:1.6.3")
     // Add install referrer
     implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -83,12 +83,12 @@ For groovy build script build.gradle use:
 ```groovy
 dependencies {
     // Add Affise library 
-    implementation 'com.affise:attribution:1.6.2'
+    implementation 'com.affise:attribution:1.6.3'
     // Add Affise modules 
-    implementation 'com.affise:module-advertising:1.6.2'
-    implementation 'com.affise:module-network:1.6.2'
-    implementation 'com.affise:module-phone:1.6.2'
-    implementation 'com.affise:module-status:1.6.2'
+    implementation 'com.affise:module-advertising:1.6.3'
+    implementation 'com.affise:module-network:1.6.3'
+    implementation 'com.affise:module-phone:1.6.3'
+    implementation 'com.affise:module-status:1.6.3'
     // Add install referrer
     implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -96,9 +96,9 @@ dependencies {
 
 ### Integrate as file dependency
 
-Download latest Affise SDK (`attribution-1.6.2.aar`)
+Download latest Affise SDK (`attribution-1.6.3.aar`)
 from [releases page](https://github.com/affise/sdk-android/releases) and place this binary to gradle application
-module lib directory `app/libs/attribution-1.6.2.aar`
+module lib directory `app/libs/attribution-1.6.3.aar`
 
 Add library as gradle file dependency to application module build script
 Add install referrer library
@@ -109,12 +109,12 @@ For kotlin build script build.gradle.kts use:
 dependencies {
     // ...
     // Add Affise library 
-    implementation(files("libs/attribution-1.6.2.aar"))
+    implementation(files("libs/attribution-1.6.3.aar"))
     // Add Affise modules 
-    implementation(files("libs/module-advertising-1.6.2.aar"))
-    implementation(files("libs/module-network-1.6.2.aar"))
-    implementation(files("libs/module-phone-1.6.2.aar"))
-    implementation(files("libs/module-status-1.6.2.aar"))
+    implementation(files("libs/module-advertising-1.6.3.aar"))
+    implementation(files("libs/module-network-1.6.3.aar"))
+    implementation(files("libs/module-phone-1.6.3.aar"))
+    implementation(files("libs/module-status-1.6.3.aar"))
     // Add install referrer
     implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -126,12 +126,12 @@ For groovy build script build.gradle use:
 dependencies {
     // ...  
     // Add Affise library 
-    implementation files('libs/attribution-1.6.2.aar')
+    implementation files('libs/attribution-1.6.3.aar')
     // Add Affise modules 
-    implementation files('libs/module-advertising-1.6.2.aar')
-    implementation files('libs/module-network-1.6.2.aar')
-    implementation files('libs/module-phone-1.6.2.aar')
-    implementation files('libs/module-status-1.6.2.aar')
+    implementation files('libs/module-advertising-1.6.3.aar')
+    implementation files('libs/module-network-1.6.3.aar')
+    implementation files('libs/module-phone-1.6.3.aar')
+    implementation files('libs/module-status-1.6.3.aar')
     // Add install referrer
     implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -394,6 +394,14 @@ class Presenter {
     fun onUserAddsItemsToCart(items: String) {       
         val event = AddToCartEvent(userData = items).apply {
             addPredefinedParameter(PredefinedString.DESCRIPTION, "best before 2029")
+            addPredefinedParameter(PredefinedObject.CONTENT, JSONObject().apply {
+              put("collection", "Greatest Hits")
+            })
+            addPredefinedParameter(PredefinedListObject.CONTENT_LIST, listOf(
+              JSONObject().apply {
+                put("content", "songs, videos")
+              }
+            ))
         }
         Affise.sendEvent(event)
     }
@@ -405,10 +413,19 @@ For java use:
 ```java
 class Presenter {
     void onUserAddsItemsToCart(String items) {
-        AddToCartEvent event = AddToCartEvent(items);
+        AddToCartEvent event = new AddToCartEvent(items, System.currentTimeMillis());
         event.addPredefinedParameter(PredefinedString.DESCRIPTION, "best before 2029");
         event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19f);
-        
+    
+        JSONObject json = new JSONObject()
+                .put("collection", "Greatest Hits");
+        event.addPredefinedParameter(PredefinedObject.CONTENT, json);
+    
+        JSONObject jsonContent = new JSONObject()
+                .put("content", "songs, videos");
+        List<JSONObject> jsonList = Collections.singletonList(jsonContent);
+        event.addPredefinedParameter(PredefinedListObject.CONTENT_LIST, jsonList);
+    
         Affise.sendEvent(event);
     }
 }
@@ -840,12 +857,14 @@ Other Javascript environment features is described below.
 After WebView is initialized you send events from JavaScript environment 
 
 ```javascript
+let data = { card: 4138, type: 'phone' };
 let event = new AddPaymentInfoEvent({
   userData: 'taxi',
 });
 
 event.addPredefinedParameter(PredefinedString.PURCHASE_CURRENCY, 'USD');
 event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
+event.addPredefinedParameter(PredefinedObject.CONTENT, data);
 
 Affise.sendEvent(event)
 ```
@@ -932,13 +951,18 @@ Just like with native SDK, javascript environment also provides default events t
 
 ### Predefined event parameters JS
 
-Each event can be extended with custom event parameters. By calling `addPredefinedParameter` function you can pass predefined parameters name and value, for example:
+Each event can be extended with custom event parameters. By calling `addPredefinedParameter` function you can pass [predefined parameters](#predefinedstring)
+
+For example:
 
 ```javascript
 let event = ...
 
 event.addPredefinedParameter(PredefinedString.PURCHASE_CURRENCY, 'USD');
 event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
+event.addPredefinedParameter(PredefinedLong.QUANTITY, 1);
+event.addPredefinedParameter(PredefinedObject.CONTENT, { card: 4138, type: 'phone' });
+event.addPredefinedParameter(PredefinedListObject.CONTENT_LIST, [{content:'songs'}, {content:'videos'}]);
 
 Affise.sendEvent(event);
 ```

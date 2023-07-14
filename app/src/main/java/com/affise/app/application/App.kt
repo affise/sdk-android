@@ -1,6 +1,7 @@
 package com.affise.app.application
 
 import android.content.SharedPreferences
+import android.util.Log
 import com.affise.app.dependencies.DaggerAppComponent
 import com.affise.attribution.Affise
 import com.affise.attribution.events.autoCatchingClick.AutoCatchingType
@@ -38,6 +39,18 @@ class App : DaggerApplication() {
 //        Affise.getStatus(AffiseModules.Status) {
 //            Log.d(this.javaClass.simpleName, "$it")
 //        }
+//
+//        Affise.getReferrerValue(ReferrerKey.CAMPAIGN_ID) {
+//            Log.d(this.javaClass.simpleName, "Referrer CAMPAIGN_ID: $it")
+//        }
+//
+//        Affise.getReferrerValue(ReferrerKey.AD_ID) {
+//            Log.d(this.javaClass.simpleName, "Referrer AD_ID: $it")
+//        }
+
+        Affise.getReferrer {
+            Log.d(this.javaClass.simpleName, "Referrer: $it")
+        }
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> =
