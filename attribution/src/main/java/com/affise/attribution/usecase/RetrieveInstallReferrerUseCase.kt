@@ -105,12 +105,14 @@ class RetrieveInstallReferrerUseCase(
         }
     }
 
+    @Synchronized
     private fun addCallback(callback: OnReferrerCallback?, key: ReferrerKey? = null) {
         callback?.let {
             callbacks[it] = key
         }
     }
 
+    @Synchronized
     private fun handleCallbacks() {
         val referrer = getReferrer()
         callbacks.forEach {
