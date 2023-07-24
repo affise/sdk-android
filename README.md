@@ -66,15 +66,15 @@ For kotlin build script build.gradle.kts use:
 
 ```kotlin
 dependencies {
-    // Add Affise library 
-    implementation("com.affise:attribution:1.6.4")
-    // Add Affise modules 
-    implementation("com.affise:module-advertising:1.6.4")
-    implementation("com.affise:module-network:1.6.4")
-    implementation("com.affise:module-phone:1.6.4")
-    implementation("com.affise:module-status:1.6.4")
-    // Add install referrer
-    implementation("com.android.installreferrer:installreferrer:2.2")
+  // Add Affise library 
+  implementation("com.affise:attribution:1.6.5")
+  // Add Affise modules 
+  implementation("com.affise:module-advertising:1.6.5")
+  implementation("com.affise:module-network:1.6.5")
+  implementation("com.affise:module-phone:1.6.5")
+  implementation("com.affise:module-status:1.6.5")
+  // Add install referrer
+  implementation("com.android.installreferrer:installreferrer:2.2")
 }
 ```
 
@@ -83,12 +83,12 @@ For groovy build script build.gradle use:
 ```groovy
 dependencies {
     // Add Affise library 
-    implementation 'com.affise:attribution:1.6.4'
+    implementation 'com.affise:attribution:1.6.5'
     // Add Affise modules 
-    implementation 'com.affise:module-advertising:1.6.4'
-    implementation 'com.affise:module-network:1.6.4'
-    implementation 'com.affise:module-phone:1.6.4'
-    implementation 'com.affise:module-status:1.6.4'
+    implementation 'com.affise:module-advertising:1.6.5'
+    implementation 'com.affise:module-network:1.6.5'
+    implementation 'com.affise:module-phone:1.6.5'
+    implementation 'com.affise:module-status:1.6.5'
     // Add install referrer
     implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -96,9 +96,9 @@ dependencies {
 
 ### Integrate as file dependency
 
-Download latest Affise SDK (`attribution-1.6.4.aar`)
+Download latest Affise SDK (`attribution-1.6.5.aar`)
 from [releases page](https://github.com/affise/sdk-android/releases) and place this binary to gradle application
-module lib directory `app/libs/attribution-1.6.4.aar`
+module lib directory `app/libs/attribution-1.6.5.aar`
 
 Add library as gradle file dependency to application module build script
 Add install referrer library
@@ -109,12 +109,12 @@ For kotlin build script build.gradle.kts use:
 dependencies {
     // ...
     // Add Affise library 
-    implementation(files("libs/attribution-1.6.4.aar"))
+    implementation(files("libs/attribution-1.6.5.aar"))
     // Add Affise modules 
-    implementation(files("libs/module-advertising-1.6.4.aar"))
-    implementation(files("libs/module-network-1.6.4.aar"))
-    implementation(files("libs/module-phone-1.6.4.aar"))
-    implementation(files("libs/module-status-1.6.4.aar"))
+    implementation(files("libs/module-advertising-1.6.5.aar"))
+    implementation(files("libs/module-network-1.6.5.aar"))
+    implementation(files("libs/module-phone-1.6.5.aar"))
+    implementation(files("libs/module-status-1.6.5.aar"))
     // Add install referrer
     implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -124,16 +124,16 @@ For groovy build script build.gradle use:
 
 ```groovy
 dependencies {
-    // ...  
-    // Add Affise library 
-    implementation files('libs/attribution-1.6.4.aar')
-    // Add Affise modules 
-    implementation files('libs/module-advertising-1.6.4.aar')
-    implementation files('libs/module-network-1.6.4.aar')
-    implementation files('libs/module-phone-1.6.4.aar')
-    implementation files('libs/module-status-1.6.4.aar')
-    // Add install referrer
-    implementation 'com.android.installreferrer:installreferrer:2.2'
+  // ...  
+  // Add Affise library 
+  implementation files('libs/attribution-1.6.5.aar')
+  // Add Affise modules 
+  implementation files('libs/module-advertising-1.6.5.aar')
+  implementation files('libs/module-network-1.6.5.aar')
+  implementation files('libs/module-phone-1.6.5.aar')
+  implementation files('libs/module-status-1.6.5.aar')
+  // Add install referrer
+  implementation 'com.android.installreferrer:installreferrer:2.2'
 }
 ```
 
@@ -147,14 +147,14 @@ For kotlin use:
 
 ```kotlin
 class App : Application() {
-    override fun onCreate() {
-        super.onCreate()
-        val properties = AffiseInitProperties(
-            "Your appId", //Change to your app id
-            "Your SDK secretKey", //Change to your SDK secretKey
-        )
-        Affise.init(this, properties)
-    }
+  override fun onCreate() {
+    super.onCreate()
+    val properties = AffiseInitProperties(
+      "Your appId", //Change to your app id
+      "Your SDK secretKey", //Change to your SDK secretKey
+    )
+    Affise.init(this, properties)
+  }
 }
 ```
 
@@ -162,16 +162,16 @@ For java use:
 
 ```java
 public class App extends Application {
-    @Override
-    public void onCreate() {
-        super.onCreate();
+  @Override
+  public void onCreate() {
+    super.onCreate();
 
-        AffiseInitProperties properties = new AffiseInitProperties(
+    AffiseInitProperties properties = new AffiseInitProperties(
             "Your appId", //Change to your app id
             "Your SDK secretKey" //Change to your SDK secretKey
-        );
-        Affise.init(this, properties);
-    }
+    );
+    Affise.init(this, properties);
+  }
 }
 ```
 
@@ -182,8 +182,8 @@ For a minimal working functionality your app needs to declare internet permissio
 ```xml
 
 <manifest>
-    <!-- ... -->
-    <uses-permission android:name="android.permission.INTERNET"/>
+  <!-- ... -->
+  <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>
 ```
 
@@ -283,9 +283,9 @@ following code
 
 ```kotlin
 class Presenter {
-    fun onUserAddsItemsToCart(items: String) {
-        Affise.sendEvent(AddToCartEvent(userData = items))
-    }
+  fun onUserAddsItemsToCart(items: String) {
+    Affise.sendEvent(AddToCartEvent(userData = items))
+  }
 }
 ```
 
@@ -293,9 +293,9 @@ For java use:
 
 ```java
 class Presenter {
-    void onUserAddsItemsToCart(String items) {
-        Affise.sendEvent(new AddToCartEvent(items));
-    }
+  void onUserAddsItemsToCart(String items) {
+    Affise.sendEvent(new AddToCartEvent(items));
+  }
 }
 ```
 
@@ -386,25 +386,25 @@ Use any of custom events if default doesn't fit your scenario:
 
 ## Predefined event parameters
 
-To enrich your event with another dimension, you can use predefined parameters for most common cases. 
+To enrich your event with another dimension, you can use predefined parameters for most common cases.
 Add it to any event:
 
 ```kotlin
 class Presenter {
-    fun onUserAddsItemsToCart(items: String) {       
-        val event = AddToCartEvent(userData = items).apply {
-            addPredefinedParameter(PredefinedString.DESCRIPTION, "best before 2029")
-            addPredefinedParameter(PredefinedObject.CONTENT, JSONObject().apply {
-              put("collection", "Greatest Hits")
-            })
-            addPredefinedParameter(PredefinedListObject.CONTENT_LIST, listOf(
-              JSONObject().apply {
-                put("content", "songs, videos")
-              }
-            ))
+  fun onUserAddsItemsToCart(items: String) {
+    val event = AddToCartEvent(userData = items).apply {
+      addPredefinedParameter(PredefinedString.DESCRIPTION, "best before 2029")
+      addPredefinedParameter(PredefinedObject.CONTENT, JSONObject().apply {
+        put("collection", "Greatest Hits")
+      })
+      addPredefinedParameter(PredefinedListObject.CONTENT_LIST, listOf(
+        JSONObject().apply {
+          put("content", "songs, videos")
         }
-        Affise.sendEvent(event)
+      ))
     }
+    Affise.sendEvent(event)
+  }
 }
 ```
 
@@ -412,22 +412,22 @@ For java use:
 
 ```java
 class Presenter {
-    void onUserAddsItemsToCart(String items) {
-        AddToCartEvent event = new AddToCartEvent(items, System.currentTimeMillis());
-        event.addPredefinedParameter(PredefinedString.DESCRIPTION, "best before 2029");
-        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19f);
-    
-        JSONObject json = new JSONObject()
-                .put("collection", "Greatest Hits");
-        event.addPredefinedParameter(PredefinedObject.CONTENT, json);
-    
-        JSONObject jsonContent = new JSONObject()
-                .put("content", "songs, videos");
-        List<JSONObject> jsonList = Collections.singletonList(jsonContent);
-        event.addPredefinedParameter(PredefinedListObject.CONTENT_LIST, jsonList);
-    
-        Affise.sendEvent(event);
-    }
+  void onUserAddsItemsToCart(String items) {
+    AddToCartEvent event = new AddToCartEvent(items, System.currentTimeMillis());
+    event.addPredefinedParameter(PredefinedString.DESCRIPTION, "best before 2029");
+    event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19f);
+
+    JSONObject json = new JSONObject()
+            .put("collection", "Greatest Hits");
+    event.addPredefinedParameter(PredefinedObject.CONTENT, json);
+
+    JSONObject jsonContent = new JSONObject()
+            .put("content", "songs, videos");
+    List<JSONObject> jsonList = Collections.singletonList(jsonContent);
+    event.addPredefinedParameter(PredefinedListObject.CONTENT_LIST, jsonList);
+
+    Affise.sendEvent(event);
+  }
 }
 ```
 
@@ -561,10 +561,10 @@ After you have done with firebase integration, add to your cloud messaging servi
 
 ```kotlin
 class FirebaseCloudMessagingService : FirebaseMessagingService() {
-    override fun onNewToken(token: String) {
-        // New token generated
-        Affise.addPushToken(token)
-    }
+  override fun onNewToken(token: String) {
+    // New token generated
+    Affise.addPushToken(token)
+  }
 }
 ```
 
@@ -619,15 +619,15 @@ for java:
 
 ```java
 Affise.registerDeeplinkCallback(uri -> {
-  String screen = uri.getQueryParameter("screen");
-  if (screen.equals("special_offer")) {
-    // open special offer screen
-  } else {
-    // open another activity
-  }
-  // return true if deeplink is handled successfully
-  return true;
-});
+        String screen = uri.getQueryParameter("screen");
+        if (screen.equals("special_offer")) {
+        // open special offer screen
+        } else {
+        // open another activity
+        }
+        // return true if deeplink is handled successfully
+        return true;
+        });
 ```
 
 ## Offline mode
@@ -691,15 +691,15 @@ Affise.isBackgroundTrackingEnabled() // returns true or false describing current
 ## GDPR right to be forgotten
 
 Under the EU's General Data Protection Regulation (GDPR): An individual has the right to have their personal data erased.
-To provide this functionality to user, as the app developer, you can call 
+To provide this functionality to user, as the app developer, you can call
 
 ```kotlin
 Affise.init(..)
 Affise.forget() // to forget users data
 ```
 
-After processing such request our backend servers will delete all users data. 
-To prevent library from generating new events, disable tracking just before calling Affise.forget: 
+After processing such request our backend servers will delete all users data.
+To prevent library from generating new events, disable tracking just before calling Affise.forget:
 
 ```kotlin
 Affise.init(..)
@@ -723,8 +723,8 @@ For java:
 
 ```java
 Affise.getReferrer(referrer -> {
-    // handle referrer
-});
+        // handle referrer
+        });
 ```
 
 ## Get referrer parameter
@@ -743,8 +743,8 @@ For java:
 
 ```java
 Affise.getReferrerValue(ReferrerKey.CLICK_ID, value -> {
-    // handle referrer value
-});
+        // handle referrer value
+        });
 ```
 
 ### Referrer keys
@@ -788,7 +788,7 @@ For kotlin:
 
 ```kotlin
 Affise.getStatus(AffiseModules.Status) { response ->
-    // handle response
+  // handle response
 }
 ```
 
@@ -796,8 +796,8 @@ For java:
 
 ```java
 Affise.getStatus(AffiseModules.Status, response -> {
-    // handle response
-});
+        // handle response
+        });
 ```
 
 ## Get random user Id
@@ -854,7 +854,7 @@ Other Javascript environment features is described below.
 
 > Demo app [index.html](app/src/main/assets/index.html)
 
-After WebView is initialized you send events from JavaScript environment 
+After WebView is initialized you send events from JavaScript environment
 
 ```javascript
 let data = { card: 4138, type: 'phone' };

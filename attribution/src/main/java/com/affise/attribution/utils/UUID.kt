@@ -11,7 +11,7 @@ private fun get64LeastSignificantBitsForVersion1(): Long {
 }
 
 private fun get64MostSignificantBitsForVersion1(): Long {
-    val currentTimeMillis = System.currentTimeMillis()
+    val currentTimeMillis = timestamp()
     val timeLow = currentTimeMillis and 0x00000000FFFFFFFFL shl 32
     val timeMid = currentTimeMillis shr 32 and 0xFFFFL shl 16
     val version = (1 shl 12).toLong()

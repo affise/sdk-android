@@ -1,6 +1,8 @@
 package com.affise.attribution.events.predefined
 
+import com.affise.attribution.events.EventName
 import com.affise.attribution.events.NativeEvent
+import com.affise.attribution.utils.timestamp
 
 /**
  * Event SpendCredits
@@ -10,7 +12,7 @@ import com.affise.attribution.events.NativeEvent
  */
 class SpendCreditsEvent(
     private val userData: String? = null,
-    private val timeStampMillis: Long = System.currentTimeMillis(),
+    private val timeStampMillis: Long = timestamp(),
 ) : NativeEvent(
     userData = userData,
     timeStampMillis = timeStampMillis
@@ -29,7 +31,7 @@ class SpendCreditsEvent(
     )
     constructor(
         credits: Long = 0L,
-        timeStampMillis: Long = System.currentTimeMillis(),
+        timeStampMillis: Long = timestamp(),
         userData: String? = null,
     ) : this(
         userData = userData,
@@ -37,4 +39,5 @@ class SpendCreditsEvent(
     ) {
         anyData = credits
     }
+    override fun getName(): String = EventName.SPEND_CREDITS.eventName
 }

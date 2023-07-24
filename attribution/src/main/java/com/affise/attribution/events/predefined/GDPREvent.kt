@@ -1,6 +1,7 @@
 package com.affise.attribution.events.predefined
 
 import com.affise.attribution.events.NativeEvent
+import com.affise.attribution.utils.timestamp
 
 /**
  * Event GDPR
@@ -11,7 +12,7 @@ internal class GDPREvent(
     private val userData: String? = null,
 ) : NativeEvent(
     userData = userData,
-    timeStampMillis = System.currentTimeMillis(),
+    timeStampMillis = timestamp(),
     anyData = true
 ) {
 

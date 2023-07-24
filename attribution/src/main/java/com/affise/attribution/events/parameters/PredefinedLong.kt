@@ -30,4 +30,11 @@ enum class PredefinedLong(private val value: String): Predefined {
     EVENT_END("affise_p_event_end");
 
     override fun value(): String = this.value
+
+    companion object {
+        @JvmStatic
+        fun from(name: String?): PredefinedLong? = name?.let { value ->
+            PredefinedLong.values().firstOrNull { it.value == value }
+        }
+    }
 }

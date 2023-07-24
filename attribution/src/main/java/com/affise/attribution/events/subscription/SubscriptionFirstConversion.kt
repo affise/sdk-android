@@ -13,12 +13,12 @@ class ConvertedTrialEvent(
     /**
      * Type of event
      */
-    override val type = SubscriptionParameters.AFFISE_SUBSCRIPTION_FIRST_CONVERSION
+    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_FIRST_CONVERSION
 
     /**
      * Subtype of event
      */
-    override val subtype = SubscriptionParameters.AFFISE_SUB_CONVERTED_TRIAL
+    override val subtype = SubscriptionSubType.AFFISE_SUB_CONVERTED_TRIAL
 }
 
 /**
@@ -32,10 +32,10 @@ class ConvertedOfferEvent(
     /**
      * Type of event
      */
-    override val type = SubscriptionParameters.AFFISE_SUBSCRIPTION_FIRST_CONVERSION
+    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_FIRST_CONVERSION
 
     /**
      * Subtype of event
      */
-    override val subtype = SubscriptionParameters.AFFISE_SUB_CONVERTED_OFFER
+    override val subtype = SubscriptionSubType.AFFISE_SUB_CONVERTED_OFFER
 }

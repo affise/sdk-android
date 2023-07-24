@@ -1,7 +1,6 @@
 package com.affise.attribution
 
 import android.app.Application
-import android.net.Uri
 import android.webkit.WebView
 import com.affise.attribution.deeplink.OnDeeplinkCallback
 import com.affise.attribution.events.Event
@@ -14,7 +13,6 @@ import com.affise.attribution.modules.OnKeyValueCallback
 import com.affise.attribution.parameters.AffiseDeviceIdProvider
 import com.affise.attribution.parameters.PushTokenProvider
 import com.affise.attribution.parameters.RandomUserIdProvider
-import com.affise.attribution.platform.SdkPlatform
 import com.affise.attribution.referrer.OnReferrerCallback
 
 /**
@@ -225,33 +223,5 @@ object Affise {
         return api?.postBackModelFactory?.getProvider<AffiseDeviceIdProvider>()?.provide()
     }
 
-    object _crossPlatform  {
-        /**
-         * Handle Deeplink [uri] for cross platform
-         */
-        @JvmStatic
-        fun handleDeeplink(uri: String) {
-            api?.deeplinkManager?.handleDeeplink(Uri.parse(uri))
-        }
-
-        @JvmStatic
-        fun start() {
-            api?.sessionManager?.sessionStart()
-        }
-
-        @JvmStatic
-        fun react() {
-            SdkPlatform.react()
-        }
-
-        @JvmStatic
-        fun flutter() {
-            SdkPlatform.flutter()
-        }
-
-        @JvmStatic
-        fun unity() {
-            SdkPlatform.unity()
-        }
-    }
+    internal fun getApi(): AffiseApi? = api
 }

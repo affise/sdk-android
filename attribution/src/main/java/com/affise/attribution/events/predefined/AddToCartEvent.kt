@@ -1,6 +1,8 @@
 package com.affise.attribution.events.predefined
 
+import com.affise.attribution.events.EventName
 import com.affise.attribution.events.NativeEvent
+import com.affise.attribution.utils.timestamp
 import org.json.JSONObject
 
 /**
@@ -12,7 +14,7 @@ import org.json.JSONObject
  */
 class AddToCartEvent(
     private val userData: String? = null,
-    private val timeStampMillis: Long = System.currentTimeMillis(),
+    private val timeStampMillis: Long = timestamp(),
 ) : NativeEvent(
     userData = userData,
     timeStampMillis = timeStampMillis
@@ -32,7 +34,7 @@ class AddToCartEvent(
     )
     constructor(
         addToCartObject: JSONObject? = null,
-        timeStampMillis: Long = System.currentTimeMillis(),
+        timeStampMillis: Long = timestamp(),
         userData: String? = null,
     ) : this(
         userData = userData,
@@ -40,4 +42,5 @@ class AddToCartEvent(
     ) {
         anyData = addToCartObject
     }
+    override fun getName(): String = EventName.ADD_TO_CART.eventName
 }

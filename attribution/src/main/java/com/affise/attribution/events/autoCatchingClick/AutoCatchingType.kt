@@ -1,11 +1,20 @@
 package com.affise.attribution.events.autoCatchingClick
 
-enum class AutoCatchingType {
-    BUTTON,
-    TEXT,
 
-    IMAGE_BUTTON,
-    IMAGE,
+enum class AutoCatchingType(private val type: String) {
+    BUTTON("BUTTON"),
+    TEXT("TEXT"),
 
-    GROUP
+    IMAGE_BUTTON("IMAGE_BUTTON"),
+    IMAGE("IMAGE"),
+
+    GROUP("GROUP");
+
+    companion object {
+        fun from(name: String?): AutoCatchingType? = name?.let { type ->
+            AutoCatchingType.values().firstOrNull { it.type == type }
+        }
+    }
 }
+
+fun String.toAutoCatchingType(): AutoCatchingType? = AutoCatchingType.from(this)

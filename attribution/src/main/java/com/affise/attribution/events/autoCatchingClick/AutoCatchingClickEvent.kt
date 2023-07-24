@@ -2,6 +2,7 @@ package com.affise.attribution.events.autoCatchingClick
 
 import com.affise.attribution.converter.StringToSHA1Converter
 import com.affise.attribution.events.Event
+import com.affise.attribution.utils.timestamp
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -9,7 +10,7 @@ class AutoCatchingClickEvent(
     private val isGroup: Boolean,
     private val data: List<AutoCatchingClickData>,
     private val activityName: String,
-    private val timeStampMillis: Long = System.currentTimeMillis()
+    private val timeStampMillis: Long = timestamp()
 ) : Event() {
 
     override fun serialize(): JSONObject = JSONObject().apply {

@@ -1,6 +1,8 @@
 package com.affise.attribution.events.predefined
 
+import com.affise.attribution.events.EventName
 import com.affise.attribution.events.NativeEvent
+import com.affise.attribution.utils.timestamp
 
 
 /**
@@ -11,9 +13,10 @@ import com.affise.attribution.events.NativeEvent
  */
 class InitiateCheckoutEvent(
     private val userData: String? = null,
-    private val timeStampMillis: Long = System.currentTimeMillis(),
+    private val timeStampMillis: Long = timestamp(),
 ) : NativeEvent(
     userData = userData,
     timeStampMillis = timeStampMillis
 ) {
+    override fun getName(): String = EventName.INITIATE_CHECKOUT.eventName
 }

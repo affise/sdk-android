@@ -59,7 +59,7 @@ abstract class Event {
      */
     fun isFirstForUser(): Boolean = firstForUser
 
-    fun setFirstForUser(firstForUser: Boolean) {
+    internal fun setFirstForUser(firstForUser: Boolean) {
         this.firstForUser = firstForUser
     }
 

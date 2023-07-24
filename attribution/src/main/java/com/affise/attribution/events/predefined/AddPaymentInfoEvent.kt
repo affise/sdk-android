@@ -1,6 +1,8 @@
 package com.affise.attribution.events.predefined
 
+import com.affise.attribution.events.EventName
 import com.affise.attribution.events.NativeEvent
+import com.affise.attribution.utils.timestamp
 import org.json.JSONObject
 
 /**
@@ -11,7 +13,7 @@ import org.json.JSONObject
  */
 class AddPaymentInfoEvent(
     private val userData: String? = null,
-    private val timeStampMillis: Long = System.currentTimeMillis(),
+    private val timeStampMillis: Long = timestamp(),
 ) : NativeEvent(
     userData = userData,
     timeStampMillis = timeStampMillis
@@ -31,7 +33,7 @@ class AddPaymentInfoEvent(
     )
     constructor(
         paymentInfo: JSONObject = JSONObject(),
-        timeStampMillis: Long = System.currentTimeMillis(),
+        timeStampMillis: Long = timestamp(),
         userData: String? = null,
     ) : this(
         userData = userData,
@@ -39,4 +41,5 @@ class AddPaymentInfoEvent(
     ) {
         anyData = paymentInfo
     }
+    override fun getName(): String = EventName.ADD_PAYMENT_INFO.eventName
 }

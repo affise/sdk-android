@@ -48,6 +48,7 @@ jobs:
           ./gradlew :module-network:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
           ./gradlew :module-phone:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
           ./gradlew :module-status:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
+          ./gradlew :internal:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
 
       - name: Version Tag
         id: version_tag
@@ -120,3 +121,14 @@ jobs:
           asset_path: module-status/build/outputs/aar/module-status-release.aar
           asset_name: module-status-${{ steps.version_tag.outputs.VERSION }}.aar
           asset_content_type: application/aar
+
+#      - name: Upload Release Internal AAR 🗳
+#        id: upload-internal-asset
+#        uses: actions/upload-release-asset@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          upload_url: ${{ steps.create_release.outputs.upload_url }}
+#          asset_path: internal/build/outputs/aar/internal-release.aar
+#          asset_name: internal-${{ steps.version_tag.outputs.VERSION }}.aar
+#          asset_content_type: application/aar

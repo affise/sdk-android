@@ -9,4 +9,11 @@ enum class PredefinedListObject(private val value: String): Predefined {
     CONTENT_LIST("affise_p_content_list" );
 
     override fun value(): String = this.value
+
+    companion object {
+        @JvmStatic
+        fun from(name: String?): PredefinedListObject? = name?.let { value ->
+            PredefinedListObject.values().firstOrNull { it.value == value }
+        }
+    }
 }

@@ -146,7 +146,7 @@ class EventsStorageImplTest {
         mockkStatic(::timestamp) {
             every {
                 timestamp()
-            } returns System.currentTimeMillis() + EVENTS_STORE_TIME
+            } returns timestamp() + EVENTS_STORE_TIME
 
             val storage = EventsStorageImpl(context, logsManager)
             val events = storage.getEvents(key)

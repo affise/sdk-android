@@ -1,6 +1,8 @@
 package com.affise.attribution.events.predefined
 
+import com.affise.attribution.events.EventName
 import com.affise.attribution.events.NativeEvent
+import com.affise.attribution.utils.timestamp
 
 /**
  * Event Donate
@@ -10,9 +12,10 @@ import com.affise.attribution.events.NativeEvent
  */
 class DonateEvent(
     private val userData: String? = null,
-    private val timeStampMillis: Long = System.currentTimeMillis(),
+    private val timeStampMillis: Long = timestamp(),
 ) : NativeEvent(
     userData = userData,
     timeStampMillis = timeStampMillis
 ) {
+    override fun getName(): String = EventName.DONATE.eventName
 }

@@ -1,6 +1,8 @@
 package com.affise.attribution.events.predefined
 
+import com.affise.attribution.events.EventName
 import com.affise.attribution.events.NativeEvent
+import com.affise.attribution.utils.timestamp
 
 /**
  * Event DeepLinked
@@ -10,7 +12,7 @@ import com.affise.attribution.events.NativeEvent
  */
 class DeepLinkedEvent(
     private val userData: String? = null,
-    private val timeStampMillis: Long = System.currentTimeMillis(),
+    private val timeStampMillis: Long = timestamp(),
 ) : NativeEvent(
     userData = userData,
     timeStampMillis = timeStampMillis
@@ -30,11 +32,12 @@ class DeepLinkedEvent(
     constructor(
         isLinked: Boolean = false,
         userData: String? = null,
-        timeStampMillis: Long = System.currentTimeMillis(),
+        timeStampMillis: Long = timestamp(),
     ) : this(
         userData = userData,
         timeStampMillis = timeStampMillis,
     ) {
         anyData = isLinked
     }
+    override fun getName(): String = EventName.DEEP_LINKED.eventName
 }

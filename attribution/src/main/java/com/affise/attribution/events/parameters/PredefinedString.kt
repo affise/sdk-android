@@ -53,4 +53,11 @@ enum class PredefinedString(private val value: String): Predefined {
     STATUS("affise_p_status");
 
     override fun value(): String = this.value
+
+    companion object {
+        @JvmStatic
+        fun from(name: String?): PredefinedString? = name?.let { value ->
+            PredefinedString.values().firstOrNull { it.value == value }
+        }
+    }
 }

@@ -2,13 +2,13 @@ package com.affise.attribution.events
 
 import com.affise.attribution.events.property.AffiseProperty
 import com.affise.attribution.events.property.AffisePropertyBuilder
-import com.affise.attribution.utils.toEventName
+import com.affise.attribution.utils.timestamp
 import org.json.JSONObject
 
 
 abstract class NativeEvent(
     private val userData: String? = null,
-    private val timeStampMillis: Long = System.currentTimeMillis(),
+    private val timeStampMillis: Long = timestamp(),
     protected var anyData: Any? = null,
 ) : Event() {
 
@@ -38,11 +38,4 @@ abstract class NativeEvent(
      * @return userData
      */
     override fun getUserData() = userData
-
-    /**
-     * Name of event
-     *
-     * @return name
-     */
-    override fun getName(): String = toEventName(this)
 }

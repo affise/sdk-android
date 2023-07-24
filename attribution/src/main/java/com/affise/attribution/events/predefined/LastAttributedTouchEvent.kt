@@ -1,7 +1,10 @@
 package com.affise.attribution.events.predefined
 
+import com.affise.attribution.events.EventName
 import com.affise.attribution.events.NativeEvent
+import com.affise.attribution.events.property.AffiseProperty
 import com.affise.attribution.events.property.AffisePropertyBuilder
+import com.affise.attribution.utils.timestamp
 import org.json.JSONObject
 
 /**
@@ -12,7 +15,7 @@ import org.json.JSONObject
  */
 class LastAttributedTouchEvent(
     private val userData: String? = null,
-    private val timeStampMillis: Long = System.currentTimeMillis(),
+    private val timeStampMillis: Long = timestamp(),
 ) : NativeEvent(
     userData = userData,
     timeStampMillis = timeStampMillis
@@ -35,7 +38,7 @@ class LastAttributedTouchEvent(
     )
     constructor(
         touchType: TouchType,
-        timeStampMillis: Long = System.currentTimeMillis(),
+        timeStampMillis: Long = timestamp(),
         touchData: JSONObject,
         userData: String? = null,
     ) : this(
@@ -48,6 +51,7 @@ class LastAttributedTouchEvent(
 
     override fun serializeBuilder(): AffisePropertyBuilder =
         super.serializeBuilder()
-            .add("type", touchType)
-            .add("data", touchData)
+            .add(AffiseProperty.TYPE, touchType)
+            .add(AffiseProperty.DATA, touchData)
+    override fun getName(): String = EventName.LAST_ATTRIBUTED_TOUCH.eventName
 }

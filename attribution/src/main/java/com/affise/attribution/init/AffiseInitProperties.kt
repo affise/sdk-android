@@ -14,7 +14,6 @@ data class AffiseInitProperties(
     val secretKey: String? = null,
     val autoCatchingClickEvents: List<AutoCatchingType>? = null,
     val enabledMetrics: Boolean = false,
-//    val flags: List<AffiseFlag>? = null,
 ) {
     constructor(
         affiseAppId: String?,

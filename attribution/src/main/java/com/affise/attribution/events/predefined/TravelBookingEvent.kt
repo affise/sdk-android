@@ -1,6 +1,8 @@
 package com.affise.attribution.events.predefined
 
+import com.affise.attribution.events.EventName
 import com.affise.attribution.events.NativeEvent
+import com.affise.attribution.utils.timestamp
 import org.json.JSONArray
 
 /**
@@ -11,7 +13,7 @@ import org.json.JSONArray
  */
 class TravelBookingEvent(
     private val userData: String? = null,
-    private val timeStampMillis: Long = System.currentTimeMillis(),
+    private val timeStampMillis: Long = timestamp(),
 ) : NativeEvent(
     userData = userData,
     timeStampMillis = timeStampMillis
@@ -31,11 +33,12 @@ class TravelBookingEvent(
     constructor(
         details: JSONArray = JSONArray(),
         userData: String? = null,
-        timeStampMillis: Long = System.currentTimeMillis(),
+        timeStampMillis: Long = timestamp(),
     ) : this(
         userData = userData,
         timeStampMillis = timeStampMillis,
     ) {
         anyData = details
     }
+    override fun getName(): String = EventName.TRAVEL_BOOKING.eventName
 }

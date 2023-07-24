@@ -13,10 +13,10 @@ class ReactivatedSubscriptionEvent(
     /**
      * Type of event
      */
-    override val type = SubscriptionParameters.AFFISE_SUBSCRIPTION_REACTIVATION
+    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_REACTIVATION
 
     /**
      * Subtype of event
      */
-    override val subtype = SubscriptionParameters.AFFISE_SUB_REACTIVATED_SUBSCRIPTION
+    override val subtype = SubscriptionSubType.AFFISE_SUB_REACTIVATED_SUBSCRIPTION
 }

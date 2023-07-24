@@ -13,12 +13,12 @@ class FailedTrialEvent(
     /**
      * Type of event
      */
-    override val type = SubscriptionParameters.AFFISE_SUBSCRIPTION_CANCELLATION
+    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_CANCELLATION
 
     /**
      * Subtype of event
      */
-    override val subtype = SubscriptionParameters.AFFISE_SUB_FAILED_TRIAL
+    override val subtype = SubscriptionSubType.AFFISE_SUB_FAILED_TRIAL
 }
 
 /**
@@ -32,12 +32,12 @@ class FailedOfferiseEvent(
     /**
      * Type of event
      */
-    override val type = SubscriptionParameters.AFFISE_SUBSCRIPTION_CANCELLATION
+    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_CANCELLATION
 
     /**
      * Subtype of event
      */
-    override val subtype = SubscriptionParameters.AFFISE_SUB_FAILED_OFFERISE
+    override val subtype = SubscriptionSubType.AFFISE_SUB_FAILED_OFFERISE
 }
 
 /**
@@ -51,12 +51,12 @@ class FailedSubscriptionEvent(
     /**
      * Type of event
      */
-    override val type = SubscriptionParameters.AFFISE_SUBSCRIPTION_CANCELLATION
+    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_CANCELLATION
 
     /**
      * Subtype of event
      */
-    override val subtype = SubscriptionParameters.AFFISE_SUB_FAILED_SUBSCRIPTION
+    override val subtype = SubscriptionSubType.AFFISE_SUB_FAILED_SUBSCRIPTION
 }
 
 /**
@@ -70,12 +70,12 @@ class FailedTrialFromRetryEvent(
     /**
      * Type of event
      */
-    override val type = SubscriptionParameters.AFFISE_SUBSCRIPTION_CANCELLATION
+    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_CANCELLATION
 
     /**
      * Subtype of event
      */
-    override val subtype = SubscriptionParameters.AFFISE_SUB_FAILED_TRIAL_FROM_RETRY
+    override val subtype = SubscriptionSubType.AFFISE_SUB_FAILED_TRIAL_FROM_RETRY
 }
 
 /**
@@ -89,12 +89,12 @@ class FailedOfferFromRetryEvent(
     /**
      * Type of event
      */
-    override val type = SubscriptionParameters.AFFISE_SUBSCRIPTION_CANCELLATION
+    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_CANCELLATION
 
     /**
      * Subtype of event
      */
-    override val subtype = SubscriptionParameters.AFFISE_SUB_FAILED_OFFER_FROM_RETRY
+    override val subtype = SubscriptionSubType.AFFISE_SUB_FAILED_OFFER_FROM_RETRY
 }
 
 /**
@@ -108,10 +108,10 @@ class FailedSubscriptionFromRetryEvent(
     /**
      * Type of event
      */
-    override val type = SubscriptionParameters.AFFISE_SUBSCRIPTION_CANCELLATION
+    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_CANCELLATION
 
     /**
      * Subtype of event
      */
-    override val subtype = SubscriptionParameters.AFFISE_SUB_FAILED_SUBSCRIPTION_FROM_RETRY
+    override val subtype = SubscriptionSubType.AFFISE_SUB_FAILED_SUBSCRIPTION_FROM_RETRY
 }

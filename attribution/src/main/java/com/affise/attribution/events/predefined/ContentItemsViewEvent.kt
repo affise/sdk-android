@@ -1,6 +1,8 @@
 package com.affise.attribution.events.predefined
 
+import com.affise.attribution.events.EventName
 import com.affise.attribution.events.NativeEvent
+import com.affise.attribution.utils.timestamp
 import org.json.JSONObject
 
 /**
@@ -11,7 +13,7 @@ import org.json.JSONObject
  */
 class ContentItemsViewEvent(
     private val userData: String? = null,
-    private val timeStampMillis: Long = System.currentTimeMillis(),
+    private val timeStampMillis: Long = timestamp(),
 ) : NativeEvent(
     userData = userData,
     timeStampMillis = timeStampMillis
@@ -31,11 +33,12 @@ class ContentItemsViewEvent(
     constructor(
         objects: List<JSONObject> = emptyList(),
         userData: String? = null,
-        timeStampMillis: Long = System.currentTimeMillis(),
+        timeStampMillis: Long = timestamp(),
     ) : this(
         userData = userData,
         timeStampMillis = timeStampMillis,
     ) {
         anyData = objects
     }
+    override fun getName(): String = EventName.CONTENT_ITEMS_VIEW.eventName
 }

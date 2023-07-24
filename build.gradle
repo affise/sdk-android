@@ -38,13 +38,14 @@ static def EnvValue(env, defaultValue) {
 }
 
 ext {
-    affiseVersion = "1.6.4"
+    affiseVersion = "1.6.5"
 
     testJunit = "4.13.2"
     testAndroidxJunit = "1.1.5"
     testEspressoCore = "3.5.1"
     testMockk = "1.12.0"
     testTruth = "1.1.3"
+    testJson = "20210307"
 
     nexusServiceUrl = "https://s01.oss.sonatype.org/service/local/"
     releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"

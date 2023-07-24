@@ -35,9 +35,9 @@ class AffisePropertyBuilder {
 
     fun build(): JSONObject = json
 
-    private fun eventName(): String = "${PREFIX}_${name}"
+    private fun eventName(): String = name.toAffiseEventProperty()
 
-    private fun eventProperty(key: String): String = "${eventName()}${SEPARATOR}${key}"
+    private fun eventProperty(key: String): String = name.toAffiseEventProperty(key)
 
     private fun parseValue(value: Any?): Any? = when (value) {
         is List<*> -> JSONArray().apply {
@@ -47,10 +47,5 @@ class AffisePropertyBuilder {
         }
 
         else -> value
-    }
-
-    companion object {
-        private const val PREFIX = "affise_event"
-        private const val SEPARATOR = "_"
     }
 }

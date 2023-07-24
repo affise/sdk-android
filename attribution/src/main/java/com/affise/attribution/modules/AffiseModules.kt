@@ -8,8 +8,12 @@ enum class AffiseModules(val module: String) {
     Status("com.affise.attribution.module.status.StatusModule");
 
     companion object {
+        @JvmStatic
         fun from(name: String?): AffiseModules? {
-            return AffiseModules.values().firstOrNull { it.module == name }
+            name ?:  return null
+            return AffiseModules.values().firstOrNull { it.module.contains(name, true) }
         }
     }
 }
+
+fun String.toAffiseModules(): AffiseModules? = AffiseModules.from(this)

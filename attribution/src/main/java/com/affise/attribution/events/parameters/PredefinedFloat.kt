@@ -13,4 +13,11 @@ enum class PredefinedFloat(private val value: String): Predefined {
     LONG("affise_p_long" );
 
     override fun value(): String = this.value
+
+    companion object {
+        @JvmStatic
+        fun from(name: String?): PredefinedFloat? = name?.let { value ->
+            PredefinedFloat.values().firstOrNull { it.value == value }
+        }
+    }
 }

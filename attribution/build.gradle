@@ -68,7 +68,7 @@ dependencies {
     testImplementation "io.mockk:mockk:$testMockk"
     testImplementation 'androidx.test:core:1.5.0'
     testImplementation "junit:junit:$testJunit"
-    testImplementation 'org.json:json:20210307'
+    testImplementation "org.json:json:$testJson"
 }
 
 tasks.withType(Test).configureEach {

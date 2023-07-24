@@ -1,6 +1,8 @@
 package com.affise.attribution.events.predefined
 
+import com.affise.attribution.events.EventName
 import com.affise.attribution.events.NativeEvent
+import com.affise.attribution.utils.timestamp
 import org.json.JSONObject
 
 /**
@@ -11,7 +13,7 @@ import org.json.JSONObject
  */
 class UnsubscribeEvent(
     private val userData: String? = null,
-    private val timeStampMillis: Long = System.currentTimeMillis(),
+    private val timeStampMillis: Long = timestamp(),
 ) : NativeEvent(
     userData = userData,
     timeStampMillis = timeStampMillis
@@ -30,7 +32,7 @@ class UnsubscribeEvent(
     )
     constructor(
         unsubscribe: JSONObject = JSONObject(),
-        timeStampMillis: Long = System.currentTimeMillis(),
+        timeStampMillis: Long = timestamp(),
         userData: String? = null,
     ) : this(
         userData = userData,
@@ -38,4 +40,5 @@ class UnsubscribeEvent(
     ) {
         anyData = unsubscribe
     }
+    override fun getName(): String = EventName.UNSUBSCRIBE.eventName
 }

@@ -1,6 +1,8 @@
 package com.affise.attribution.events.predefined
 
+import com.affise.attribution.events.EventName
 import com.affise.attribution.events.NativeEvent
+import com.affise.attribution.utils.timestamp
 
 /**
  * Event CustomId07
@@ -10,7 +12,7 @@ import com.affise.attribution.events.NativeEvent
  */
 class CustomId07Event(
     private val userData: String? = null,
-    private val timeStampMillis: Long = System.currentTimeMillis(),
+    private val timeStampMillis: Long = timestamp(),
 ) : NativeEvent(
     userData = userData,
     timeStampMillis = timeStampMillis
@@ -30,7 +32,7 @@ class CustomId07Event(
     )
     constructor(
         custom: String = "",
-        timeStampMillis: Long = System.currentTimeMillis(),
+        timeStampMillis: Long = timestamp(),
         userData: String? = null,
     ) : this(
         userData = userData,
@@ -38,4 +40,5 @@ class CustomId07Event(
     ) {
         anyData = custom
     }
+    override fun getName(): String = EventName.CUSTOM_ID_07.eventName
 }
