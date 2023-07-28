@@ -36,6 +36,10 @@ import com.affise.attribution.events.predefined.LeadEvent
 import com.affise.attribution.events.predefined.ListViewEvent
 import com.affise.attribution.events.predefined.LoginEvent
 import com.affise.attribution.events.predefined.OpenedFromPushNotificationEvent
+import com.affise.attribution.events.predefined.OrderCancelEvent
+import com.affise.attribution.events.predefined.OrderEvent
+import com.affise.attribution.events.predefined.OrderReturnRequestCancelEvent
+import com.affise.attribution.events.predefined.OrderReturnRequestEvent
 import com.affise.attribution.events.predefined.PurchaseEvent
 import com.affise.attribution.events.predefined.RateEvent
 import com.affise.attribution.events.predefined.ReEngageEvent
@@ -458,6 +462,18 @@ internal object PredefinedEventSecondary {
 
             EventName.VIEW_CONTENT ->
                 ViewContentEvent(userData = userData, timeStampMillis = timeStamp)
+
+            EventName.ORDER ->
+                OrderEvent(userData = userData, timeStampMillis = timeStamp)
+
+            EventName.ORDER_CANCEL ->
+                OrderCancelEvent(userData = userData, timeStampMillis = timeStamp)
+
+            EventName.ORDER_RETURN_REQUEST ->
+                OrderReturnRequestEvent(userData = userData, timeStampMillis = timeStamp)
+
+            EventName.ORDER_RETURN_REQUEST_CANCEL ->
+                OrderReturnRequestCancelEvent(userData = userData, timeStampMillis = timeStamp)
         }
     }
 

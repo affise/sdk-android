@@ -38,7 +38,7 @@ static def EnvValue(env, defaultValue) {
 }
 
 ext {
-    affiseVersion = "1.6.5"
+    affiseVersion = "1.6.6"
 
     testJunit = "4.13.2"
     testAndroidxJunit = "1.1.5"

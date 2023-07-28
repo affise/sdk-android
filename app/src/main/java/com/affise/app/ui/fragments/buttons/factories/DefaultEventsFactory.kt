@@ -40,6 +40,10 @@ import com.affise.attribution.events.predefined.LeadEvent
 import com.affise.attribution.events.predefined.ListViewEvent
 import com.affise.attribution.events.predefined.LoginEvent
 import com.affise.attribution.events.predefined.OpenedFromPushNotificationEvent
+import com.affise.attribution.events.predefined.OrderCancelEvent
+import com.affise.attribution.events.predefined.OrderEvent
+import com.affise.attribution.events.predefined.OrderReturnRequestCancelEvent
+import com.affise.attribution.events.predefined.OrderReturnRequestEvent
 import com.affise.attribution.events.predefined.PurchaseEvent
 import com.affise.attribution.events.predefined.RateEvent
 import com.affise.attribution.events.predefined.ReEngageEvent
@@ -124,6 +128,10 @@ class DefaultEventsFactory : EventsFactory {
             createListViewEvent(),
             createLoginEvent(),
             createOpenedFromPushNotificationEvent(),
+            createOrderEvent(),
+            createOrderCancelEvent(),
+            createOrderReturnRequestEvent(),
+            createOrderReturnRequestCancelEvent(),
             createPurchaseEvent(),
             createRateEvent(),
             createReEngageEvent(),
@@ -655,6 +663,38 @@ class DefaultEventsFactory : EventsFactory {
     private fun createOpenedFromPushNotificationEvent(): Event {
         return OpenedFromPushNotificationEvent(userData = "active").apply {
             addPredefinedParameter(PredefinedString.PARAM_01, "param1")
+        }
+    }
+
+    private fun createOrderEvent(): Event {
+        return OrderEvent(userData = "apple").apply {
+            addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
+            addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
+            addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
+        }
+    }
+
+    private fun createOrderCancelEvent(): Event {
+        return OrderCancelEvent(userData = "apple").apply {
+            addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
+            addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
+            addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
+        }
+    }
+
+    private fun createOrderReturnRequestEvent(): Event {
+        return OrderReturnRequestEvent(userData = "apple").apply {
+            addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
+            addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
+            addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
+        }
+    }
+
+    private fun createOrderReturnRequestCancelEvent(): Event {
+        return OrderReturnRequestCancelEvent(userData = "apple").apply {
+            addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
+            addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
+            addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
         }
     }
 

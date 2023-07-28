@@ -472,6 +472,62 @@
 </button>
 <br>
 <button class="button" onclick="
+        var event = new OrderEvent({
+          userData: 'apple',
+        });
+
+        event.addPredefinedParameter(PredefinedString.ORDER_ID, '23123');
+        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
+        event.addPredefinedParameter(PredefinedLong.QUANTITY, 1);
+
+        Affise.sendEvent(event)
+    ">
+    ORDER
+</button>
+<br>
+<button class="button" onclick="
+        var event = new OrderCancelEvent({
+          userData: 'apple',
+        });
+
+        event.addPredefinedParameter(PredefinedString.ORDER_ID, '23123');
+        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
+        event.addPredefinedParameter(PredefinedLong.QUANTITY, 1);
+
+        Affise.sendEvent(event)
+    ">
+    ORDERCANCEL
+</button>
+<br>
+<button class="button" onclick="
+        var event = new OrderReturnRequestEvent({
+          userData: 'apple',
+        });
+
+        event.addPredefinedParameter(PredefinedString.ORDER_ID, '23123');
+        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
+        event.addPredefinedParameter(PredefinedLong.QUANTITY, 1);
+
+        Affise.sendEvent(event)
+    ">
+    ORDERRETURNREQUEST
+</button>
+<br>
+<button class="button" onclick="
+        var event = new OrderReturnRequestCancelEvent({
+          userData: 'apple',
+        });
+
+        event.addPredefinedParameter(PredefinedString.ORDER_ID, '23123');
+        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
+        event.addPredefinedParameter(PredefinedLong.QUANTITY, 1);
+
+        Affise.sendEvent(event)
+    ">
+    ORDERRETURNREQUESTCANCEL
+</button>
+<br>
+<button class="button" onclick="
         var event = new PurchaseEvent({
           userData: 'apple',
         });

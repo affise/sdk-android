@@ -851,6 +851,58 @@ class OpenedFromPushNotificationEvent extends Event {
   }
 }
 
+class OrderEvent extends Event {
+  /**
+   * Event Order
+   *
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("Order", args);
+  }
+}
+
+class OrderCancelEvent extends Event {
+  /**
+   * Event OrderCancel
+   *
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("OrderCancel", args);
+  }
+}
+
+class OrderReturnRequestEvent extends Event {
+  /**
+   * Event OrderReturnRequest
+   *
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("OrderReturnRequest", args);
+  }
+}
+
+class OrderReturnRequestCancelEvent extends Event {
+  /**
+   * Event OrderReturnRequestCancel
+   *
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("OrderReturnRequestCancel", args);
+  }
+}
+
 class PurchaseEvent extends Event {
   /**
    * Event Purchase
