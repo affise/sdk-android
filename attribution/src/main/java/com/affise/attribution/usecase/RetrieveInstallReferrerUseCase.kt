@@ -96,12 +96,12 @@ class RetrieveInstallReferrerUseCase(
 
     private fun handleReferrer() {
         getInstallReferrer()?.let {
-            handleCallbacks()
+            handleReferrerCallback()
             return
         }
 
         onReferrerFinished = {
-            handleCallbacks()
+            handleReferrerCallback()
         }
     }
 
@@ -113,17 +113,18 @@ class RetrieveInstallReferrerUseCase(
     }
 
     @Synchronized
-    private fun handleCallbacks() {
+    private fun handleReferrerCallback() {
         val referrer = getReferrer()
-        callbacks.forEach {
-            val result = if (it.value != null) {
-                getReferrerValue(referrer, it.value)
+        val iterator = callbacks.entries.iterator()
+        while (iterator.hasNext()) {
+            val item = iterator.next()
+            val result = if (item.value != null) {
+                getReferrerValue(referrer, item.value)
             } else {
                 referrer
             }
-
-            it.key.handleReferrer(result)
-            callbacks.remove(it.key)
+            item.key.handleReferrer(result)
+            iterator.remove()
         }
     }
 

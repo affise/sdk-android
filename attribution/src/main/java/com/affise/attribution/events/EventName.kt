@@ -35,6 +35,10 @@ enum class EventName(val eventName: String) {
     LIST_VIEW("ListView"),
     LOGIN("Login"),
     OPENED_FROM_PUSH_NOTIFICATION("OpenedFromPushNotification"),
+    ORDER("Order"),
+    ORDER_CANCEL("OrderCancel"),
+    ORDER_RETURN_REQUEST("OrderReturnRequest"),
+    ORDER_RETURN_REQUEST_CANCEL("OrderReturnRequestCancel"),
     PURCHASE("Purchase"),
     RATE("Rate"),
     RE_ENGAGE("ReEngage"),
@@ -57,11 +61,7 @@ enum class EventName(val eventName: String) {
     VIEW_CART("ViewCart"),
     VIEW_CONTENT("ViewContent"),
     VIEW_ITEM("ViewItem"),
-    VIEW_ITEMS("ViewItems"),
-    ORDER("Order"),
-    ORDER_CANCEL("OrderCancel"),
-    ORDER_RETURN_REQUEST("OrderReturnRequest"),
-    ORDER_RETURN_REQUEST_CANCEL("OrderReturnRequestCancel");
+    VIEW_ITEMS("ViewItems");
 
     companion object {
         @JvmStatic

@@ -67,12 +67,12 @@ For kotlin build script build.gradle.kts use:
 ```kotlin
 dependencies {
   // Add Affise library 
-  implementation("com.affise:attribution:1.6.6")
+  implementation("com.affise:attribution:1.6.7")
   // Add Affise modules 
-  implementation("com.affise:module-advertising:1.6.6")
-  implementation("com.affise:module-network:1.6.6")
-  implementation("com.affise:module-phone:1.6.6")
-  implementation("com.affise:module-status:1.6.6")
+  implementation("com.affise:module-advertising:1.6.7")
+  implementation("com.affise:module-network:1.6.7")
+  implementation("com.affise:module-phone:1.6.7")
+  implementation("com.affise:module-status:1.6.7")
   // Add install referrer
   implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -83,12 +83,12 @@ For groovy build script build.gradle use:
 ```groovy
 dependencies {
     // Add Affise library 
-    implementation 'com.affise:attribution:1.6.6'
+    implementation 'com.affise:attribution:1.6.7'
     // Add Affise modules 
-    implementation 'com.affise:module-advertising:1.6.6'
-    implementation 'com.affise:module-network:1.6.6'
-    implementation 'com.affise:module-phone:1.6.6'
-    implementation 'com.affise:module-status:1.6.6'
+    implementation 'com.affise:module-advertising:1.6.7'
+    implementation 'com.affise:module-network:1.6.7'
+    implementation 'com.affise:module-phone:1.6.7'
+    implementation 'com.affise:module-status:1.6.7'
     // Add install referrer
     implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -96,9 +96,9 @@ dependencies {
 
 ### Integrate as file dependency
 
-Download latest Affise SDK (`attribution-1.6.6.aar`)
+Download latest Affise SDK (`attribution-1.6.7.aar`)
 from [releases page](https://github.com/affise/sdk-android/releases) and place this binary to gradle application
-module lib directory `app/libs/attribution-1.6.6.aar`
+module lib directory `app/libs/attribution-1.6.7.aar`
 
 Add library as gradle file dependency to application module build script
 Add install referrer library
@@ -109,12 +109,12 @@ For kotlin build script build.gradle.kts use:
 dependencies {
     // ...
     // Add Affise library 
-    implementation(files("libs/attribution-1.6.6.aar"))
+    implementation(files("libs/attribution-1.6.7.aar"))
     // Add Affise modules 
-    implementation(files("libs/module-advertising-1.6.6.aar"))
-    implementation(files("libs/module-network-1.6.6.aar"))
-    implementation(files("libs/module-phone-1.6.6.aar"))
-    implementation(files("libs/module-status-1.6.6.aar"))
+    implementation(files("libs/module-advertising-1.6.7.aar"))
+    implementation(files("libs/module-network-1.6.7.aar"))
+    implementation(files("libs/module-phone-1.6.7.aar"))
+    implementation(files("libs/module-status-1.6.7.aar"))
     // Add install referrer
     implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -126,12 +126,12 @@ For groovy build script build.gradle use:
 dependencies {
   // ...  
   // Add Affise library 
-  implementation files('libs/attribution-1.6.6.aar')
+  implementation files('libs/attribution-1.6.7.aar')
   // Add Affise modules 
-  implementation files('libs/module-advertising-1.6.6.aar')
-  implementation files('libs/module-network-1.6.6.aar')
-  implementation files('libs/module-phone-1.6.6.aar')
-  implementation files('libs/module-status-1.6.6.aar')
+  implementation files('libs/module-advertising-1.6.7.aar')
+  implementation files('libs/module-network-1.6.7.aar')
+  implementation files('libs/module-phone-1.6.7.aar')
+  implementation files('libs/module-status-1.6.7.aar')
   // Add install referrer
   implementation 'com.android.installreferrer:installreferrer:2.2'
 }
