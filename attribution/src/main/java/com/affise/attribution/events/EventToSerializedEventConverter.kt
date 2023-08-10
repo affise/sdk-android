@@ -40,12 +40,11 @@ class EventToSerializedEventConverter : Converter<Event, SerializedEvent> {
 
             //Add event data
             put(Parameters.AFFISE_EVENT_DATA, from.serialize())
+
             //Add predefined parameters
             put(
                 Parameters.AFFISE_PARAMETERS,
-                from.getPredefinedParameters()
-                    .mapKeys { it.key.value() }
-                    .let(::JSONObject)
+                JSONObject(from.getPredefinedParameters())
             )
         }
 

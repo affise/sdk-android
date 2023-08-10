@@ -2,6 +2,7 @@ package com.affise.app.ui.fragments.buttons.factories
 
 import com.affise.attribution.events.Event
 import com.affise.attribution.events.parameters.PredefinedFloat
+import com.affise.attribution.events.parameters.PredefinedGroup
 import com.affise.attribution.events.parameters.PredefinedListObject
 import com.affise.attribution.events.parameters.PredefinedLong
 import com.affise.attribution.events.parameters.PredefinedObject
@@ -671,6 +672,31 @@ class DefaultEventsFactory : EventsFactory {
             addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
             addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
             addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
+
+            // TODO PredefinedGroup example
+//            addPredefinedListGroup(
+//                listOf(
+//                    PredefinedGroup()
+//                        .addPredefinedParameter(PredefinedString.CUSTOMER_USER_ID,"KDCJHB10834rJHG")
+//                        .addPredefinedParameter(PredefinedString.CONTENT_ID, "334923062984")
+//                        .addPredefinedParameter(PredefinedString.DESCRIPTION,"SevenFriday Men's M1B-01 Urban Explorer 47.6 Automatic Watch"                        )
+//                        .addPredefinedParameter(PredefinedLong.QUANTITY, 3)
+//                        .addPredefinedParameter(PredefinedFloat.PRICE, 499f)
+//                        .addPredefinedParameter(PredefinedString.CURRENCY, "USD")
+//                        .addPredefinedParameter(PredefinedFloat.REVENUE, 1497f)
+//                        .addPredefinedParameter(PredefinedString.ORDER_ID, "ID_34923"),
+//
+//                    PredefinedGroup()
+//                        .addPredefinedParameter(PredefinedString.CUSTOMER_USER_ID,"KDCJHB10834rJHG")
+//                        .addPredefinedParameter(PredefinedString.CONTENT_ID, "383791923777")
+//                        .addPredefinedParameter(PredefinedString.DESCRIPTION,"2021 Apple iPad 9th Gen 64/256GB WiFi 10.2"                        )
+//                        .addPredefinedParameter(PredefinedLong.QUANTITY, 1)
+//                        .addPredefinedParameter(PredefinedFloat.PRICE, 299f)
+//                        .addPredefinedParameter(PredefinedString.CURRENCY, "USD")
+//                        .addPredefinedParameter(PredefinedFloat.REVENUE, 299f)
+//                        .addPredefinedParameter(PredefinedString.ORDER_ID, "ID_83792")
+//                )
+//            )
         }
     }
 

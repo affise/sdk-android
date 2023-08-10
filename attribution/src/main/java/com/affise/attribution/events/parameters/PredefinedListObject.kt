@@ -6,14 +6,14 @@ package com.affise.attribution.events.parameters
  * @property value the key of parameter
  */
 enum class PredefinedListObject(private val value: String): Predefined {
-    CONTENT_LIST("affise_p_content_list" );
+    CONTENT_LIST("content_list" );
 
-    override fun value(): String = this.value
+    override fun value(): String = "${Predefined.PREFIX}${this.value}"
 
     companion object {
         @JvmStatic
         fun from(name: String?): PredefinedListObject? = name?.let { value ->
-            PredefinedListObject.values().firstOrNull { it.value == value }
+            PredefinedListObject.values().firstOrNull { "${Predefined.PREFIX}${it.value}" == value }
         }
     }
 }

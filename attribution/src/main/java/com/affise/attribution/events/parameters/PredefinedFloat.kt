@@ -6,18 +6,18 @@ package com.affise.attribution.events.parameters
  * @property value the key of parameter
  */
 enum class PredefinedFloat(private val value: String): Predefined {
-    PREFERRED_PRICE_RANGE("affise_p_preferred_price_range" ),
-    PRICE("affise_p_price" ),
-    REVENUE("affise_p_revenue" ),
-    LAT("affise_p_lat" ),
-    LONG("affise_p_long" );
+    PREFERRED_PRICE_RANGE("preferred_price_range" ),
+    PRICE("price" ),
+    REVENUE("revenue" ),
+    LAT("lat" ),
+    LONG("long" );
 
-    override fun value(): String = this.value
+    override fun value(): String = "${Predefined.PREFIX}${this.value}"
 
     companion object {
         @JvmStatic
         fun from(name: String?): PredefinedFloat? = name?.let { value ->
-            PredefinedFloat.values().firstOrNull { it.value == value }
+            PredefinedFloat.values().firstOrNull { "${Predefined.PREFIX}${it.value}" == value }
         }
     }
 }

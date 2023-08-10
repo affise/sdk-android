@@ -8,7 +8,7 @@ import com.affise.attribution.internal.callback.AffiseResult
 import com.affise.attribution.internal.callback.OnAffiseCallback
 import com.affise.attribution.internal.events.EventFactory
 import com.affise.attribution.internal.ext.toAffiseInitProperties
-import com.affise.attribution.internal.ext.toJSONArray
+import com.affise.attribution.internal.ext.toListOfMap
 import com.affise.attribution.internal.utils.toJSONObject
 import com.affise.attribution.modules.toAffiseModules
 import com.affise.attribution.referrer.toReferrerKey
@@ -23,11 +23,17 @@ class AffiseApiWrapper(private val app: Application?) {
 
     private val factory: EventFactory = EventFactory()
 
-    private var callback: ((AffiseApiMethod, String?) -> Unit)? = null
+    private var callback: ((AffiseApiMethod, Map<String, Any?>) -> Unit)? = null
 
     fun setCallback(callback: OnAffiseCallback? = null) {
         this.callback = { name, data ->
-            callback?.handleCallback(name.method, data)
+            callback?.handleCallback(name.method, JSONObject(data).toString())
+        }
+    }
+
+    fun setCallback(callback: ((String, Map<String, Any?>) -> Unit)? = null) {
+        this.callback = { name, data ->
+            callback?.invoke(name.method, data)
         }
     }
 
@@ -374,11 +380,11 @@ class AffiseApiWrapper(private val app: Application?) {
     ) {
         val uuid = map.opt<String>(UUID)
         Affise.getReferrer { referrer ->
-            val data = JSONObject().apply {
-                put(UUID, uuid)
-                put(api.method, referrer)
-            }
-            callback?.invoke(api, data.toString())
+            val data = mapOf<String, Any?>(
+                UUID to uuid,
+                api.method to referrer,
+            )
+            callback?.invoke(api, data)
         }
         result.success(null)
     }
@@ -395,11 +401,11 @@ class AffiseApiWrapper(private val app: Application?) {
             result.error("api [${api.method}]: value not set")
         } else {
             Affise.getReferrerValue(key) { referrer ->
-                val data = JSONObject().apply {
-                    put(UUID, uuid)
-                    put(api.method, referrer)
-                }
-                callback?.invoke(api, data.toString())
+                val data = mapOf<String, Any?>(
+                    UUID to uuid,
+                    api.method to referrer,
+                )
+                callback?.invoke(api, data)
             }
             result.success(null)
         }
@@ -416,11 +422,11 @@ class AffiseApiWrapper(private val app: Application?) {
             result.error("api [${api.method}]: value not set")
         } else {
             Affise.getStatus(module) {
-                val data = JSONObject().apply {
-                    put(UUID, uuid)
-                    put(api.method, it.toJSONArray())
-                }
-                callback?.invoke(api, data.toString())
+                val data = mapOf<String, Any?>(
+                    UUID to uuid,
+                    api.method to it.toListOfMap(),
+                )
+                callback?.invoke(api, data)
             }
             result.success(null)
         }
@@ -433,11 +439,11 @@ class AffiseApiWrapper(private val app: Application?) {
     ) {
         val uuid = map.opt<String>(UUID)
         Affise.registerDeeplinkCallback { uri ->
-            val data = JSONObject().apply {
-                put(UUID, uuid)
-                put(api.method, uri.toString())
-            }
-            callback?.invoke(api, data.toString())
+            val data = mapOf<String, Any?>(
+                UUID to uuid,
+                api.method to uri.toString(),
+            )
+            callback?.invoke(api, data)
             true
         }
         result.success(null)

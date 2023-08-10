@@ -67,12 +67,12 @@ For kotlin build script build.gradle.kts use:
 ```kotlin
 dependencies {
   // Add Affise library 
-  implementation("com.affise:attribution:1.6.7")
+  implementation("com.affise:attribution:1.6.8")
   // Add Affise modules 
-  implementation("com.affise:module-advertising:1.6.7")
-  implementation("com.affise:module-network:1.6.7")
-  implementation("com.affise:module-phone:1.6.7")
-  implementation("com.affise:module-status:1.6.7")
+  implementation("com.affise:module-advertising:1.6.8")
+  implementation("com.affise:module-network:1.6.8")
+  implementation("com.affise:module-phone:1.6.8")
+  implementation("com.affise:module-status:1.6.8")
   // Add install referrer
   implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -83,12 +83,12 @@ For groovy build script build.gradle use:
 ```groovy
 dependencies {
     // Add Affise library 
-    implementation 'com.affise:attribution:1.6.7'
+    implementation 'com.affise:attribution:1.6.8'
     // Add Affise modules 
-    implementation 'com.affise:module-advertising:1.6.7'
-    implementation 'com.affise:module-network:1.6.7'
-    implementation 'com.affise:module-phone:1.6.7'
-    implementation 'com.affise:module-status:1.6.7'
+    implementation 'com.affise:module-advertising:1.6.8'
+    implementation 'com.affise:module-network:1.6.8'
+    implementation 'com.affise:module-phone:1.6.8'
+    implementation 'com.affise:module-status:1.6.8'
     // Add install referrer
     implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -96,9 +96,9 @@ dependencies {
 
 ### Integrate as file dependency
 
-Download latest Affise SDK (`attribution-1.6.7.aar`)
+Download latest Affise SDK (`attribution-1.6.8.aar`)
 from [releases page](https://github.com/affise/sdk-android/releases) and place this binary to gradle application
-module lib directory `app/libs/attribution-1.6.7.aar`
+module lib directory `app/libs/attribution-1.6.8.aar`
 
 Add library as gradle file dependency to application module build script
 Add install referrer library
@@ -109,12 +109,12 @@ For kotlin build script build.gradle.kts use:
 dependencies {
     // ...
     // Add Affise library 
-    implementation(files("libs/attribution-1.6.7.aar"))
+    implementation(files("libs/attribution-1.6.8.aar"))
     // Add Affise modules 
-    implementation(files("libs/module-advertising-1.6.7.aar"))
-    implementation(files("libs/module-network-1.6.7.aar"))
-    implementation(files("libs/module-phone-1.6.7.aar"))
-    implementation(files("libs/module-status-1.6.7.aar"))
+    implementation(files("libs/module-advertising-1.6.8.aar"))
+    implementation(files("libs/module-network-1.6.8.aar"))
+    implementation(files("libs/module-phone-1.6.8.aar"))
+    implementation(files("libs/module-status-1.6.8.aar"))
     // Add install referrer
     implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -126,12 +126,12 @@ For groovy build script build.gradle use:
 dependencies {
   // ...  
   // Add Affise library 
-  implementation files('libs/attribution-1.6.7.aar')
+  implementation files('libs/attribution-1.6.8.aar')
   // Add Affise modules 
-  implementation files('libs/module-advertising-1.6.7.aar')
-  implementation files('libs/module-network-1.6.7.aar')
-  implementation files('libs/module-phone-1.6.7.aar')
-  implementation files('libs/module-status-1.6.7.aar')
+  implementation files('libs/module-advertising-1.6.8.aar')
+  implementation files('libs/module-network-1.6.8.aar')
+  implementation files('libs/module-phone-1.6.8.aar')
+  implementation files('libs/module-status-1.6.8.aar')
   // Add install referrer
   implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -448,37 +448,30 @@ In examples above `PredefinedString.DESCRIPTION` and `PredefinedFloat.PRICE` is 
 
 ### PredefinedString
 
+- `ACHIEVEMENT_ID`
 - `ADREV_AD_TYPE`
+- `BRAND`
+- `BRICK`
+- `CATALOGUE_ID`
+- `CHANNEL_TYPE`
 - `CITY`
-- `COUNTRY`
-- `REGION`
 - `CLASS`
 - `CONTENT_ID`
 - `CONTENT_TYPE`
+- `COUNTRY`
+- `COUPON_CODE`
 - `CURRENCY`
+- `CUSTOMER_SEGMENT`
+- `CUSTOMER_TYPE`
 - `CUSTOMER_USER_ID`
+- `DEEP_LINK`
 - `DESCRIPTION`
 - `DESTINATION_A`
 - `DESTINATION_B`
 - `DESTINATION_LIST`
-- `ORDER_ID`
-- `PAYMENT_INFO_AVAILABLE`
-- `PREFERRED_NEIGHBORHOODS`
-- `PURCHASE_CURRENCY`
-- `RECEIPT_ID`
-- `REGISTRATION_METHOD`
-- `SEARCH_STRING`
-- `SUBSCRIPTION_ID`
-- `SUCCESS`
-- `SUGGESTED_DESTINATIONS`
-- `SUGGESTED_HOTELS`
-- `VALIDATED`
-- `ACHIEVEMENT_ID`
-- `COUPON_CODE`
-- `CUSTOMER_SEGMENT`
-- `DEEP_LINK`
 - `NEW_VERSION`
 - `OLD_VERSION`
+- `ORDER_ID`
 - `PARAM_01`
 - `PARAM_02`
 - `PARAM_03`
@@ -489,13 +482,32 @@ In examples above `PredefinedString.DESCRIPTION` and `PredefinedFloat.PRICE` is 
 - `PARAM_08`
 - `PARAM_09`
 - `PARAM_10`
+- `PAYMENT_INFO_AVAILABLE`
+- `PREFERRED_NEIGHBORHOODS`
+- `PURCHASE_CURRENCY`
+- `RECEIPT_ID`
+- `REGION`
+- `REGISTRATION_METHOD`
 - `REVIEW_TEXT`
-- `TUTORIAL_ID`
-- `VIRTUAL_CURRENCY_NAME`
+- `SEARCH_STRING`
+- `SEGMENT`
 - `STATUS`
+- `SUBSCRIPTION_ID`
+- `SUCCESS`
+- `SUGGESTED_DESTINATIONS`
+- `SUGGESTED_HOTELS`
+- `TUTORIAL_ID`
+- `UTM_CAMPAIGN`
+- `UTM_MEDIUM`
+- `UTM_SOURCE`
+- `VALIDATED`
+- `VERTICAL`
+- `VIRTUAL_CURRENCY_NAME`
+- `VOUCHER_CODE`
 
 ### PredefinedLong
 
+- `AMOUNT`
 - `DATE_A`
 - `DATE_B`
 - `DEPARTING_ARRIVAL_DATE`
