@@ -43,4 +43,6 @@ internal interface AffiseApi {
     val retrieveInstallReferrerUseCase: RetrieveInstallReferrerUseCase
     val moduleManager: AffiseModuleManager
     val postBackModelFactory: PostBackModelFactory
+
+    fun isInitialized(): Boolean
 }

@@ -61,7 +61,11 @@ enum class PredefinedString(private val value: String): Predefined {
     UTM_MEDIUM("utm_medium"),
     UTM_SOURCE("utm_source"),
     VERTICAL("vertical"),
-    VOUCHER_CODE("voucher_code");
+    VOUCHER_CODE("voucher_code"),
+    CLICK_ID("click_id"),
+    CAMPAIGN_ID("campaign_id"),
+    EVENT_NAME("event_name"),
+    PID("pid");
 
     override fun value(): String = "${Predefined.PREFIX}${this.value}"
 

@@ -427,6 +427,8 @@ internal class AffiseComponent(
         )
     }
 
+    private var isReady: Boolean = false
+
     /**
      * Init properties
      */
@@ -456,7 +458,11 @@ internal class AffiseComponent(
                 httpClient
             )
         )
+
+        isReady = true
     }
+
+    override fun isInitialized(): Boolean = isReady
 
     companion object {
         private const val PREFERENCES_FILE_NAME = "com.affise.attribution"

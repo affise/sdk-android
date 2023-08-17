@@ -2,6 +2,7 @@ package com.affise.attribution.internal
 
 enum class AffiseApiMethod(val method: String) {
     INIT("init"),
+    IS_INITIALIZED("is_initialized"),
     SEND_EVENTS("send_events"),
     SEND_EVENT("send_event"),
     ADD_PUSH_TOKEN("add_push_token"),

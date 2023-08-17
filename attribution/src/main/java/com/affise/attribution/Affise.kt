@@ -41,6 +41,11 @@ object Affise {
         }
     }
 
+    @JvmStatic
+    fun isInitialized(): Boolean {
+        return api?.isInitialized() ?: false
+    }
+
     /**
      * Send events
      */
