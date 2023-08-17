@@ -1,5 +1,6 @@
 package com.affise.attribution.deeplink
 
+import android.content.Intent
 import android.net.Uri
 import com.affise.attribution.init.InitPropertiesStorage
 import com.affise.attribution.parameters.DeeplinkClickPropertyProvider
@@ -35,13 +36,7 @@ internal class DeeplinkManagerImpl(
         if (onResumeSubscription == null) {
             //Create listener for resume activities
             onResumeSubscription = ActivityLifecycleCallback {
-                with(it.intent) {
-                    data?.let { uri ->
-                        if (handleDeeplink(uri)) {
-                            this.data = null
-                        }
-                    }
-                }
+                handleIntent(it.intent)
             }.apply {
                 //Add listener for resume activities
                 activityActionsManager.addOnActivityResumedListener(this)
@@ -57,5 +52,15 @@ internal class DeeplinkManagerImpl(
         isDeeplinkRepository.setDeeplinkClick(true)
         isDeeplinkRepository.setDeeplink(uri.toString())
         return deeplinkCallback?.handleDeeplink(uri) ?: false
+    }
+
+    private fun handleIntent(intent: Intent?) {
+        intent ?: return
+        if (intent.action != Intent.ACTION_VIEW) return
+        intent.data?.let { uri ->
+            if (handleDeeplink(uri)) {
+                intent.data = null
+            }
+        }
     }
 }
