@@ -53,8 +53,8 @@ internal class ActivityActionsManagerImpl(
             }
 
             //If enabled auto click event collector
-            (activity.window.decorView as ViewGroup)
-                .also {
+            (activity.window.decorView as? ViewGroup)
+                ?.also {
                     //For all child View add listeners
                     addListeners(activity, it)
 

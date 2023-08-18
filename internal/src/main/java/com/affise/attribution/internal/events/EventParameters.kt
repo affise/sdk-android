@@ -33,7 +33,7 @@ internal object EventParameters {
                     }
                 }
                 if (key == PredefinedGroup.NAME) {
-                    (any as? PredefinedParameter)?.addPredefinedListGroup(value)
+                    (any as? PredefinedParameter)?.addPredefinedListGroupValue(value)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -56,8 +56,15 @@ internal object EventParameters {
                 this.addPredefinedParameter(type, it)
             }
 
-            is PredefinedLong -> (value.toString().toLongOrNull())?.let {
-                this.addPredefinedParameter(type, it)
+            is PredefinedLong -> {
+                value.toString().let { number ->
+                    (number.toLongOrNull())?.let {
+                        this.addPredefinedParameter(type, it)
+                    } ?: (number.toFloatOrNull())?.let {
+                        this.addPredefinedParameter(type, it.toLong())
+                    }
+                }
+
             }
 
             is PredefinedFloat -> (value.toString().toFloatOrNull())?.let {
@@ -93,7 +100,7 @@ internal object EventParameters {
         }
     }
 
-    private fun PredefinedParameter.addPredefinedListGroup(value: Any) {
+    private fun PredefinedParameter.addPredefinedListGroupValue(value: Any) {
         val result = mutableListOf<PredefinedGroup>()
         (value as? List<*>)
             ?.mapNotNull { it as? Map<*, *> }
@@ -103,7 +110,8 @@ internal object EventParameters {
                     result.add(this)
                 }
             }
-        this.addPredefinedListGroup(result)
+        // TODO PredefinedListGroup
+//        this.addPredefinedListGroup(result)
     }
 
 }

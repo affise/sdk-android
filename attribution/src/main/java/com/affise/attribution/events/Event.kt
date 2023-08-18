@@ -1,5 +1,6 @@
 package com.affise.attribution.events
 
+import com.affise.attribution.events.parameters.PredefinedCustom
 import com.affise.attribution.events.parameters.PredefinedFloat
 import com.affise.attribution.events.parameters.PredefinedGroup
 import com.affise.attribution.events.parameters.PredefinedListObject
@@ -69,6 +70,8 @@ abstract class Event: PredefinedParameter {
      */
     override fun addPredefinedParameter(parameter: PredefinedString, value: String): PredefinedParameter {
         predefinedParameters[parameter.value()] = value
+
+        PredefinedCustom(predefinedParameters).add(parameter, value)
         return this
     }
 

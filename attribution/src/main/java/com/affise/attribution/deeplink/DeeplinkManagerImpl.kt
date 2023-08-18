@@ -58,8 +58,12 @@ internal class DeeplinkManagerImpl(
         intent ?: return
         if (intent.action != Intent.ACTION_VIEW) return
         intent.data?.let { uri ->
-            if (handleDeeplink(uri)) {
-                intent.data = null
+            try {
+                if (handleDeeplink(uri)) {
+                    intent.data = null
+                }
+            } catch (e: Exception) {
+
             }
         }
     }
