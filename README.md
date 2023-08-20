@@ -50,6 +50,8 @@
     - [Events tracking JS](#events-tracking-js)
     - [Predefined event parameters JS](#predefined-event-parameters-js)
     - [Custom events JS](#custom-events-js)
+  - [Custom](#custom)
+    - [ConversionId](#conversionid)
 
 # Description
 
@@ -67,12 +69,12 @@ For kotlin build script build.gradle.kts use:
 ```kotlin
 dependencies {
   // Add Affise library 
-  implementation("com.affise:attribution:1.6.10")
+  implementation("com.affise:attribution:1.6.12")
   // Add Affise modules 
-  implementation("com.affise:module-advertising:1.6.10")
-  implementation("com.affise:module-network:1.6.10")
-  implementation("com.affise:module-phone:1.6.10")
-  implementation("com.affise:module-status:1.6.10")
+  implementation("com.affise:module-advertising:1.6.12")
+  implementation("com.affise:module-network:1.6.12")
+  implementation("com.affise:module-phone:1.6.12")
+  implementation("com.affise:module-status:1.6.12")
   // Add install referrer
   implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -83,12 +85,12 @@ For groovy build script build.gradle use:
 ```groovy
 dependencies {
     // Add Affise library 
-    implementation 'com.affise:attribution:1.6.10'
+    implementation 'com.affise:attribution:1.6.12'
     // Add Affise modules 
-    implementation 'com.affise:module-advertising:1.6.10'
-    implementation 'com.affise:module-network:1.6.10'
-    implementation 'com.affise:module-phone:1.6.10'
-    implementation 'com.affise:module-status:1.6.10'
+    implementation 'com.affise:module-advertising:1.6.12'
+    implementation 'com.affise:module-network:1.6.12'
+    implementation 'com.affise:module-phone:1.6.12'
+    implementation 'com.affise:module-status:1.6.12'
     // Add install referrer
     implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -96,9 +98,9 @@ dependencies {
 
 ### Integrate as file dependency
 
-Download latest Affise SDK (`attribution-1.6.10.aar`)
+Download latest Affise SDK (`attribution-1.6.12.aar`)
 from [releases page](https://github.com/affise/sdk-android/releases) and place this binary to gradle application
-module lib directory `app/libs/attribution-1.6.10.aar`
+module lib directory `app/libs/attribution-1.6.12.aar`
 
 Add library as gradle file dependency to application module build script
 Add install referrer library
@@ -109,12 +111,12 @@ For kotlin build script build.gradle.kts use:
 dependencies {
     // ...
     // Add Affise library 
-    implementation(files("libs/attribution-1.6.10.aar"))
+    implementation(files("libs/attribution-1.6.12.aar"))
     // Add Affise modules 
-    implementation(files("libs/module-advertising-1.6.10.aar"))
-    implementation(files("libs/module-network-1.6.10.aar"))
-    implementation(files("libs/module-phone-1.6.10.aar"))
-    implementation(files("libs/module-status-1.6.10.aar"))
+    implementation(files("libs/module-advertising-1.6.12.aar"))
+    implementation(files("libs/module-network-1.6.12.aar"))
+    implementation(files("libs/module-phone-1.6.12.aar"))
+    implementation(files("libs/module-status-1.6.12.aar"))
     // Add install referrer
     implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -126,12 +128,12 @@ For groovy build script build.gradle use:
 dependencies {
   // ...  
   // Add Affise library 
-  implementation files('libs/attribution-1.6.10.aar')
+  implementation files('libs/attribution-1.6.12.aar')
   // Add Affise modules 
-  implementation files('libs/module-advertising-1.6.10.aar')
-  implementation files('libs/module-network-1.6.10.aar')
-  implementation files('libs/module-phone-1.6.10.aar')
-  implementation files('libs/module-status-1.6.10.aar')
+  implementation files('libs/module-advertising-1.6.12.aar')
+  implementation files('libs/module-network-1.6.12.aar')
+  implementation files('libs/module-phone-1.6.12.aar')
+  implementation files('libs/module-status-1.6.12.aar')
   // Add install referrer
   implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -494,6 +496,7 @@ In examples above `PredefinedString.DESCRIPTION` and `PredefinedFloat.PRICE` is 
 - `PAYMENT_INFO_AVAILABLE`
 - `PID`
 - `PREFERRED_NEIGHBORHOODS`
+- `PRODUCT_ID`
 - `PURCHASE_CURRENCY`
 - `RECEIPT_ID`
 - `REGION`
@@ -1007,4 +1010,20 @@ class MyCustomEvent extends Event {
         super('MyCustom', args)
     }
 }
+```
+
+## Custom
+
+### ConversionId
+
+Adds 3 PredefinedString values: `PredefinedString.CONVERSION_ID`, `PredefinedString.ORDER_ID`, `PredefinedString.PRODUCT_ID`
+
+> `CONVERSION_ID` = `ORDER_ID`_`PRODUCT_ID`
+
+```kotlin
+val event = AddToCartEvent(userData = items)
+
+val conversionId = event.customPredefined().conversionId("ORDER_ID", "PRODUCT_ID")
+
+Affise.sendEvent(event)
 ```

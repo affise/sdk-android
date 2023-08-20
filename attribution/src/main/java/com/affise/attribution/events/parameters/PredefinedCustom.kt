@@ -1,32 +1,23 @@
 package com.affise.attribution.events.parameters
 
-internal class PredefinedCustom(private val parameters: MutableMap<String, Any>) {
+class PredefinedCustom {
 
-    fun add(parameter: PredefinedString, value: String) {
-        when (parameter) {
-            PredefinedString.ORDER_ID -> {
-                (get(PredefinedString.PRODUCT_ID) as? String)?.let {
-                    parameters[CONVERSION_ID] = "${value}${it}"
-                }
-            }
-            PredefinedString.PRODUCT_ID -> {
-                (get(PredefinedString.ORDER_ID) as? String)?.let {
-                    parameters[CONVERSION_ID] = "${it}${value}"
-                }
-            }
-        }
+    private val predefinedParameters = mutableMapOf<String, Any>()
+
+    fun conversionId(orderId: String, productId: String): String {
+        val conversionId = "${orderId}_${productId}"
+        add(PredefinedString.ORDER_ID, orderId)
+        add(PredefinedString.PRODUCT_ID, productId)
+        add(PredefinedString.CONVERSION_ID, conversionId)
+        return conversionId
     }
 
-    private fun hasKey(predefined: Predefined): Boolean {
-        return parameters.containsKey(predefined.value())
-    }
-    private fun get(predefined: Predefined): Any? {
-        if (!hasKey(predefined)) return null
-        return parameters[predefined.value()]
+    private fun add(parameter: Predefined, value: Any) {
+        predefinedParameters[parameter.value()] = value
     }
 
-    companion object {
-        private const val CONVERSION_ID = "${Predefined.PREFIX}conversion_id"
+    internal fun get():Map<String, Any> {
+        return predefinedParameters.toMap()
     }
 
 }

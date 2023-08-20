@@ -70,8 +70,6 @@ abstract class Event: PredefinedParameter {
      */
     override fun addPredefinedParameter(parameter: PredefinedString, value: String): PredefinedParameter {
         predefinedParameters[parameter.value()] = value
-
-        PredefinedCustom(predefinedParameters).add(parameter, value)
         return this
     }
 
@@ -136,5 +134,17 @@ abstract class Event: PredefinedParameter {
      *
      * @return map of predefined parameter
      */
-    internal fun getPredefinedParameters(): Map<String, Any> = predefinedParameters.toMap()
+    internal fun getPredefinedParameters(): Map<String, Any> {
+        predefinedCustom.get().forEach {
+            predefinedParameters[it.key] = it.value
+        }
+
+        return predefinedParameters.toMap()
+    }
+
+    private var predefinedCustom: PredefinedCustom = PredefinedCustom()
+
+    fun customPredefined() : PredefinedCustom {
+        return predefinedCustom
+    }
 }
