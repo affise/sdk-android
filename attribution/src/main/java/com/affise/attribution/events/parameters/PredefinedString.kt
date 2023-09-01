@@ -67,7 +67,10 @@ enum class PredefinedString(private val value: String): Predefined {
     EVENT_NAME("event_name"),
     PID("pid"),
     PRODUCT_ID("product_id"),
-    CONVERSION_ID("conversion_id");
+    CONVERSION_ID("conversion_id"),
+    CONTENT_NAME("content_name"),
+    PRODUCT_NAME("product_name"),
+    ;
 
     override fun value(): String = "${Predefined.PREFIX}${this.value}"
 

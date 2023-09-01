@@ -2,11 +2,11 @@
 
 | Artifact | Version |
 | -------- | ------- |
-| com.affise:attribution  | [![attribution](https://img.shields.io/maven-central/v/com.affise/attribution?label=latest)](https://mvnrepository.com/artifact/com.affise/attribution) |
-| com.affise:module-advertising  | [![module-advertising](https://img.shields.io/maven-central/v/com.affise/module-advertising?label=latest)](https://mvnrepository.com/artifact/com.affise/module-advertising) |
-| com.affise:module-network  | [![module-network](https://img.shields.io/maven-central/v/com.affise/module-network?label=latest)](https://mvnrepository.com/artifact/com.affise/module-network) |
-| com.affise:module-phone  | [![module-phone](https://img.shields.io/maven-central/v/com.affise/module-phone?label=latest)](https://mvnrepository.com/artifact/com.affise/module-phone) |
-| com.affise:module-status  | [![module-status](https://img.shields.io/maven-central/v/com.affise/module-status?label=latest)](https://mvnrepository.com/artifact/com.affise/module-status) |
+| `com.affise:attribution` | [![attribution](https://img.shields.io/maven-central/v/com.affise/attribution?label=latest)](https://mvnrepository.com/artifact/com.affise/attribution) |
+| `com.affise:module-advertising` | [![module-advertising](https://img.shields.io/maven-central/v/com.affise/module-advertising?label=latest)](https://mvnrepository.com/artifact/com.affise/module-advertising) |
+| `com.affise:module-network` | [![module-network](https://img.shields.io/maven-central/v/com.affise/module-network?label=latest)](https://mvnrepository.com/artifact/com.affise/module-network) |
+| `com.affise:module-phone` | [![module-phone](https://img.shields.io/maven-central/v/com.affise/module-phone?label=latest)](https://mvnrepository.com/artifact/com.affise/module-phone) |
+| `com.affise:module-status` | [![module-status](https://img.shields.io/maven-central/v/com.affise/module-status?label=latest)](https://mvnrepository.com/artifact/com.affise/module-status) |
 
 - [Affise Attribution Android Library](#affise-attribution-android-library)
 - [Description](#description)
@@ -69,12 +69,12 @@ For kotlin build script build.gradle.kts use:
 ```kotlin
 dependencies {
   // Add Affise library 
-  implementation("com.affise:attribution:1.6.12")
+  implementation("com.affise:attribution:1.6.13")
   // Add Affise modules 
-  implementation("com.affise:module-advertising:1.6.12")
-  implementation("com.affise:module-network:1.6.12")
-  implementation("com.affise:module-phone:1.6.12")
-  implementation("com.affise:module-status:1.6.12")
+  implementation("com.affise:module-advertising:1.6.13")
+  implementation("com.affise:module-network:1.6.13")
+  implementation("com.affise:module-phone:1.6.13")
+  implementation("com.affise:module-status:1.6.13")
   // Add install referrer
   implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -85,12 +85,12 @@ For groovy build script build.gradle use:
 ```groovy
 dependencies {
     // Add Affise library 
-    implementation 'com.affise:attribution:1.6.12'
+    implementation 'com.affise:attribution:1.6.13'
     // Add Affise modules 
-    implementation 'com.affise:module-advertising:1.6.12'
-    implementation 'com.affise:module-network:1.6.12'
-    implementation 'com.affise:module-phone:1.6.12'
-    implementation 'com.affise:module-status:1.6.12'
+    implementation 'com.affise:module-advertising:1.6.13'
+    implementation 'com.affise:module-network:1.6.13'
+    implementation 'com.affise:module-phone:1.6.13'
+    implementation 'com.affise:module-status:1.6.13'
     // Add install referrer
     implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -98,9 +98,9 @@ dependencies {
 
 ### Integrate as file dependency
 
-Download latest Affise SDK (`attribution-1.6.12.aar`)
+Download latest Affise SDK (`attribution-1.6.13.aar`)
 from [releases page](https://github.com/affise/sdk-android/releases) and place this binary to gradle application
-module lib directory `app/libs/attribution-1.6.12.aar`
+module lib directory `app/libs/attribution-1.6.13.aar`
 
 Add library as gradle file dependency to application module build script
 Add install referrer library
@@ -111,12 +111,12 @@ For kotlin build script build.gradle.kts use:
 dependencies {
     // ...
     // Add Affise library 
-    implementation(files("libs/attribution-1.6.12.aar"))
+    implementation(files("libs/attribution-1.6.13.aar"))
     // Add Affise modules 
-    implementation(files("libs/module-advertising-1.6.12.aar"))
-    implementation(files("libs/module-network-1.6.12.aar"))
-    implementation(files("libs/module-phone-1.6.12.aar"))
-    implementation(files("libs/module-status-1.6.12.aar"))
+    implementation(files("libs/module-advertising-1.6.13.aar"))
+    implementation(files("libs/module-network-1.6.13.aar"))
+    implementation(files("libs/module-phone-1.6.13.aar"))
+    implementation(files("libs/module-status-1.6.13.aar"))
     // Add install referrer
     implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -128,12 +128,12 @@ For groovy build script build.gradle use:
 dependencies {
   // ...  
   // Add Affise library 
-  implementation files('libs/attribution-1.6.12.aar')
+  implementation files('libs/attribution-1.6.13.aar')
   // Add Affise modules 
-  implementation files('libs/module-advertising-1.6.12.aar')
-  implementation files('libs/module-network-1.6.12.aar')
-  implementation files('libs/module-phone-1.6.12.aar')
-  implementation files('libs/module-status-1.6.12.aar')
+  implementation files('libs/module-advertising-1.6.13.aar')
+  implementation files('libs/module-network-1.6.13.aar')
+  implementation files('libs/module-phone-1.6.13.aar')
+  implementation files('libs/module-status-1.6.13.aar')
   // Add install referrer
   implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -404,17 +404,17 @@ Add it to any event:
 ```kotlin
 class Presenter {
   fun onUserAddsItemsToCart(items: String) {
-    val event = AddToCartEvent(userData = items).apply {
-      addPredefinedParameter(PredefinedString.DESCRIPTION, "best before 2029")
-      addPredefinedParameter(PredefinedObject.CONTENT, JSONObject().apply {
-        put("collection", "Greatest Hits")
-      })
-      addPredefinedParameter(PredefinedListObject.CONTENT_LIST, listOf(
-        JSONObject().apply {
-          put("content", "songs, videos")
-        }
-      ))
-    }
+    val event = AddToCartEvent(userData = items)
+        .addPredefinedParameter(PredefinedString.DESCRIPTION, "best before 2029")
+        .addPredefinedParameter(PredefinedObject.CONTENT, JSONObject().apply {
+          put("collection", "Greatest Hits")
+        })
+        .addPredefinedParameter(PredefinedListObject.CONTENT_LIST, listOf(
+          JSONObject().apply {
+            put("content", "songs, videos")
+          }
+        ))
+    
     Affise.sendEvent(event)
   }
 }
@@ -425,18 +425,18 @@ For java use:
 ```java
 class Presenter {
   void onUserAddsItemsToCart(String items) {
-    AddToCartEvent event = new AddToCartEvent(items, System.currentTimeMillis());
-    event.addPredefinedParameter(PredefinedString.DESCRIPTION, "best before 2029");
-    event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19f);
-
     JSONObject json = new JSONObject()
             .put("collection", "Greatest Hits");
-    event.addPredefinedParameter(PredefinedObject.CONTENT, json);
-
+    
     JSONObject jsonContent = new JSONObject()
             .put("content", "songs, videos");
     List<JSONObject> jsonList = Collections.singletonList(jsonContent);
-    event.addPredefinedParameter(PredefinedListObject.CONTENT_LIST, jsonList);
+    
+    Event event = new AddToCartEvent(items, System.currentTimeMillis())
+            .addPredefinedParameter(PredefinedString.DESCRIPTION, "best before 2029")
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
+            .addPredefinedParameter(PredefinedObject.CONTENT, json)
+            .addPredefinedParameter(PredefinedListObject.CONTENT_LIST, jsonList);
 
     Affise.sendEvent(event);
   }
@@ -445,12 +445,12 @@ class Presenter {
 
 In examples above `PredefinedString.DESCRIPTION` and `PredefinedFloat.PRICE` is used, but many others is available:
 
-| PredefinedParameter                           | Type             |
-|-----------------------------------------------|------------------|
-| [PredefinedString](#predefinedstring)         | String           |
-| [PredefinedLong](#predefinedlong)             | Long             |
-| [PredefinedFloat](#predefinedfloat)           | Float            |
-| [PredefinedObject](#predefinedobject)         | JSONObject       |
+| PredefinedParameter                           | Type                   |
+|-----------------------------------------------|------------------------|
+| [PredefinedString](#predefinedstring)         | String                 |
+| [PredefinedLong](#predefinedlong)             | Long                   |
+| [PredefinedFloat](#predefinedfloat)           | Float                  |
+| [PredefinedObject](#predefinedobject)         | JSONObject             |
 | [PredefinedListObject](#predefinedlistobject) | List&lt;JSONObject&gt; |
 | [PredefinedListString](#predefinedliststring) | List&lt;String&gt;     |
 
@@ -467,7 +467,9 @@ In examples above `PredefinedString.DESCRIPTION` and `PredefinedFloat.PRICE` is 
 - `CLASS`
 - `CLICK_ID`
 - `CONTENT_ID`
+- `CONTENT_NAME`
 - `CONTENT_TYPE`
+- `CONVERSION_ID`
 - `COUNTRY`
 - `COUPON_CODE`
 - `CURRENCY`
@@ -497,6 +499,7 @@ In examples above `PredefinedString.DESCRIPTION` and `PredefinedFloat.PRICE` is 
 - `PID`
 - `PREFERRED_NEIGHBORHOODS`
 - `PRODUCT_ID`
+- `PRODUCT_NAME`
 - `PURCHASE_CURRENCY`
 - `RECEIPT_ID`
 - `REGION`
@@ -599,7 +602,7 @@ class FirebaseCloudMessagingService : FirebaseMessagingService() {
 
 ## Reinstall Uninstall tracking
 
-Affise automaticly track reinstall events by using silent-push technology, to make this feature work, pass push token when it is recreated by user and on you application starts up
+Affise automatically track reinstall events by using silent-push technology, to make this feature work, pass push token when it is recreated by user and on you application starts up
 
 ```kotlin
 Affise.addPushToken(token)
@@ -648,15 +651,15 @@ for java:
 
 ```java
 Affise.registerDeeplinkCallback(uri -> {
-        String screen = uri.getQueryParameter("screen");
-        if (screen.equals("special_offer")) {
+    String screen = uri.getQueryParameter("screen");
+    if (screen.equals("special_offer")) {
         // open special offer screen
-        } else {
+    } else {
         // open another activity
-        }
-        // return true if deeplink is handled successfully
-        return true;
-        });
+    }
+    // return true if deeplink is handled successfully
+    return true;
+});
 ```
 
 ## Offline mode
@@ -752,8 +755,8 @@ For java:
 
 ```java
 Affise.getReferrer(referrer -> {
-        // handle referrer
-        });
+    // handle referrer
+});
 ```
 
 ## Get referrer parameter
@@ -772,8 +775,8 @@ For java:
 
 ```java
 Affise.getReferrerValue(ReferrerKey.CLICK_ID, value -> {
-        // handle referrer value
-        });
+    // handle referrer value
+});
 ```
 
 ### Referrer keys
@@ -825,8 +828,8 @@ For java:
 
 ```java
 Affise.getStatus(AffiseModules.Status, response -> {
-        // handle response
-        });
+    // handle response
+});
 ```
 
 ## Get random user Id
@@ -1021,7 +1024,7 @@ Adds 3 PredefinedString values: `PredefinedString.CONVERSION_ID`, `PredefinedStr
 > `CONVERSION_ID` = `ORDER_ID`_`PRODUCT_ID`
 
 ```kotlin
-val event = AddToCartEvent(userData = items)
+val event = AddToCartEvent()
 
 val conversionId = event.customPredefined().conversionId("ORDER_ID", "PRODUCT_ID")
 

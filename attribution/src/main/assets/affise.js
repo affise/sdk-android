@@ -125,6 +125,8 @@ const PredefinedString = {
   PID: "pid",
   PRODUCT_ID: "product_id",
   CONVERSION_ID: "conversion_id",
+  CONTENT_NAME: "content_name",
+  PRODUCT_NAME: "product_name",
 };
 
 const PredefinedLong = {

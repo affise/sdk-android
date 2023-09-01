@@ -68,7 +68,7 @@ abstract class Event: PredefinedParameter {
     /**
      * Add predefined [parameter] with [value] of String to event
      */
-    override fun addPredefinedParameter(parameter: PredefinedString, value: String): PredefinedParameter {
+    override fun addPredefinedParameter(parameter: PredefinedString, value: String): Event {
         predefinedParameters[parameter.value()] = value
         return this
     }
@@ -76,7 +76,7 @@ abstract class Event: PredefinedParameter {
     /**
      * Add predefined [parameter] with [value] of List<String> to event
      */
-    override fun addPredefinedParameter(parameter: PredefinedListString, value: List<String>): PredefinedParameter {
+    override fun addPredefinedParameter(parameter: PredefinedListString, value: List<String>): Event {
         predefinedParameters[parameter.value()] = value
         return this
     }
@@ -84,7 +84,7 @@ abstract class Event: PredefinedParameter {
     /**
      * Add predefined [parameter] with [value] of Long to event
      */
-    override fun addPredefinedParameter(parameter: PredefinedLong, value: Long): PredefinedParameter {
+    override fun addPredefinedParameter(parameter: PredefinedLong, value: Long): Event {
         predefinedParameters[parameter.value()] = value
         return this
     }
@@ -92,7 +92,7 @@ abstract class Event: PredefinedParameter {
     /**
      * Add predefined [parameter] with [value] of float to event
      */
-    override fun addPredefinedParameter(parameter: PredefinedFloat, value: Float): PredefinedParameter {
+    override fun addPredefinedParameter(parameter: PredefinedFloat, value: Float): Event {
         predefinedParameters[parameter.value()] = value
         return this
     }
@@ -100,7 +100,7 @@ abstract class Event: PredefinedParameter {
     /**
      * Add predefined [parameter] with [value] of JSONObject to event
      */
-    override fun addPredefinedParameter(parameter: PredefinedObject, value: JSONObject): PredefinedParameter {
+    override fun addPredefinedParameter(parameter: PredefinedObject, value: JSONObject): Event {
         predefinedParameters[parameter.value()] = value
         return this
     }
@@ -108,7 +108,7 @@ abstract class Event: PredefinedParameter {
     /**
      * Add predefined [parameter] with [value] of List<JSONObject> to event
      */
-    override fun addPredefinedParameter(parameter: PredefinedListObject, value: List<JSONObject>): PredefinedParameter {
+    override fun addPredefinedParameter(parameter: PredefinedListObject, value: List<JSONObject>): Event {
         predefinedParameters[parameter.value()] = value
         return this
     }
@@ -117,7 +117,7 @@ abstract class Event: PredefinedParameter {
      * Add predefined ListGroup [value] of List<PredefinedGroup> to event
      */
     // TODO PredefinedGroup
-//    override fun addPredefinedListGroup(value: List<PredefinedGroup>): PredefinedParameter {
+//    override fun addPredefinedListGroup(value: List<PredefinedGroup>): Event {
 //        if (!predefinedParameters.containsKey(PredefinedGroup.NAME)) {
 //            predefinedParameters[PredefinedGroup.NAME] = mutableListOf<Map<String, Any>>()
 //        }

@@ -179,502 +179,227 @@ class DefaultEventsFactory : EventsFactory {
         )
     }
 
-    private fun createUnsubscriptionEvent() = UnsubscriptionEvent(
-        JSONObject().apply {
-            put("affise_event_revenue", 2.99)
-            put("affise_event_currency", "USD")
-            put("affise_event_product_id", 278459628375)
-        },
-        "Unsubscription"
-    ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
-    }
-
-    private fun createConvertedTrialFromRetryEvent() = ConvertedTrialFromRetryEvent(
-        JSONObject().apply {
-            put("affise_event_revenue", 2.99)
-            put("affise_event_currency", "USD")
-            put("affise_event_product_id", 278459628375)
-        },
-        "Subscription Plus"
-    ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
-    }
-
-    private fun createConvertedOfferFromRetryEvent() = ConvertedOfferFromRetryEvent(
-        JSONObject().apply {
-            put("affise_event_revenue", 2.99)
-            put("affise_event_currency", "USD")
-            put("affise_event_product_id", 278459628375)
-        },
-        "Subscription Plus"
-    ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
-    }
-
-    private fun createRenewedSubscriptionFromRetryEvent() = RenewedSubscriptionFromRetryEvent(
-        JSONObject().apply {
-            put("affise_event_revenue", 2.99)
-            put("affise_event_currency", "USD")
-            put("affise_event_product_id", 278459628375)
-        },
-        "Subscription Plus"
-    ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
-    }
-
-    private fun createReactivatedSubscriptionEvent() = ReactivatedSubscriptionEvent(
-        JSONObject().apply {
-            put("affise_event_revenue", 2.99)
-            put("affise_event_currency", "USD")
-            put("affise_event_product_id", 278459628375)
-        },
-        "Subscription Plus"
-    ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
-    }
-
-    private fun createFailedTrialEvent() = FailedTrialEvent(
-        JSONObject().apply {
-            put("affise_event_revenue", 2.99)
-            put("affise_event_currency", "USD")
-            put("affise_event_product_id", 278459628375)
-        },
-        "Subscription Plus"
-    ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
-    }
-
-    private fun createFailedOfferiseEvent() = FailedOfferiseEvent(
-        JSONObject().apply {
-            put("affise_event_revenue", 2.99)
-            put("affise_event_currency", "USD")
-            put("affise_event_product_id", 278459628375)
-        },
-        "Subscription Plus"
-    ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
-    }
-
-    private fun createFailedSubscriptionEvent() = FailedSubscriptionEvent(
-        JSONObject().apply {
-            put("affise_event_revenue", 2.99)
-            put("affise_event_currency", "USD")
-            put("affise_event_product_id", 278459628375)
-        },
-        "Subscription Plus"
-    ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
-    }
-
-    private fun createFailedTrialFromRetryEvent() = FailedTrialFromRetryEvent(
-        JSONObject().apply {
-            put("affise_event_revenue", 2.99)
-            put("affise_event_currency", "USD")
-            put("affise_event_product_id", 278459628375)
-        },
-        "Subscription Plus"
-    ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
-    }
-
-    private fun createFailedOfferFromRetryEvent() = FailedOfferFromRetryEvent(
-        JSONObject().apply {
-            put("affise_event_revenue", 2.99)
-            put("affise_event_currency", "USD")
-            put("affise_event_product_id", 278459628375)
-        },
-        "Subscription Plus"
-    ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
-    }
-
-    private fun createFailedSubscriptionFromRetryEvent() = FailedSubscriptionFromRetryEvent(
-        JSONObject().apply {
-            put("affise_event_revenue", 2.99)
-            put("affise_event_currency", "USD")
-            put("affise_event_product_id", 278459628375)
-        },
-        "Subscription Plus"
-    ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
-    }
-
-    private fun createRenewedSubscriptionEvent() = RenewedSubscriptionEvent(
-        JSONObject().apply {
-            put("affise_event_revenue", 2.99)
-            put("affise_event_currency", "USD")
-            put("affise_event_product_id", 278459628375)
-        },
-        "Subscription Plus"
-    ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
-    }
-
-    private fun createTrialInRetryEvent() = TrialInRetryEvent(
-        JSONObject().apply {
-            put("affise_event_revenue", 2.99)
-            put("affise_event_currency", "USD")
-            put("affise_event_product_id", 278459628375)
-        },
-        "Subscription Plus"
-    ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
-    }
-
-    private fun createOfferInRetryEvent() = OfferInRetryEvent(
-        JSONObject().apply {
-            put("affise_event_revenue", 2.99)
-            put("affise_event_currency", "USD")
-            put("affise_event_product_id", 278459628375)
-        },
-        "Subscription Plus"
-    ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
-    }
-
-    private fun createSubscriptionInRetryEvent() = SubscriptionInRetryEvent(
-        JSONObject().apply {
-            put("affise_event_revenue", 2.99)
-            put("affise_event_currency", "USD")
-            put("affise_event_product_id", 278459628375)
-        },
-        "Subscription Plus"
-    ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
-    }
-
-    private fun createInitialOfferEvent() = InitialOfferEvent(
-        JSONObject().apply {
-            put("affise_event_revenue", 2.99)
-            put("affise_event_currency", "USD")
-            put("affise_event_product_id", 278459628375)
-        },
-        "Subscription Plus"
-    ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
-    }
-
-    private fun createInitialTrialEvent() = InitialTrialEvent(
-        JSONObject().apply {
-            put("affise_event_revenue", 2.99)
-            put("affise_event_currency", "USD")
-            put("affise_event_product_id", 278459628375)
-        },
-        "Subscription Plus"
-    ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
-    }
-
-    private fun createInitialSubscriptionEvent() = InitialSubscriptionEvent(
-        JSONObject().apply {
-            put("affise_event_revenue", 2.99)
-            put("affise_event_currency", "USD")
-            put("affise_event_product_id", 278459628375)
-        },
-        "Subscription Plus"
-    ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
-    }
-
-    private fun createConvertedTrialEvent() = ConvertedTrialEvent(
-        JSONObject().apply {
-            put("affise_event_revenue", 2.99)
-            put("affise_event_currency", "USD")
-            put("affise_event_product_id", 278459628375)
-        },
-        "Subscription Plus"
-    ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
-    }
-
-    private fun createConvertedOfferEvent() = ConvertedOfferEvent(
-        JSONObject().apply {
-            put("affise_event_revenue", 2.99)
-            put("affise_event_currency", "USD")
-            put("affise_event_product_id", 278459628375)
-        },
-        "Subscription Plus"
-    ).apply {
-        addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
-    }
-
     private fun createAchieveLevelEvent(): Event {
-        return AchieveLevelEvent(userData = "warlock").apply {
-            addPredefinedParameter(PredefinedString.DEEP_LINK, "https://new-game.lt")
-            addPredefinedParameter(PredefinedLong.SCORE, 25013L)
-            addPredefinedParameter(PredefinedLong.LEVEL, 70L)
-            addPredefinedParameter(PredefinedString.SUCCESS, "true")
-            addPredefinedParameter(PredefinedString.TUTORIAL_ID, "12")
-        }
+        return AchieveLevelEvent(userData = "warlock")
+            .addPredefinedParameter(PredefinedString.DEEP_LINK, "https://new-game.lt")
+            .addPredefinedParameter(PredefinedLong.SCORE, 25013L)
+            .addPredefinedParameter(PredefinedLong.LEVEL, 70L)
+            .addPredefinedParameter(PredefinedString.SUCCESS, "true")
+            .addPredefinedParameter(PredefinedString.TUTORIAL_ID, "12")
     }
 
     private fun createAddPaymentInfoEvent(): Event {
-        return AddPaymentInfoEvent(userData = "taxi").apply {
-            addPredefinedParameter(PredefinedString.PURCHASE_CURRENCY, "USD")
-        }
+        return AddPaymentInfoEvent(userData = "taxi")
+            .addPredefinedParameter(PredefinedString.PURCHASE_CURRENCY, "USD")
     }
 
     private fun createAddToCartEvent(): Event {
-        return AddToCartEvent(userData = "milk, cookies, meat, vegetables").apply {
-            addPredefinedParameter(PredefinedString.DESCRIPTION, "best before 2029")
-        }
+        return AddToCartEvent(userData = "milk, cookies, meat, vegetables")
+            .addPredefinedParameter(PredefinedString.DESCRIPTION, "best before 2029")
     }
 
     private fun createAddToWishlistEvent(): Event {
-        return AddToWishlistEvent(userData = "next year").apply {
-            addPredefinedParameter(PredefinedString.COUNTRY, "Russia")
-            addPredefinedParameter(PredefinedString.CITY, "Voronezh")
-            addPredefinedParameter(PredefinedFloat.LAT, 42.0f)
-            addPredefinedParameter(PredefinedFloat.LONG, 24.0f)
-        }
+        return AddToWishlistEvent(userData = "next year")
+            .addPredefinedParameter(PredefinedString.COUNTRY, "Russia")
+            .addPredefinedParameter(PredefinedString.CITY, "Voronezh")
+            .addPredefinedParameter(PredefinedFloat.LAT, 42.0f)
+            .addPredefinedParameter(PredefinedFloat.LONG, 24.0f)
     }
 
     private fun createClickAdvEvent(): Event {
-        return ClickAdvEvent(userData = "header").apply {
-            addPredefinedParameter(PredefinedString.PARAM_01, "PARAM_01")
-            addPredefinedParameter(PredefinedString.PARAM_02, "PARAM_02")
-            addPredefinedParameter(PredefinedString.PARAM_03, "PARAM_03")
-            addPredefinedParameter(PredefinedString.PARAM_04, "PARAM_04")
-            addPredefinedParameter(PredefinedString.PARAM_05, "PARAM_05")
-            addPredefinedParameter(PredefinedString.PARAM_06, "PARAM_06")
-            addPredefinedParameter(PredefinedString.PARAM_07, "PARAM_07")
-            addPredefinedParameter(PredefinedString.PARAM_08, "PARAM_08")
-            addPredefinedParameter(PredefinedString.PARAM_09, "PARAM_09")
-            addPredefinedParameter(PredefinedString.PARAM_10, "PARAM_10")
-        }
+        return ClickAdvEvent(userData = "header")
+            .addPredefinedParameter(PredefinedString.PARAM_01, "PARAM_01")
+            .addPredefinedParameter(PredefinedString.PARAM_02, "PARAM_02")
+            .addPredefinedParameter(PredefinedString.PARAM_03, "PARAM_03")
+            .addPredefinedParameter(PredefinedString.PARAM_04, "PARAM_04")
+            .addPredefinedParameter(PredefinedString.PARAM_05, "PARAM_05")
+            .addPredefinedParameter(PredefinedString.PARAM_06, "PARAM_06")
+            .addPredefinedParameter(PredefinedString.PARAM_07, "PARAM_07")
+            .addPredefinedParameter(PredefinedString.PARAM_08, "PARAM_08")
+            .addPredefinedParameter(PredefinedString.PARAM_09, "PARAM_09")
+            .addPredefinedParameter(PredefinedString.PARAM_10, "PARAM_10")
     }
 
     private fun createCompleteRegistrationEvent(): Event {
-        return CompleteRegistrationEvent(userData = "promo").apply {
-            addPredefinedParameter(PredefinedString.VALIDATED, "02.11.2021")
-            addPredefinedParameter(PredefinedString.REVIEW_TEXT, "approve")
-            addPredefinedParameter(PredefinedString.CUSTOMER_SEGMENT, "DOG")
-        }
+        return CompleteRegistrationEvent(userData = "promo")
+            .addPredefinedParameter(PredefinedString.VALIDATED, "02.11.2021")
+            .addPredefinedParameter(PredefinedString.REVIEW_TEXT, "approve")
+            .addPredefinedParameter(PredefinedString.CUSTOMER_SEGMENT, "DOG")
     }
 
     private fun createCompleteStreamEvent(): Event {
-        return CompleteStreamEvent(userData = "23 hours").apply {
-            addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
-        }
+        return CompleteStreamEvent(userData = "23 hours")
+            .addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
     }
 
     private fun createCompleteTrialEvent(): Event {
-        return CompleteTrialEvent(userData = "time").apply {
-            addPredefinedParameter(PredefinedString.REGISTRATION_METHOD, "SMS")
-        }
+        return CompleteTrialEvent(userData = "time")
+            .addPredefinedParameter(PredefinedString.REGISTRATION_METHOD, "SMS")
     }
 
     private fun createCompleteTutorialEvent(): Event {
-        return CompleteTutorialEvent(userData = "intro").apply {
-            addPredefinedParameter(PredefinedString.REGISTRATION_METHOD, "SMS")
-        }
+        return CompleteTutorialEvent(userData = "intro")
+            .addPredefinedParameter(PredefinedString.REGISTRATION_METHOD, "SMS")
     }
 
     private fun createContactEvent(): Event {
-        return ContactEvent(
-            userData = "contact"
-        ).apply {
-            addPredefinedParameter(PredefinedString.REGISTRATION_METHOD, "SMS")
-        }
+        return ContactEvent(userData = "contact")
+            .addPredefinedParameter(PredefinedString.REGISTRATION_METHOD, "SMS")
     }
 
     private fun createContentItemsViewEvent(): Event {
-        return ContentItemsViewEvent(userData = "personal").apply {
-            addPredefinedParameter(PredefinedObject.CONTENT, JSONObject().apply {
+        return ContentItemsViewEvent(userData = "personal")
+            .addPredefinedParameter(PredefinedObject.CONTENT, JSONObject().apply {
                 put("collection", "Greatest Hits")
             })
-            addPredefinedParameter(PredefinedString.CONTENT_ID, "2561")
-            addPredefinedParameter(PredefinedListObject.CONTENT_LIST, listOf(
+            .addPredefinedParameter(PredefinedString.CONTENT_ID, "2561")
+            .addPredefinedParameter(PredefinedListObject.CONTENT_LIST, listOf(
                 JSONObject().apply {
                     put("content", "songs, videos")
                 }
             ))
-            addPredefinedParameter(PredefinedString.CONTENT_TYPE, "MATURE")
-            addPredefinedParameter(PredefinedString.CURRENCY, "USD")
-        }
+            .addPredefinedParameter(PredefinedString.CONTENT_TYPE, "MATURE")
+            .addPredefinedParameter(PredefinedString.CURRENCY, "USD")
     }
 
     private fun createCustomId01Event(): Event {
-        return CustomId01Event(userData = "custom").apply {
-            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
-        }
+        return CustomId01Event(userData = "custom")
+            .addPredefinedParameter(PredefinedString.PARAM_01, "param1")
     }
 
     private fun createCustomId02Event(): Event {
-        return CustomId02Event(userData = "custom").apply {
-            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
-        }
+        return CustomId02Event(userData = "custom")
+            .addPredefinedParameter(PredefinedString.PARAM_01, "param1")
     }
 
     private fun createCustomId03Event(): Event {
-        return CustomId03Event(userData = "custom").apply {
-            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
-        }
+        return CustomId03Event(userData = "custom")
+            .addPredefinedParameter(PredefinedString.PARAM_01, "param1")
     }
 
     private fun createCustomId04Event(): Event {
-        return CustomId04Event(userData = "custom").apply {
-            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
-        }
+        return CustomId04Event(userData = "custom")
+            .addPredefinedParameter(PredefinedString.PARAM_01, "param1")
     }
 
     private fun createCustomId05Event(): Event {
-        return CustomId05Event(userData = "custom").apply {
-            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
-        }
+        return CustomId05Event(userData = "custom")
+            .addPredefinedParameter(PredefinedString.PARAM_01, "param1")
     }
 
     private fun createCustomId06Event(): Event {
-        return CustomId06Event(userData = "custom").apply {
-            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
-        }
+        return CustomId06Event(userData = "custom")
+            .addPredefinedParameter(PredefinedString.PARAM_01, "param1")
     }
 
     private fun createCustomId07Event(): Event {
-        return CustomId07Event(userData = "custom").apply {
-            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
-        }
+        return CustomId07Event(userData = "custom")
+            .addPredefinedParameter(PredefinedString.PARAM_01, "param1")
     }
 
     private fun createCustomId08Event(): Event {
-        return CustomId08Event(userData = "custom").apply {
-            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
-        }
+        return CustomId08Event(userData = "custom")
+            .addPredefinedParameter(PredefinedString.PARAM_01, "param1")
     }
 
     private fun createCustomId09Event(): Event {
-        return CustomId09Event(userData = "custom").apply {
-            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
-        }
+        return CustomId09Event(userData = "custom")
+            .addPredefinedParameter(PredefinedString.PARAM_01, "param1")
     }
 
     private fun createCustomId10Event(): Event {
-        return CustomId10Event(userData = "custom").apply {
-            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
-        }
+        return CustomId10Event(userData = "custom")
+            .addPredefinedParameter(PredefinedString.PARAM_01, "param1")
     }
 
     private fun createCustomizeProductEvent(): Event {
-        return CustomizeProductEvent(
-            userData = "Customize"
-        ).apply {
-            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
-        }
+        return CustomizeProductEvent(userData = "Customize")
+            .addPredefinedParameter(PredefinedString.PARAM_01, "param1")
     }
 
     private fun createDeepLinkedEvent(): Event {
-        return DeepLinkedEvent(userData = "referrer: google").apply {
-            addPredefinedParameter(PredefinedString.ADREV_AD_TYPE, "interstitial")
-            addPredefinedParameter(PredefinedString.REGION, "ASIA")
-            addPredefinedParameter(PredefinedString.CLASS, "student")
-        }
+        return DeepLinkedEvent(userData = "referrer: google")
+            .addPredefinedParameter(PredefinedString.ADREV_AD_TYPE, "interstitial")
+            .addPredefinedParameter(PredefinedString.REGION, "ASIA")
+            .addPredefinedParameter(PredefinedString.CLASS, "student")
     }
 
     private fun createDonateEvent(): Event {
-        return DonateEvent(
-            userData = "donate",
-            timeStampMillis = System.currentTimeMillis(),
-        ).apply {
-            addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
-            addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
-            addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
-        }
+        return DonateEvent(userData = "donate")
+            .addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
     }
 
     private fun createFindLocationEvent(): Event {
-        return FindLocationEvent(
-            userData = "location",
-            timeStampMillis = System.currentTimeMillis(),
-        ).apply {
-            addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
-            addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
-            addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
-        }
+        return FindLocationEvent(userData = "location")
+            .addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
     }
 
     private fun createInitiateCheckoutEvent(): Event {
-        return InitiateCheckoutEvent(
-            userData = "checkout",
-            timeStampMillis = System.currentTimeMillis(),
-        ).apply {
-            addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
-            addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
-            addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
-        }
+        return InitiateCheckoutEvent(userData = "checkout")
+            .addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
     }
 
     private fun createInitiatePurchaseEvent(): Event {
-        return InitiatePurchaseEvent(userData = "best price").apply {
-            addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
-            addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
-            addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
-        }
+        return InitiatePurchaseEvent(userData = "best price")
+            .addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
     }
 
     private fun createInitiateStreamEvent(): Event {
-        return InitiateStreamEvent(userData = "shooter").apply {
-            addPredefinedParameter(PredefinedString.COUPON_CODE, "25XLKM")
-            addPredefinedParameter(PredefinedString.VIRTUAL_CURRENCY_NAME, "BTC")
-        }
+        return InitiateStreamEvent(userData = "shooter")
+            .addPredefinedParameter(PredefinedString.COUPON_CODE, "25XLKM")
+            .addPredefinedParameter(PredefinedString.VIRTUAL_CURRENCY_NAME, "BTC")
     }
 
     private fun createInviteEvent(): Event {
-        return InviteEvent(userData = "dancing").apply {
-            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
-        }
+        return InviteEvent(userData = "dancing")
+            .addPredefinedParameter(PredefinedString.PARAM_01, "param1")
     }
 
     private fun createLastAttributedTouchEvent(): Event {
-        return LastAttributedTouchEvent(
-            userData = "tablet"
-        ).apply {
-            addPredefinedParameter(PredefinedString.SUBSCRIPTION_ID, "lasAK22")
-        }
+        return LastAttributedTouchEvent(userData = "tablet")
+            .addPredefinedParameter(PredefinedString.SUBSCRIPTION_ID, "lasAK22")
     }
 
     private fun createLeadEvent(): Event {
-        return LeadEvent(
-            userData = "lead",
-            timeStampMillis = System.currentTimeMillis(),
-        ).apply {
-            addPredefinedParameter(PredefinedString.PAYMENT_INFO_AVAILABLE, "card")
-            addPredefinedParameter(PredefinedString.SEARCH_STRING, "best car wash")
-        }
+        return LeadEvent(userData = "lead")
+            .addPredefinedParameter(PredefinedString.PAYMENT_INFO_AVAILABLE, "card")
+            .addPredefinedParameter(PredefinedString.SEARCH_STRING, "best car wash")
     }
 
     private fun createListViewEvent(): Event {
-        return ListViewEvent(userData = "items").apply {
-            addPredefinedParameter(PredefinedString.PAYMENT_INFO_AVAILABLE, "card")
-            addPredefinedParameter(PredefinedString.SEARCH_STRING, "best car wash")
-            addPredefinedParameter(PredefinedString.SUGGESTED_DESTINATIONS, "crete, spain")
-            addPredefinedParameter(
-                PredefinedString.SUGGESTED_HOTELS,
-                "beach resort, marina spa"
-            )
-        }
+        return ListViewEvent(userData = "items")
+            .addPredefinedParameter(PredefinedString.PAYMENT_INFO_AVAILABLE, "card")
+            .addPredefinedParameter(PredefinedString.SEARCH_STRING, "best car wash")
+            .addPredefinedParameter(PredefinedString.SUGGESTED_DESTINATIONS, "crete, spain")
+            .addPredefinedParameter(PredefinedString.SUGGESTED_HOTELS, "beach resort, marina spa")
     }
 
     private fun createLoginEvent(): Event {
-        return LoginEvent(userData = "web").apply {
-            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
-        }
+        return LoginEvent(userData = "web")
+            .addPredefinedParameter(PredefinedString.PARAM_01, "param1")
     }
 
     private fun createOpenedFromPushNotificationEvent(): Event {
-        return OpenedFromPushNotificationEvent(userData = "active").apply {
-            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
-        }
+        return OpenedFromPushNotificationEvent(userData = "active")
+            .addPredefinedParameter(PredefinedString.PARAM_01, "param1")
     }
 
     private fun createOrderEvent(): Event {
-        return OrderEvent(userData = "apple").apply {
-            addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
-            addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
-            addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
+        return OrderEvent(userData = "apple")
+            .addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
 
-            // TODO PredefinedGroup example
-//            addPredefinedListGroup(
+        // TODO PredefinedGroup example
+//            .addPredefinedListGroup(
 //                listOf(
 //                    PredefinedGroup()
 //                        .addPredefinedParameter(PredefinedString.CUSTOMER_USER_ID,"KDCJHB10834rJHG")
@@ -697,135 +422,108 @@ class DefaultEventsFactory : EventsFactory {
 //                        .addPredefinedParameter(PredefinedString.ORDER_ID, "ID_83792")
 //                )
 //            )
-        }
     }
 
     private fun createOrderCancelEvent(): Event {
-        return OrderCancelEvent(userData = "apple").apply {
-            addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
-            addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
-            addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
-        }
+        return OrderCancelEvent(userData = "apple")
+            .addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
     }
 
     private fun createOrderReturnRequestEvent(): Event {
-        return OrderReturnRequestEvent(userData = "apple").apply {
-            addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
-            addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
-            addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
-        }
+        return OrderReturnRequestEvent(userData = "apple")
+            .addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
     }
 
     private fun createOrderReturnRequestCancelEvent(): Event {
-        return OrderReturnRequestCancelEvent(userData = "apple").apply {
-            addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
-            addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
-            addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
-        }
+        return OrderReturnRequestCancelEvent(userData = "apple")
+            .addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
     }
 
     private fun createPurchaseEvent(): Event {
-        return PurchaseEvent(userData = "apple").apply {
-            addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
-            addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
-            addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
-        }
+        return PurchaseEvent(userData = "apple")
+            .addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
     }
 
     private fun createRateEvent(): Event {
-        return RateEvent(userData = "no bugs").apply {
-            addPredefinedParameter(PredefinedString.PREFERRED_NEIGHBORHOODS, "2")
-            addPredefinedParameter(PredefinedLong.PREFERRED_NUM_STOPS, 4L)
-            addPredefinedParameter(
-                PredefinedFloat.PREFERRED_PRICE_RANGE,
-                10.22f
-            )
-            addPredefinedParameter(PredefinedLong.PREFERRED_STAR_RATINGS, 6L)
-        }
+        return RateEvent(userData = "no bugs")
+            .addPredefinedParameter(PredefinedString.PREFERRED_NEIGHBORHOODS, "2")
+            .addPredefinedParameter(PredefinedLong.PREFERRED_NUM_STOPS, 4L)
+            .addPredefinedParameter(PredefinedFloat.PREFERRED_PRICE_RANGE, 10.22f)
+            .addPredefinedParameter(PredefinedLong.PREFERRED_STAR_RATINGS, 6L)
     }
 
     private fun createReEngageEvent(): Event {
-        return ReEngageEvent(userData = "web").apply {
-            addPredefinedParameter(PredefinedString.CUSTOMER_USER_ID, "4")
-        }
+        return ReEngageEvent(userData = "web")
+            .addPredefinedParameter(PredefinedString.CUSTOMER_USER_ID, "4")
     }
 
     private fun createReserveEvent(): Event {
-        return ReserveEvent(userData = "discount").apply {
-            addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
-            addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
-            addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
-        }
+        return ReserveEvent(userData = "discount")
+            .addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
     }
 
     private fun createSalesEvent(): Event {
-        return SalesEvent(userData = "apple").apply {
-            addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
-            addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
-            addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
-        }
+        return SalesEvent(userData = "apple")
+            .addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
     }
 
     private fun createScheduleEvent(): Event {
-        return ScheduleEvent(
-            userData = "schedule",
-            timeStampMillis = System.currentTimeMillis(),
-        ).apply {
-            addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
-            addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
-            addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
-        }
+        return ScheduleEvent(userData = "schedule")
+            .addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
     }
 
     private fun createSearchEvent(): Event {
-        return SearchEvent(userData = "browser").apply {
-            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
-        }
+        return SearchEvent(userData = "browser")
+            .addPredefinedParameter(PredefinedString.PARAM_01, "param1")
     }
 
     private fun createShareEvent(): Event {
-        return ShareEvent(userData = "telegram").apply {
-            addPredefinedParameter(PredefinedString.RECEIPT_ID, "22")
-        }
+        return ShareEvent(userData = "telegram")
+            .addPredefinedParameter(PredefinedString.RECEIPT_ID, "22")
     }
 
     private fun createSpendCreditsEvent(): Event {
-        return SpendCreditsEvent(userData = "boosters").apply {
-            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
-        }
+        return SpendCreditsEvent(userData = "boosters")
+            .addPredefinedParameter(PredefinedString.PARAM_01, "param1")
     }
 
     private fun createStartRegistrationEvent(): Event {
-        return StartRegistrationEvent(userData = "referrer").apply {
-            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
-        }
+        return StartRegistrationEvent(userData = "referrer")
+            .addPredefinedParameter(PredefinedString.PARAM_01, "param1")
     }
 
     private fun createStartTrialEvent(): Event {
-        return StartTrialEvent(userData = "30-days").apply {
-            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
-        }
+        return StartTrialEvent(userData = "30-days")
+            .addPredefinedParameter(PredefinedString.PARAM_01, "param1")
     }
 
     private fun createStartTutorialEvent(): Event {
-        return StartTutorialEvent(userData = "video-feature").apply {
-            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
-        }
+        return StartTutorialEvent(userData = "video-feature")
+            .addPredefinedParameter(PredefinedString.PARAM_01, "param1")
     }
 
     private fun createSubmitApplicationEvent(): Event {
-        return SubmitApplicationEvent(
-            userData = "submit",
-            timeStampMillis = System.currentTimeMillis(),
-        ).apply {
-            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
-        }
+        return SubmitApplicationEvent(userData = "submit")
+            .addPredefinedParameter(PredefinedString.PARAM_01, "param1")
     }
 
     private fun createSubscribeEvent(): Event {
-        return SubscribeEvent(userData = "wire").apply {
-            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
-        }
+        return SubscribeEvent(userData = "wire")
+            .addPredefinedParameter(PredefinedString.PARAM_01, "param1")
     }
 
     private fun createTravelBookingEvent(): Event {
@@ -859,16 +557,14 @@ class DefaultEventsFactory : EventsFactory {
     }
 
     private fun createUnlockAchievementEvent(): Event {
-        return UnlockAchievementEvent(userData = "best damage").apply {
-            addPredefinedParameter(PredefinedLong.USER_SCORE, 12552L)
-            addPredefinedParameter(PredefinedString.ACHIEVEMENT_ID, "1334-1225-ASDZ")
-        }
+        return UnlockAchievementEvent(userData = "best damage")
+            .addPredefinedParameter(PredefinedLong.USER_SCORE, 12552L)
+            .addPredefinedParameter(PredefinedString.ACHIEVEMENT_ID, "1334-1225-ASDZ")
     }
 
     private fun createUnsubscribeEvent(): Event {
-        return UnsubscribeEvent(userData = "02.01.2021").apply {
-            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
-        }
+        return UnsubscribeEvent(userData = "02.01.2021")
+            .addPredefinedParameter(PredefinedString.PARAM_01, "param1")
     }
 
     private fun createUpdateEvent(): Event {
@@ -896,33 +592,226 @@ class DefaultEventsFactory : EventsFactory {
     }
 
     private fun createViewCartEvent(): Event {
-        return ViewCartEvent(userData = "main").apply {
-            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
-        }
+        return ViewCartEvent(userData = "main")
+            .addPredefinedParameter(PredefinedString.PARAM_01, "param1")
     }
 
     private fun createViewContentEvent(): Event {
-        return ViewContentEvent(
-            userData = "ViewContent",
-            timeStampMillis = System.currentTimeMillis(),
-        ).apply {
-            addPredefinedParameter(PredefinedString.PARAM_01, "param1")
-        }
+        return ViewContentEvent(userData = "ViewContent")
+            .addPredefinedParameter(PredefinedString.PARAM_01, "param1")
     }
 
     private fun createViewItemEvent(): Event {
-        return ViewItemEvent(userData = "main").apply {
-            addPredefinedParameter(PredefinedLong.MAX_RATING_VALUE, 5L)
-            addPredefinedParameter(PredefinedLong.RATING_VALUE, 9L)
-        }
+        return ViewItemEvent(userData = "main")
+            .addPredefinedParameter(PredefinedLong.MAX_RATING_VALUE, 5L)
+            .addPredefinedParameter(PredefinedLong.RATING_VALUE, 9L)
     }
 
     private fun createViewItemsEvent(): Event {
-        return ViewItemsEvent(userData = "main").apply {
-            addPredefinedParameter(PredefinedLong.MAX_RATING_VALUE, 5L)
-            addPredefinedParameter(PredefinedLong.RATING_VALUE, 9L)
-        }
+        return ViewItemsEvent(userData = "main")
+            .addPredefinedParameter(PredefinedLong.MAX_RATING_VALUE, 5L)
+            .addPredefinedParameter(PredefinedLong.RATING_VALUE, 9L)
     }
+
+    private fun createUnsubscriptionEvent() = UnsubscriptionEvent(
+        data = JSONObject().apply {
+            put("affise_event_revenue", 2.99)
+            put("affise_event_currency", "USD")
+            put("affise_event_product_id", 278459628375)
+        },
+        userData = "Unsubscription"
+    )
+        .addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
+
+    private fun createConvertedTrialFromRetryEvent() = ConvertedTrialFromRetryEvent(
+        data = JSONObject().apply {
+            put("affise_event_revenue", 2.99)
+            put("affise_event_currency", "USD")
+            put("affise_event_product_id", 278459628375)
+        },
+        userData = "Subscription Plus"
+    )
+        .addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
+
+    private fun createConvertedOfferFromRetryEvent() = ConvertedOfferFromRetryEvent(
+        data = JSONObject().apply {
+            put("affise_event_revenue", 2.99)
+            put("affise_event_currency", "USD")
+            put("affise_event_product_id", 278459628375)
+        },
+        userData = "Subscription Plus"
+    )
+        .addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
+
+    private fun createRenewedSubscriptionFromRetryEvent() = RenewedSubscriptionFromRetryEvent(
+        data = JSONObject().apply {
+            put("affise_event_revenue", 2.99)
+            put("affise_event_currency", "USD")
+            put("affise_event_product_id", 278459628375)
+        },
+        userData = "Subscription Plus"
+    )
+        .addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
+
+    private fun createReactivatedSubscriptionEvent() = ReactivatedSubscriptionEvent(
+        data = JSONObject().apply {
+            put("affise_event_revenue", 2.99)
+            put("affise_event_currency", "USD")
+            put("affise_event_product_id", 278459628375)
+        },
+        userData = "Subscription Plus"
+    )
+        .addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
+
+    private fun createFailedTrialEvent() = FailedTrialEvent(
+        data = JSONObject().apply {
+            put("affise_event_revenue", 2.99)
+            put("affise_event_currency", "USD")
+            put("affise_event_product_id", 278459628375)
+        },
+        userData = "Subscription Plus"
+    )
+        .addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
+
+    private fun createFailedOfferiseEvent() = FailedOfferiseEvent(
+        data = JSONObject().apply {
+            put("affise_event_revenue", 2.99)
+            put("affise_event_currency", "USD")
+            put("affise_event_product_id", 278459628375)
+        },
+        userData = "Subscription Plus"
+    )
+        .addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
+
+    private fun createFailedSubscriptionEvent() = FailedSubscriptionEvent(
+        data = JSONObject().apply {
+            put("affise_event_revenue", 2.99)
+            put("affise_event_currency", "USD")
+            put("affise_event_product_id", 278459628375)
+        },
+        userData = "Subscription Plus"
+    )
+        .addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
+
+    private fun createFailedTrialFromRetryEvent() = FailedTrialFromRetryEvent(
+        JSONObject().apply {
+            put("affise_event_revenue", 2.99)
+            put("affise_event_currency", "USD")
+            put("affise_event_product_id", 278459628375)
+        },
+        userData = "Subscription Plus"
+    )
+        .addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
+
+    private fun createFailedOfferFromRetryEvent() = FailedOfferFromRetryEvent(
+        data = JSONObject().apply {
+            put("affise_event_revenue", 2.99)
+            put("affise_event_currency", "USD")
+            put("affise_event_product_id", 278459628375)
+        },
+        userData = "Subscription Plus"
+    )
+        .addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
+
+    private fun createFailedSubscriptionFromRetryEvent() = FailedSubscriptionFromRetryEvent(
+        data = JSONObject().apply {
+            put("affise_event_revenue", 2.99)
+            put("affise_event_currency", "USD")
+            put("affise_event_product_id", 278459628375)
+        },
+        userData = "Subscription Plus"
+    )
+        .addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
+
+    private fun createRenewedSubscriptionEvent() = RenewedSubscriptionEvent(
+        data = JSONObject().apply {
+            put("affise_event_revenue", 2.99)
+            put("affise_event_currency", "USD")
+            put("affise_event_product_id", 278459628375)
+        },
+        userData = "Subscription Plus"
+    )
+        .addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
+
+    private fun createTrialInRetryEvent() = TrialInRetryEvent(
+        data = JSONObject().apply {
+            put("affise_event_revenue", 2.99)
+            put("affise_event_currency", "USD")
+            put("affise_event_product_id", 278459628375)
+        },
+        userData = "Subscription Plus"
+    )
+        .addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
+
+    private fun createOfferInRetryEvent() = OfferInRetryEvent(
+        data = JSONObject().apply {
+            put("affise_event_revenue", 2.99)
+            put("affise_event_currency", "USD")
+            put("affise_event_product_id", 278459628375)
+        },
+        userData = "Subscription Plus"
+    )
+        .addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
+
+    private fun createSubscriptionInRetryEvent() = SubscriptionInRetryEvent(
+        data = JSONObject().apply {
+            put("affise_event_revenue", 2.99)
+            put("affise_event_currency", "USD")
+            put("affise_event_product_id", 278459628375)
+        },
+        userData = "Subscription Plus"
+    )
+        .addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
+
+    private fun createInitialOfferEvent() = InitialOfferEvent(
+        data = JSONObject().apply {
+            put("affise_event_revenue", 2.99)
+            put("affise_event_currency", "USD")
+            put("affise_event_product_id", 278459628375)
+        },
+        userData = "Subscription Plus"
+    )
+        .addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
+
+    private fun createInitialTrialEvent() = InitialTrialEvent(
+        data = JSONObject().apply {
+            put("affise_event_revenue", 2.99)
+            put("affise_event_currency", "USD")
+            put("affise_event_product_id", 278459628375)
+        },
+        userData = "Subscription Plus"
+    )
+        .addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
+
+    private fun createInitialSubscriptionEvent() = InitialSubscriptionEvent(
+        data = JSONObject().apply {
+            put("affise_event_revenue", 2.99)
+            put("affise_event_currency", "USD")
+            put("affise_event_product_id", 278459628375)
+        },
+        userData = "Subscription Plus"
+    )
+        .addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
+
+    private fun createConvertedTrialEvent() = ConvertedTrialEvent(
+        data = JSONObject().apply {
+            put("affise_event_revenue", 2.99)
+            put("affise_event_currency", "USD")
+            put("affise_event_product_id", 278459628375)
+        },
+        userData = "Subscription Plus"
+    )
+        .addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
+
+    private fun createConvertedOfferEvent() = ConvertedOfferEvent(
+        data = JSONObject().apply {
+            put("affise_event_revenue", 2.99)
+            put("affise_event_currency", "USD")
+            put("affise_event_product_id", 278459628375)
+        },
+        userData = "Subscription Plus"
+    )
+        .addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
 
     private fun String.toTimestamp(format: String = "dd.MM.yyyy"): Long? {
         return SimpleDateFormat(format, Locale.getDefault()).parse(this)?.time

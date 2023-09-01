@@ -7,6 +7,7 @@ import com.affise.app.entity.ProductEntity
 import com.affise.app.extensions.IOWithErrorHandling
 import com.affise.app.usecase.ProductUseCase
 import com.affise.attribution.Affise
+import com.affise.attribution.events.parameters.PredefinedListObject
 import com.affise.attribution.events.predefined.AddToCartEvent
 import com.affise.attribution.events.predefined.AddToWishlistEvent
 import com.affise.attribution.events.predefined.SearchEvent
@@ -103,11 +104,13 @@ class HomeViewModel @Inject constructor(
             .map { JSONObject(it) }
 
         Affise.sendEvent(
-            ViewItemsEvent(JSONArray(itemsPopular), "popularProducts")
+            ViewItemsEvent("popularProducts")
+                .addPredefinedParameter(PredefinedListObject.CONTENT_LIST, itemsPopular)
         )
 
         Affise.sendEvent(
-            ViewItemsEvent(JSONArray(itemsNew), "newProducts")
+            ViewItemsEvent("newProducts")
+                .addPredefinedParameter(PredefinedListObject.CONTENT_LIST, itemsNew)
         )
 
         stateData.postValue(
