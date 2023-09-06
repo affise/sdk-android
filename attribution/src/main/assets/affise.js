@@ -390,6 +390,12 @@ class Event {
         AffiseLog.w(`${this.affise_event_name}: ${err}`);
       }
     );
+
+    return this;
+  }
+
+  send() {
+    Affise.sendEvent(this);
   }
 
   _generateUUID() {

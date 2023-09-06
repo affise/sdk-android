@@ -1,6 +1,7 @@
 package com.affise.attribution.module.advertising.oaid
 
 import android.content.Context
+import android.util.Log
 import com.affise.attribution.build.BuildConfigPropertiesProvider
 import com.affise.attribution.executors.ExecutorServiceProvider
 import com.affise.attribution.logs.LogsManager
@@ -77,12 +78,14 @@ internal class OaidManagerImpl(
                         }
                     } catch (throwable: Throwable) {
                         //Log error
-                        logsManager.addDeviceError(ERROR_INTEGRATION)
+                        Log.w(this::class.simpleName, ERROR_INTEGRATION)
+                        // logsManager.addDeviceError(ERROR_INTEGRATION)
                     }
                 }
             } catch (throwable: Throwable) {
                 //Log error
-                logsManager.addDeviceError(ERROR_INTEGRATION)
+                Log.w(this::class.simpleName, ERROR_INTEGRATION)
+                // logsManager.addDeviceError(ERROR_INTEGRATION)
             }
         }
         return null

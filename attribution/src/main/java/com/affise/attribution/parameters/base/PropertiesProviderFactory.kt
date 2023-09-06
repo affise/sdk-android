@@ -13,6 +13,7 @@ import com.affise.attribution.parameters.*
 import com.affise.attribution.parameters.factory.PostBackModelFactory
 import com.affise.attribution.session.SessionManager
 import com.affise.attribution.usecase.FirstAppOpenUseCase
+import com.affise.attribution.usecase.IsRootedUseCase
 import com.affise.attribution.usecase.RetrieveInstallReferrerUseCase
 import com.affise.attribution.utils.SystemAppChecker
 
@@ -31,6 +32,7 @@ internal class PropertiesProviderFactory(
     private val stringToSha256Converter: Converter<String, String>,
     private val logsManager: LogsManager,
     private val deeplinkClickRepository: DeeplinkClickRepository,
+    private val isRootedUseCase: IsRootedUseCase,
 ) {
 
     fun create(): PostBackModelFactory {
@@ -94,6 +96,7 @@ internal class PropertiesProviderFactory(
                 OSVersionProvider(buildConfigPropertiesProvider),
                 RandomUserIdProvider(firstAppOpenUseCase),
                 IsProductionPropertyProvider(initPropertiesStorage),
+                IsRootedProvider(isRootedUseCase),
                 TimezoneDeviceProvider(),
                 EmptyStringProvider(Parameters.AFFISE_EVENT_TOKEN, 52.0f),
                 EmptyStringProvider(Parameters.AFFISE_EVENT_NAME, 53.0f),

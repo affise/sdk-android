@@ -29,15 +29,17 @@
           timeStampMillis: Date.now(),
         });
 
-        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
-        
-        event.addPredefinedParameter(PredefinedString.DEEP_LINK, 'https://new-game.lt');
-        event.addPredefinedParameter(PredefinedLong.SCORE, 25013);
-        event.addPredefinedParameter(PredefinedLong.LEVEL, 70);
-        event.addPredefinedParameter(PredefinedString.SUCCESS, 'true');
-        event.addPredefinedParameter(PredefinedString.TUTORIAL_ID, '12');
+        event
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19)
+            .addPredefinedParameter(PredefinedString.DEEP_LINK, 'https://new-game.lt')
+            .addPredefinedParameter(PredefinedLong.SCORE, 25013)
+            .addPredefinedParameter(PredefinedLong.LEVEL, 70)
+            .addPredefinedParameter(PredefinedString.SUCCESS, 'true')
+            .addPredefinedParameter(PredefinedString.TUTORIAL_ID, '12')
+            .send(); // send event
 
-        Affise.sendEvent(event)
+        // or
+        //Affise.sendEvent(event)
       ">
     ACHIEVELEVEL
 </button>
@@ -47,9 +49,12 @@
           userData: 'taxi',
         });
 
-        event.addPredefinedParameter(PredefinedString.PURCHASE_CURRENCY, 'USD');
+        event
+            .addPredefinedParameter(PredefinedString.PURCHASE_CURRENCY, 'USD')
+            .send(); // send event
 
-        Affise.sendEvent(event)
+        // or
+        //Affise.sendEvent(event)
       ">
     ADDPAYMENTINFO
 </button>
@@ -59,9 +64,12 @@
           userData: 'vegetables',
         });
 
-        event.addPredefinedParameter(PredefinedString.DESCRIPTION, 'best before 2029');
+        event
+            .addPredefinedParameter(PredefinedString.DESCRIPTION, 'best before 2029')
+            .send(); // send event
 
-        Affise.sendEvent(event)
+        // or
+        //Affise.sendEvent(event)
       ">
     ADDTOCART
 </button>
@@ -71,12 +79,15 @@
           userData: 'next year',
         });
 
-        event.addPredefinedParameter(PredefinedString.COUNTRY, 'Russia');
-        event.addPredefinedParameter(PredefinedString.CITY, 'Voronezh');
-        event.addPredefinedParameter(PredefinedFloat.LAT, 42);
-        event.addPredefinedParameter(PredefinedFloat.LONG, 24);
+        event
+            .addPredefinedParameter(PredefinedString.COUNTRY, 'Russia')
+            .addPredefinedParameter(PredefinedString.CITY, 'Voronezh')
+            .addPredefinedParameter(PredefinedFloat.LAT, 42)
+            .addPredefinedParameter(PredefinedFloat.LONG, 24)
+            .send(); // send event
 
-        Affise.sendEvent(event)
+        // or
+        //Affise.sendEvent(event)
       ">
     ADDTOWISHLIST
 </button>
@@ -86,18 +97,21 @@
           userData: 'header: facebook-meta',
         });
 
-        event.addPredefinedParameter(PredefinedString.PARAM_01, 'PARAM_01');
-        event.addPredefinedParameter(PredefinedString.PARAM_02, 'PARAM_02');
-        event.addPredefinedParameter(PredefinedString.PARAM_03, 'PARAM_03');
-        event.addPredefinedParameter(PredefinedString.PARAM_04, 'PARAM_04');
-        event.addPredefinedParameter(PredefinedString.PARAM_05, 'PARAM_05');
-        event.addPredefinedParameter(PredefinedString.PARAM_06, 'PARAM_06');
-        event.addPredefinedParameter(PredefinedString.PARAM_07, 'PARAM_07');
-        event.addPredefinedParameter(PredefinedString.PARAM_08, 'PARAM_08');
-        event.addPredefinedParameter(PredefinedString.PARAM_09, 'PARAM_09');
-        event.addPredefinedParameter(PredefinedString.PARAM_10, 'PARAM_10');
+        event
+            .addPredefinedParameter(PredefinedString.PARAM_01, 'PARAM_01')
+            .addPredefinedParameter(PredefinedString.PARAM_02, 'PARAM_02')
+            .addPredefinedParameter(PredefinedString.PARAM_03, 'PARAM_03')
+            .addPredefinedParameter(PredefinedString.PARAM_04, 'PARAM_04')
+            .addPredefinedParameter(PredefinedString.PARAM_05, 'PARAM_05')
+            .addPredefinedParameter(PredefinedString.PARAM_06, 'PARAM_06')
+            .addPredefinedParameter(PredefinedString.PARAM_07, 'PARAM_07')
+            .addPredefinedParameter(PredefinedString.PARAM_08, 'PARAM_08')
+            .addPredefinedParameter(PredefinedString.PARAM_09, 'PARAM_09')
+            .addPredefinedParameter(PredefinedString.PARAM_10, 'PARAM_10')
+            .send(); // send event
 
-        Affise.sendEvent(event)
+        // or
+        //Affise.sendEvent(event)
       ">
     CLICKADV
 </button>
@@ -107,11 +121,14 @@
           userData: 'promo',
         });
 
-        event.addPredefinedParameter(PredefinedString.VALIDATED, '02.11.2021');
-        event.addPredefinedParameter(PredefinedString.REVIEW_TEXT, 'approve');
-        event.addPredefinedParameter(PredefinedString.CUSTOMER_SEGMENT, 'DOG');
+        event
+            .addPredefinedParameter(PredefinedString.VALIDATED, '02.11.2021')
+            .addPredefinedParameter(PredefinedString.REVIEW_TEXT, 'approve')
+            .addPredefinedParameter(PredefinedString.CUSTOMER_SEGMENT, 'DOG')
+            .send(); // send event
 
-        Affise.sendEvent(event)
+        // or
+        //Affise.sendEvent(event)
       ">
     COMPLETEREGISTRATION
 </button>
@@ -169,11 +186,12 @@
           userData: 'personal',
         });
  
-        event.addPredefinedParameter(PredefinedObject.CONTENT, {data: 'Greatest Hits'});
-        event.addPredefinedParameter(PredefinedListString.CONTENT_IDS, ['22', '2561']);
-        event.addPredefinedParameter(PredefinedListObject.CONTENT_LIST, [{content:'songs'}, {content:'videos'}]);
-        event.addPredefinedParameter(PredefinedString.CONTENT_TYPE, 'MATURE');
-        event.addPredefinedParameter(PredefinedString.CURRENCY, 'USD');
+        event
+            .addPredefinedParameter(PredefinedObject.CONTENT, {data: 'Greatest Hits'})
+            .addPredefinedParameter(PredefinedListString.CONTENT_IDS, ['22', '2561'])
+            .addPredefinedParameter(PredefinedListObject.CONTENT_LIST, [{content:'songs'}, {content:'videos'}])
+            .addPredefinedParameter(PredefinedString.CONTENT_TYPE, 'MATURE')
+            .addPredefinedParameter(PredefinedString.CURRENCY, 'USD');
 
         Affise.sendEvent(event)
       ">
@@ -317,9 +335,10 @@
           userData: 'referrer: google',
         });
 
-        event.addPredefinedParameter(PredefinedString.ADREV_AD_TYPE, 'interstitial');
-        event.addPredefinedParameter(PredefinedString.REGION, 'ASIA');
-        event.addPredefinedParameter(PredefinedString.CLASS, 'student');
+        event
+            .addPredefinedParameter(PredefinedString.ADREV_AD_TYPE, 'interstitial')
+            .addPredefinedParameter(PredefinedString.REGION, 'ASIA')
+            .addPredefinedParameter(PredefinedString.CLASS, 'student');
 
         Affise.sendEvent(event)
       ">
@@ -331,9 +350,10 @@
           userData: 'donate',
         });
         
-        event.addPredefinedParameter(PredefinedString.ORDER_ID, '23123');
-        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
-        event.addPredefinedParameter(PredefinedLong.QUANTITY, 1);
+        event
+            .addPredefinedParameter(PredefinedString.ORDER_ID, '23123')
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1);
 
         Affise.sendEvent(event)
       ">
@@ -345,9 +365,10 @@
           userData: 'location',
         });
         
-        event.addPredefinedParameter(PredefinedString.ORDER_ID, '23123');
-        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
-        event.addPredefinedParameter(PredefinedLong.QUANTITY, 1);
+        event
+            .addPredefinedParameter(PredefinedString.ORDER_ID, '23123')
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1);
 
         Affise.sendEvent(event)
       ">
@@ -359,9 +380,10 @@
           userData: 'checkout',
         });
         
-        event.addPredefinedParameter(PredefinedString.ORDER_ID, '23123');
-        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
-        event.addPredefinedParameter(PredefinedLong.QUANTITY, 1);
+        event
+            .addPredefinedParameter(PredefinedString.ORDER_ID, '23123')
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1);
 
         Affise.sendEvent(event)
       ">
@@ -373,9 +395,10 @@
           userData: 'cusbest pricetom',
         });
         
-        event.addPredefinedParameter(PredefinedString.ORDER_ID, '23123');
-        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
-        event.addPredefinedParameter(PredefinedLong.QUANTITY, 1);
+        event
+            .addPredefinedParameter(PredefinedString.ORDER_ID, '23123')
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1);
 
         Affise.sendEvent(event)
       ">
@@ -387,8 +410,9 @@
           userData: 'shooter',
         });
 
-        event.addPredefinedParameter(PredefinedString.COUPON_CODE, '25XLKM');
-        event.addPredefinedParameter(PredefinedString.VIRTUAL_CURRENCY_NAME, 'BTC');
+        event
+            .addPredefinedParameter(PredefinedString.COUPON_CODE, '25XLKM')
+            .addPredefinedParameter(PredefinedString.VIRTUAL_CURRENCY_NAME, 'BTC');
 
         Affise.sendEvent(event)
       ">
@@ -424,8 +448,9 @@
           userData: 'lead',
         });
 
-        event.addPredefinedParameter(PredefinedString.PAYMENT_INFO_AVAILABLE, 'card');
-        event.addPredefinedParameter(PredefinedString.SEARCH_STRING, 'best car wash');
+        event
+            .addPredefinedParameter(PredefinedString.PAYMENT_INFO_AVAILABLE, 'card')
+            .addPredefinedParameter(PredefinedString.SEARCH_STRING, 'best car wash');
 
         Affise.sendEvent(event)
       ">
@@ -437,10 +462,11 @@
           userData: 'items',
         });
 
-        event.addPredefinedParameter(PredefinedString.PAYMENT_INFO_AVAILABLE, 'card');
-        event.addPredefinedParameter(PredefinedString.SEARCH_STRING, 'best car wash');
-        event.addPredefinedParameter(PredefinedString.SUGGESTED_DESTINATIONS, 'crete, spain');
-        event.addPredefinedParameter(PredefinedString.SUGGESTED_HOTELS, 'beach resort, marina spa');
+        event
+            .addPredefinedParameter(PredefinedString.PAYMENT_INFO_AVAILABLE, 'card')
+            .addPredefinedParameter(PredefinedString.SEARCH_STRING, 'best car wash')
+            .addPredefinedParameter(PredefinedString.SUGGESTED_DESTINATIONS, 'crete, spain')
+            .addPredefinedParameter(PredefinedString.SUGGESTED_HOTELS, 'beach resort, marina spa');
 
         Affise.sendEvent(event)
       ">
@@ -476,9 +502,10 @@
           userData: 'apple',
         });
 
-        event.addPredefinedParameter(PredefinedString.ORDER_ID, '23123');
-        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
-        event.addPredefinedParameter(PredefinedLong.QUANTITY, 1);
+        event
+            .addPredefinedParameter(PredefinedString.ORDER_ID, '23123')
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1);
 
         Affise.sendEvent(event)
     ">
@@ -490,9 +517,10 @@
           userData: 'apple',
         });
 
-        event.addPredefinedParameter(PredefinedString.ORDER_ID, '23123');
-        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
-        event.addPredefinedParameter(PredefinedLong.QUANTITY, 1);
+        event
+            .addPredefinedParameter(PredefinedString.ORDER_ID, '23123')
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1);
 
         Affise.sendEvent(event)
     ">
@@ -504,9 +532,10 @@
           userData: 'apple',
         });
 
-        event.addPredefinedParameter(PredefinedString.ORDER_ID, '23123');
-        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
-        event.addPredefinedParameter(PredefinedLong.QUANTITY, 1);
+        event
+            .addPredefinedParameter(PredefinedString.ORDER_ID, '23123')
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1);
 
         Affise.sendEvent(event)
     ">
@@ -518,9 +547,10 @@
           userData: 'apple',
         });
 
-        event.addPredefinedParameter(PredefinedString.ORDER_ID, '23123');
-        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
-        event.addPredefinedParameter(PredefinedLong.QUANTITY, 1);
+        event
+            .addPredefinedParameter(PredefinedString.ORDER_ID, '23123')
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1);
 
         Affise.sendEvent(event)
     ">
@@ -532,9 +562,10 @@
           userData: 'apple',
         });
 
-        event.addPredefinedParameter(PredefinedString.ORDER_ID, '23123');
-        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
-        event.addPredefinedParameter(PredefinedLong.QUANTITY, 1);
+        event
+            .addPredefinedParameter(PredefinedString.ORDER_ID, '23123')
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1);
 
         Affise.sendEvent(event)
       ">
@@ -546,10 +577,11 @@
           userData: 'no bugs',
         });
 
-        event.addPredefinedParameter(PredefinedString.PREFERRED_NEIGHBORHOODS, '2');
-        event.addPredefinedParameter(PredefinedLong.PREFERRED_NUM_STOPS, 4);
-        event.addPredefinedParameter(PredefinedFloat.PREFERRED_PRICE_RANGE, 10.22);
-        event.addPredefinedParameter(PredefinedLong.PREFERRED_STAR_RATINGS, 4);
+        event
+            .addPredefinedParameter(PredefinedString.PREFERRED_NEIGHBORHOODS, '2')
+            .addPredefinedParameter(PredefinedLong.PREFERRED_NUM_STOPS, 4)
+            .addPredefinedParameter(PredefinedFloat.PREFERRED_PRICE_RANGE, 10.22)
+            .addPredefinedParameter(PredefinedLong.PREFERRED_STAR_RATINGS, 4);
 
         Affise.sendEvent(event)
       ">
@@ -573,9 +605,10 @@
           userData: 'discount',
         });
 
-        event.addPredefinedParameter(PredefinedString.ORDER_ID, '23123');
-        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
-        event.addPredefinedParameter(PredefinedLong.QUANTITY, 1);
+        event
+            .addPredefinedParameter(PredefinedString.ORDER_ID, '23123')
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1);
 
         Affise.sendEvent(event)
       ">
@@ -587,9 +620,10 @@
           userData: 'apple',
         });
 
-        event.addPredefinedParameter(PredefinedString.ORDER_ID, '23123');
-        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
-        event.addPredefinedParameter(PredefinedLong.QUANTITY, 1);
+        event
+            .addPredefinedParameter(PredefinedString.ORDER_ID, '23123')
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1);
 
         Affise.sendEvent(event)
       ">
@@ -601,9 +635,10 @@
           userData: 'schedule',
         });
 
-        event.addPredefinedParameter(PredefinedString.ORDER_ID, '23123');
-        event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
-        event.addPredefinedParameter(PredefinedLong.QUANTITY, 1);
+        event
+            .addPredefinedParameter(PredefinedString.ORDER_ID, '23123')
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1);
 
         Affise.sendEvent(event)
       ">
@@ -711,19 +746,20 @@
           userData: 'booking',
         });
 
-        event.addPredefinedParameter(PredefinedLong.NUM_ADULTS, 1);
-        event.addPredefinedParameter(PredefinedLong.NUM_CHILDREN, 2);
-        event.addPredefinedParameter(PredefinedLong.NUM_INFANTS, 1);
-        event.addPredefinedParameter(PredefinedLong.DATE_A, 1609268400000);
-        event.addPredefinedParameter(PredefinedLong.DATE_B, 1609441200000);
-        event.addPredefinedParameter(PredefinedLong.DEPARTING_ARRIVAL_DATE, 1609441200000);
-        event.addPredefinedParameter(PredefinedLong.DEPARTING_DEPARTURE_DATE, 1609268400000);
-        event.addPredefinedParameter(PredefinedString.DESTINATION_A, 'usa');
-        event.addPredefinedParameter(PredefinedString.DESTINATION_B, 'mexico');
-        event.addPredefinedParameter(PredefinedString.DESTINATION_LIST, 'usa, mexico');
-        event.addPredefinedParameter(PredefinedLong.HOTEL_SCORE, 5);
-        event.addPredefinedParameter(PredefinedLong.TRAVEL_START, 1606762800000);
-        event.addPredefinedParameter(PredefinedLong.TRAVEL_END, 1638298800000);
+        event
+            .addPredefinedParameter(PredefinedLong.NUM_ADULTS, 1)
+            .addPredefinedParameter(PredefinedLong.NUM_CHILDREN, 2)
+            .addPredefinedParameter(PredefinedLong.NUM_INFANTS, 1)
+            .addPredefinedParameter(PredefinedLong.DATE_A, 1609268400000)
+            .addPredefinedParameter(PredefinedLong.DATE_B, 1609441200000)
+            .addPredefinedParameter(PredefinedLong.DEPARTING_ARRIVAL_DATE, 1609441200000)
+            .addPredefinedParameter(PredefinedLong.DEPARTING_DEPARTURE_DATE, 1609268400000)
+            .addPredefinedParameter(PredefinedString.DESTINATION_A, 'usa')
+            .addPredefinedParameter(PredefinedString.DESTINATION_B, 'mexico')
+            .addPredefinedParameter(PredefinedString.DESTINATION_LIST, 'usa, mexico')
+            .addPredefinedParameter(PredefinedLong.HOTEL_SCORE, 5)
+            .addPredefinedParameter(PredefinedLong.TRAVEL_START, 1606762800000)
+            .addPredefinedParameter(PredefinedLong.TRAVEL_END, 1638298800000);
 
         Affise.sendEvent(event)
       ">
@@ -735,8 +771,9 @@
           userData: 'best damage',
         });
 
-        event.addPredefinedParameter(PredefinedLong.USER_SCORE, '12552');
-        event.addPredefinedParameter(PredefinedString.ACHIEVEMENT_ID, '1334-1225-ASDZ');
+        event
+            .addPredefinedParameter(PredefinedLong.USER_SCORE, '12552')
+            .addPredefinedParameter(PredefinedString.ACHIEVEMENT_ID, '1334-1225-ASDZ');
 
         Affise.sendEvent(event)
       ">
@@ -760,10 +797,11 @@
           userData: 'firmware',
         });
 
-        event.addPredefinedParameter(PredefinedLong.EVENT_START, 1612119600000);
-        event.addPredefinedParameter(PredefinedLong.EVENT_END, 1640977200000);
-        event.addPredefinedParameter(PredefinedString.NEW_VERSION, '8');
-        event.addPredefinedParameter(PredefinedString.OLD_VERSION, '1.8');
+        event
+            .addPredefinedParameter(PredefinedLong.EVENT_START, 1612119600000)
+            .addPredefinedParameter(PredefinedLong.EVENT_END, 1640977200000)
+            .addPredefinedParameter(PredefinedString.NEW_VERSION, '8')
+            .addPredefinedParameter(PredefinedString.OLD_VERSION, '1.8');
 
         Affise.sendEvent(event)
       ">
@@ -775,8 +813,9 @@
           userData: 'skip',
         });
 
-        event.addPredefinedParameter(PredefinedLong.RETURNING_ARRIVAL_DATE, 1638298800000);
-        event.addPredefinedParameter(PredefinedLong.RETURNING_DEPARTURE_DATE, 1669834800000);
+        event
+            .addPredefinedParameter(PredefinedLong.RETURNING_ARRIVAL_DATE, 1638298800000)
+            .addPredefinedParameter(PredefinedLong.RETURNING_DEPARTURE_DATE, 1669834800000);
 
         Affise.sendEvent(event)
       ">
@@ -812,8 +851,9 @@
           userData: 'main',
         });
 
-        event.addPredefinedParameter(PredefinedLong.MAX_RATING_VALUE, 5);
-        event.addPredefinedParameter(PredefinedLong.RATING_VALUE, 4);
+        event
+            .addPredefinedParameter(PredefinedLong.MAX_RATING_VALUE, 5)
+            .addPredefinedParameter(PredefinedLong.RATING_VALUE, 4);
 
         Affise.sendEvent(event)
       ">
@@ -825,8 +865,9 @@
           userData: 'main',
         });
 
-        event.addPredefinedParameter(PredefinedLong.MAX_RATING_VALUE, 5);
-        event.addPredefinedParameter(PredefinedLong.RATING_VALUE, 4);
+        event
+            .addPredefinedParameter(PredefinedLong.MAX_RATING_VALUE, 5)
+            .addPredefinedParameter(PredefinedLong.RATING_VALUE, 4);
 
         Affise.sendEvent(event)
       ">

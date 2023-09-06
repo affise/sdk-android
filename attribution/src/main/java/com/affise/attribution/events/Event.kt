@@ -1,5 +1,6 @@
 package com.affise.attribution.events
 
+import com.affise.attribution.Affise
 import com.affise.attribution.events.parameters.PredefinedCustom
 import com.affise.attribution.events.parameters.PredefinedFloat
 import com.affise.attribution.events.parameters.PredefinedGroup
@@ -128,6 +129,13 @@ abstract class Event: PredefinedParameter {
 //        }
 //        return this
 //    }
+
+    /**
+     * Store and send this event
+     */
+    fun send() {
+        Affise.sendEvent(this)
+    }
 
     /**
      * Get map of predefined parameter

@@ -1,12 +1,12 @@
 # Affise Attribution Android Library
 
-| Artifact | Version |
-| -------- | ------- |
-| `com.affise:attribution` | [![attribution](https://img.shields.io/maven-central/v/com.affise/attribution?label=latest)](https://mvnrepository.com/artifact/com.affise/attribution) |
+| Artifact                        | Version                                                                                                                                                                      |
+|---------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `com.affise:attribution`        | [![attribution](https://img.shields.io/maven-central/v/com.affise/attribution?label=latest)](https://mvnrepository.com/artifact/com.affise/attribution)                      |
 | `com.affise:module-advertising` | [![module-advertising](https://img.shields.io/maven-central/v/com.affise/module-advertising?label=latest)](https://mvnrepository.com/artifact/com.affise/module-advertising) |
-| `com.affise:module-network` | [![module-network](https://img.shields.io/maven-central/v/com.affise/module-network?label=latest)](https://mvnrepository.com/artifact/com.affise/module-network) |
-| `com.affise:module-phone` | [![module-phone](https://img.shields.io/maven-central/v/com.affise/module-phone?label=latest)](https://mvnrepository.com/artifact/com.affise/module-phone) |
-| `com.affise:module-status` | [![module-status](https://img.shields.io/maven-central/v/com.affise/module-status?label=latest)](https://mvnrepository.com/artifact/com.affise/module-status) |
+| `com.affise:module-network`     | [![module-network](https://img.shields.io/maven-central/v/com.affise/module-network?label=latest)](https://mvnrepository.com/artifact/com.affise/module-network)             |
+| `com.affise:module-phone`       | [![module-phone](https://img.shields.io/maven-central/v/com.affise/module-phone?label=latest)](https://mvnrepository.com/artifact/com.affise/module-phone)                   |
+| `com.affise:module-status`      | [![module-status](https://img.shields.io/maven-central/v/com.affise/module-status?label=latest)](https://mvnrepository.com/artifact/com.affise/module-status)                |
 
 - [Affise Attribution Android Library](#affise-attribution-android-library)
 - [Description](#description)
@@ -69,12 +69,12 @@ For kotlin build script build.gradle.kts use:
 ```kotlin
 dependencies {
   // Add Affise library 
-  implementation("com.affise:attribution:1.6.13")
+  implementation("com.affise:attribution:1.6.14")
   // Add Affise modules 
-  implementation("com.affise:module-advertising:1.6.13")
-  implementation("com.affise:module-network:1.6.13")
-  implementation("com.affise:module-phone:1.6.13")
-  implementation("com.affise:module-status:1.6.13")
+  implementation("com.affise:module-advertising:1.6.14")
+  implementation("com.affise:module-network:1.6.14")
+  implementation("com.affise:module-phone:1.6.14")
+  implementation("com.affise:module-status:1.6.14")
   // Add install referrer
   implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -85,12 +85,12 @@ For groovy build script build.gradle use:
 ```groovy
 dependencies {
     // Add Affise library 
-    implementation 'com.affise:attribution:1.6.13'
+    implementation 'com.affise:attribution:1.6.14'
     // Add Affise modules 
-    implementation 'com.affise:module-advertising:1.6.13'
-    implementation 'com.affise:module-network:1.6.13'
-    implementation 'com.affise:module-phone:1.6.13'
-    implementation 'com.affise:module-status:1.6.13'
+    implementation 'com.affise:module-advertising:1.6.14'
+    implementation 'com.affise:module-network:1.6.14'
+    implementation 'com.affise:module-phone:1.6.14'
+    implementation 'com.affise:module-status:1.6.14'
     // Add install referrer
     implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -98,9 +98,9 @@ dependencies {
 
 ### Integrate as file dependency
 
-Download latest Affise SDK (`attribution-1.6.13.aar`)
+Download latest Affise SDK (`attribution-1.6.14.aar`)
 from [releases page](https://github.com/affise/sdk-android/releases) and place this binary to gradle application
-module lib directory `app/libs/attribution-1.6.13.aar`
+module lib directory `app/libs/attribution-1.6.14.aar`
 
 Add library as gradle file dependency to application module build script
 Add install referrer library
@@ -111,12 +111,12 @@ For kotlin build script build.gradle.kts use:
 dependencies {
     // ...
     // Add Affise library 
-    implementation(files("libs/attribution-1.6.13.aar"))
+    implementation(files("libs/attribution-1.6.14.aar"))
     // Add Affise modules 
-    implementation(files("libs/module-advertising-1.6.13.aar"))
-    implementation(files("libs/module-network-1.6.13.aar"))
-    implementation(files("libs/module-phone-1.6.13.aar"))
-    implementation(files("libs/module-status-1.6.13.aar"))
+    implementation(files("libs/module-advertising-1.6.14.aar"))
+    implementation(files("libs/module-network-1.6.14.aar"))
+    implementation(files("libs/module-phone-1.6.14.aar"))
+    implementation(files("libs/module-status-1.6.14.aar"))
     // Add install referrer
     implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -128,12 +128,12 @@ For groovy build script build.gradle use:
 dependencies {
   // ...  
   // Add Affise library 
-  implementation files('libs/attribution-1.6.13.aar')
+  implementation files('libs/attribution-1.6.14.aar')
   // Add Affise modules 
-  implementation files('libs/module-advertising-1.6.13.aar')
-  implementation files('libs/module-network-1.6.13.aar')
-  implementation files('libs/module-phone-1.6.13.aar')
-  implementation files('libs/module-status-1.6.13.aar')
+  implementation files('libs/module-advertising-1.6.14.aar')
+  implementation files('libs/module-network-1.6.14.aar')
+  implementation files('libs/module-phone-1.6.14.aar')
+  implementation files('libs/module-status-1.6.14.aar')
   // Add install referrer
   implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -279,6 +279,7 @@ To match users with events and data library is sending, these identifiers are co
 - `UUID`
 - `AFFISE_APP_OPENED`
 - `PUSHTOKEN`
+- `IS_ROOTED`
 - `EVENTS`
 - `AFFISE_EVENTS_COUNT`
 
@@ -292,7 +293,11 @@ following code
 ```kotlin
 class Presenter {
   fun onUserAddsItemsToCart(items: String) {
-    Affise.sendEvent(AddToCartEvent(userData = items))
+    // Send event like this
+    AddToCartEvent(items)
+        .send()
+    // Or Send event like this
+    // Affise.sendEvent(AddToCartEvent(items))
   }
 }
 ```
@@ -302,7 +307,11 @@ For java use:
 ```java
 class Presenter {
   void onUserAddsItemsToCart(String items) {
-    Affise.sendEvent(new AddToCartEvent(items));
+    // Send event like this
+    new AddToCartEvent(items)
+            .send();
+    // Or Send event like this
+    // Affise.sendEvent(new AddToCartEvent(items));
   }
 }
 ```
@@ -404,7 +413,7 @@ Add it to any event:
 ```kotlin
 class Presenter {
   fun onUserAddsItemsToCart(items: String) {
-    val event = AddToCartEvent(userData = items)
+    val event = AddToCartEvent(items)
         .addPredefinedParameter(PredefinedString.DESCRIPTION, "best before 2029")
         .addPredefinedParameter(PredefinedObject.CONTENT, JSONObject().apply {
           put("collection", "Greatest Hits")
@@ -415,7 +424,11 @@ class Presenter {
           }
         ))
     
-    Affise.sendEvent(event)
+    // Send event like this
+    event.send() 
+
+    // Or Send event like this
+    // Affise.sendEvent(event)
   }
 }
 ```
@@ -430,6 +443,7 @@ class Presenter {
     
     JSONObject jsonContent = new JSONObject()
             .put("content", "songs, videos");
+    
     List<JSONObject> jsonList = Collections.singletonList(jsonContent);
     
     Event event = new AddToCartEvent(items, System.currentTimeMillis())
@@ -437,8 +451,12 @@ class Presenter {
             .addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
             .addPredefinedParameter(PredefinedObject.CONTENT, json)
             .addPredefinedParameter(PredefinedListObject.CONTENT_LIST, jsonList);
+    
+    // Send event like this
+    event.send();
 
-    Affise.sendEvent(event);
+    // Or Send event like this
+    // Affise.sendEvent(event);
   }
 }
 ```
@@ -894,11 +912,14 @@ let event = new AddPaymentInfoEvent({
   userData: 'taxi',
 });
 
-event.addPredefinedParameter(PredefinedString.PURCHASE_CURRENCY, 'USD');
-event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
-event.addPredefinedParameter(PredefinedObject.CONTENT, data);
+event
+  .addPredefinedParameter(PredefinedString.PURCHASE_CURRENCY, 'USD')
+  .addPredefinedParameter(PredefinedObject.CONTENT, data)
+  .addPredefinedParameter(PredefinedFloat.PRICE, 2.19)
+  .send(); // Send event like this
 
-Affise.sendEvent(event)
+// Or Send event like this
+// Affise.sendEvent(event)
 ```
 
 Just like with native SDK, javascript environment also provides default events that can be passed from WebView:
@@ -994,13 +1015,16 @@ For example:
 ```javascript
 let event = ...
 
-event.addPredefinedParameter(PredefinedString.PURCHASE_CURRENCY, 'USD');
-event.addPredefinedParameter(PredefinedFloat.PRICE, 2.19);
-event.addPredefinedParameter(PredefinedLong.QUANTITY, 1);
-event.addPredefinedParameter(PredefinedObject.CONTENT, { card: 4138, type: 'phone' });
-event.addPredefinedParameter(PredefinedListObject.CONTENT_LIST, [{content:'songs'}, {content:'videos'}]);
+event
+  .addPredefinedParameter(PredefinedString.PURCHASE_CURRENCY, 'USD')
+  .addPredefinedParameter(PredefinedFloat.PRICE, 2.19)
+  .addPredefinedParameter(PredefinedLong.QUANTITY, 1)
+  .addPredefinedParameter(PredefinedObject.CONTENT, { card: 4138, type: 'phone' })
+  .addPredefinedParameter(PredefinedListObject.CONTENT_LIST, [{content:'songs'}, {content:'videos'}])
+  .send(); // Send event like this
 
-Affise.sendEvent(event);
+// Or Send event like this
+// Affise.sendEvent(event);
 ```
 
 ### Custom events JS
