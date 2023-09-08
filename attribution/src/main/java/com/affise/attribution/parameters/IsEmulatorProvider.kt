@@ -4,16 +4,16 @@ import com.affise.attribution.parameters.base.BooleanPropertyProvider
 import com.affise.attribution.usecase.DeviceUseCase
 
 /**
- * Provider for property [Parameters.IS_ROOTED]
+ * Provider for property [Parameters.IS_EMULATOR]
  *
  * @property deviceUseCase to retrieve devise state
  */
-internal class IsRootedProvider(
+internal class IsEmulatorProvider(
     private val deviceUseCase: DeviceUseCase
 ): BooleanPropertyProvider() {
 
-    override val order: Float = 66.0f
-    override val key: String = Parameters.IS_ROOTED
+    override val order: Float = 67.0f
+    override val key: String = Parameters.IS_EMULATOR
 
-    override fun provide(): Boolean? = deviceUseCase.isRooted()
+    override fun provide(): Boolean? = deviceUseCase.isEmulator()
 }

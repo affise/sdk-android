@@ -65,7 +65,7 @@ internal class AffiseComponent(
             stringToSHA256Converter,
             logsManager,
             isDeeplinkClickRepository,
-            isRootedUseCase,
+            deviceUseCase,
         ).create()
     }
 
@@ -259,10 +259,10 @@ internal class AffiseComponent(
     }
 
     /**
-     * Provides [IsRootedUseCase]
+     * Provides [DeviceUseCase]
      */
-    private val isRootedUseCase: IsRootedUseCase by lazy {
-        IsRootedUseCaseImpl()
+    private val deviceUseCase: DeviceUseCase by lazy {
+        DeviceUseCaseImpl()
     }
 
     /**

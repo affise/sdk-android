@@ -89,4 +89,5 @@ object Parameters {
     const val AFFISE_METRICS_EVENTS_COUNT = "affise_metrics_events_count"
     const val AFFISE_INTERNAL_EVENTS_COUNT = "affise_internal_events_count"
     const val IS_ROOTED = "is_rooted"
+    const val IS_EMULATOR = "is_emulator"
 }
