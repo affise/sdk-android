@@ -8,6 +8,7 @@ import com.affise.attribution.referrer.ReferrerKey
 import com.affise.attribution.events.autoCatchingClick.AutoCatchingType
 import com.affise.attribution.events.predefined.GDPREvent
 import com.affise.attribution.init.AffiseInitProperties
+import com.affise.attribution.internal.InternalEvent
 import com.affise.attribution.modules.AffiseModules
 import com.affise.attribution.modules.OnKeyValueCallback
 import com.affise.attribution.parameters.AffiseDeviceIdProvider
@@ -229,4 +230,12 @@ object Affise {
     }
 
     internal fun getApi(): AffiseApi? = api
+
+    /**
+     * Send internal event
+     */
+    @JvmStatic
+    internal fun sendInternalEvent(event: InternalEvent) {
+        api?.storeInternalEventUseCase?.storeInternalEvent(event)
+    }
 }

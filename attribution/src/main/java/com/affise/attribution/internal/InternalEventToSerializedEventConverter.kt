@@ -8,7 +8,7 @@ import org.json.JSONObject
 /**
  * Converter Internal Event to SerializedEvent
  */
-class InternalEventToSerializedEventConverter : Converter<InternalEvent, SerializedEvent> {
+internal class InternalEventToSerializedEventConverter : Converter<InternalEvent, SerializedEvent> {
 
     /**
      * Convert [from] Event to SerializedEvent
@@ -23,7 +23,7 @@ class InternalEventToSerializedEventConverter : Converter<InternalEvent, Seriali
             put(InternalParameters.AFFISE_INTERNAL_EVENT_ID, id)
 
             //Add name
-            put(InternalParameters.AFFISE_INTERNAL_EVENT_NAME, from.getName())
+            put(InternalParameters.AFFISE_INTERNAL_EVENT_NAME, from.getName().eventName)
 
             //Add timestamp
             put(InternalParameters.AFFISE_INTERNAL_EVENT_TIMESTAMP, from.getTimestamp())

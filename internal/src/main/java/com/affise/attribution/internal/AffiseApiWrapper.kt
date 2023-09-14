@@ -4,9 +4,11 @@ import android.app.Application
 import com.affise.attribution.Affise
 import com.affise.attribution.InternalCrossPlatform
 import com.affise.attribution.events.autoCatchingClick.toAutoCatchingType
+import com.affise.attribution.internal.builder.AffiseBuilder
 import com.affise.attribution.internal.callback.AffiseResult
 import com.affise.attribution.internal.callback.OnAffiseCallback
 import com.affise.attribution.internal.events.EventFactory
+import com.affise.attribution.internal.ext.opt
 import com.affise.attribution.internal.ext.toAffiseInitProperties
 import com.affise.attribution.internal.ext.toListOfMap
 import com.affise.attribution.internal.utils.toJSONObject
@@ -22,6 +24,7 @@ class AffiseApiWrapper(private val app: Application?) {
     }
 
     private val factory: EventFactory = EventFactory()
+    private val affiseBuilder: AffiseBuilder = AffiseBuilder()
 
     private var callback: ((AffiseApiMethod, Map<String, Any?>) -> Unit)? = null
 
@@ -127,17 +130,11 @@ class AffiseApiWrapper(private val app: Application?) {
             AffiseApiMethod.REGISTER_DEEPLINK_CALLBACK ->
                 callRegisterDeeplinkCallback(api, map, result)
 
+            AffiseApiMethod.AFFISE_BUILDER ->
+                callBuilder(api, map, result)
+
             else -> result.notImplemented()
         }
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    private fun <T> Map<String, *>.opt(api: String): T? {
-        return this[api] as? T
-    }
-
-    private fun <T> Map<String, *>.opt(api: AffiseApiMethod): T? {
-        return opt(api.method)
     }
 
     private fun callInit(
@@ -194,7 +191,7 @@ class AffiseApiWrapper(private val app: Application?) {
 
         val event = factory.create(data)
         if (event != null) {
-            Affise.sendEvent(event)
+            event.send()
             result.success(null)
         } else {
             result.error("api [${api.method}]: not valid event ${map.toJSONObject()}")
@@ -460,5 +457,13 @@ class AffiseApiWrapper(private val app: Application?) {
             true
         }
         result.success(null)
+    }
+
+    private fun callBuilder(
+        api: AffiseApiMethod,
+        map: Map<String, *>,
+        result: AffiseResult
+    ) {
+        affiseBuilder.call(api, map, result)
     }
 }

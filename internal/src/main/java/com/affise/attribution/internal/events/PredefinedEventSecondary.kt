@@ -3,6 +3,7 @@ package com.affise.attribution.internal.events
 import com.affise.attribution.events.Event
 import com.affise.attribution.events.EventName
 import com.affise.attribution.events.predefined.AchieveLevelEvent
+import com.affise.attribution.events.predefined.AdRevenueEvent
 import com.affise.attribution.events.predefined.AddPaymentInfoEvent
 import com.affise.attribution.events.predefined.AddToCartEvent
 import com.affise.attribution.events.predefined.AddToWishlistEvent
@@ -38,6 +39,8 @@ import com.affise.attribution.events.predefined.LoginEvent
 import com.affise.attribution.events.predefined.OpenedFromPushNotificationEvent
 import com.affise.attribution.events.predefined.OrderCancelEvent
 import com.affise.attribution.events.predefined.OrderEvent
+import com.affise.attribution.events.predefined.OrderItemAddedEvent
+import com.affise.attribution.events.predefined.OrderItemRemoveEvent
 import com.affise.attribution.events.predefined.OrderReturnRequestCancelEvent
 import com.affise.attribution.events.predefined.OrderReturnRequestEvent
 import com.affise.attribution.events.predefined.PurchaseEvent
@@ -474,6 +477,10 @@ internal object PredefinedEventSecondary {
 
             EventName.ORDER_RETURN_REQUEST_CANCEL ->
                 OrderReturnRequestCancelEvent(userData = userData, timeStampMillis = timeStamp)
+
+            EventName.AD_REVENUE -> AdRevenueEvent(userData = userData, timeStampMillis = timeStamp)
+            EventName.ORDER_ITEM_ADDED -> OrderItemAddedEvent(userData = userData, timeStampMillis = timeStamp)
+            EventName.ORDER_ITEM_REMOVE -> OrderItemRemoveEvent(userData = userData, timeStampMillis = timeStamp)
         }
     }
 

@@ -70,6 +70,10 @@ enum class PredefinedString(private val value: String): Predefined {
     CONVERSION_ID("conversion_id"),
     CONTENT_NAME("content_name"),
     PRODUCT_NAME("product_name"),
+    SOURCE("source"),
+    NETWORK("network"),
+    UNIT("unit"),
+    PLACEMENT("placement"),
     ;
 
     override fun value(): String = "${Predefined.PREFIX}${this.value}"

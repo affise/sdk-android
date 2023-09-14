@@ -68,7 +68,9 @@ class ButtonsFragment : DaggerFragment() {
         })
 
         binding.sendEventsButton.setOnClickListener {
-            Affise.sendEvents()
+            DefaultEventsFactory().createEvents().forEach {
+                it.send()
+            }
         }
 
         binding.eventsRecyclerView.adapter = EventsAdapter(ItemCallback()) {

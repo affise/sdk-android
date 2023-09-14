@@ -297,7 +297,7 @@ internal class AffiseComponent(
     /**
      * StoreInternalEventUseCase
      */
-    private val storeInternalEventUseCase: StoreInternalEventUseCase by lazy {
+    override val storeInternalEventUseCase: StoreInternalEventUseCase by lazy {
         StoreInternalEventUseCaseImpl(
             ExecutorServiceProviderImpl("Internal Event Worker"),
             internalEventsRepository
@@ -377,8 +377,7 @@ internal class AffiseComponent(
     override val sessionManager: SessionManager by lazy {
         SessionManagerImpl(
             sharedPreferences,
-            activityCountProvider,
-            storeInternalEventUseCase
+            activityCountProvider
         )
     }
 

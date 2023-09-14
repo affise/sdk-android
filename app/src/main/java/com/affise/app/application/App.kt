@@ -4,7 +4,6 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.affise.app.dependencies.DaggerAppComponent
 import com.affise.attribution.Affise
-import com.affise.attribution.events.autoCatchingClick.AutoCatchingType
 import com.affise.attribution.init.AffiseInitProperties
 import com.google.firebase.FirebaseApp
 import dagger.android.AndroidInjector
@@ -22,22 +21,14 @@ class App : DaggerApplication() {
         FirebaseApp.initializeApp(this)
 
         val props = AffiseInitProperties(
-            affiseAppId = "AffiseDemoApp",
-            partParamName = "partParamName",
-            partParamNameToken = "partParamNameToken",
-            appToken = "app-token",
-            isProduction = false,
-            secretKey = preferences.getString(SECRET_ID_KEY, "be07d122-3f3c-11ec-9bbc-0242ac130002"),
-            autoCatchingClickEvents = preferences.getStringSet(App.AUTO_CATCHING_TYPES_KEY, null)
-                ?.map { AutoCatchingType.valueOf(it) }
-                ?: emptyList(),
-            enabledMetrics = preferences.getBoolean(ENABLED_METRICS_KEY, false)
+            affiseAppId = "129",
+            secretKey = "93a40b54-6f12-443f-a250-ebf67c5ee4d2",
         )
 
         Affise.init(this, props)
 
 //        Affise.getStatus(AffiseModules.Status) {
-//            Log.d(this.javaClass.simpleName, "$it")
+//            Log.d(this.javaClass.simpleName, "Status: $it")
 //        }
 //
 //        Affise.getReferrerValue(ReferrerKey.CAMPAIGN_ID) {

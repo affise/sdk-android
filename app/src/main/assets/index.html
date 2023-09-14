@@ -93,6 +93,26 @@
 </button>
 <br>
 <button class="button" onclick="
+        var event = new AdRevenueEvent({
+          userData: 'next year',
+        });
+
+        event
+            .addPredefinedParameter(PredefinedString.SOURCE, 'admob')
+            .addPredefinedParameter(PredefinedFloat.REVENUE, 42.0)
+            .addPredefinedParameter(PredefinedString.CURRENCY, 'USD')
+            .addPredefinedParameter(PredefinedString.NETWORK, 'test')
+            .addPredefinedParameter(PredefinedString.UNIT, 'm')
+            .addPredefinedParameter(PredefinedString.PLACEMENT, 'end')
+            .send(); // send event
+
+        // or
+        //Affise.sendEvent(event)
+      ">
+    AD REVENUE
+</button>
+<br>
+<button class="button" onclick="
         var event = new ClickAdvEvent({
           userData: 'header: facebook-meta',
         });
@@ -510,6 +530,36 @@
         Affise.sendEvent(event)
     ">
     ORDER
+</button>
+<br>
+<button class="button" onclick="
+        var event = new OrderItemAddedEvent({
+          userData: 'apple',
+        });
+
+        event
+            .addPredefinedParameter(PredefinedString.ORDER_ID, '23123')
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1);
+
+        Affise.sendEvent(event)
+    ">
+    ORDER ITEM ADDED
+</button>
+<br>
+<button class="button" onclick="
+        var event = new OrderItemRemoveEvent({
+          userData: 'apple',
+        });
+
+        event
+            .addPredefinedParameter(PredefinedString.ORDER_ID, '23123')
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1);
+
+        Affise.sendEvent(event)
+    ">
+    ORDER ITEM REMOVE
 </button>
 <br>
 <button class="button" onclick="

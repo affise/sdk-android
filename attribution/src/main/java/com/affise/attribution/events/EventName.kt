@@ -61,7 +61,11 @@ enum class EventName(val eventName: String) {
     VIEW_CART("ViewCart"),
     VIEW_CONTENT("ViewContent"),
     VIEW_ITEM("ViewItem"),
-    VIEW_ITEMS("ViewItems");
+    VIEW_ITEMS("ViewItems"),
+    AD_REVENUE("AdRevenue"),
+    ORDER_ITEM_ADDED("OrderItemAdded"),
+    ORDER_ITEM_REMOVE("OrderItemRemove"),
+    ;
 
     companion object {
         @JvmStatic

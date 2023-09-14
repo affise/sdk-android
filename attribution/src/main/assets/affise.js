@@ -127,6 +127,10 @@ const PredefinedString = {
   CONVERSION_ID: "conversion_id",
   CONTENT_NAME: "content_name",
   PRODUCT_NAME: "product_name",
+  SOURCE: "source",
+  NETWORK: "network",
+  UNIT: "unit",
+  PLACEMENT: "placement",
 };
 
 const PredefinedLong = {
@@ -485,6 +489,19 @@ class AddToWishlistEvent extends Event {
    */
   constructor(args) {
     super("AddToWishlist", args);
+  }
+}
+
+class AdRevenueEvent extends Event {
+  /**
+   * Event AdRevenue
+   *
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("AdRevenue", args);
   }
 }
 
@@ -887,6 +904,32 @@ class OrderEvent extends Event {
    */
   constructor(args) {
     super("Order", args);
+  }
+}
+
+class OrderItemAddedEvent extends Event {
+  /**
+   * Event OrderItemAdded
+   *
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("OrderItemAdded", args);
+  }
+}
+
+class OrderItemRemoveEvent extends Event {
+  /**
+   * Event OrderItemRemove
+   *
+   * @param {object} args event arguments
+   * @param {string} args.userData any custom string data.
+   * @param {number} args.timeStampMillis the timestamp event in milliseconds.
+   */
+  constructor(args) {
+    super("OrderItemRemove", args);
   }
 }
 

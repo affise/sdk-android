@@ -2,7 +2,7 @@ package com.affise.attribution.internal.predefined
 
 import com.affise.attribution.parameters.Parameters
 import com.affise.attribution.internal.InternalEvent
-import org.json.JSONObject
+import com.affise.attribution.internal.InternalEventName
 
 /**
  * When session start.
@@ -15,14 +15,9 @@ internal class SessionStartInternalEvent(
     private val lifetimeSessionCount: Long,
 ) : InternalEvent() {
 
-    /**
-     * Serialize SessionStartInternalEvent to JSONObject
-     *
-     * @return JSONObject of SessionStartInternalEvent
-     */
-    override fun serialize() = JSONObject().apply {
-        put(Parameters.AFFISE_SESSION_COUNT, affiseSessionCount)
-        put(Parameters.LIFETIME_SESSION_COUNT, lifetimeSessionCount)
+    init {
+        addPropertyRaw(Parameters.AFFISE_SESSION_COUNT, affiseSessionCount)
+        addPropertyRaw(Parameters.LIFETIME_SESSION_COUNT, lifetimeSessionCount)
     }
 
     /**
@@ -30,5 +25,5 @@ internal class SessionStartInternalEvent(
      *
      * @return name
      */
-    override fun getName() = "SessionStart"
+    override fun getName() = InternalEventName.SESSION_START
 }

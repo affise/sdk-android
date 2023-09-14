@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.os.SystemClock
 import com.affise.attribution.parameters.Parameters
-import com.affise.attribution.internal.StoreInternalEventUseCase
 import com.affise.attribution.internal.predefined.SessionStartInternalEvent
 import com.affise.attribution.utils.delayRun
 import com.affise.attribution.utils.timestamp
@@ -18,7 +17,6 @@ data class SessionData(
 internal class SessionManagerImpl(
     private val preferences: SharedPreferences,
     private val activityCountProvider: CurrentActiveActivityCountProvider,
-    private val internalEventUseCase: StoreInternalEventUseCase
 ) : SessionManager {
 
     private var sessionData: SessionData = SessionData(
@@ -96,12 +94,11 @@ internal class SessionManagerImpl(
         delayRun(TIME_TO_START_SESSION) {
             if (sessionTime() == 0L) return@delayRun
             //Send sdk events
-            internalEventUseCase.storeInternalEvent(
-                SessionStartInternalEvent(
-                    affiseSessionCount = getSessionCount(),
-                    lifetimeSessionCount = getLifetimeSessionTime()
-                )
+            SessionStartInternalEvent(
+                affiseSessionCount = getSessionCount(),
+                lifetimeSessionCount = getLifetimeSessionTime()
             )
+                .send()
         }
     }
 

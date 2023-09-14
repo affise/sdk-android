@@ -26,7 +26,10 @@ enum class AffiseApiMethod(val method: String) {
     GET_REFERRER_CALLBACK("get_referrer_callback"),
     GET_REFERRER_VALUE_CALLBACK("get_referrer_value_callback"),
     GET_STATUS_CALLBACK("get_status_callback"),
-    REGISTER_DEEPLINK_CALLBACK("register_deeplink_callback");
+    REGISTER_DEEPLINK_CALLBACK("register_deeplink_callback"),
+
+    // affise builder
+    AFFISE_BUILDER("affise_builder");
 
     companion object {
         @JvmStatic

@@ -1,5 +1,6 @@
 package com.affise.app.ui.fragments.buttons.factories
 
+import com.affise.attribution.ad.AffiseAdSource
 import com.affise.attribution.events.Event
 import com.affise.attribution.events.parameters.PredefinedFloat
 import com.affise.attribution.events.parameters.PredefinedGroup
@@ -8,6 +9,7 @@ import com.affise.attribution.events.parameters.PredefinedLong
 import com.affise.attribution.events.parameters.PredefinedObject
 import com.affise.attribution.events.parameters.PredefinedString
 import com.affise.attribution.events.predefined.AchieveLevelEvent
+import com.affise.attribution.events.predefined.AdRevenueEvent
 import com.affise.attribution.events.predefined.AddPaymentInfoEvent
 import com.affise.attribution.events.predefined.AddToCartEvent
 import com.affise.attribution.events.predefined.AddToWishlistEvent
@@ -43,6 +45,8 @@ import com.affise.attribution.events.predefined.LoginEvent
 import com.affise.attribution.events.predefined.OpenedFromPushNotificationEvent
 import com.affise.attribution.events.predefined.OrderCancelEvent
 import com.affise.attribution.events.predefined.OrderEvent
+import com.affise.attribution.events.predefined.OrderItemAddedEvent
+import com.affise.attribution.events.predefined.OrderItemRemoveEvent
 import com.affise.attribution.events.predefined.OrderReturnRequestCancelEvent
 import com.affise.attribution.events.predefined.OrderReturnRequestEvent
 import com.affise.attribution.events.predefined.PurchaseEvent
@@ -99,6 +103,7 @@ class DefaultEventsFactory : EventsFactory {
             createAddPaymentInfoEvent(),
             createAddToCartEvent(),
             createAddToWishlistEvent(),
+            createAdRevenueEvent(),
             createClickAdvEvent(),
             createCompleteRegistrationEvent(),
             createCompleteStreamEvent(),
@@ -130,6 +135,8 @@ class DefaultEventsFactory : EventsFactory {
             createLoginEvent(),
             createOpenedFromPushNotificationEvent(),
             createOrderEvent(),
+            createOrderItemAddedEvent(),
+            createOrderItemRemoveEvent(),
             createOrderCancelEvent(),
             createOrderReturnRequestEvent(),
             createOrderReturnRequestCancelEvent(),
@@ -204,6 +211,15 @@ class DefaultEventsFactory : EventsFactory {
             .addPredefinedParameter(PredefinedString.CITY, "Voronezh")
             .addPredefinedParameter(PredefinedFloat.LAT, 42.0f)
             .addPredefinedParameter(PredefinedFloat.LONG, 24.0f)
+    }
+    private fun createAdRevenueEvent(): Event {
+        return AdRevenueEvent(userData = "next year")
+            .addPredefinedParameter(PredefinedString.SOURCE, AffiseAdSource.ADMOB.type)
+            .addPredefinedParameter(PredefinedFloat.REVENUE, 42.0f)
+            .addPredefinedParameter(PredefinedString.CURRENCY, "USD")
+            .addPredefinedParameter(PredefinedString.NETWORK, "test")
+            .addPredefinedParameter(PredefinedString.UNIT, "m")
+            .addPredefinedParameter(PredefinedString.PLACEMENT, "end")
     }
 
     private fun createClickAdvEvent(): Event {
@@ -422,6 +438,20 @@ class DefaultEventsFactory : EventsFactory {
 //                        .addPredefinedParameter(PredefinedString.ORDER_ID, "ID_83792")
 //                )
 //            )
+    }
+
+    private fun createOrderItemAddedEvent(): Event {
+        return OrderItemAddedEvent(userData = "apple")
+            .addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
+    }
+
+    private fun createOrderItemRemoveEvent(): Event {
+        return OrderItemRemoveEvent(userData = "apple")
+            .addPredefinedParameter(PredefinedString.ORDER_ID, "23123")
+            .addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
+            .addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
     }
 
     private fun createOrderCancelEvent(): Event {

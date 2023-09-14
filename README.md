@@ -50,6 +50,12 @@
     - [Events tracking JS](#events-tracking-js)
     - [Predefined event parameters JS](#predefined-event-parameters-js)
     - [Custom events JS](#custom-events-js)
+  - [SDK to SDK integrations](#sdk-to-sdk-integrations)
+    - [AdMob](#admob)
+    - [AppLovin MAX](#applovin-max)
+    - [Helium by Chartboost](#helium-by-chartboost )
+    - [ironSource](#ironsource)
+    - [Admost](#admost)
   - [Custom](#custom)
     - [ConversionId](#conversionid)
 
@@ -69,12 +75,12 @@ For kotlin build script build.gradle.kts use:
 ```kotlin
 dependencies {
   // Add Affise library 
-  implementation("com.affise:attribution:1.6.15")
+  implementation("com.affise:attribution:1.6.16")
   // Add Affise modules 
-  implementation("com.affise:module-advertising:1.6.15")
-  implementation("com.affise:module-network:1.6.15")
-  implementation("com.affise:module-phone:1.6.15")
-  implementation("com.affise:module-status:1.6.15")
+  implementation("com.affise:module-advertising:1.6.16")
+  implementation("com.affise:module-network:1.6.16")
+  implementation("com.affise:module-phone:1.6.16")
+  implementation("com.affise:module-status:1.6.16")
   // Add install referrer
   implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -85,12 +91,12 @@ For groovy build script build.gradle use:
 ```groovy
 dependencies {
     // Add Affise library 
-    implementation 'com.affise:attribution:1.6.15'
+    implementation 'com.affise:attribution:1.6.16'
     // Add Affise modules 
-    implementation 'com.affise:module-advertising:1.6.15'
-    implementation 'com.affise:module-network:1.6.15'
-    implementation 'com.affise:module-phone:1.6.15'
-    implementation 'com.affise:module-status:1.6.15'
+    implementation 'com.affise:module-advertising:1.6.16'
+    implementation 'com.affise:module-network:1.6.16'
+    implementation 'com.affise:module-phone:1.6.16'
+    implementation 'com.affise:module-status:1.6.16'
     // Add install referrer
     implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -98,9 +104,9 @@ dependencies {
 
 ### Integrate as file dependency
 
-Download latest Affise SDK (`attribution-1.6.15.aar`)
+Download latest Affise SDK (`attribution-1.6.16.aar`)
 from [releases page](https://github.com/affise/sdk-android/releases) and place this binary to gradle application
-module lib directory `app/libs/attribution-1.6.15.aar`
+module lib directory `app/libs/attribution-1.6.16.aar`
 
 Add library as gradle file dependency to application module build script
 Add install referrer library
@@ -111,12 +117,12 @@ For kotlin build script build.gradle.kts use:
 dependencies {
     // ...
     // Add Affise library 
-    implementation(files("libs/attribution-1.6.15.aar"))
+    implementation(files("libs/attribution-1.6.16.aar"))
     // Add Affise modules 
-    implementation(files("libs/module-advertising-1.6.15.aar"))
-    implementation(files("libs/module-network-1.6.15.aar"))
-    implementation(files("libs/module-phone-1.6.15.aar"))
-    implementation(files("libs/module-status-1.6.15.aar"))
+    implementation(files("libs/module-advertising-1.6.16.aar"))
+    implementation(files("libs/module-network-1.6.16.aar"))
+    implementation(files("libs/module-phone-1.6.16.aar"))
+    implementation(files("libs/module-status-1.6.16.aar"))
     // Add install referrer
     implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -128,12 +134,12 @@ For groovy build script build.gradle use:
 dependencies {
   // ...  
   // Add Affise library 
-  implementation files('libs/attribution-1.6.15.aar')
+  implementation files('libs/attribution-1.6.16.aar')
   // Add Affise modules 
-  implementation files('libs/module-advertising-1.6.15.aar')
-  implementation files('libs/module-network-1.6.15.aar')
-  implementation files('libs/module-phone-1.6.15.aar')
-  implementation files('libs/module-status-1.6.15.aar')
+  implementation files('libs/module-advertising-1.6.16.aar')
+  implementation files('libs/module-network-1.6.16.aar')
+  implementation files('libs/module-phone-1.6.16.aar')
+  implementation files('libs/module-status-1.6.16.aar')
   // Add install referrer
   implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -323,6 +329,7 @@ With above example you can implement other events:
 - `AddPaymentInfo`
 - `AddToCart`
 - `AddToWishlist`
+- `AdRevenue`
 - `ClickAdv`
 - `CompleteRegistration`
 - `CompleteStream`
@@ -344,6 +351,8 @@ With above example you can implement other events:
 - `Login`
 - `OpenedFromPushNotification`
 - `Order`
+- `OrderItemAdded`
+- `OrderItemRemove`
 - `OrderCancel`
 - `OrderReturnRequest`
 - `OrderReturnRequestCancel`
@@ -929,6 +938,7 @@ Just like with native SDK, javascript environment also provides default events t
 - `AddPaymentInfoEvent`
 - `AddToCartEvent`
 - `AddToWishlistEvent`
+- `AdRevenueEvent`
 - `ClickAdvEvent`
 - `CompleteRegistrationEvent`
 - `CompleteStreamEvent`
@@ -960,6 +970,8 @@ Just like with native SDK, javascript environment also provides default events t
 - `LoginEvent`
 - `OpenedFromPushNotificationEvent`
 - `OrderEvent`
+- `OrderItemAddedEvent`
+- `OrderItemRemoveEvent`
 - `OrderCancelEvent`
 - `OrderReturnRequestEvent`
 - `OrderReturnRequestCancelEvent`
@@ -1040,6 +1052,104 @@ class MyCustomEvent extends Event {
 }
 ```
 
+## SDK to SDK integrations
+
+### AdMob
+
+For more information how to setup, please check [official docs](https://developers.google.com/admob/android/impression-level-ad-revenue)
+
+```kotlin
+var rewardedAd: RewardedAd? = null
+val adRequest = AdRequest.Builder().build()
+RewardedAd.load(this,"AD_UNIT_ID", adRequest, object : RewardedAdLoadCallback() {
+    override fun onAdLoaded(ad: RewardedAd) {
+        rewardedAd = ad
+        // Set paid event listener
+        rewardedAd.onPaidEventListener = OnPaidEventListener { adValue ->
+            val loadedAdapterResponseInfo = ad.responseInfo.loadedAdapterResponse
+
+            // Send AdRevenue info
+            AffiseAdRevenue(AffiseAdSource.ADMOB)
+                .setRevenue(adValue.valueMicros / 1000000, adValue.currencyCode)
+                .setNetwork(loadedAdapterResponseInfo.adSourceName)
+                .setUnit(ad.adUnitId)
+                .send()
+        }
+    }
+})
+```
+
+### AppLovin MAX
+
+For more information how to setup, please check [official docs](https://dash.applovin.com/documentation/mediation/android/getting-started/advanced-settings)
+
+```kotlin
+override fun onAdRevenuePaid(ad: MaxAd)
+{
+    // Send AdRevenue info
+    AffiseAdRevenue(AffiseAdSource.APPLOVIN_MAX)
+      .setRevenue(ad.revenue, "USD")
+      .setNetwork(ad.networkName)
+      .setUnit(ad.adUnitId)
+      .setPlacement(ad.placement)
+      .send()
+}
+```
+
+### Helium by Chartboost
+
+For more information how to setup, please check [official docs](https://developers.chartboost.com/docs/mediation-android-configure-helium#implementation)
+
+```kotlin
+val ilrdObserver = object: HeliumIlrdObserver {
+    override fun onImpression(impData: HeliumImpressionData) {
+        val json: JSONObject = impData.ilrdInfo
+
+        val revenue = json.getDouble("ad_revenue")
+        val currency = json.getString("currency_type")
+
+        // Send AdRevenue info
+        AffiseAdRevenue(AffiseAdSource.HELIUM_CHARTBOOST)
+            .setRevenue(revenue, currency)
+            .setNetwork(json.optString("network_name"))
+            .setUnit(json.optString("placement_name"))
+            .setPlacement(json.optString("line_item_name"))
+            .send()
+    }
+}
+```
+
+### ironSource
+
+For more information how to setup, please check [official docs](https://developers.is.com/ironsource-mobile/android/ad-revenue-measurement-integration/#step-2)
+
+```kotlin
+fun onImpressionSuccess(impressionData: ImpressionData) {
+    // Send AdRevenue info
+    AffiseAdRevenue(AffiseAdSource.IRONSOURCE)
+        .setRevenue(impressionData.revenue, "USD")
+        .setNetwork(impressionData.adNetwork)
+        .setUnit(impressionData.adUnit)
+        .setPlacement(impressionData.placement)
+        .send()
+}
+```
+
+### Admost
+
+For more information how to setup, please check [official docs](https://admost.github.io/amrandroid/)
+
+```kotlin
+fun onAdRevenuePaid(impressionData: AdMostImpressionData) {
+    // Send AdRevenue info
+    AffiseAdRevenue(AffiseAdSource.ADMOST)
+        .setRevenue(impressionData.Revenue, impressionData.Currency)
+        .setNetwork(impressionData.Network)
+        .setUnit(impressionData.AdUnitId)
+        .setPlacement(impressionData.PlacementId)
+        .send()
+}
+```
 ## Custom
 
 ### ConversionId

@@ -7,6 +7,7 @@ import com.affise.attribution.events.StoreEventUseCase
 import com.affise.attribution.events.autoCatchingClick.AutoCatchingClickProvider
 import com.affise.attribution.init.InitPropertiesStorage
 import com.affise.attribution.init.SetPropertiesWhenAppInitializedUseCase
+import com.affise.attribution.internal.StoreInternalEventUseCase
 import com.affise.attribution.logs.LogsManager
 import com.affise.attribution.metrics.MetricsManager
 import com.affise.attribution.modules.AffiseModuleManager
@@ -29,6 +30,7 @@ internal interface AffiseApi {
     val sessionManager: SessionManager
     val eventsManager: EventsManager
     val storeEventUseCase: StoreEventUseCase
+    val storeInternalEventUseCase: StoreInternalEventUseCase
     val sharedPreferences: SharedPreferences
     val logsManager: LogsManager
     val webBridgeManager: WebBridgeManager
