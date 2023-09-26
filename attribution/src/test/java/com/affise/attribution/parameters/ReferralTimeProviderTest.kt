@@ -1,5 +1,6 @@
 package com.affise.attribution.parameters
 
+import com.affise.attribution.parameters.providers.ReferralTimeProvider
 import com.affise.attribution.referrer.AffiseReferrerData
 import com.affise.attribution.usecase.RetrieveInstallReferrerUseCase
 import com.google.common.truth.Truth

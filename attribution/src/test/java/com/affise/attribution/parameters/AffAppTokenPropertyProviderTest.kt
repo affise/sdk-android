@@ -2,6 +2,7 @@ package com.affise.attribution.parameters
 
 import com.affise.attribution.converter.Converter
 import com.affise.attribution.init.InitPropertiesStorage
+import com.affise.attribution.parameters.providers.AffAppTokenPropertyProvider
 import com.google.common.truth.Truth
 import io.mockk.every
 import io.mockk.mockk

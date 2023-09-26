@@ -1,6 +1,6 @@
 package com.affise.attribution.converter
 
-import com.affise.attribution.events.predefined.AffiseLog
+import com.affise.attribution.logs.AffiseLog
 import com.affise.attribution.logs.SerializedLog
 import com.affise.attribution.utils.generateUUID
 import com.affise.attribution.utils.timestamp

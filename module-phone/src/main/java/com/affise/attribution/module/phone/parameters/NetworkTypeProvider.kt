@@ -10,9 +10,10 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.telephony.TelephonyManager
+import com.affise.attribution.parameters.ProviderType
 
 /**
- * Provider for parameter [Parameters.NETWORK_TYPE]
+ * Provider for parameter [ProviderType.NETWORK_TYPE]
  *
  * @property app manager to fetch resources from
  */
@@ -21,7 +22,7 @@ class NetworkTypeProvider(
 ) : StringPropertyProvider() {
 
     override val order: Float = 23.1f
-    override val key: String = Parameters.NETWORK_TYPE
+    override val key: ProviderType = ProviderType.NETWORK_TYPE
 
     override fun provide(): String? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         app.getSystemService(ConnectivityManager::class.java)

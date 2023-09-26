@@ -11,9 +11,10 @@ import com.affise.attribution.init.AffiseInitProperties
 import com.affise.attribution.internal.InternalEvent
 import com.affise.attribution.modules.AffiseModules
 import com.affise.attribution.modules.OnKeyValueCallback
-import com.affise.attribution.parameters.AffiseDeviceIdProvider
-import com.affise.attribution.parameters.PushTokenProvider
-import com.affise.attribution.parameters.RandomUserIdProvider
+import com.affise.attribution.parameters.providers.AffiseDeviceIdProvider
+import com.affise.attribution.parameters.ProviderType
+import com.affise.attribution.parameters.providers.PushTokenProvider
+import com.affise.attribution.parameters.providers.RandomUserIdProvider
 import com.affise.attribution.referrer.OnReferrerCallback
 
 /**
@@ -227,6 +228,14 @@ object Affise {
     @JvmStatic
     fun getRandomDeviceId(): String? {
         return api?.postBackModelFactory?.getProvider<AffiseDeviceIdProvider>()?.provide()
+    }
+
+    /**
+     * Get providers map
+     */
+    @JvmStatic
+    fun getProviders(): Map<ProviderType, Any?> {
+        return api?.postBackModelFactory?.getProvidersMap() ?: emptyMap()
     }
 
     internal fun getApi(): AffiseApi? = api

@@ -30,7 +30,7 @@ internal class IsFirstForUserUseCaseImpl(
      */
     override fun updateEvent(event: Event) {
         val eventClass = if (event is BaseSubscriptionEvent) {
-            event.subtype.typeName
+            event.subtype
         }else {
             event.getName()
         }

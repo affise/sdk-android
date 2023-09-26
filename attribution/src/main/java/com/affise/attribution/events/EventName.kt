@@ -5,6 +5,7 @@ enum class EventName(val eventName: String) {
     ADD_PAYMENT_INFO("AddPaymentInfo"),
     ADD_TO_CART("AddToCart"),
     ADD_TO_WISHLIST("AddToWishlist"),
+    AD_REVENUE("AdRevenue"),
     CLICK_ADV("ClickAdv"),
     COMPLETE_REGISTRATION("CompleteRegistration"),
     COMPLETE_STREAM("CompleteStream"),
@@ -36,6 +37,8 @@ enum class EventName(val eventName: String) {
     LOGIN("Login"),
     OPENED_FROM_PUSH_NOTIFICATION("OpenedFromPushNotification"),
     ORDER("Order"),
+    ORDER_ITEM_ADDED("OrderItemAdded"),
+    ORDER_ITEM_REMOVE("OrderItemRemove"),
     ORDER_CANCEL("OrderCancel"),
     ORDER_RETURN_REQUEST("OrderReturnRequest"),
     ORDER_RETURN_REQUEST_CANCEL("OrderReturnRequestCancel"),
@@ -62,9 +65,6 @@ enum class EventName(val eventName: String) {
     VIEW_CONTENT("ViewContent"),
     VIEW_ITEM("ViewItem"),
     VIEW_ITEMS("ViewItems"),
-    AD_REVENUE("AdRevenue"),
-    ORDER_ITEM_ADDED("OrderItemAdded"),
-    ORDER_ITEM_REMOVE("OrderItemRemove"),
     ;
 
     companion object {

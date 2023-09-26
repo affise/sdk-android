@@ -9,9 +9,14 @@ import com.affise.attribution.module.status.usecase.CheckStatusUseCaseImpl
 import com.affise.attribution.modules.AffiseModule
 import com.affise.attribution.modules.OnKeyValueCallback
 import com.affise.attribution.network.HttpClient
-import com.affise.attribution.parameters.*
 import com.affise.attribution.parameters.base.PropertyProvider
 import com.affise.attribution.parameters.base.Provider
+import com.affise.attribution.parameters.providers.AffAppTokenPropertyProvider
+import com.affise.attribution.parameters.providers.AffiseAppIdProvider
+import com.affise.attribution.parameters.providers.AffiseDeviceIdProvider
+import com.affise.attribution.parameters.providers.AffisePackageAppNameProvider
+import com.affise.attribution.parameters.providers.CreatedTimeProvider
+import com.affise.attribution.parameters.providers.RandomUserIdProvider
 
 class StatusModule : AffiseModule() {
 

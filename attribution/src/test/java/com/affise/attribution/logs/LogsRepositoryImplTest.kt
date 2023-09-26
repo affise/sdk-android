@@ -1,8 +1,6 @@
 package com.affise.attribution.logs
 
 import com.affise.attribution.converter.Converter
-import com.affise.attribution.events.predefined.AffiseLog
-import com.affise.attribution.events.predefined.AffiseLogType
 import com.affise.attribution.storages.LogsStorage
 import com.google.common.truth.Truth
 import io.mockk.*

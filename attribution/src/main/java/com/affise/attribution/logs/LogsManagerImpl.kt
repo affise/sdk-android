@@ -1,6 +1,5 @@
 package com.affise.attribution.logs
 
-import com.affise.attribution.events.predefined.AffiseLog
 import com.affise.attribution.exceptions.CloudException
 import com.affise.attribution.exceptions.NetworkException
 import org.json.JSONObject

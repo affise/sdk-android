@@ -3,6 +3,7 @@ package com.affise.attribution.parameters
 import android.app.Application
 import android.content.ContentResolver
 import android.provider.Settings
+import com.affise.attribution.parameters.providers.AndroidIdProvider
 import com.google.common.truth.Truth
 import io.mockk.every
 import io.mockk.mockk

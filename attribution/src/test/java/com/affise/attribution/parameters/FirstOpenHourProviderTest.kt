@@ -1,5 +1,6 @@
 package com.affise.attribution.parameters
 
+import com.affise.attribution.parameters.providers.FirstOpenHourProvider
 import com.affise.attribution.usecase.FirstAppOpenUseCase
 import com.google.common.truth.Truth
 import io.mockk.every

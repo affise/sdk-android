@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import com.affise.attribution.logs.LogsManager
+import com.affise.attribution.parameters.providers.AppVersionProvider
 import com.google.common.truth.Truth
 import io.mockk.*
 import org.junit.Test

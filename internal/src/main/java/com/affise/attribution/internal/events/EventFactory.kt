@@ -4,21 +4,16 @@ import android.util.Log
 import com.affise.attribution.events.Event
 import com.affise.attribution.internal.utils.getEventName
 import com.affise.attribution.internal.utils.getEventParameters
-import com.affise.attribution.internal.utils.getSubType
 
 
 internal class EventFactory {
 
     fun create(eventData: Map<*, *>): Event? {
         val name = eventData.getEventName()
-        val subType = eventData.getSubType()
 
         val event = when {
-            subType != null ->
-                SubscriptionEvent.create(subType, eventData)
-
-            PredefinedEventSecondary.isSecondaryConstructor(name, eventData) ->
-                PredefinedEventSecondary.create(name, eventData)
+            SubscriptionEvent.isSubscriptionEvent(eventData) ->
+                SubscriptionEvent.create(name, eventData)
 
             else ->
                 PredefinedEvent.create(name, eventData)

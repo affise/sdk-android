@@ -1,8 +1,8 @@
 package com.affise.attribution.internal.predefined
 
-import com.affise.attribution.parameters.Parameters
 import com.affise.attribution.internal.InternalEvent
 import com.affise.attribution.internal.InternalEventName
+import com.affise.attribution.parameters.ProviderType
 
 /**
  * When session start.
@@ -16,8 +16,8 @@ internal class SessionStartInternalEvent(
 ) : InternalEvent() {
 
     init {
-        addPropertyRaw(Parameters.AFFISE_SESSION_COUNT, affiseSessionCount)
-        addPropertyRaw(Parameters.LIFETIME_SESSION_COUNT, lifetimeSessionCount)
+        addPropertyRaw(ProviderType.AFFISE_SESSION_COUNT.provider, affiseSessionCount)
+        addPropertyRaw(ProviderType.LIFETIME_SESSION_COUNT.provider, lifetimeSessionCount)
     }
 
     /**

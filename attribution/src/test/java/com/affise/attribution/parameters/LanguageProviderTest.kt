@@ -1,5 +1,6 @@
 package com.affise.attribution.parameters
 
+import com.affise.attribution.parameters.providers.LanguageProvider
 import com.google.common.truth.Truth
 import org.junit.Test
 import java.util.Locale

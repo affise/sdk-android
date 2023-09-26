@@ -3,7 +3,7 @@ package com.affise.attribution.network
 import com.affise.attribution.converter.Converter
 import com.affise.attribution.exceptions.CloudException
 import com.affise.attribution.network.entity.PostBackModel
-import com.affise.attribution.parameters.UserAgentProvider
+import com.affise.attribution.parameters.providers.UserAgentProvider
 import java.net.URL
 
 internal class CloudRepositoryImpl(

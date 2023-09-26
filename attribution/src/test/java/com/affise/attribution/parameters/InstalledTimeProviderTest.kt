@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import com.affise.attribution.logs.LogsManager
+import com.affise.attribution.parameters.providers.InstalledTimeProvider
 import com.google.common.truth.Truth
 import io.mockk.every
 import io.mockk.mockk

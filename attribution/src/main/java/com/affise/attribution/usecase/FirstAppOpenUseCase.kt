@@ -1,7 +1,7 @@
 package com.affise.attribution.usecase
 
 import android.content.SharedPreferences
-import com.affise.attribution.parameters.Parameters
+import com.affise.attribution.parameters.ProviderType
 import com.affise.attribution.session.CurrentActiveActivityCountProvider
 import com.affise.attribution.utils.*
 import com.affise.attribution.utils.generateUUID
@@ -53,7 +53,7 @@ class FirstAppOpenUseCase(
                 generateUUID().toString()
             }
             //Create randomUserId
-            checkSaveString(Parameters.RANDOM_USER_ID) {
+            checkSaveString(ProviderType.RANDOM_USER_ID.provider) {
                 generateUUID().toString()
             }
         }
@@ -101,7 +101,7 @@ class FirstAppOpenUseCase(
      * Get random user id
      * @return random user id
      */
-    fun getRandomUserId() = preferences.getString(Parameters.RANDOM_USER_ID, "")
+    fun getRandomUserId() = preferences.getString(ProviderType.RANDOM_USER_ID.provider, "")
 
     companion object {
         private const val FIRST_OPENED = "FIRST_OPENED"

@@ -13,10 +13,10 @@ class UnsubscriptionEvent(
     /**
      * Type of event
      */
-    override val type = SubscriptionEventName.AFFISE_UNSUBSCRIPTION
+    override val type = SubscriptionEventName.AFFISE_UNSUBSCRIPTION.eventName
 
     /**
      * Subtype of event
      */
-    override val subtype = SubscriptionSubType.AFFISE_SUB_UNSUBSCRIPTION
+    override val subtype = SubscriptionSubType.AFFISE_SUB_UNSUBSCRIPTION.typeName
 }

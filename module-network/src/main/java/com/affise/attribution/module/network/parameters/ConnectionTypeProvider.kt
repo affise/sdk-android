@@ -5,10 +5,11 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import com.affise.attribution.parameters.ProviderType
 import com.affise.attribution.parameters.base.StringPropertyProvider
 
 /**
- * Provides connection type [Parameters.CONNECTION_TYPE]
+ * Provides connection type [ProviderType.CONNECTION_TYPE]
  *
  * @property app app context
  */
@@ -16,7 +17,7 @@ class ConnectionTypeProvider(
     private val app: Application
 ) : StringPropertyProvider() {
     override val order: Float = 21.1f
-    override val key: String = Parameters.CONNECTION_TYPE
+    override val key: ProviderType = ProviderType.CONNECTION_TYPE
 
     override fun provide(): String? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         app.getSystemService(ConnectivityManager::class.java)

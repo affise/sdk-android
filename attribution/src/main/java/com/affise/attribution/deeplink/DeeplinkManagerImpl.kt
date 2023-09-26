@@ -3,7 +3,7 @@ package com.affise.attribution.deeplink
 import android.content.Intent
 import android.net.Uri
 import com.affise.attribution.init.InitPropertiesStorage
-import com.affise.attribution.parameters.DeeplinkClickPropertyProvider
+import com.affise.attribution.parameters.providers.DeeplinkClickPropertyProvider
 import com.affise.attribution.utils.ActivityActionsManager
 import com.affise.attribution.utils.ActivityLifecycleCallback
 

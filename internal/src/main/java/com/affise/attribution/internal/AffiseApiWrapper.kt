@@ -116,7 +116,11 @@ class AffiseApiWrapper(private val app: Application?) {
                 callGetRandomUserId(api, map, result)
 
             AffiseApiMethod.GET_RANDOM_DEVICE_ID ->
+
                 callGetRandomDeviceId(api, map, result)
+
+            AffiseApiMethod.GET_PROVIDERS ->
+                callGetProviders(api, map, result)
 
             AffiseApiMethod.GET_REFERRER_CALLBACK ->
                 callGetReferrer(api, map, result)
@@ -381,6 +385,14 @@ class AffiseApiWrapper(private val app: Application?) {
         result: AffiseResult
     ) {
         result.success(Affise.getRandomDeviceId())
+    }
+
+    private fun callGetProviders(
+        api: AffiseApiMethod,
+        map: Map<String, *>,
+        result: AffiseResult
+    ) {
+        result.success(Affise.getProviders().entries.associate { it.key.provider to it.value })
     }
 
     private fun callGetReferrer(

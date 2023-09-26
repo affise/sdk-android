@@ -4,6 +4,7 @@ import android.app.Application
 import android.app.UiModeManager
 import android.content.res.Configuration
 import android.content.res.Resources
+import com.affise.attribution.parameters.providers.DeviceTypeProvider
 import com.google.common.truth.Truth
 import io.mockk.every
 import io.mockk.mockk

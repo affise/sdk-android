@@ -12,13 +12,6 @@ class AffisePropertyBuilder {
         this.name = name.toSnakeCase()
     }
 
-    fun init(name: String, value: Any?): AffisePropertyBuilder = this.also {
-        init(name)
-        if (name.isNotBlank()) {
-            json.put(eventName(), parseValue(value))
-        }
-    }
-
     fun add(key: AffiseProperty, value: Any?): AffisePropertyBuilder = add(key.type, value)
 
     fun add(key: String, value: Any?): AffisePropertyBuilder = this.also {

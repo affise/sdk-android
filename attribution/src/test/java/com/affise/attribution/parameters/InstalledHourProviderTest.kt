@@ -3,6 +3,7 @@ package com.affise.attribution.parameters
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import com.affise.attribution.parameters.providers.InstalledHourProvider
 import com.google.common.truth.Truth
 import io.mockk.every
 import io.mockk.mockk

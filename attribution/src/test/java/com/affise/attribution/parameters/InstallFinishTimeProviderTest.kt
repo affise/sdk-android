@@ -1,11 +1,11 @@
 package com.affise.attribution.parameters
 
+import com.affise.attribution.parameters.providers.InstallFinishTimeProvider
 import com.affise.attribution.usecase.FirstAppOpenUseCase
 import com.google.common.truth.Truth
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verifyAll
-import org.junit.Assert.*
 
 import org.junit.Test
 import java.util.Date

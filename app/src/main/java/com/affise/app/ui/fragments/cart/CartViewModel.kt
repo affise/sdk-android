@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.affise.app.entity.ProductEntity
 import com.affise.app.extensions.IOWithErrorHandling
 import com.affise.app.usecase.ProductUseCase
-import com.affise.attribution.Affise
+import com.affise.attribution.events.parameters.PredefinedObject
 import com.affise.attribution.events.predefined.ViewCartEvent
 import com.fasterxml.jackson.databind.ObjectMapper
 import kotlinx.coroutines.Dispatchers
@@ -51,14 +51,11 @@ class CartViewModel @Inject constructor(
                 .map { objectMapper.writeValueAsString(it) }
                 .map { JSONObject(it) }
 
-            Affise.sendEvent(
-                ViewCartEvent(
-                    JSONObject().apply {
-                        put("cart", JSONArray(itemsCart))
-                    },
-                    "Cart"
-                )
-            )
+            ViewCartEvent("Cart")
+                .addPredefinedParameter(PredefinedObject.CONTENT, JSONObject().apply {
+                    put("cart", JSONArray(itemsCart))
+                })
+                .send()
 
             stateData.postValue(
                 CartState.DataState(items)

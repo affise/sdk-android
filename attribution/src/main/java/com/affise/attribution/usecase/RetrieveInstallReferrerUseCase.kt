@@ -160,8 +160,6 @@ class RetrieveInstallReferrerUseCase(
      */
     fun processReferrerDetails(data: ReferrerDetails) {
         if (!isDelayedDeeplinkProcessed()) {
-            print("referrer ")
-            println(data.installReferrer)
             data.installReferrer
                 ?.let(installReferrerToDeeplinkUriConverter::convert)
                 ?.also {

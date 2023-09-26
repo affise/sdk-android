@@ -6,7 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.affise.app.entity.ProductEntity
 import com.affise.app.extensions.IOWithErrorHandling
 import com.affise.app.usecase.ProductUseCase
-import com.affise.attribution.Affise
+import com.affise.attribution.events.parameters.PredefinedListObject
+import com.affise.attribution.events.parameters.PredefinedObject
 import com.affise.attribution.events.predefined.AddToCartEvent
 import com.affise.attribution.events.predefined.AddToWishlistEvent
 import com.affise.attribution.events.predefined.ViewItemsEvent
@@ -14,7 +15,6 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.json.JSONArray
 import org.json.JSONObject
 import javax.inject.Inject
 
@@ -52,13 +52,12 @@ class LikesViewModel @Inject constructor(
     override fun clickLike(product: ProductEntity) {
         viewModelScope.launch(Dispatchers.IOWithErrorHandling {
         }) {
-            Affise.sendEvent(
-                AddToWishlistEvent(
-                    JSONObject(objectMapper.writeValueAsString(product)),
-                    System.currentTimeMillis(),
-                    "Add to wishlist in Product details"
+            AddToWishlistEvent("Add to wishlist in Product details")
+                .addPredefinedParameter(
+                    PredefinedObject.CONTENT,
+                    JSONObject(objectMapper.writeValueAsString(product))
                 )
-            )
+                .send()
 
             useCase.updateLike(product.id)
             updateProducts()
@@ -68,13 +67,11 @@ class LikesViewModel @Inject constructor(
     override fun clickAdd(product: ProductEntity) {
         viewModelScope.launch(Dispatchers.IOWithErrorHandling {
         }) {
-            Affise.sendEvent(
-                AddToCartEvent(
-                    JSONObject(objectMapper.writeValueAsString(product)),
-                    System.currentTimeMillis(),
-                    "Add to cart in Product details"
-                )
+            AddToCartEvent("Add to cart in Product details").addPredefinedParameter(
+                PredefinedObject.CONTENT,
+                JSONObject(objectMapper.writeValueAsString(product))
             )
+                .send()
 
             useCase.updateCart(product.id)
             updateProducts()
@@ -88,9 +85,12 @@ class LikesViewModel @Inject constructor(
             .map { objectMapper.writeValueAsString(it) }
             .map { JSONObject(it) }
 
-        Affise.sendEvent(
-            ViewItemsEvent(JSONArray(itemsWishlist), "itemsWishlist")
-        )
+        ViewItemsEvent("itemsWishlist")
+            .addPredefinedParameter(
+                PredefinedListObject.CONTENT_LIST,
+                itemsWishlist
+            )
+            .send()
 
         stateData.postValue(
             LikesState.DataState(likeProducts)

@@ -17,7 +17,11 @@
     - [Initialize](#initialize)
     - [Requirements](#requirements)
 - [Features](#features)
-  - [Device identifiers collection](#device-identifiers-collection)
+  - [ProviderType identifiers collection](#providertype-identifiers-collection)
+    - [Attribution](#attribution)
+    - [Advertising](#advertising)
+    - [Network](#network)
+    - [Phone](#phone)
   - [Events tracking](#events-tracking)
   - [Custom events tracking](#custom-events-tracking)
   - [Predefined event parameters](#predefined-event-parameters)
@@ -45,20 +49,21 @@
   - [Get module state](#get-module-state)
   - [Get random user Id](#get-random-user-id)
   - [Get random device Id](#get-random-device-id)
+  - [Get providers](#get-providers)
   - [WebView tracking](#webview-tracking)
     - [Initialize WebView](#initialize-webview)
     - [Events tracking JS](#events-tracking-js)
     - [Predefined event parameters JS](#predefined-event-parameters-js)
     - [Custom events JS](#custom-events-js)
-  - [SDK to SDK integrations](#sdk-to-sdk-integrations)
-    - [AdMob](#admob)
-    - [AppLovin MAX](#applovin-max)
-    - [Helium by Chartboost](#helium-by-chartboost )
-    - [ironSource](#ironsource)
-    - [Admost](#admost)
   - [Custom](#custom)
     - [ConversionId](#conversionid)
-
+- [SDK to SDK integrations](#sdk-to-sdk-integrations)
+  - [AdMob](#admob)
+  - [AppLovin MAX](#applovin-max)
+  - [Helium by Chartboost](#helium-by-chartboost )
+  - [ironSource](#ironsource)
+  - [Admost](#admost)
+    
 # Description
 
 Affise SDK is a software you can use to collect app usage statistics, device identifiers, deeplink usage, track install
@@ -75,12 +80,12 @@ For kotlin build script build.gradle.kts use:
 ```kotlin
 dependencies {
   // Add Affise library 
-  implementation("com.affise:attribution:1.6.16")
+  implementation("com.affise:attribution:1.6.17")
   // Add Affise modules 
-  implementation("com.affise:module-advertising:1.6.16")
-  implementation("com.affise:module-network:1.6.16")
-  implementation("com.affise:module-phone:1.6.16")
-  implementation("com.affise:module-status:1.6.16")
+  implementation("com.affise:module-advertising:1.6.17")
+  implementation("com.affise:module-network:1.6.17")
+  implementation("com.affise:module-phone:1.6.17")
+  implementation("com.affise:module-status:1.6.17")
   // Add install referrer
   implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -91,12 +96,12 @@ For groovy build script build.gradle use:
 ```groovy
 dependencies {
     // Add Affise library 
-    implementation 'com.affise:attribution:1.6.16'
+    implementation 'com.affise:attribution:1.6.17'
     // Add Affise modules 
-    implementation 'com.affise:module-advertising:1.6.16'
-    implementation 'com.affise:module-network:1.6.16'
-    implementation 'com.affise:module-phone:1.6.16'
-    implementation 'com.affise:module-status:1.6.16'
+    implementation 'com.affise:module-advertising:1.6.17'
+    implementation 'com.affise:module-network:1.6.17'
+    implementation 'com.affise:module-phone:1.6.17'
+    implementation 'com.affise:module-status:1.6.17'
     // Add install referrer
     implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -104,9 +109,9 @@ dependencies {
 
 ### Integrate as file dependency
 
-Download latest Affise SDK (`attribution-1.6.16.aar`)
+Download latest Affise SDK (`attribution-1.6.17.aar`)
 from [releases page](https://github.com/affise/sdk-android/releases) and place this binary to gradle application
-module lib directory `app/libs/attribution-1.6.16.aar`
+module lib directory `app/libs/attribution-1.6.17.aar`
 
 Add library as gradle file dependency to application module build script
 Add install referrer library
@@ -117,12 +122,12 @@ For kotlin build script build.gradle.kts use:
 dependencies {
     // ...
     // Add Affise library 
-    implementation(files("libs/attribution-1.6.16.aar"))
+    implementation(files("libs/attribution-1.6.17.aar"))
     // Add Affise modules 
-    implementation(files("libs/module-advertising-1.6.16.aar"))
-    implementation(files("libs/module-network-1.6.16.aar"))
-    implementation(files("libs/module-phone-1.6.16.aar"))
-    implementation(files("libs/module-status-1.6.16.aar"))
+    implementation(files("libs/module-advertising-1.6.17.aar"))
+    implementation(files("libs/module-network-1.6.17.aar"))
+    implementation(files("libs/module-phone-1.6.17.aar"))
+    implementation(files("libs/module-status-1.6.17.aar"))
     // Add install referrer
     implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -134,12 +139,12 @@ For groovy build script build.gradle use:
 dependencies {
   // ...  
   // Add Affise library 
-  implementation files('libs/attribution-1.6.16.aar')
+  implementation files('libs/attribution-1.6.17.aar')
   // Add Affise modules 
-  implementation files('libs/module-advertising-1.6.16.aar')
-  implementation files('libs/module-network-1.6.16.aar')
-  implementation files('libs/module-phone-1.6.16.aar')
-  implementation files('libs/module-status-1.6.16.aar')
+  implementation files('libs/module-advertising-1.6.17.aar')
+  implementation files('libs/module-network-1.6.17.aar')
+  implementation files('libs/module-phone-1.6.17.aar')
+  implementation files('libs/module-status-1.6.17.aar')
   // Add install referrer
   implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -203,13 +208,15 @@ For a minimal working functionality your app needs to declare internet permissio
 
 # Features
 
-## Device identifiers collection
+## ProviderType identifiers collection
 
-To match users with events and data library is sending, these identifiers are collected:
+To match users with events and data library is sending, these `ProviderType` identifiers are collected:
+
+### Attribution
 
 - `AFFISE_APP_ID`
 - `AFFISE_PKG_APP_NAME`
-- `AFFISE_APP_NAME_DASHBOARD`
+- `AFF_APP_NAME_DASHBOARD`
 - `APP_VERSION`
 - `APP_VERSION_RAW`
 - `STORE`
@@ -224,41 +231,35 @@ To match users with events and data library is sending, these identifiers are co
 - `FIRST_OPEN_TIME`
 - `INSTALLED_HOUR`
 - `FIRST_OPEN_HOUR`
+- `INSTALL_FIRST_EVENT`
 - `INSTALL_BEGIN_TIME`
 - `INSTALL_FINISH_TIME`
+- `REFERRER_INSTALL_VERSION`
 - `REFERRAL_TIME`
+- `REFERRER_CLICK_TIME`
+- `REFERRER_CLICK_TIME_SERVER`
+- `REFERRER_GOOGLE_PLAY_INSTANT`
 - `CREATED_TIME`
 - `CREATED_TIME_MILLI`
 - `CREATED_TIME_HOUR`
 - `UNINSTALL_TIME`
 - `REINSTALL_TIME`
 - `LAST_SESSION_TIME`
-- `CONNECTION_TYPE`
 - `CPU_TYPE`
 - `HARDWARE_NAME`
-- `NETWORK_TYPE`
 - `DEVICE_MANUFACTURER`
-- `PROXY_IP_ADDRESS`
 - `DEEPLINK_CLICK`
 - `DEVICE_ATLAS_ID`
 - `AFFISE_DEVICE_ID`
 - `AFFISE_ALT_DEVICE_ID`
-- `ADID`
 - `ANDROID_ID`
 - `ANDROID_ID_MD5`
-- `MAC_SHA1`
-- `MAC_MD5`
-- `GAID_ADID`
-- `GAID_ADID_MD5`
-- `OAID`
-- `OAID_MD5`
 - `REFTOKEN`
 - `REFTOKENS`
 - `REFERRER`
 - `USER_AGENT`
 - `MCCODE`
 - `MNCODE`
-- `ISP`
 - `REGION`
 - `COUNTRY`
 - `LANGUAGE`
@@ -266,12 +267,15 @@ To match users with events and data library is sending, these identifiers are co
 - `DEVICE_TYPE`
 - `OS_NAME`
 - `PLATFORM`
+- `SDK_PLATFORM`
 - `API_LEVEL_OS`
 - `AFFISE_SDK_VERSION`
 - `OS_VERSION`
 - `RANDOM_USER_ID`
 - `AFFISE_SDK_POS`
 - `TIMEZONE_DEV`
+- `AFFISE_EVENT_NAME`
+- `AFFISE_EVENT_TOKEN`
 - `LAST_TIME_SESSION`
 - `TIME_SESSION`
 - `AFFISE_SESSION_COUNT`
@@ -285,10 +289,35 @@ To match users with events and data library is sending, these identifiers are co
 - `UUID`
 - `AFFISE_APP_OPENED`
 - `PUSHTOKEN`
+- `AFFISE_EVENTS_COUNT`
+- `AFFISE_SDK_EVENTS_COUNT`
+- `AFFISE_METRICS_EVENTS_COUNT`
+- `AFFISE_INTERNAL_EVENTS_COUNT`
 - `IS_ROOTED`
 - `IS_EMULATOR`
-- `EVENTS`
-- `AFFISE_EVENTS_COUNT`
+
+### Advertising
+
+- `GAID_ADID`
+- `GAID_ADID_MD5`
+- `OAID`
+- `OAID_MD5`
+- `ADID`
+- `ALTSTR_ADID`
+- `FIREOS_ADID`
+- `COLOROS_ADID`
+
+### Network
+
+- `MAC_SHA1`
+- `MAC_MD5`
+- `CONNECTION_TYPE`
+- `PROXY_IP_ADDRESS`
+
+### Phone
+
+- `NETWORK_TYPE`
+- `ISP`
 
 ## Events tracking
 
@@ -300,11 +329,8 @@ following code
 ```kotlin
 class Presenter {
   fun onUserAddsItemsToCart(items: String) {
-    // Send event like this
     AddToCartEvent(items)
-        .send()
-    // Or Send event like this
-    // Affise.sendEvent(AddToCartEvent(items))
+        .send() // Send event
   }
 }
 ```
@@ -314,11 +340,8 @@ For java use:
 ```java
 class Presenter {
   void onUserAddsItemsToCart(String items) {
-    // Send event like this
     new AddToCartEvent(items)
-            .send();
-    // Or Send event like this
-    // Affise.sendEvent(new AddToCartEvent(items));
+            .send(); // Send event
   }
 }
 ```
@@ -423,7 +446,7 @@ Add it to any event:
 ```kotlin
 class Presenter {
   fun onUserAddsItemsToCart(items: String) {
-    val event = AddToCartEvent(items)
+    AddToCartEvent(items)
         .addPredefinedParameter(PredefinedString.DESCRIPTION, "best before 2029")
         .addPredefinedParameter(PredefinedObject.CONTENT, JSONObject().apply {
           put("collection", "Greatest Hits")
@@ -433,12 +456,7 @@ class Presenter {
             put("content", "songs, videos")
           }
         ))
-    
-    // Send event like this
-    event.send() 
-
-    // Or Send event like this
-    // Affise.sendEvent(event)
+        .send() // Send event
   }
 }
 ```
@@ -456,17 +474,12 @@ class Presenter {
     
     List<JSONObject> jsonList = Collections.singletonList(jsonContent);
     
-    Event event = new AddToCartEvent(items, System.currentTimeMillis())
+    new AddToCartEvent(items, System.currentTimeMillis())
             .addPredefinedParameter(PredefinedString.DESCRIPTION, "best before 2029")
             .addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
             .addPredefinedParameter(PredefinedObject.CONTENT, json)
-            .addPredefinedParameter(PredefinedListObject.CONTENT_LIST, jsonList);
-    
-    // Send event like this
-    event.send();
-
-    // Or Send event like this
-    // Affise.sendEvent(event);
+            .addPredefinedParameter(PredefinedListObject.CONTENT_LIST, jsonList)
+            .send(); // Send event
   }
 }
 ```
@@ -511,6 +524,7 @@ In examples above `PredefinedString.DESCRIPTION` and `PredefinedFloat.PRICE` is 
 - `DESTINATION_LIST`
 - `EVENT_NAME`
 - `NEW_VERSION`
+- `NETWORK`
 - `OLD_VERSION`
 - `ORDER_ID`
 - `PARAM_01`
@@ -525,6 +539,7 @@ In examples above `PredefinedString.DESCRIPTION` and `PredefinedFloat.PRICE` is 
 - `PARAM_10`
 - `PAYMENT_INFO_AVAILABLE`
 - `PID`
+- `PLACEMENT`
 - `PREFERRED_NEIGHBORHOODS`
 - `PRODUCT_ID`
 - `PRODUCT_NAME`
@@ -535,12 +550,14 @@ In examples above `PredefinedString.DESCRIPTION` and `PredefinedFloat.PRICE` is 
 - `REVIEW_TEXT`
 - `SEARCH_STRING`
 - `SEGMENT`
+- `SOURCE`
 - `STATUS`
 - `SUBSCRIPTION_ID`
 - `SUCCESS`
 - `SUGGESTED_DESTINATIONS`
 - `SUGGESTED_HOTELS`
 - `TUTORIAL_ID`
+- `UNIT`
 - `UTM_CAMPAIGN`
 - `UTM_MEDIUM`
 - `UTM_SOURCE`
@@ -664,11 +681,9 @@ for kotlin:
 ```kotlin
 Affise.init(..)
 Affise.registerDeeplinkCallback { uri ->
-  val screen = uri.getQueryParameter("screen")
-  if(screen == "special_offer") {
-    // open special offer activity
-  } else {
-    // open another activity
+  val value = uri.getQueryParameter("<your_uri_key>")
+  if(value == "<your_uri_key_value>") {
+    // handle value
   }
   // return true if deeplink is handled successfully
   true
@@ -679,11 +694,9 @@ for java:
 
 ```java
 Affise.registerDeeplinkCallback(uri -> {
-    String screen = uri.getQueryParameter("screen");
-    if (screen.equals("special_offer")) {
-        // open special offer screen
-    } else {
-        // open another activity
+    String value = uri.getQueryParameter("your_uri_key");
+    if (value.equals("your_uri_key_value")) {
+        // handle value
     }
     // return true if deeplink is handled successfully
     return true;
@@ -870,12 +883,6 @@ For kotlin:
 Affise.getRandomUserId()
 ```
 
-For java:
-
-```java
-Affise.getRandomUserId();
-```
-
 ## Get random device Id
 
 Use the next public method of SDK
@@ -886,10 +893,14 @@ For kotlin:
 Affise.getRandomDeviceId()
 ```
 
-For java:
+## Get providers
 
-```java
-Affise.getRandomDeviceId();
+Returns providers map with [ProviderType](#providertype-identifiers-collection) as key
+
+```kotlin
+val providers: Map<ProviderType, Any?> = Affise.getProviders()
+val key = ProviderType.AFFISE_APP_TOKEN
+val value = providers[key]
 ```
 
 ## WebView tracking
@@ -918,18 +929,13 @@ After WebView is initialized you send events from JavaScript environment
 
 ```javascript
 let data = { card: 4138, type: 'phone' };
-let event = new AddPaymentInfoEvent({
+new AddPaymentInfoEvent({
   userData: 'taxi',
-});
-
-event
+})
   .addPredefinedParameter(PredefinedString.PURCHASE_CURRENCY, 'USD')
   .addPredefinedParameter(PredefinedObject.CONTENT, data)
   .addPredefinedParameter(PredefinedFloat.PRICE, 2.19)
-  .send(); // Send event like this
-
-// Or Send event like this
-// Affise.sendEvent(event)
+  .send(); // Send event
 ```
 
 Just like with native SDK, javascript environment also provides default events that can be passed from WebView:
@@ -1034,10 +1040,7 @@ event
   .addPredefinedParameter(PredefinedLong.QUANTITY, 1)
   .addPredefinedParameter(PredefinedObject.CONTENT, { card: 4138, type: 'phone' })
   .addPredefinedParameter(PredefinedListObject.CONTENT_LIST, [{content:'songs'}, {content:'videos'}])
-  .send(); // Send event like this
-
-// Or Send event like this
-// Affise.sendEvent(event);
+  .send(); // Send event
 ```
 
 ### Custom events JS
@@ -1052,9 +1055,25 @@ class MyCustomEvent extends Event {
 }
 ```
 
-## SDK to SDK integrations
+## Custom
 
-### AdMob
+### ConversionId
+
+Adds 3 PredefinedString values: `PredefinedString.CONVERSION_ID`, `PredefinedString.ORDER_ID`, `PredefinedString.PRODUCT_ID`
+
+> `CONVERSION_ID` = `ORDER_ID`_`PRODUCT_ID`
+
+```kotlin
+val event = AddToCartEvent()
+
+val conversionId = event.customPredefined().conversionId("ORDER_ID", "PRODUCT_ID")
+
+event.send() // Send event
+```
+
+# SDK to SDK integrations
+
+## AdMob
 
 For more information how to setup, please check [official docs](https://developers.google.com/admob/android/impression-level-ad-revenue)
 
@@ -1079,7 +1098,7 @@ RewardedAd.load(this,"AD_UNIT_ID", adRequest, object : RewardedAdLoadCallback() 
 })
 ```
 
-### AppLovin MAX
+## AppLovin MAX
 
 For more information how to setup, please check [official docs](https://dash.applovin.com/documentation/mediation/android/getting-started/advanced-settings)
 
@@ -1096,7 +1115,7 @@ override fun onAdRevenuePaid(ad: MaxAd)
 }
 ```
 
-### Helium by Chartboost
+## Helium by Chartboost
 
 For more information how to setup, please check [official docs](https://developers.chartboost.com/docs/mediation-android-configure-helium#implementation)
 
@@ -1119,7 +1138,7 @@ val ilrdObserver = object: HeliumIlrdObserver {
 }
 ```
 
-### ironSource
+## ironSource
 
 For more information how to setup, please check [official docs](https://developers.is.com/ironsource-mobile/android/ad-revenue-measurement-integration/#step-2)
 
@@ -1135,7 +1154,7 @@ fun onImpressionSuccess(impressionData: ImpressionData) {
 }
 ```
 
-### Admost
+## Admost
 
 For more information how to setup, please check [official docs](https://admost.github.io/amrandroid/)
 
@@ -1149,19 +1168,4 @@ fun onAdRevenuePaid(impressionData: AdMostImpressionData) {
         .setPlacement(impressionData.PlacementId)
         .send()
 }
-```
-## Custom
-
-### ConversionId
-
-Adds 3 PredefinedString values: `PredefinedString.CONVERSION_ID`, `PredefinedString.ORDER_ID`, `PredefinedString.PRODUCT_ID`
-
-> `CONVERSION_ID` = `ORDER_ID`_`PRODUCT_ID`
-
-```kotlin
-val event = AddToCartEvent()
-
-val conversionId = event.customPredefined().conversionId("ORDER_ID", "PRODUCT_ID")
-
-Affise.sendEvent(event)
 ```

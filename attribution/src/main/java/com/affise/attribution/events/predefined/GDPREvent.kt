@@ -13,9 +13,7 @@ internal class GDPREvent(
 ) : NativeEvent(
     userData = userData,
     timeStampMillis = timestamp(),
-    anyData = true
 ) {
-
     /**
      * Name of event
      *

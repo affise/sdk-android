@@ -2,9 +2,10 @@ package com.affise.attribution.module.advertising.parameters
 
 import com.affise.attribution.parameters.base.StringPropertyProvider
 import com.affise.attribution.module.advertising.advertising.AdvertisingIdManager
+import com.affise.attribution.parameters.ProviderType
 
 /**
- * Provider for parameter [Parameters.GAID_ADID]
+ * Provider for parameter [ProviderType.GAID_ADID]
  *
  * provides google advertising id encoded with md5 or "unknown" if not set
  *
@@ -15,7 +16,7 @@ class GoogleAdvertisingIdProvider(
 ) : StringPropertyProvider() {
 
     override val order: Float = 31.3f
-    override val key: String = Parameters.GAID_ADID
+    override val key: ProviderType = ProviderType.GAID_ADID
 
     override fun provide(): String? = advertisingIdManager.getAdvertisingId()
 }

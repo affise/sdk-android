@@ -1,7 +1,7 @@
 package com.affise.attribution.storages
 
 import android.content.Context
-import com.affise.attribution.events.predefined.AffiseLog
+import com.affise.attribution.logs.AffiseLog
 import com.affise.attribution.logs.SerializedLog
 import com.google.common.truth.Truth
 import io.mockk.Called

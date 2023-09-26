@@ -3,8 +3,8 @@ package com.affise.attribution.session
 import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.os.SystemClock
-import com.affise.attribution.parameters.Parameters
 import com.affise.attribution.internal.predefined.SessionStartInternalEvent
+import com.affise.attribution.parameters.ProviderType
 import com.affise.attribution.utils.delayRun
 import com.affise.attribution.utils.timestamp
 import java.util.*
@@ -20,8 +20,8 @@ internal class SessionManagerImpl(
 ) : SessionManager {
 
     private var sessionData: SessionData = SessionData(
-        preferences.getLong(Parameters.LIFETIME_SESSION_COUNT, 0L),
-        preferences.getLong(Parameters.AFFISE_SESSION_COUNT, 0L)
+        preferences.getLong(ProviderType.LIFETIME_SESSION_COUNT.provider, 0L),
+        preferences.getLong(ProviderType.AFFISE_SESSION_COUNT.provider, 0L)
     )
 
     /**
@@ -168,7 +168,7 @@ internal class SessionManagerImpl(
 
         preferences
             .edit()
-            .putLong(Parameters.LIFETIME_SESSION_COUNT, lifetimeSessionTime)
+            .putLong(ProviderType.LIFETIME_SESSION_COUNT.provider, lifetimeSessionTime)
             .commit()
     }
 
@@ -188,7 +188,7 @@ internal class SessionManagerImpl(
 
         preferences
             .edit()
-            .putLong(Parameters.AFFISE_SESSION_COUNT, count)
+            .putLong(ProviderType.AFFISE_SESSION_COUNT.provider, count)
             .commit()
     }
 

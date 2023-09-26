@@ -2,6 +2,7 @@ package com.affise.attribution.parameters
 
 import com.affise.attribution.init.AffiseInitProperties
 import com.affise.attribution.init.InitPropertiesStorage
+import com.affise.attribution.parameters.providers.AffiseAppIdProvider
 import com.google.common.truth.Truth
 import io.mockk.every
 import io.mockk.mockk

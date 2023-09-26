@@ -13,12 +13,12 @@ class InitialSubscriptionEvent(
     /**
      * Type of event
      */
-    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_ACTIVATION
+    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_ACTIVATION.eventName
 
     /**
      * Subtype of event
      */
-    override val subtype = SubscriptionSubType.AFFISE_SUB_INITIAL_SUBSCRIPTION
+    override val subtype = SubscriptionSubType.AFFISE_SUB_INITIAL_SUBSCRIPTION.typeName
 }
 
 /**
@@ -32,12 +32,12 @@ class InitialTrialEvent(
     /**
      * Type of event
      */
-    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_ACTIVATION
+    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_ACTIVATION.eventName
 
     /**
      * Subtype of event
      */
-    override val subtype = SubscriptionSubType.AFFISE_SUB_INITIAL_TRIAL
+    override val subtype = SubscriptionSubType.AFFISE_SUB_INITIAL_TRIAL.typeName
 }
 
 /**
@@ -51,10 +51,10 @@ class InitialOfferEvent(
     /**
      * Type of event
      */
-    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_ACTIVATION
+    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_ACTIVATION.eventName
 
     /**
      * Subtype of event
      */
-    override val subtype = SubscriptionSubType.AFFISE_SUB_INITIAL_OFFER
+    override val subtype = SubscriptionSubType.AFFISE_SUB_INITIAL_OFFER.typeName
 }

@@ -17,27 +17,6 @@ class ReEngageEvent(
     userData = userData,
     timeStampMillis = timeStampMillis
 ) {
-    /**
-     * Event Rate use
-     *
-     * @property reEngage the describing the meaning of the event.
-     * @property userData any custom string data.
-     * @property timeStampMillis the timestamp event in milliseconds.
-     */
-    @Deprecated(
-        message = "This constructor will be removed in future",
-        replaceWith = ReplaceWith("ReEngageEvent(userData, timeStampMillis)"),
-        level = DeprecationLevel.WARNING
-    )
-    constructor(
-        reEngage: String = "",
-        userData: String? = null,
-        timeStampMillis: Long = timestamp(),
-    ) : this(
-        userData = userData,
-        timeStampMillis = timeStampMillis,
-    ) {
-        anyData = reEngage
-    }
+
     override fun getName(): String = EventName.RE_ENGAGE.eventName
 }

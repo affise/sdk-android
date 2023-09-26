@@ -13,10 +13,10 @@ class RenewedSubscriptionEvent(
     /**
      * Type of event
      */
-    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_RENEWAL
+    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_RENEWAL.eventName
 
     /**
      * Subtype of event
      */
-    override val subtype = SubscriptionSubType.AFFISE_SUB_RENEWED_SUBSCRIPTION
+    override val subtype = SubscriptionSubType.AFFISE_SUB_RENEWED_SUBSCRIPTION.typeName
 }

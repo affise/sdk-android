@@ -1,11 +1,11 @@
 package com.affise.attribution.parameters
 
+import com.affise.attribution.parameters.providers.TimezoneDeviceProvider
 import com.google.common.truth.Truth
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkStatic
 import io.mockk.verifyAll
-import io.mockk.verifySequence
 import org.junit.Test
 import java.util.Calendar
 import java.util.TimeZone

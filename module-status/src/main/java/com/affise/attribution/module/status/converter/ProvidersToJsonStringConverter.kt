@@ -12,7 +12,7 @@ internal class ProvidersToJsonStringConverter: Converter<List<Provider>, String>
         val jsonObject = JSONObject()
 
         from.mapProviders().forEach {
-            jsonObject.put(it.key, it.value)
+            jsonObject.put(it.key.provider, it.value)
         }
 
         //Create json string

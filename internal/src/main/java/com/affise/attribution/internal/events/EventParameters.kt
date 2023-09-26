@@ -56,18 +56,11 @@ internal object EventParameters {
                 this.addPredefinedParameter(type, it)
             }
 
-            is PredefinedLong -> {
-                value.toString().let { number ->
-                    (number.toLongOrNull())?.let {
-                        this.addPredefinedParameter(type, it)
-                    } ?: (number.toFloatOrNull())?.let {
-                        this.addPredefinedParameter(type, it.toLong())
-                    }
-                }
-
+            is PredefinedLong -> (value as? Number)?.toLong()?.let {
+                this.addPredefinedParameter(type, it)
             }
 
-            is PredefinedFloat -> (value.toString().toFloatOrNull())?.let {
+            is PredefinedFloat -> (value as? Number)?.toFloat()?.let {
                 this.addPredefinedParameter(type, it)
             }
         }

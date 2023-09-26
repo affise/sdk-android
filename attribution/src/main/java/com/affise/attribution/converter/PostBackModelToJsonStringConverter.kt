@@ -35,7 +35,7 @@ class PostBackModelToJsonStringConverter : Converter<List<PostBackModel>, String
     private fun parameters(obj: PostBackModel) = JSONObject().apply {
         //Parameters
         obj.parameters.forEach {
-            put(it.key, it.value)
+            put(it.key.provider, it.value)
         }
 
         //Events

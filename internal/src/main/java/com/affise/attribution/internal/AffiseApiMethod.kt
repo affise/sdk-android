@@ -21,6 +21,7 @@ enum class AffiseApiMethod(val method: String) {
     CRASH_APPLICATION("crash_application"),
     GET_RANDOM_USER_ID("get_random_user_id"),
     GET_RANDOM_DEVICE_ID("get_random_device_id"),
+    GET_PROVIDERS("get_providers"),
 
     // callback methods
     GET_REFERRER_CALLBACK("get_referrer_callback"),

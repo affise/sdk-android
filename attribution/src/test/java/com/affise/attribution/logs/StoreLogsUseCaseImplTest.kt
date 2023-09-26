@@ -1,6 +1,5 @@
 package com.affise.attribution.logs
 
-import com.affise.attribution.events.predefined.AffiseLog
 import com.affise.attribution.executors.ExecutorServiceProvider
 import com.affise.attribution.network.CloudConfig
 import com.google.common.util.concurrent.MoreExecutors

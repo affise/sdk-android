@@ -1,14 +1,15 @@
 package com.affise.attribution.parameters.base
 
-import com.affise.attribution.parameters.AffAppTokenPropertyProvider
-import com.affise.attribution.parameters.CreatedTimeProvider
+import com.affise.attribution.parameters.providers.AffAppTokenPropertyProvider
+import com.affise.attribution.parameters.providers.CreatedTimeProvider
+import com.affise.attribution.parameters.ProviderType
 
 
 inline fun <reified T: Provider> List<Provider>.getProvider(): T? {
     return this.firstOrNull { it is T } as? T
 }
 
-fun List<Provider>.mapProviders(): Map<String, Any?> {
+fun List<Provider>.mapProviders(): Map<ProviderType, Any?> {
     val createdTime = this.getProvider<CreatedTimeProvider>()?.provideWithDefault()
     val sorted = this.sortedBy { it.order }.filter { it.key != null }
     return sorted.mapNotNull { provider ->

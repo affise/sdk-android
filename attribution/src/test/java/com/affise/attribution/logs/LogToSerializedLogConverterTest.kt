@@ -1,8 +1,6 @@
 package com.affise.attribution.logs
 
 import com.affise.attribution.converter.LogToSerializedLogConverter
-import com.affise.attribution.events.predefined.AffiseLog
-import com.affise.attribution.events.predefined.AffiseLogType
 import com.affise.attribution.utils.generateUUID
 import com.affise.attribution.utils.timestamp
 import com.google.common.truth.Truth

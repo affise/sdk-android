@@ -25,7 +25,7 @@ import com.affise.attribution.network.CloudRepository
 import com.affise.attribution.network.CloudRepositoryImpl
 import com.affise.attribution.network.HttpClient
 import com.affise.attribution.network.HttpClientImpl
-import com.affise.attribution.parameters.UserAgentProvider
+import com.affise.attribution.parameters.providers.UserAgentProvider
 import com.affise.attribution.parameters.base.PropertiesProviderFactory
 import com.affise.attribution.parameters.factory.PostBackModelFactory
 import com.affise.attribution.preferences.ApplicationLifecyclePreferencesRepositoryImpl

@@ -3,7 +3,6 @@ package com.affise.attribution.events.predefined
 import com.affise.attribution.events.EventName
 import com.affise.attribution.events.NativeEvent
 import com.affise.attribution.utils.timestamp
-import org.json.JSONObject
 
 /**
  * Event Login
@@ -18,27 +17,6 @@ class LoginEvent(
     userData = userData,
     timeStampMillis = timeStampMillis
 ) {
-    /**
-     * Event Login
-     *
-     * @property login the JSON Object describing the meaning of the event.
-     * @property timeStampMillis the timestamp event in milliseconds.
-     * @property userData any custom string data.
-     */
-    @Deprecated(
-        message = "This constructor will be removed in future",
-        replaceWith = ReplaceWith("LoginEvent(userData, timeStampMillis)"),
-        level = DeprecationLevel.WARNING
-    )
-    constructor(
-        login: JSONObject = JSONObject(),
-        timeStampMillis: Long = timestamp(),
-        userData: String? = null,
-    ) : this(
-        userData = userData,
-        timeStampMillis = timeStampMillis,
-    ) {
-        anyData = login
-    }
+
     override fun getName(): String = EventName.LOGIN.eventName
 }

@@ -17,27 +17,6 @@ class DeepLinkedEvent(
     userData = userData,
     timeStampMillis = timeStampMillis
 ) {
-    /**
-     * Event DeepLinked
-     *
-     * @property isLinked event from link or nor
-     * @property userData any custom string data.
-     * @property timeStampMillis the timestamp event in milliseconds.
-     */
-    @Deprecated(
-        message = "This constructor will be removed in future",
-        replaceWith = ReplaceWith("DeepLinkedEvent(userData, timeStampMillis)"),
-        level = DeprecationLevel.WARNING
-    )
-    constructor(
-        isLinked: Boolean = false,
-        userData: String? = null,
-        timeStampMillis: Long = timestamp(),
-    ) : this(
-        userData = userData,
-        timeStampMillis = timeStampMillis,
-    ) {
-        anyData = isLinked
-    }
+
     override fun getName(): String = EventName.DEEP_LINKED.eventName
 }

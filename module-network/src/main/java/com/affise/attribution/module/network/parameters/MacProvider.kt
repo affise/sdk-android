@@ -2,6 +2,7 @@ package com.affise.attribution.module.network.parameters
 
 import android.annotation.SuppressLint
 import com.affise.attribution.logs.LogsManager
+import com.affise.attribution.parameters.ProviderType
 import com.affise.attribution.parameters.base.StringPropertyProvider
 import java.net.NetworkInterface
 
@@ -14,7 +15,7 @@ class MacProvider(
     private val logsManager: LogsManager
 ) : StringPropertyProvider() {
     override val order: Float = 0.0f
-    override val key: String? = null
+    override val key: ProviderType? = null
 
     @SuppressLint("HardwareIds")
     override fun provide(): String? {

@@ -7,10 +7,11 @@ import com.affise.attribution.converter.Converter
 import com.affise.attribution.deeplink.DeeplinkClickRepository
 import com.affise.attribution.init.InitPropertiesStorage
 import com.affise.attribution.logs.LogsManager
-import com.affise.attribution.parameters.CustomLongProvider
-import com.affise.attribution.parameters.EmptyStringProvider
-import com.affise.attribution.parameters.*
+import com.affise.attribution.parameters.ProviderType
+import com.affise.attribution.parameters.providers.CustomLongProvider
+import com.affise.attribution.parameters.providers.EmptyStringProvider
 import com.affise.attribution.parameters.factory.PostBackModelFactory
+import com.affise.attribution.parameters.providers.*
 import com.affise.attribution.session.SessionManager
 import com.affise.attribution.usecase.FirstAppOpenUseCase
 import com.affise.attribution.usecase.DeviceUseCase
@@ -63,7 +64,7 @@ internal class PropertiesProviderFactory(
                 CreatedTimeProvider(),
                 CreatedTimeMilliProvider(),
                 CreatedTimeHourProvider(),
-                CustomLongProvider(Parameters.LAST_TIME_SESSION, 54.0f) {
+                CustomLongProvider(ProviderType.LAST_TIME_SESSION, 54.0f) {
                     lastSessionTimeProvider.provide()
                         ?.takeIf { it > 0 }
                         ?: firstOpenTimeProvider.provideWithDefault()
@@ -72,7 +73,7 @@ internal class PropertiesProviderFactory(
                 HardwareNameProvider(buildConfigPropertiesProvider),
                 DeviceManufacturerProvider(buildConfigPropertiesProvider),
                 DeeplinkClickPropertyProvider(deeplinkClickRepository),
-                EmptyStringProvider(Parameters.DEVICE_ATLAS_ID, 26.0f),
+                EmptyStringProvider(ProviderType.DEVICE_ATLAS_ID, 26.0f),
                 AffiseDeviceIdProvider(firstAppOpenUseCase),
                 AffiseAltDeviceIdProvider(firstAppOpenUseCase),
                 androidIdProvider,
@@ -99,8 +100,8 @@ internal class PropertiesProviderFactory(
                 IsProductionPropertyProvider(initPropertiesStorage),
                 IsRootedProvider(deviceUseCase),
                 TimezoneDeviceProvider(),
-                EmptyStringProvider(Parameters.AFFISE_EVENT_TOKEN, 52.0f),
-                EmptyStringProvider(Parameters.AFFISE_EVENT_NAME, 53.0f),
+                EmptyStringProvider(ProviderType.AFFISE_EVENT_TOKEN, 52.0f),
+                EmptyStringProvider(ProviderType.AFFISE_EVENT_NAME, 53.0f),
                 lastSessionTimeProvider,
                 TimeSessionProvider(sessionManager),
                 AffiseSessionCountProvider(sessionManager),
@@ -109,7 +110,7 @@ internal class PropertiesProviderFactory(
                 AffPartParamNamePropertyProvider(initPropertiesStorage),
                 AffPartParamNameTokenPropertyProvider(initPropertiesStorage),
                 AffAppTokenPropertyProvider(initPropertiesStorage, stringToSha256Converter),
-                EmptyStringProvider(Parameters.LABEL, 62.0f),
+                EmptyStringProvider(ProviderType.LABEL, 62.0f),
 //                AffSDKSecretIdProvider(initPropertiesStorage),
                 PushTokenProvider(sharedPreferences),
             )

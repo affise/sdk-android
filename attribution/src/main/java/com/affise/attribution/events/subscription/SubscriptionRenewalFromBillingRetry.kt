@@ -13,12 +13,12 @@ class ConvertedTrialFromRetryEvent(
     /**
      * Type of event
      */
-    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_RENEWAL_FROM_BILLING_RETRY
+    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_RENEWAL_FROM_BILLING_RETRY.eventName
 
     /**
      * Subtype of event
      */
-    override val subtype = SubscriptionSubType.AFFISE_SUB_CONVERTED_TRIAL_FROM_RETRY
+    override val subtype = SubscriptionSubType.AFFISE_SUB_CONVERTED_TRIAL_FROM_RETRY.typeName
 }
 
 /**
@@ -32,12 +32,12 @@ class ConvertedOfferFromRetryEvent(
     /**
      * Type of event
      */
-    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_RENEWAL_FROM_BILLING_RETRY
+    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_RENEWAL_FROM_BILLING_RETRY.eventName
 
     /**
      * Subtype of event
      */
-    override val subtype = SubscriptionSubType.AFFISE_SUB_CONVERTED_OFFER_FROM_RETRY
+    override val subtype = SubscriptionSubType.AFFISE_SUB_CONVERTED_OFFER_FROM_RETRY.typeName
 }
 
 /**
@@ -51,10 +51,10 @@ class RenewedSubscriptionFromRetryEvent(
     /**
      * Type of event
      */
-    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_RENEWAL_FROM_BILLING_RETRY
+    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_RENEWAL_FROM_BILLING_RETRY.eventName
 
     /**
      * Subtype of event
      */
-    override val subtype = SubscriptionSubType.AFFISE_SUB_RENEWED_SUBSCRIPTION_FROM_RETRY
+    override val subtype = SubscriptionSubType.AFFISE_SUB_RENEWED_SUBSCRIPTION_FROM_RETRY.typeName
 }

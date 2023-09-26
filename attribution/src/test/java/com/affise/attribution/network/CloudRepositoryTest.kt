@@ -4,7 +4,7 @@ import com.affise.attribution.converter.Converter
 import com.affise.attribution.exceptions.CloudException
 import com.affise.attribution.exceptions.NetworkException
 import com.affise.attribution.network.entity.PostBackModel
-import com.affise.attribution.parameters.UserAgentProvider
+import com.affise.attribution.parameters.providers.UserAgentProvider
 import com.google.common.truth.Truth
 import io.mockk.every
 import io.mockk.mockk

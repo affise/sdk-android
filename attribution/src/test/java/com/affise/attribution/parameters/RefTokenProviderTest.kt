@@ -1,6 +1,7 @@
 package com.affise.attribution.parameters
 
 import android.content.SharedPreferences
+import com.affise.attribution.parameters.providers.RefTokenProvider
 import com.affise.attribution.utils.generateUUID
 import com.google.common.truth.Truth
 import io.mockk.every

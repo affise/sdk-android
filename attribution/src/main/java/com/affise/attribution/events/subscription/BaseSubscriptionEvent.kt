@@ -17,15 +17,15 @@ abstract class BaseSubscriptionEvent(
      * Type of subscription
      *
      */
-    abstract val type: SubscriptionEventName
+    abstract val type: String
 
     /**
      * Subtype of subscription
      */
-    abstract val subtype: SubscriptionSubType
+    abstract val subtype: String
 
     override fun serializeBuilder(): AffisePropertyBuilder = super.serializeBuilder()
-        .addRaw(SubscriptionParameters.AFFISE_SUBSCRIPTION_EVENT_TYPE_KEY, subtype.typeName).apply {
+        .addRaw(SubscriptionParameters.AFFISE_SUBSCRIPTION_EVENT_TYPE_KEY, subtype).apply {
             data.keys().forEach { key ->
                 addRaw(key, data.get(key))
             }
@@ -36,5 +36,5 @@ abstract class BaseSubscriptionEvent(
      *
      * @return name
      */
-    override fun getName() = type.eventName
+    override fun getName() = type
 }

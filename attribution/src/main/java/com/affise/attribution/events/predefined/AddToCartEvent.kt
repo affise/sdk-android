@@ -3,7 +3,6 @@ package com.affise.attribution.events.predefined
 import com.affise.attribution.events.EventName
 import com.affise.attribution.events.NativeEvent
 import com.affise.attribution.utils.timestamp
-import org.json.JSONObject
 
 /**
  * Event AddToCart
@@ -20,27 +19,5 @@ class AddToCartEvent(
     timeStampMillis = timeStampMillis
 ) {
 
-    /**
-     * Event AddToCart
-     *
-     * @property addToCartObject the JSON Object describing the meaning of the event.
-     * @property timeStampMillis the timestamp event in milliseconds.
-     * @property userData any custom string data.
-     */
-    @Deprecated(
-        message = "This constructor will be removed in future",
-        replaceWith = ReplaceWith("AddToCartEvent(userData, timeStampMillis)"),
-        level = DeprecationLevel.WARNING
-    )
-    constructor(
-        addToCartObject: JSONObject? = null,
-        timeStampMillis: Long = timestamp(),
-        userData: String? = null,
-    ) : this(
-        userData = userData,
-        timeStampMillis = timeStampMillis,
-    ) {
-        anyData = addToCartObject
-    }
     override fun getName(): String = EventName.ADD_TO_CART.eventName
 }

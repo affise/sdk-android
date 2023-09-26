@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.affise.app.entity.ProductEntity
 import com.affise.app.extensions.IOWithErrorHandling
 import com.affise.app.usecase.ProductUseCase
-import com.affise.attribution.Affise
 import com.affise.attribution.events.parameters.PredefinedListObject
+import com.affise.attribution.events.parameters.PredefinedObject
 import com.affise.attribution.events.predefined.AddToCartEvent
 import com.affise.attribution.events.predefined.AddToWishlistEvent
 import com.affise.attribution.events.predefined.SearchEvent
@@ -16,7 +16,6 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.json.JSONArray
 import org.json.JSONObject
 import javax.inject.Inject
 
@@ -52,21 +51,19 @@ class HomeViewModel @Inject constructor(
     }
 
     override fun setSearch(value: String) {
-        Affise.sendEvent(
-            SearchEvent(JSONArray(), System.currentTimeMillis(), "search by '$value'")
-        )
+        SearchEvent("search by '$value'")
+            .send()
     }
 
     override fun clickLike(productEntity: ProductEntity) {
         viewModelScope.launch(Dispatchers.IOWithErrorHandling {
         }) {
-            Affise.sendEvent(
-                AddToWishlistEvent(
-                    JSONObject(objectMapper.writeValueAsString(productEntity)),
-                    System.currentTimeMillis(),
-                    "Add to wishlist on home"
+            AddToWishlistEvent("Add to wishlist on home")
+                .addPredefinedParameter(
+                    PredefinedObject.CONTENT,
+                    JSONObject(objectMapper.writeValueAsString(productEntity))
                 )
-            )
+                .send()
 
             useCase.updateLike(productEntity.id)
             updateProducts()
@@ -76,13 +73,12 @@ class HomeViewModel @Inject constructor(
     override fun clickAdd(productEntity: ProductEntity) {
         viewModelScope.launch(Dispatchers.IOWithErrorHandling {
         }) {
-            Affise.sendEvent(
-                AddToCartEvent(
-                    JSONObject(objectMapper.writeValueAsString(productEntity)),
-                    System.currentTimeMillis(),
-                    "Add to cart on home"
+            AddToCartEvent("Add to cart on home")
+                .addPredefinedParameter(
+                    PredefinedObject.CONTENT,
+                    JSONObject(objectMapper.writeValueAsString(productEntity))
                 )
-            )
+                .send()
 
 
             useCase.updateCart(productEntity.id)
@@ -103,15 +99,13 @@ class HomeViewModel @Inject constructor(
             .map { objectMapper.writeValueAsString(it) }
             .map { JSONObject(it) }
 
-        Affise.sendEvent(
-            ViewItemsEvent("popularProducts")
-                .addPredefinedParameter(PredefinedListObject.CONTENT_LIST, itemsPopular)
-        )
+        ViewItemsEvent("popularProducts")
+            .addPredefinedParameter(PredefinedListObject.CONTENT_LIST, itemsPopular)
+            .send()
 
-        Affise.sendEvent(
-            ViewItemsEvent("newProducts")
-                .addPredefinedParameter(PredefinedListObject.CONTENT_LIST, itemsNew)
-        )
+        ViewItemsEvent("newProducts")
+            .addPredefinedParameter(PredefinedListObject.CONTENT_LIST, itemsNew)
+            .send()
 
         stateData.postValue(
             HomeState.DataState(popularProducts, newProducts)

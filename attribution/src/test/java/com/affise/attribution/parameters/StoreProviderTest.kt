@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.pm.InstallSourceInfo
 import android.content.pm.PackageManager
 import com.affise.attribution.logs.LogsManager
+import com.affise.attribution.parameters.providers.StoreProvider
 import com.affise.attribution.utils.SystemAppChecker
 import com.google.common.truth.Truth
 import io.mockk.*

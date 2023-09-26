@@ -11,7 +11,7 @@ class EventViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: Event) {
         when (item) {
-            is BaseSubscriptionEvent -> bind(item, item.subtype.typeName)
+            is BaseSubscriptionEvent -> bind(item, item.subtype)
             else -> bind(item, item.getName())
         }
     }

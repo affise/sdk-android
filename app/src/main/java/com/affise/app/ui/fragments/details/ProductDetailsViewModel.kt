@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.affise.app.entity.ProductEntity
 import com.affise.app.extensions.IOWithErrorHandling
 import com.affise.app.usecase.ProductUseCase
-import com.affise.attribution.Affise
+import com.affise.attribution.events.parameters.PredefinedObject
 import com.affise.attribution.events.predefined.AddToCartEvent
 import com.affise.attribution.events.predefined.AddToWishlistEvent
 import com.affise.attribution.events.predefined.ViewItemEvent
@@ -77,16 +77,13 @@ class ProductDetailsViewModel @Inject constructor(
                 val likeData = useCase.inLike(id)
                 val cartData = useCase.inCart(id)
 
-                Affise.sendEvent(
-                    ViewItemEvent(
-                        JSONObject().apply {
-                            put("product", JSONObject(objectMapper.writeValueAsString(productData)))
-                            put("isLike", likeData)
-                            put("inCart", cartData)
-                        },
-                        "product details"
-                    )
-                )
+                ViewItemEvent("product details")
+                    .addPredefinedParameter(PredefinedObject.CONTENT, JSONObject().apply {
+                        put("product", JSONObject(objectMapper.writeValueAsString(productData)))
+                        put("isLike", likeData)
+                        put("inCart", cartData)
+                    })
+                    .send()
 
                 product.postValue(productData)
                 isLike.postValue(likeData)
@@ -105,13 +102,14 @@ class ProductDetailsViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IOWithErrorHandling {
         }) {
             (stateData.value as? ProductDetailsState.DataState)?.let {
-                Affise.sendEvent(
-                    AddToWishlistEvent(
-                        JSONObject(objectMapper.writeValueAsString(it.productsDetails)),
-                        System.currentTimeMillis(),
-                        "Add to wishlist in Product details"
-                    )
+                AddToWishlistEvent(
+                    "Add to wishlist in Product details"
                 )
+                    .addPredefinedParameter(
+                        PredefinedObject.CONTENT,
+                        JSONObject(objectMapper.writeValueAsString(it.productsDetails))
+                    )
+                    .send()
             }
 
             isLike.postValue(useCase.updateLike(currentProductId))
@@ -122,13 +120,14 @@ class ProductDetailsViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IOWithErrorHandling {
         }) {
             (stateData.value as? ProductDetailsState.DataState)?.let {
-                Affise.sendEvent(
-                    AddToCartEvent(
-                        JSONObject(objectMapper.writeValueAsString(it.productsDetails)),
-                        System.currentTimeMillis(),
-                        "Add to cart in Product details"
-                    )
+                AddToCartEvent(
+                    "Add to cart in Product details"
                 )
+                    .addPredefinedParameter(
+                        PredefinedObject.CONTENT,
+                        JSONObject(objectMapper.writeValueAsString(it.productsDetails))
+                    )
+                    .send()
             }
 
             isCart.postValue(useCase.updateCart(currentProductId))

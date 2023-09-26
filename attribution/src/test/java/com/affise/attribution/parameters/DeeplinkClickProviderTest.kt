@@ -1,6 +1,7 @@
 package com.affise.attribution.parameters
 
 import com.affise.attribution.deeplink.DeeplinkClickRepository
+import com.affise.attribution.parameters.providers.DeeplinkClickPropertyProvider
 import com.google.common.truth.Truth
 import io.mockk.every
 import io.mockk.mockk

@@ -1,7 +1,5 @@
 package com.affise.attribution.logs
 
-import com.affise.attribution.events.predefined.AffiseLog
-
 /**
  * Logs repository interface
  */

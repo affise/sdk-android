@@ -5,13 +5,14 @@ import com.affise.attribution.build.BuildConfigPropertiesProvider
 import com.affise.attribution.converter.StringToMD5Converter
 import com.affise.attribution.executors.ExecutorServiceProviderImpl
 import com.affise.attribution.logs.LogsManager
-import com.affise.attribution.parameters.EmptyStringProvider
+import com.affise.attribution.parameters.providers.EmptyStringProvider
 import com.affise.attribution.parameters.base.PropertyProvider
 import com.affise.attribution.module.advertising.advertising.AdvertisingIdManager
 import com.affise.attribution.module.advertising.advertising.AdvertisingIdManagerImpl
 import com.affise.attribution.module.advertising.oaid.OaidManager
 import com.affise.attribution.module.advertising.oaid.OaidManagerImpl
 import com.affise.attribution.module.advertising.parameters.*
+import com.affise.attribution.parameters.ProviderType
 
 class AdvertisingModule : AffiseModule() {
 
@@ -73,9 +74,9 @@ class AdvertisingModule : AffiseModule() {
         googleAdvertisingIdMd5Provider,
         oaidProvider,
         oaidMD5Provider,
-        EmptyStringProvider(Parameters.ADID, 29.0f),
-        EmptyStringProvider(Parameters.ALTSTR_ADID, 31.7f),
-        EmptyStringProvider(Parameters.FIREOS_ADID, 31.8f),
-        EmptyStringProvider(Parameters.COLOROS_ADID, 31.9f),
+        EmptyStringProvider(ProviderType.ADID, 29.0f),
+        EmptyStringProvider(ProviderType.ALTSTR_ADID, 31.7f),
+        EmptyStringProvider(ProviderType.FIREOS_ADID, 31.8f),
+        EmptyStringProvider(ProviderType.COLOROS_ADID, 31.9f),
     )
 }

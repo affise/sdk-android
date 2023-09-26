@@ -1,5 +1,6 @@
 package com.affise.attribution.parameters
 
+import com.affise.attribution.parameters.providers.CreatedTimeProvider
 import com.google.common.truth.Truth
 import io.mockk.*
 import org.junit.Test

@@ -1,6 +1,7 @@
 package com.affise.attribution.parameters
 
 import com.affise.attribution.build.BuildConfigPropertiesProvider
+import com.affise.attribution.parameters.providers.OsNameProvider
 import com.google.common.truth.Truth
 import io.mockk.every
 import io.mockk.mockk

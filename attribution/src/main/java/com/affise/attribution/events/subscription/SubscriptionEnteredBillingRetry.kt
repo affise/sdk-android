@@ -13,12 +13,12 @@ class TrialInRetryEvent(
     /**
      * Type of event
      */
-    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_ENTERED_BILLING_RETRY
+    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_ENTERED_BILLING_RETRY.eventName
 
     /**
      * Subtype of event
      */
-    override val subtype = SubscriptionSubType.AFFISE_SUB_TRIAL_IN_RETRY
+    override val subtype = SubscriptionSubType.AFFISE_SUB_TRIAL_IN_RETRY.typeName
 }
 
 /**
@@ -32,12 +32,12 @@ class OfferInRetryEvent(
     /**
      * Type of event
      */
-    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_ENTERED_BILLING_RETRY
+    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_ENTERED_BILLING_RETRY.eventName
 
     /**
      * Subtype of event
      */
-    override val subtype = SubscriptionSubType.AFFISE_SUB_OFFER_IN_RETRY
+    override val subtype = SubscriptionSubType.AFFISE_SUB_OFFER_IN_RETRY.typeName
 }
 
 /**
@@ -51,10 +51,10 @@ class SubscriptionInRetryEvent(
     /**
      * Type of event
      */
-    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_ENTERED_BILLING_RETRY
+    override val type = SubscriptionEventName.AFFISE_SUBSCRIPTION_ENTERED_BILLING_RETRY.eventName
 
     /**
      * Subtype of event
      */
-    override val subtype = SubscriptionSubType.AFFISE_SUB_SUBSCRIPTION_IN_RETRY
+    override val subtype = SubscriptionSubType.AFFISE_SUB_SUBSCRIPTION_IN_RETRY.typeName
 }

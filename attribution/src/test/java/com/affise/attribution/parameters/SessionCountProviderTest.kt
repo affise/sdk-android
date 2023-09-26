@@ -1,5 +1,6 @@
 package com.affise.attribution.parameters
 
+import com.affise.attribution.parameters.providers.AffiseSessionCountProvider
 import com.affise.attribution.session.SessionManager
 import com.google.common.truth.Truth
 import io.mockk.every

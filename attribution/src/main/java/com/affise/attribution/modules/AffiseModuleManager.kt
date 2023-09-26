@@ -24,7 +24,7 @@ internal class AffiseModuleManager(
     }
 
     fun status(module: AffiseModules, onComplete: OnKeyValueCallback) {
-        modules[module]?.status(onComplete)
+        modules[module]?.status(onComplete) ?: onComplete.handle(emptyList())
     }
 
     private fun getClass(className: String): AffiseModule? = try {

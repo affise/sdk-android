@@ -1,5 +1,6 @@
 package com.affise.attribution.parameters
 
+import com.affise.attribution.parameters.providers.UuidProvider
 import com.affise.attribution.utils.generateUUID
 import com.google.common.truth.Truth
 import io.mockk.every

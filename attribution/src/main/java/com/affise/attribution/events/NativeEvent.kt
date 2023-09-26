@@ -9,12 +9,11 @@ import org.json.JSONObject
 abstract class NativeEvent(
     private val userData: String? = null,
     private val timeStampMillis: Long = timestamp(),
-    protected var anyData: Any? = null,
 ) : Event() {
 
     protected open fun serializeBuilder(): AffisePropertyBuilder =
         AffisePropertyBuilder()
-            .init(getName(), anyData)
+            .init(getName())
             .add(AffiseProperty.TIMESTAMP, timeStampMillis)
 
     /**
