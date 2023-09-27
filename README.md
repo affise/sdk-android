@@ -328,8 +328,8 @@ following code
 
 ```kotlin
 class Presenter {
-  fun onUserAddsItemsToCart(items: String) {
-    AddToCartEvent(items)
+  fun onUserAddsItemsToCart(userData: String) {
+    AddToCartEvent(userData)
         .send() // Send event
   }
 }
@@ -339,8 +339,8 @@ For java use:
 
 ```java
 class Presenter {
-  void onUserAddsItemsToCart(String items) {
-    new AddToCartEvent(items)
+  void onUserAddsItemsToCart(String userData) {
+    new AddToCartEvent(userData)
             .send(); // Send event
   }
 }
@@ -445,8 +445,8 @@ Add it to any event:
 
 ```kotlin
 class Presenter {
-  fun onUserAddsItemsToCart(items: String) {
-    AddToCartEvent(items)
+  fun onUserAddsItemsToCart(userData: String) {
+    AddToCartEvent(userData)
         .addPredefinedParameter(PredefinedString.DESCRIPTION, "best before 2029")
         .addPredefinedParameter(PredefinedObject.CONTENT, JSONObject().apply {
           put("collection", "Greatest Hits")
@@ -465,7 +465,7 @@ For java use:
 
 ```java
 class Presenter {
-  void onUserAddsItemsToCart(String items) {
+  void onUserAddsItemsToCart(String userData) {
     JSONObject json = new JSONObject()
             .put("collection", "Greatest Hits");
     
@@ -474,7 +474,7 @@ class Presenter {
     
     List<JSONObject> jsonList = Collections.singletonList(jsonContent);
     
-    new AddToCartEvent(items, System.currentTimeMillis())
+    new AddToCartEvent(userData, System.currentTimeMillis())
             .addPredefinedParameter(PredefinedString.DESCRIPTION, "best before 2029")
             .addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
             .addPredefinedParameter(PredefinedObject.CONTENT, json)
@@ -709,8 +709,8 @@ In some scenarios you would want to limit Affise network usage, to pause that ac
 
 ```kotlin
 Affise.init(..)
-Affise.setOfflineModeEnabled(enabled = true) // to enable offline mode
-Affise.setOfflineModeEnabled(enabled = false) // to disable offline mode
+Affise.setOfflineModeEnabled(true) // to enable offline mode
+Affise.setOfflineModeEnabled(false) // to disable offline mode
 ```
 
 While offline mode is enabled, your metrics and other events are kept locally, and will be delivered once offline mode is disabled.
@@ -727,8 +727,8 @@ To disable any tracking activity, storing events and gathering device identifier
 
 ```kotlin
 Affise.init(..)
-Affise.setTrackingEnabled(enabled = true) // to enable tracking
-Affise.setTrackingEnabled(enabled = false) // to disable tracking
+Affise.setTrackingEnabled(true) // to enable tracking
+Affise.setTrackingEnabled(false) // to disable tracking
 ```
 
 By default tracking is enabled.
@@ -747,8 +747,8 @@ To disable any background tracking activity, storing events and gathering device
 
 ```kotlin
 Affise.init(..)
-Affise.setBackgroundTrackingEnabled(enabled = true) // to enable background tracking
-Affise.setBackgroundTrackingEnabled(enabled = false) // to disable background tracking
+Affise.setBackgroundTrackingEnabled(true) // to enable background tracking
+Affise.setBackgroundTrackingEnabled(false) // to disable background tracking
 ```
 
 By default background tracking is enabled.
@@ -776,7 +776,7 @@ To prevent library from generating new events, disable tracking just before call
 
 ```kotlin
 Affise.init(..)
-Affise.setTrackingEnabled(enabled = false)
+Affise.setTrackingEnabled(false)
 Affise.forget() // to forget users data
 ```
 
