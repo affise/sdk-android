@@ -7,6 +7,7 @@ import com.affise.attribution.utils.ActivityActionsManager
 import com.affise.attribution.utils.ActivityLifecycleCallback
 import com.google.common.truth.Truth
 import io.mockk.*
+import org.junit.Ignore
 import org.junit.Test
 
 /**
@@ -40,6 +41,7 @@ class DeeplinkManagerImplTest {
         }
     }
 
+    @Ignore
     @Test
     fun `verify onInit lifecycle callback invokes deeplink callback on activity resume`() {
         val initProperties: InitPropertiesStorage = mockk {

@@ -8,7 +8,7 @@ import com.affise.attribution.utils.timestamp
  *
  * @property userData any custom string data.
  */
-internal class GDPREvent(
+internal class GDPREvent @JvmOverloads constructor(
     private val userData: String? = null,
 ) : NativeEvent(
     userData = userData,

@@ -2,8 +2,10 @@ package com.affise.attribution.network
 
 import com.affise.attribution.converter.Converter
 import com.affise.attribution.exceptions.CloudException
+import com.affise.attribution.exceptions.NetworkException
 import com.affise.attribution.network.entity.PostBackModel
 import com.affise.attribution.parameters.providers.UserAgentProvider
+import com.affise.attribution.utils.isHttpValid
 import java.net.URL
 
 internal class CloudRepositoryImpl(
@@ -25,17 +27,16 @@ internal class CloudRepositoryImpl(
 
         //While has attempts and not send
         while (attempts != 0 && !send) {
-            try {
-                //Create request
-                createRequest(url, data)
-
+            //Create request
+            val response = createRequest(url, data)
+            if (isHttpValid(response.code)) {
                 //Send is ok
                 send = true
-            } catch (throwable: Throwable) {
+            } else {
                 //Check attempts
                 if (--attempts == 0) {
                     //Add throwable
-                    throw CloudException(url, throwable, ATTEMPTS_TO_SEND, true)
+                    throw CloudException(url, NetworkException(response.code, response.body ?: ""), ATTEMPTS_TO_SEND, true)
                 }
             }
         }
@@ -44,9 +45,9 @@ internal class CloudRepositoryImpl(
     /**
      * Send [data] to [url]
      */
-    private fun createRequest(url: String, data: List<PostBackModel>) {
+    private fun createRequest(url: String, data: List<PostBackModel>): HttpResponse {
         //Create request
-        httpClient.executeRequest(
+        return httpClient.executeRequest(
             URL(url),
             HttpClient.Method.POST,
             converter.convert(data),

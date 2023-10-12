@@ -4,6 +4,8 @@ import android.app.Application
 import com.affise.attribution.logs.LogsManager
 import com.affise.attribution.parameters.base.PropertyProvider
 import com.affise.attribution.parameters.base.Provider
+import com.affise.attribution.parameters.base.getProviders
+import com.affise.attribution.parameters.base.getRequestProviders
 
 abstract class AffiseModule {
 
@@ -51,6 +53,13 @@ abstract class AffiseModule {
     }
     inline fun <reified T: Provider> getProvider(): T? {
         return baseProviders?.firstOrNull { it is T } as? T
+    }
+
+    fun getProviders(types: List<Class<out Provider>>): List<Provider> {
+        return baseProviders?.getProviders(types) ?: emptyList()
+    }
+    fun getRequestProviders(): List<Provider> {
+        return baseProviders?.getRequestProviders() ?: emptyList()
     }
 }
 

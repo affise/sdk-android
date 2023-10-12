@@ -29,6 +29,10 @@ enum class AffiseApiMethod(val method: String) {
     GET_STATUS_CALLBACK("get_status_callback"),
     REGISTER_DEEPLINK_CALLBACK("register_deeplink_callback"),
 
+    // debug
+    DEBUG_VALIDATE_CALLBACK("debug_validate_callback"),
+    DEBUG_NETWORK_CALLBACK("debug_network_callback"),
+
     // affise builder
     AFFISE_BUILDER("affise_builder");
 

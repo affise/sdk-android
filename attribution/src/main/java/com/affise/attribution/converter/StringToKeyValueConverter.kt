@@ -3,16 +3,21 @@ package com.affise.attribution.converter
 import com.affise.attribution.modules.AffiseKeyValue
 import org.json.JSONArray
 
-class StringToKeyValueConverter: Converter<String?, List<AffiseKeyValue>> {
+class StringToKeyValueConverter : Converter<String?, List<AffiseKeyValue>> {
 
     override fun convert(from: String?): List<AffiseKeyValue> {
         val data = mutableListOf<AffiseKeyValue>()
 
-        if(from.isNullOrEmpty()) {
+        if (from.isNullOrEmpty()) {
             return data
         }
 
-        val jsonArray = JSONArray(from)
+        val jsonArray = try {
+            JSONArray(from)
+        } catch (_: Exception) {
+            JSONArray()
+        }
+
         for (i in 0 until jsonArray.length()) {
             val item = jsonArray.getJSONObject(i)
             val key = item.optString(KEY)

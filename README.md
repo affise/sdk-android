@@ -60,9 +60,11 @@
 - [SDK to SDK integrations](#sdk-to-sdk-integrations)
   - [AdMob](#admob)
   - [AppLovin MAX](#applovin-max)
-  - [Helium by Chartboost](#helium-by-chartboost )
+  - [Helium by Chartboost](#helium-by-chartboost)
   - [ironSource](#ironsource)
   - [Admost](#admost)
+- [Debug](#debug)
+  - [Validate credentials](#validate-credentials)
     
 # Description
 
@@ -80,12 +82,12 @@ For kotlin build script build.gradle.kts use:
 ```kotlin
 dependencies {
   // Add Affise library 
-  implementation("com.affise:attribution:1.6.17")
+  implementation("com.affise:attribution:1.6.18")
   // Add Affise modules 
-  implementation("com.affise:module-advertising:1.6.17")
-  implementation("com.affise:module-network:1.6.17")
-  implementation("com.affise:module-phone:1.6.17")
-  implementation("com.affise:module-status:1.6.17")
+  implementation("com.affise:module-advertising:1.6.18")
+  implementation("com.affise:module-network:1.6.18")
+  implementation("com.affise:module-phone:1.6.18")
+  implementation("com.affise:module-status:1.6.18")
   // Add install referrer
   implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -96,12 +98,12 @@ For groovy build script build.gradle use:
 ```groovy
 dependencies {
     // Add Affise library 
-    implementation 'com.affise:attribution:1.6.17'
+    implementation 'com.affise:attribution:1.6.18'
     // Add Affise modules 
-    implementation 'com.affise:module-advertising:1.6.17'
-    implementation 'com.affise:module-network:1.6.17'
-    implementation 'com.affise:module-phone:1.6.17'
-    implementation 'com.affise:module-status:1.6.17'
+    implementation 'com.affise:module-advertising:1.6.18'
+    implementation 'com.affise:module-network:1.6.18'
+    implementation 'com.affise:module-phone:1.6.18'
+    implementation 'com.affise:module-status:1.6.18'
     // Add install referrer
     implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -109,9 +111,9 @@ dependencies {
 
 ### Integrate as file dependency
 
-Download latest Affise SDK (`attribution-1.6.17.aar`)
+Download latest Affise SDK (`attribution-1.6.18.aar`)
 from [releases page](https://github.com/affise/sdk-android/releases) and place this binary to gradle application
-module lib directory `app/libs/attribution-1.6.17.aar`
+module lib directory `app/libs/attribution-1.6.18.aar`
 
 Add library as gradle file dependency to application module build script
 Add install referrer library
@@ -122,12 +124,12 @@ For kotlin build script build.gradle.kts use:
 dependencies {
     // ...
     // Add Affise library 
-    implementation(files("libs/attribution-1.6.17.aar"))
+    implementation(files("libs/attribution-1.6.18.aar"))
     // Add Affise modules 
-    implementation(files("libs/module-advertising-1.6.17.aar"))
-    implementation(files("libs/module-network-1.6.17.aar"))
-    implementation(files("libs/module-phone-1.6.17.aar"))
-    implementation(files("libs/module-status-1.6.17.aar"))
+    implementation(files("libs/module-advertising-1.6.18.aar"))
+    implementation(files("libs/module-network-1.6.18.aar"))
+    implementation(files("libs/module-phone-1.6.18.aar"))
+    implementation(files("libs/module-status-1.6.18.aar"))
     // Add install referrer
     implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -139,12 +141,12 @@ For groovy build script build.gradle use:
 dependencies {
   // ...  
   // Add Affise library 
-  implementation files('libs/attribution-1.6.17.aar')
+  implementation files('libs/attribution-1.6.18.aar')
   // Add Affise modules 
-  implementation files('libs/module-advertising-1.6.17.aar')
-  implementation files('libs/module-network-1.6.17.aar')
-  implementation files('libs/module-phone-1.6.17.aar')
-  implementation files('libs/module-status-1.6.17.aar')
+  implementation files('libs/module-advertising-1.6.18.aar')
+  implementation files('libs/module-network-1.6.18.aar')
+  implementation files('libs/module-phone-1.6.18.aar')
+  implementation files('libs/module-status-1.6.18.aar')
   // Add install referrer
   implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -1167,5 +1169,33 @@ fun onAdRevenuePaid(impressionData: AdMostImpressionData) {
         .setUnit(impressionData.AdUnitId)
         .setPlacement(impressionData.PlacementId)
         .send()
+}
+```
+
+# Debug
+
+## Validate credentials
+
+> **Warning**
+> Debug methods WON'T work on Production
+
+Validate your credentials by receiving `ValidationStatus` values:
+
+- `VALID` - your credentials are valid
+- `INVALID_APP_ID` - your app id is not valid
+- `INVALID_SECRET_KEY` - your SDK secretKey is not valid
+- `PACKAGE_NAME_NOT_FOUND` - your application package name not found
+- `NOT_WORKING_ON_PRODUCTION` - you using debug method on production
+- `NETWORK_ERROR` - network or server not available (for example `Airoplane mode` is active)
+
+```kotlin
+Affise.init(this, AffiseInitProperties(
+  "Your appId",
+  "Your SDK secretKey",
+  false, //To enable debug methods set Production to false
+))
+
+Affise.Debug.validate { status ->
+    // Handle validation status
 }
 ```

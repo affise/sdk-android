@@ -10,7 +10,7 @@ import com.affise.attribution.utils.timestamp
  * @property userData any custom data.
  * @property timeStampMillis the timestamp event in milliseconds.
  */
-class SubmitApplicationEvent(
+class SubmitApplicationEvent @JvmOverloads constructor(
     private val userData: String? = null,
     private val timeStampMillis: Long = timestamp(),
 ) : NativeEvent(

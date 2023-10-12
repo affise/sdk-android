@@ -1,8 +1,11 @@
 package com.affise.attribution.network
 
+import com.affise.attribution.debug.network.DebugOnNetworkCallback
 import java.net.URL
 
 interface HttpClient {
+
+    var debugRequest: DebugOnNetworkCallback?
 
     /**
      * Method of connection
@@ -23,5 +26,5 @@ interface HttpClient {
         method: Method,
         data: String,
         headers: Map<String, String>
-    ): String?
+    ): HttpResponse
 }

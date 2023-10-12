@@ -1,12 +1,16 @@
 package com.affise.attribution.network
 
-import com.affise.attribution.exceptions.NetworkException
+import com.affise.attribution.debug.network.DebugOnNetworkCallback
+import com.affise.attribution.utils.isHttpValid
 import java.io.BufferedReader
+import java.io.InputStream
 import java.io.InputStreamReader
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 
 class HttpClientImpl : HttpClient {
+
+    override var debugRequest: DebugOnNetworkCallback? = null
 
     /**
      * Create request and execute result
@@ -19,9 +23,11 @@ class HttpClientImpl : HttpClient {
         method: HttpClient.Method,
         data: String,
         headers: Map<String, String>
-    ): String? {
+    ): HttpResponse {
         var connection: HttpsURLConnection? = null
-        var response: String? = null
+        var responseCode: Int = 0
+        var responseBody: String? = null
+        var responseMessage: String = ""
         try {
             //Create data bytes
             val postDataBytes = data.toByteArray(charset("UTF-8"))
@@ -44,26 +50,47 @@ class HttpClientImpl : HttpClient {
             connection.outputStream.use { it.write(postDataBytes) }
 
             //Get response code
-            val responseCode = connection.responseCode
+            responseCode = connection.responseCode
+            responseMessage = connection.responseMessage
 
-            //Check response code
-            if (responseCode == HttpsURLConnection.HTTP_OK) {
-                var line: String
-                //Create BufferedReader
-                val br = BufferedReader(InputStreamReader(connection.inputStream, "UTF-8"))
-
-                //Read response
-                while (br.readLine().also { line = it ?: "" } != null) {
-                    response = response?.let { it + line } ?: line
-                }
+            //Get response body
+            responseBody = if (isHttpValid(responseCode)) {
+                getResponseBody(connection.inputStream)
             } else {
-                throw NetworkException(responseCode, connection.responseMessage)
+                getResponseBody(connection.errorStream)
             }
+        } catch (_: Exception) {
         } finally {
             //Disconnect
             connection?.disconnect()
         }
 
-        return response
+        return HttpResponse(responseCode, responseMessage, responseBody).also {
+            debugRequest?.handle(
+                HttpRequest(
+                    url = httpsUrl,
+                    method = method,
+                    headers = headers,
+                    body = data
+                ), it
+            )
+        }
+    }
+
+    private fun getResponseBody(stream: InputStream?): String? {
+        stream ?: return null
+        try {
+            //Create BufferedReader from InputStream
+            val bufferedReader = BufferedReader(InputStreamReader(stream, "UTF-8"))
+            val stringBuilder = StringBuilder()
+            var line: String
+            //Read response
+            while (bufferedReader.readLine().also { line = it ?: "" } != null) {
+                stringBuilder.append(line)
+            }
+            return stringBuilder.toString()
+        } catch (_: Exception) {
+        }
+        return null
     }
 }

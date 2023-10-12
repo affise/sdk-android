@@ -2,6 +2,8 @@ package com.affise.attribution
 
 import android.app.Application
 import android.webkit.WebView
+import com.affise.attribution.debug.network.DebugOnNetworkCallback
+import com.affise.attribution.debug.validate.DebugOnValidateCallback
 import com.affise.attribution.deeplink.OnDeeplinkCallback
 import com.affise.attribution.events.Event
 import com.affise.attribution.referrer.ReferrerKey
@@ -246,5 +248,28 @@ object Affise {
     @JvmStatic
     internal fun sendInternalEvent(event: InternalEvent) {
         api?.storeInternalEventUseCase?.storeInternalEvent(event)
+    }
+
+
+    object Debug {
+        /**
+         * Won't work on Production
+         *
+         * Validate credentials
+         */
+        @JvmStatic
+        fun validate(callback: DebugOnValidateCallback) {
+            api?.debugValidateUseCase?.validate(callback)
+        }
+
+        /**
+         * Won't work on Production
+         *
+         * Show request/response data
+         */
+        @JvmStatic
+        fun network(callback: DebugOnNetworkCallback) {
+            api?.debugNetworkUseCase?.onRequest(callback)
+        }
     }
 }

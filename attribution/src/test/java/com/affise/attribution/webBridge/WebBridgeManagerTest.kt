@@ -2,6 +2,7 @@ package com.affise.attribution.webBridge
 
 import android.webkit.WebView
 import com.affise.attribution.events.StoreEventUseCase
+import com.affise.attribution.modules.AffiseModuleManager
 import io.mockk.*
 import org.junit.Test
 
@@ -10,6 +11,7 @@ class WebBridgeManagerTest {
     private val testEvent = "testEvent"
 
     private val webView = mockk<WebView>()
+    private val moduleManager = mockk<AffiseModuleManager>()
 
     private val storeEventUseCase = mockk<StoreEventUseCase>()
 

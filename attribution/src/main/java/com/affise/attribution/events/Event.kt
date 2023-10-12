@@ -117,7 +117,7 @@ abstract class Event: PredefinedParameter {
     /**
      * Add predefined ListGroup [value] of List<PredefinedGroup> to event
      */
-    // TODO PredefinedGroup
+    // PredefinedGroup
 //    override fun addPredefinedListGroup(value: List<PredefinedGroup>): Event {
 //        if (!predefinedParameters.containsKey(PredefinedGroup.NAME)) {
 //            predefinedParameters[PredefinedGroup.NAME] = mutableListOf<Map<String, Any>>()

@@ -8,6 +8,10 @@ import com.affise.attribution.build.BuildConfigPropertiesProviderImpl
 import com.affise.attribution.converter.*
 import com.affise.attribution.converter.JsonObjectToMetricsEventConverter
 import com.affise.attribution.build.BuildConfigPropertiesProvider
+import com.affise.attribution.debug.network.DebugNetworkUseCase
+import com.affise.attribution.debug.network.DebugNetworkUseCaseImpl
+import com.affise.attribution.debug.validate.DebugValidateUseCase
+import com.affise.attribution.debug.validate.DebugValidateUseCaseImpl
 import com.affise.attribution.executors.ExecutorServiceProviderImpl
 import com.affise.attribution.logs.LogsManager
 import com.affise.attribution.deeplink.DeeplinkClickRepository
@@ -83,6 +87,10 @@ internal class AffiseComponent(
 
     private val converterToBase64: ConverterToBase64 by lazy {
         ConverterToBase64()
+    }
+
+    private val providersToJsonStringConverter: ProvidersToJsonStringConverter by lazy {
+        ProvidersToJsonStringConverter()
     }
 
     private val buildConfigPropertiesProvider: BuildConfigPropertiesProvider by lazy {
@@ -434,6 +442,24 @@ internal class AffiseComponent(
         )
     }
 
+    override val debugValidateUseCase: DebugValidateUseCase by lazy {
+        DebugValidateUseCaseImpl(
+            initProperties = initProperties,
+            postBackModelFactory = postBackModelFactory,
+            logsManager = logsManager,
+            httpClient = httpClient,
+            sendServiceProvider = ExecutorServiceProviderImpl("Debug Validate Worker"),
+            converter = providersToJsonStringConverter,
+        )
+    }
+
+    override val debugNetworkUseCase: DebugNetworkUseCase by lazy {
+        DebugNetworkUseCaseImpl(
+            initProperties = initProperties,
+            httpClient = httpClient,
+        )
+    }
+
     private var isReady: Boolean = false
 
     /**
@@ -462,6 +488,7 @@ internal class AffiseComponent(
                 buildConfigPropertiesProvider,
                 stringToMD5Converter,
                 stringToSHA1Converter,
+                providersToJsonStringConverter,
                 httpClient
             )
         )

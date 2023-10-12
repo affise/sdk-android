@@ -414,7 +414,7 @@ class DefaultEventsFactory : EventsFactory {
             .addPredefinedParameter(PredefinedFloat.PRICE, 2.19f)
             .addPredefinedParameter(PredefinedLong.QUANTITY, 1L)
 
-        // TODO PredefinedGroup example
+        // PredefinedGroup example
 //            .addPredefinedListGroup(
 //                listOf(
 //                    PredefinedGroup()

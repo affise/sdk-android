@@ -38,6 +38,6 @@ interface PredefinedParameter : PredefinedSimple {
     /**
      * Add predefined ListGroup [value] of List<PredefinedGroup> to event
      */
-    // TODO PredefinedGroup
+    // PredefinedGroup
 //    fun addPredefinedListGroup(value: List<PredefinedGroup>) : PredefinedParameter
 }

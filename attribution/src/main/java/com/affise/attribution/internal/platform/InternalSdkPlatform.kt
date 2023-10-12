@@ -1,6 +1,6 @@
-package com.affise.attribution.platform
+package com.affise.attribution.internal.platform
 
-internal object SdkPlatform {
+internal object InternalSdkPlatform {
     const val ANDROID = "android"
     private const val REACT = "react"
     private const val FLUTTER = "flutter"

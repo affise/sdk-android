@@ -1,12 +1,11 @@
-package com.affise.attribution.module.status.converter
+package com.affise.attribution.converter
 
-import com.affise.attribution.converter.Converter
 import com.affise.attribution.parameters.base.Provider
 import com.affise.attribution.parameters.base.mapProviders
 import org.json.JSONArray
 import org.json.JSONObject
 
-internal class ProvidersToJsonStringConverter: Converter<List<Provider>, String> {
+class ProvidersToJsonStringConverter: Converter<List<Provider>, String> {
 
     override fun convert(from: List<Provider>): String {
         val jsonObject = JSONObject()

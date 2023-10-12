@@ -1,7 +1,7 @@
-package com.affise.attribution
+package com.affise.attribution.internal.platform
 
 import android.net.Uri
-import com.affise.attribution.platform.SdkPlatform
+import com.affise.attribution.Affise
 
 object InternalCrossPlatform {
 
@@ -20,16 +20,16 @@ object InternalCrossPlatform {
 
     @JvmStatic
     fun react() {
-        SdkPlatform.react()
+        InternalSdkPlatform.react()
     }
 
     @JvmStatic
     fun flutter() {
-        SdkPlatform.flutter()
+        InternalSdkPlatform.flutter()
     }
 
     @JvmStatic
     fun unity() {
-        SdkPlatform.unity()
+        InternalSdkPlatform.unity()
     }
 }

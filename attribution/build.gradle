@@ -25,7 +25,7 @@ android {
             buildConfigField("String", "VERSION_NAME", "\"${defaultConfig.versionName}\"")
         }
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
@@ -55,9 +55,6 @@ android {
 }
 
 dependencies {
-    //Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-
     //Installreferrer
     implementation "com.android.installreferrer:installreferrer:2.2"
 

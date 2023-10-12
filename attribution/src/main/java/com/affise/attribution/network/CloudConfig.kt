@@ -9,5 +9,9 @@ object CloudConfig {
         "https://tracking.affattr.com/postback"
     )
 
+    val headers: Map<String, String> = mapOf(
+        "Content-Type" to "application/json; charset=utf-8"
+    )
+
     fun getUrls() = urls
 }

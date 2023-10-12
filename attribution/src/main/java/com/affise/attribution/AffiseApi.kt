@@ -1,6 +1,8 @@
 package com.affise.attribution
 
 import android.content.SharedPreferences
+import com.affise.attribution.debug.network.DebugNetworkUseCase
+import com.affise.attribution.debug.validate.DebugValidateUseCase
 import com.affise.attribution.deeplink.DeeplinkManagerImpl
 import com.affise.attribution.events.EventsManager
 import com.affise.attribution.events.StoreEventUseCase
@@ -45,6 +47,8 @@ internal interface AffiseApi {
     val retrieveInstallReferrerUseCase: RetrieveInstallReferrerUseCase
     val moduleManager: AffiseModuleManager
     val postBackModelFactory: PostBackModelFactory
+    val debugValidateUseCase: DebugValidateUseCase
+    val debugNetworkUseCase: DebugNetworkUseCase
 
     fun isInitialized(): Boolean
 }

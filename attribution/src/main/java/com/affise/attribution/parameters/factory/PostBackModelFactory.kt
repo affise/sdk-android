@@ -41,5 +41,13 @@ internal class PostBackModelFactory(
 
     fun getProviders(): List<Provider> = allProviders
 
+    fun getProviders(types: List<Class<out Provider>>): List<Provider> {
+        return allProviders.getProviders(types)
+    }
+
+    fun getRequestProviders(): List<Provider> {
+        return allProviders.getRequestProviders()
+    }
+
     fun getProvidersMap(): Map<ProviderType, Any?> = allProviders.mapProviders()
 }

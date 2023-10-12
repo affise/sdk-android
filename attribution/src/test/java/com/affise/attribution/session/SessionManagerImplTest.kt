@@ -2,7 +2,6 @@ package com.affise.attribution.session
 
 import android.content.SharedPreferences
 import android.os.SystemClock
-import com.affise.attribution.internal.StoreInternalEventUseCase
 import com.google.common.truth.Truth
 import io.mockk.every
 import io.mockk.mockk
@@ -49,8 +48,7 @@ class SessionManagerImplTest {
                 getLong(keyAffiseSessionCount, 0L)
             } returns 0
         }
-        val internalEventUseCase: StoreInternalEventUseCase = mockk()
-        val manager = SessionManagerImpl(preferences, provider, internalEventUseCase)
+        val manager = SessionManagerImpl(preferences, provider)
         val lifetimeSessionTime = manager.getLifetimeSessionTime()
 
         Truth.assertThat(lifetimeSessionTime).isEqualTo(saveLifetimeSessionCount)
@@ -74,14 +72,13 @@ class SessionManagerImplTest {
                 getLong(keyAffiseSessionCount, 0L)
             } returns 0
         }
-        val internalEventUseCase: StoreInternalEventUseCase = mockk()
 
         mockkStatic(SystemClock::class) {
             every {
                 SystemClock.elapsedRealtime()
             } returns timeStart
 
-            val manager = SessionManagerImpl(preferences, provider, internalEventUseCase).apply { init() }
+            val manager = SessionManagerImpl(preferences, provider).apply { init() }
 
             listenerTest(1)
 
@@ -114,14 +111,13 @@ class SessionManagerImplTest {
                 getLong(keyAffiseSessionCount, 0L)
             } returns 0
         }
-        val internalEventUseCase: StoreInternalEventUseCase = mockk()
 
         mockkStatic(SystemClock::class) {
             every {
                 SystemClock.elapsedRealtime()
             } returns timeStart
 
-            val manager = SessionManagerImpl(preferences, provider, internalEventUseCase).apply { init() }
+            val manager = SessionManagerImpl(preferences, provider).apply { init() }
 
             listenerTest(1)
 
@@ -164,14 +160,13 @@ class SessionManagerImplTest {
                 edit().putLong(keyAffiseSessionCount, 1).commit()
             } returns true
         }
-        val internalEventUseCase: StoreInternalEventUseCase = mockk()
 
         mockkStatic(SystemClock::class) {
             every {
                 SystemClock.elapsedRealtime()
             } returns timeStart
 
-            val manager = SessionManagerImpl(preferences, provider, internalEventUseCase).apply { init() }
+            val manager = SessionManagerImpl(preferences, provider).apply { init() }
 
             listenerTest(1)
 
@@ -214,9 +209,8 @@ class SessionManagerImplTest {
                 getLong(keyAffiseSessionCount, 0L)
             } returns 0
         }
-        val internalEventUseCase: StoreInternalEventUseCase = mockk()
 
-        val manager = SessionManagerImpl(preferences, provider, internalEventUseCase).apply { init() }
+        val manager = SessionManagerImpl(preferences, provider).apply { init() }
 
         val sessionTime = manager.getSessionTime()
 
@@ -234,14 +228,13 @@ class SessionManagerImplTest {
                 getLong(keyAffiseSessionCount, 0L)
             } returns 0
         }
-        val internalEventUseCase: StoreInternalEventUseCase = mockk()
 
         mockkStatic(SystemClock::class) {
             every {
                 SystemClock.elapsedRealtime()
             } returns timeStart
 
-            val manager = SessionManagerImpl(preferences, provider, internalEventUseCase).apply { init() }
+            val manager = SessionManagerImpl(preferences, provider).apply { init() }
 
             listenerTest(1)
 
@@ -271,14 +264,13 @@ class SessionManagerImplTest {
                 getLong(keyAffiseSessionCount, 0L)
             } returns 0
         }
-        val internalEventUseCase: StoreInternalEventUseCase = mockk()
 
         mockkStatic(SystemClock::class) {
             every {
                 SystemClock.elapsedRealtime()
             } returns timeStart
 
-            val manager = SessionManagerImpl(preferences, provider, internalEventUseCase).apply { init() }
+            val manager = SessionManagerImpl(preferences, provider).apply { init() }
 
             listenerTest(1)
 
@@ -312,14 +304,13 @@ class SessionManagerImplTest {
                 edit().putLong(keyAffiseSessionCount, any()).commit()
             } returns true
         }
-        val internalEventUseCase: StoreInternalEventUseCase = mockk()
 
         mockkStatic(SystemClock::class) {
             every {
                 SystemClock.elapsedRealtime()
             } returns timeStart
 
-            val manager = SessionManagerImpl(preferences, provider, internalEventUseCase).apply { init() }
+            val manager = SessionManagerImpl(preferences, provider).apply { init() }
 
             listenerTest(1)
 
@@ -350,14 +341,13 @@ class SessionManagerImplTest {
                 getLong(keyAffiseSessionCount, 0L)
             } returns 0
         }
-        val internalEventUseCase: StoreInternalEventUseCase = mockk()
 
         mockkStatic(SystemClock::class) {
             every {
                 SystemClock.elapsedRealtime()
             } returns timeStart
 
-            val manager = SessionManagerImpl(preferences, provider, internalEventUseCase).apply { init() }
+            val manager = SessionManagerImpl(preferences, provider).apply { init() }
 
             listenerTest(1)
 
@@ -400,9 +390,8 @@ class SessionManagerImplTest {
                     edit().putLong(keyAffiseSessionCount, 1).commit()
                 } returns true
             }
-            val internalEventUseCase: StoreInternalEventUseCase = mockk()
 
-            val manager = SessionManagerImpl(preferences, provider, internalEventUseCase).apply { init() }
+            val manager = SessionManagerImpl(preferences, provider).apply { init() }
 
             listenerTest(1)
 
@@ -440,9 +429,8 @@ class SessionManagerImplTest {
                 getLong(keyAffiseSessionCount, 0L)
             } returns saveSessionCount
         }
-        val internalEventUseCase: StoreInternalEventUseCase = mockk()
 
-        val manager = SessionManagerImpl(preferences, provider, internalEventUseCase).apply { init() }
+        val manager = SessionManagerImpl(preferences, provider).apply { init() }
 
         val isSessionActive = manager.getSessionCount()
 

@@ -11,7 +11,7 @@ import com.affise.attribution.utils.timestamp
  * @property userData any custom data.
  * @property timeStampMillis the timestamp event in milliseconds.
  */
-class InitiateCheckoutEvent(
+class InitiateCheckoutEvent @JvmOverloads constructor(
     private val userData: String? = null,
     private val timeStampMillis: Long = timestamp(),
 ) : NativeEvent(

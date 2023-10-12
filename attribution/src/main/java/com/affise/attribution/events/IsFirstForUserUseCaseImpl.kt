@@ -47,7 +47,11 @@ internal class IsFirstForUserUseCaseImpl(
      * Update IsFirstForUser
      */
     override fun updateWebEvent(event: String): String {
-        val eventJson = JSONObject(event)
+        val eventJson = try {
+            JSONObject(event)
+        } catch (_: Exception) {
+            JSONObject()
+        }
 
         val subType = eventJson
             .optJSONObject(Parameters.AFFISE_EVENT_DATA)

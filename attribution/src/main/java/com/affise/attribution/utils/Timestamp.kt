@@ -1,3 +1,3 @@
 package com.affise.attribution.utils
 
-fun timestamp(): Long = System.currentTimeMillis()
+inline fun timestamp(): Long = System.currentTimeMillis()

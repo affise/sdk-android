@@ -10,7 +10,7 @@ import com.affise.attribution.utils.timestamp
  * @property timeStampMillis the timestamp event in milliseconds.
  * @property userData any custom data.
  */
-class FindLocationEvent(
+class FindLocationEvent @JvmOverloads constructor(
     private val userData: String? = null,
     private val timeStampMillis: Long = timestamp(),
 ) : NativeEvent(

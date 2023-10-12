@@ -1,7 +1,6 @@
 package com.affise.app.application
 
 import android.content.SharedPreferences
-import android.util.Log
 import com.affise.app.dependencies.DaggerAppComponent
 import com.affise.attribution.Affise
 import com.affise.attribution.init.AffiseInitProperties
@@ -22,31 +21,44 @@ class App : DaggerApplication() {
 
         FirebaseApp.initializeApp(this)
 
+        // Initialize https://github.com/affise/sdk-android#initialize
         val props = AffiseInitProperties(
             affiseAppId = "129",
             secretKey = "93a40b54-6f12-443f-a250-ebf67c5ee4d2",
+            isProduction = false //To enable debug methods set Production to false
         )
 
         Affise.init(this, props)
 
+        // Get module status https://github.com/affise/sdk-android#get-module-state
 //        Affise.getStatus(AffiseModules.Status) {
-//            Log.d(this.javaClass.simpleName, "Status: $it")
-//        }
-//
-//        Affise.getReferrerValue(ReferrerKey.CAMPAIGN_ID) {
-//            Log.d(this.javaClass.simpleName, "Referrer CAMPAIGN_ID: $it")
-//        }
-//
-//        Affise.getReferrerValue(ReferrerKey.AD_ID) {
-//            Log.d(this.javaClass.simpleName, "Referrer AD_ID: $it")
+//            println("Status: $it")
 //        }
 
+        // Get referrer parameter https://github.com/affise/sdk-android#get-referrer-parameter
+//        Affise.getReferrerValue(ReferrerKey.AD_ID) {
+//            println("Referrer AD_ID: $it")
+//        }
+
+        // Get referrer https://github.com/affise/sdk-android#get-referrer
         Affise.getReferrer {
-            Log.d(this.javaClass.simpleName, "Referrer: $it")
+            println("Referrer: $it")
         }
 
+        // Get providers https://github.com/affise/sdk-android#get-providers
 //        val providers = Affise.getProviders().entries.associate { it.key.provider to it.value }
-//        Log.d(this.javaClass.simpleName, "Providers: ${JSONObject(providers).toString(4)}")
+//        println("Providers: ${JSONObject(providers).toString(4)}")
+
+        // Debug: Validate credentials https://github.com/affise/sdk-android#validate-credentials
+        Affise.Debug.validate {
+            println("Affise: validate = $it")
+        }
+
+        // Debug: network request/response
+        Affise.Debug.network { request, response ->
+            println("Affise: $request")
+            println("Affise: $response")
+        }
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> =

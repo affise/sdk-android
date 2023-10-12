@@ -2,7 +2,6 @@ package com.affise.attribution.internal
 
 import android.app.Application
 import com.affise.attribution.Affise
-import com.affise.attribution.InternalCrossPlatform
 import com.affise.attribution.events.autoCatchingClick.toAutoCatchingType
 import com.affise.attribution.internal.builder.AffiseBuilder
 import com.affise.attribution.internal.callback.AffiseResult
@@ -11,6 +10,7 @@ import com.affise.attribution.internal.events.EventFactory
 import com.affise.attribution.internal.ext.opt
 import com.affise.attribution.internal.ext.toAffiseInitProperties
 import com.affise.attribution.internal.ext.toListOfMap
+import com.affise.attribution.internal.platform.InternalCrossPlatform
 import com.affise.attribution.internal.utils.toJSONObject
 import com.affise.attribution.modules.toAffiseModules
 import com.affise.attribution.referrer.toReferrerKey
@@ -133,6 +133,12 @@ class AffiseApiWrapper(private val app: Application?) {
 
             AffiseApiMethod.REGISTER_DEEPLINK_CALLBACK ->
                 callRegisterDeeplinkCallback(api, map, result)
+
+            AffiseApiMethod.DEBUG_VALIDATE_CALLBACK ->
+                callDebugValidateCallback(api, map, result)
+
+            AffiseApiMethod.DEBUG_NETWORK_CALLBACK ->
+                callDebugNetworkCallback(api, map, result)
 
             AffiseApiMethod.AFFISE_BUILDER ->
                 callBuilder(api, map, result)
@@ -467,6 +473,48 @@ class AffiseApiWrapper(private val app: Application?) {
             )
             callback?.invoke(api, data)
             true
+        }
+        result.success(null)
+    }
+
+    private fun callDebugValidateCallback(
+        api: AffiseApiMethod,
+        map: Map<String, *>,
+        result: AffiseResult
+    ) {
+        val uuid = map.opt<String>(UUID)
+        Affise.Debug.validate {
+            val data = mapOf<String, Any?>(
+                UUID to uuid,
+                api.method to it.status,
+            )
+            callback?.invoke(api, data)
+        }
+        result.success(null)
+    }
+
+    private fun callDebugNetworkCallback(
+        api: AffiseApiMethod,
+        map: Map<String, *>,
+        result: AffiseResult
+    ) {
+        Affise.Debug.network { request, response ->
+            val data = mapOf<String, Any?>(
+                api.method to mapOf(
+                    "request" to mapOf(
+                        "method" to request.method.toString(),
+                        "url" to request.url.toString(),
+                        "headers" to request.headers,
+                        "body" to request.body,
+                    ),
+                    "response" to mapOf(
+                        "code" to response.code,
+                        "message" to response.message,
+                        "body" to response.body,
+                    ),
+                ),
+            )
+            callback?.invoke(api, data)
         }
         result.success(null)
     }

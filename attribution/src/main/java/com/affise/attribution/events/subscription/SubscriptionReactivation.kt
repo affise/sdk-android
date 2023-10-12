@@ -5,7 +5,7 @@ import org.json.JSONObject
 /**
  * Event ReactivatedSubscription use [data] of event and [userData]
  */
-class ReactivatedSubscriptionEvent(
+class ReactivatedSubscriptionEvent @JvmOverloads constructor(
     data: JSONObject,
     userData: String? = null
 ) : BaseSubscriptionEvent(data, userData) {
