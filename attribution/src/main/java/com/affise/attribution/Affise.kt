@@ -1,6 +1,7 @@
 package com.affise.attribution
 
 import android.app.Application
+import android.util.Log
 import android.webkit.WebView
 import com.affise.attribution.debug.network.DebugOnNetworkCallback
 import com.affise.attribution.debug.validate.DebugOnValidateCallback
@@ -18,6 +19,7 @@ import com.affise.attribution.parameters.ProviderType
 import com.affise.attribution.parameters.providers.PushTokenProvider
 import com.affise.attribution.parameters.providers.RandomUserIdProvider
 import com.affise.attribution.referrer.OnReferrerCallback
+import com.affise.attribution.settings.AffiseSettings
 
 /**
  * Entry point to initialise Affise Attribution library
@@ -30,19 +32,50 @@ object Affise {
     private var api: AffiseApi? = null
 
     /**
-     * Init [AffiseComponent] with [app] and [initProperties]
+     * Affise SDK settings builder
+     *
+     * To start SDK call .start(context)
+     *
+     * @param affiseAppId your app id
+     * @param secretKey your SDK secretKey
+     */
+    @JvmStatic
+    fun settings(affiseAppId: String, secretKey: String): AffiseSettings {
+        return AffiseSettings(
+            affiseAppId = affiseAppId,
+            secretKey = secretKey
+        )
+    }
+
+    /**
+     * Init [AffiseComponent]
      */
     @JvmStatic
     @Synchronized
-    fun init(
-        app: Application,
-        initProperties: AffiseInitProperties
-    ) {
+    internal fun start(initProperties: AffiseInitProperties, app: Application) {
         //Check creating AffiseComponent
         if (api == null) {
             //Create AffiseComponent
             api = AffiseComponent(app, initProperties)
+        } else {
+            Log.w(this.javaClass.simpleName,"Affise SDK is already initialized")
         }
+    }
+
+    /**
+     * Use [Affise.settings(affiseAppId, secretKey).start(context)][settings] instead
+     *
+     * Init [AffiseComponent] with [app] and [initProperties]
+     */
+    @Deprecated("Use Affise.settings(...).start(context)",
+        ReplaceWith("Affise\n\t.settings(\n\t\taffiseAppId, \n\t\tsecretKey\n\t)\n\t.start(context)", "com.affise.attribution.Affise.start"),
+    )
+    @JvmStatic
+    fun init(
+        app: Application,
+        initProperties: AffiseInitProperties
+    ) {
+        start(initProperties, app)
     }
 
     @JvmStatic

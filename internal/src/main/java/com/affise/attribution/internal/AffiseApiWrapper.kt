@@ -7,8 +7,10 @@ import com.affise.attribution.internal.builder.AffiseBuilder
 import com.affise.attribution.internal.callback.AffiseResult
 import com.affise.attribution.internal.callback.OnAffiseCallback
 import com.affise.attribution.internal.events.EventFactory
+import com.affise.attribution.internal.ext.addSettings
+import com.affise.attribution.internal.ext.getAppIdAndSecretKey
+import com.affise.attribution.internal.ext.isValid
 import com.affise.attribution.internal.ext.opt
-import com.affise.attribution.internal.ext.toAffiseInitProperties
 import com.affise.attribution.internal.ext.toListOfMap
 import com.affise.attribution.internal.platform.InternalCrossPlatform
 import com.affise.attribution.internal.utils.toJSONObject
@@ -157,14 +159,28 @@ class AffiseApiWrapper(private val app: Application?) {
             return
         }
 
-        val initProperties = map.opt<Map<*, *>>(api)
+        val properties = map.opt<Map<*, *>>(api)
 
-        if (initProperties == null) {
+        if (properties == null) {
             result.error("api [${api.method}]: no valid AffiseInitProperties")
             return
         }
 
-        Affise.init(app, initProperties.toAffiseInitProperties())
+        if (!properties.isValid()) {
+            result.error("api [${api.method}]: affiseAppId or secretKey is not set")
+            return
+        }
+
+        val (affiseAppId, secretKey) = properties.getAppIdAndSecretKey()
+
+        Affise
+            .settings(
+                affiseAppId = affiseAppId,
+                secretKey = secretKey
+            )
+            .addSettings(properties)
+            .start(app)
+
         InternalCrossPlatform.start()
         result.success(null)
     }

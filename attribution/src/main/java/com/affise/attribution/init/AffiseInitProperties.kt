@@ -1,6 +1,7 @@
 package com.affise.attribution.init
 
 import com.affise.attribution.events.autoCatchingClick.AutoCatchingType
+import com.affise.attribution.network.CloudConfig
 
 /**
  * Model that holds properties required on library init
@@ -14,7 +15,12 @@ data class AffiseInitProperties @JvmOverloads constructor(
     val secretKey: String? = null,
     val autoCatchingClickEvents: List<AutoCatchingType>? = null,
     val enabledMetrics: Boolean = false,
+    val domain: String? = CloudConfig.defaultDomain
 ) {
+
+    init {
+        CloudConfig.setupDomain(domain)
+    }
 
     constructor(
         affiseAppId: String,
@@ -28,7 +34,8 @@ data class AffiseInitProperties @JvmOverloads constructor(
         partParamNameToken = null,
         appToken = null,
         autoCatchingClickEvents = null,
-        enabledMetrics = false
+        enabledMetrics = false,
+        domain = CloudConfig.defaultDomain
     )
 
     constructor(

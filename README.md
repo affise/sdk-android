@@ -15,6 +15,7 @@
     - [Integrate as dependency](#integrate-as-dependency)
     - [Integrate as file dependency](#integrate-as-file-dependency)
     - [Initialize](#initialize)
+      - [Domain](#domain)
     - [Requirements](#requirements)
 - [Features](#features)
   - [ProviderType identifiers collection](#providertype-identifiers-collection)
@@ -82,12 +83,12 @@ For kotlin build script build.gradle.kts use:
 ```kotlin
 dependencies {
   // Add Affise library 
-  implementation("com.affise:attribution:1.6.18")
+  implementation("com.affise:attribution:1.6.19")
   // Add Affise modules 
-  implementation("com.affise:module-advertising:1.6.18")
-  implementation("com.affise:module-network:1.6.18")
-  implementation("com.affise:module-phone:1.6.18")
-  implementation("com.affise:module-status:1.6.18")
+  implementation("com.affise:module-advertising:1.6.19")
+  implementation("com.affise:module-network:1.6.19")
+  implementation("com.affise:module-phone:1.6.19")
+  implementation("com.affise:module-status:1.6.19")
   // Add install referrer
   implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -98,12 +99,12 @@ For groovy build script build.gradle use:
 ```groovy
 dependencies {
     // Add Affise library 
-    implementation 'com.affise:attribution:1.6.18'
+    implementation 'com.affise:attribution:1.6.19'
     // Add Affise modules 
-    implementation 'com.affise:module-advertising:1.6.18'
-    implementation 'com.affise:module-network:1.6.18'
-    implementation 'com.affise:module-phone:1.6.18'
-    implementation 'com.affise:module-status:1.6.18'
+    implementation 'com.affise:module-advertising:1.6.19'
+    implementation 'com.affise:module-network:1.6.19'
+    implementation 'com.affise:module-phone:1.6.19'
+    implementation 'com.affise:module-status:1.6.19'
     // Add install referrer
     implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -111,9 +112,9 @@ dependencies {
 
 ### Integrate as file dependency
 
-Download latest Affise SDK (`attribution-1.6.18.aar`)
+Download latest Affise SDK (`attribution-1.6.19.aar`)
 from [releases page](https://github.com/affise/sdk-android/releases) and place this binary to gradle application
-module lib directory `app/libs/attribution-1.6.18.aar`
+module lib directory `app/libs/attribution-1.6.19.aar`
 
 Add library as gradle file dependency to application module build script
 Add install referrer library
@@ -124,12 +125,12 @@ For kotlin build script build.gradle.kts use:
 dependencies {
     // ...
     // Add Affise library 
-    implementation(files("libs/attribution-1.6.18.aar"))
+    implementation(files("libs/attribution-1.6.19.aar"))
     // Add Affise modules 
-    implementation(files("libs/module-advertising-1.6.18.aar"))
-    implementation(files("libs/module-network-1.6.18.aar"))
-    implementation(files("libs/module-phone-1.6.18.aar"))
-    implementation(files("libs/module-status-1.6.18.aar"))
+    implementation(files("libs/module-advertising-1.6.19.aar"))
+    implementation(files("libs/module-network-1.6.19.aar"))
+    implementation(files("libs/module-phone-1.6.19.aar"))
+    implementation(files("libs/module-status-1.6.19.aar"))
     // Add install referrer
     implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -141,12 +142,12 @@ For groovy build script build.gradle use:
 dependencies {
   // ...  
   // Add Affise library 
-  implementation files('libs/attribution-1.6.18.aar')
+  implementation files('libs/attribution-1.6.19.aar')
   // Add Affise modules 
-  implementation files('libs/module-advertising-1.6.18.aar')
-  implementation files('libs/module-network-1.6.18.aar')
-  implementation files('libs/module-phone-1.6.18.aar')
-  implementation files('libs/module-status-1.6.18.aar')
+  implementation files('libs/module-advertising-1.6.19.aar')
+  implementation files('libs/module-network-1.6.19.aar')
+  implementation files('libs/module-phone-1.6.19.aar')
+  implementation files('libs/module-status-1.6.19.aar')
   // Add install referrer
   implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -162,14 +163,16 @@ For kotlin use:
 
 ```kotlin
 class App : Application() {
-  override fun onCreate() {
-    super.onCreate()
-    val properties = AffiseInitProperties(
-      "Your appId", //Change to your app id
-      "Your SDK secretKey", //Change to your SDK secretKey
-    )
-    Affise.init(this, properties)
-  }
+    override fun onCreate() {
+        super.onCreate()
+        
+        Affise
+            .settings(
+                affiseAppId = "Your appId", //Change to your app id
+                secretKey = "Your SDK secretKey", //Change to your SDK secretKey
+            )
+            .start(this) // Start Affise SDK
+    }
 }
 ```
 
@@ -177,16 +180,17 @@ For java use:
 
 ```java
 public class App extends Application {
-  @Override
-  public void onCreate() {
-    super.onCreate();
-
-    AffiseInitProperties properties = new AffiseInitProperties(
-            "Your appId", //Change to your app id
-            "Your SDK secretKey" //Change to your SDK secretKey
-    );
-    Affise.init(this, properties);
-  }
+    @Override
+    public void onCreate() {
+        super.onCreate();
+      
+        Affise
+            .settings(
+                "Your appId", //Change to your app id
+                "Your SDK secretKey" //Change to your SDK secretKey
+            )
+            .start(this); // Start Affise SDK
+    }
 }
 ```
 
@@ -194,6 +198,26 @@ Check if library is initialized
 
 ```kotlin
 Affise.isInitialized()
+```
+
+#### Domain
+
+Set SDK server domain:
+
+```kotlin
+class App : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        
+        Affise
+            .settings(
+                affiseAppId = "Your appId",
+                secretKey = "Your SDK secretKey",
+            )
+            .setDomain("https://YoureCustomDomain/") // Set custom domain
+            .start(this) // Start Affise SDK
+    }
+}
 ```
 
 ### Requirements
@@ -676,12 +700,13 @@ To integrate applink support you need:
 </intent-filter>
 ```
 
-- register applink callback right after Affise.init(..)
+- register applink callback right after `Affise.settings(..).start(..)`
 
 for kotlin:
 
 ```kotlin
-Affise.init(..)
+Affise.settings(affiseAppId, secretKey).start(context) // Start Affise SDK
+
 Affise.registerDeeplinkCallback { uri ->
   val value = uri.getQueryParameter("<your_uri_key>")
   if(value == "<your_uri_key_value>") {
@@ -710,7 +735,8 @@ Affise.registerDeeplinkCallback(uri -> {
 In some scenarios you would want to limit Affise network usage, to pause that activity call anywhere in your application following code after Affise init:
 
 ```kotlin
-Affise.init(..)
+Affise.settings(affiseAppId, secretKey).start(context) // Start Affise SDK
+
 Affise.setOfflineModeEnabled(true) // to enable offline mode
 Affise.setOfflineModeEnabled(false) // to disable offline mode
 ```
@@ -728,7 +754,8 @@ Affise.isOfflineModeEnabled() // returns true or false describing current tracki
 To disable any tracking activity, storing events and gathering device identifiers and metrics call anywhere in your application following code after Affise init:
 
 ```kotlin
-Affise.init(..)
+Affise.settings(affiseAppId, secretKey).start(context) // Start Affise SDK
+
 Affise.setTrackingEnabled(true) // to enable tracking
 Affise.setTrackingEnabled(false) // to disable tracking
 ```
@@ -748,7 +775,8 @@ Affise.isTrackingEnabled() // returns true or false describing current tracking 
 To disable any background tracking activity, storing events and gathering device identifiers and metrics call anywhere in your application following code after Affise init:
 
 ```kotlin
-Affise.init(..)
+Affise.settings(affiseAppId, secretKey).start(context) // Start Affise SDK
+
 Affise.setBackgroundTrackingEnabled(true) // to enable background tracking
 Affise.setBackgroundTrackingEnabled(false) // to disable background tracking
 ```
@@ -769,7 +797,8 @@ Under the EU's General Data Protection Regulation (GDPR): An individual has the 
 To provide this functionality to user, as the app developer, you can call
 
 ```kotlin
-Affise.init(..)
+Affise.settings(affiseAppId, secretKey).start(context) // Start Affise SDK
+
 Affise.forget() // to forget users data
 ```
 
@@ -777,7 +806,8 @@ After processing such request our backend servers will delete all users data.
 To prevent library from generating new events, disable tracking just before calling Affise.forget:
 
 ```kotlin
-Affise.init(..)
+Affise.settings(affiseAppId, secretKey).start(context) // Start Affise SDK
+
 Affise.setTrackingEnabled(false)
 Affise.forget() // to forget users data
 ```
@@ -1189,11 +1219,13 @@ Validate your credentials by receiving `ValidationStatus` values:
 - `NETWORK_ERROR` - network or server not available (for example `Airoplane mode` is active)
 
 ```kotlin
-Affise.init(this, AffiseInitProperties(
-  "Your appId",
-  "Your SDK secretKey",
-  false, //To enable debug methods set Production to false
-))
+Affise
+  .settings(
+    affiseAppId = "Your appId",
+    secretKey = "Your SDK secretKey"
+  )
+  .setProduction(false) //To enable debug methods set Production to false
+  .start(this) // Start Affise SDK
 
 Affise.Debug.validate { status ->
     // Handle validation status

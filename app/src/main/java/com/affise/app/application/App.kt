@@ -3,7 +3,6 @@ package com.affise.app.application
 import android.content.SharedPreferences
 import com.affise.app.dependencies.DaggerAppComponent
 import com.affise.attribution.Affise
-import com.affise.attribution.init.AffiseInitProperties
 import com.affise.attribution.modules.AffiseModules
 import com.google.firebase.FirebaseApp
 import dagger.android.AndroidInjector
@@ -22,13 +21,16 @@ class App : DaggerApplication() {
         FirebaseApp.initializeApp(this)
 
         // Initialize https://github.com/affise/sdk-android#initialize
-        val props = AffiseInitProperties(
-            affiseAppId = "129",
-            secretKey = "93a40b54-6f12-443f-a250-ebf67c5ee4d2",
-            isProduction = false //To enable debug methods set Production to false
-        )
-
-        Affise.init(this, props)
+        Affise
+            .settings(
+                affiseAppId = "129",
+                secretKey = "93a40b54-6f12-443f-a250-ebf67c5ee4d2"
+            )
+            .setProduction(false) //To enable debug methods set Production to false
+            // Custom domain example
+            // Url trailing slash is irrelevant
+            .setDomain("https://tracking.affattr.com")
+            .start(this) // Start Affise SDK
 
         // Get module status https://github.com/affise/sdk-android#get-module-state
 //        Affise.getStatus(AffiseModules.Status) {

@@ -26,6 +26,7 @@ class CheckStatusUseCaseImpl(
 ) : CheckStatusUseCase {
 
     private val providers: List<Provider> = affiseModule.getRequestProviders()
+    private val url: String = CloudConfig.getURL(PATH)
 
     @Synchronized
     override fun send(onComplete: OnKeyValueCallback) {
@@ -59,7 +60,7 @@ class CheckStatusUseCaseImpl(
                     //Log error
                     logsManager.addSdkError(
                         CloudException(
-                            URL,
+                            url,
                             NetworkException(response.code, response.body ?: ""),
                             ATTEMPTS_TO_SEND,
                             true
@@ -75,7 +76,7 @@ class CheckStatusUseCaseImpl(
     private fun createRequest(): HttpResponse {
         //Create request
         return httpClient.executeRequest(
-            URL(URL),
+            URL(url),
             HttpClient.Method.POST,
             converter.convert(providers),
             CloudConfig.headers
@@ -86,6 +87,6 @@ class CheckStatusUseCaseImpl(
         private const val TIME_DELAY_SENDING: Long = 5000L
         private const val ATTEMPTS_TO_SEND = 30
 
-        const val URL = "https://tracking.affattr.com/check_status"
+        const val PATH = "check_status"
     }
 }

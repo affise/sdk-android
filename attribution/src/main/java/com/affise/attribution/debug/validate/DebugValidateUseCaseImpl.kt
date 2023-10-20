@@ -24,6 +24,7 @@ internal class DebugValidateUseCaseImpl(
 ) : DebugValidateUseCase {
 
     private val providers: List<Provider> = postBackModelFactory.getRequestProviders()
+    private val url: String = CloudConfig.getURL(PATH)
 
     @Synchronized
     override fun validate(onComplete: DebugOnValidateCallback) {
@@ -67,7 +68,7 @@ internal class DebugValidateUseCaseImpl(
     private fun createRequest(): HttpResponse {
         //Create request
         return httpClient.executeRequest(
-            URL(URL),
+            URL(url),
             HttpClient.Method.POST,
             converter.convert(providers),
             CloudConfig.headers
@@ -98,7 +99,6 @@ internal class DebugValidateUseCaseImpl(
         if( response.code == HttpsURLConnection.HTTP_OK) {
             return ValidationStatus.VALID
         }
-
         return null
     }
 
@@ -111,6 +111,6 @@ internal class DebugValidateUseCaseImpl(
         private const val TIME_DELAY_SENDING: Long = 5000L
         private const val ATTEMPTS_TO_SEND = 2
 
-        const val URL = "https://tracking.affattr.com/postback/validate"
+        const val PATH = "postback/validate"
     }
 }
