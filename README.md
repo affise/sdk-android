@@ -1207,7 +1207,12 @@ fun onAdRevenuePaid(impressionData: AdMostImpressionData) {
 ## Validate credentials
 
 > **Warning**
+> 
+> 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
+> 
 > Debug methods WON'T work on Production
+>
+> 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
 
 Validate your credentials by receiving `ValidationStatus` values:
 
