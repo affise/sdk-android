@@ -696,7 +696,7 @@ To integrate applink support you need:
   <category android:name="android.intent.category.DEFAULT" />
   <category android:name="android.intent.category.BROWSABLE" />
   <data android:scheme="https" />
-  <data android:host="YOUR_AFFISE_APP_ID.affattr.com" />
+  <data android:host="YOUR_DOMAIN" />
 </intent-filter>
 ```
 
