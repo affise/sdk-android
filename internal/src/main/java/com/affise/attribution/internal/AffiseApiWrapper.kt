@@ -43,7 +43,7 @@ class AffiseApiWrapper(private val app: Application?) {
     }
 
     fun handleDeeplink(uri: String?) {
-        InternalCrossPlatform.deeplink(uri)
+        InternalCrossPlatform.deeplink(uri ?: "")
     }
 
     fun react() {

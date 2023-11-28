@@ -8,8 +8,7 @@ object InternalCrossPlatform {
     private fun api() = Affise.getApi()
 
     @JvmStatic
-    fun deeplink(url: String?) {
-        url ?: return
+    fun deeplink(url: String) {
         api()?.deeplinkManager?.handleDeeplink(Uri.parse(url))
     }
 

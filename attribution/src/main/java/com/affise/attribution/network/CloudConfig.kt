@@ -5,7 +5,7 @@ import android.net.Uri
 object CloudConfig {
 
     internal const val defaultDomain: String = "https://tracking.affattr.com/"
-    private const val urn: String = "postback"
+    private const val path: String = "postback"
 
     private var domain: String = defaultDomain
 
@@ -13,7 +13,7 @@ object CloudConfig {
      * Urls for send data
      */
     private var urls: List<String> = listOf(
-        "${domain}${urn}"
+        "${domain}${path}"
     )
 
     val headers: Map<String, String> = mapOf(
@@ -28,7 +28,7 @@ object CloudConfig {
         this.domain = if (domain.endsWith("/")) domain else "$domain/"
 
         urls = listOf(
-            getURL(urn)
+            getURL(path)
         )
     }
 

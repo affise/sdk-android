@@ -5,14 +5,14 @@ import com.affise.attribution.parameters.base.StringPropertyProvider
 import com.affise.attribution.usecase.RemarketingUseCase
 
 /**
- * Provider for parameter [ProviderType.LANGUAGE]
+ * Provider for parameter [ProviderType.DEVICE]
  */
-internal class LanguageProvider(
+internal class DeviceProvider(
     private val useCase: RemarketingUseCase
 ) : StringPropertyProvider() {
 
-    override val order: Float = 40.0f
-    override val key: ProviderType = ProviderType.LANGUAGE
+    override val order: Float = 69.0f
+    override val key: ProviderType = ProviderType.DEVICE
 
-    override fun provide(): String = useCase.locale
+    override fun provide(): String = useCase.device
 }

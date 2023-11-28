@@ -15,6 +15,7 @@ import com.affise.attribution.parameters.providers.*
 import com.affise.attribution.session.SessionManager
 import com.affise.attribution.usecase.FirstAppOpenUseCase
 import com.affise.attribution.usecase.DeviceUseCase
+import com.affise.attribution.usecase.RemarketingUseCase
 import com.affise.attribution.usecase.RetrieveInstallReferrerUseCase
 import com.affise.attribution.utils.SystemAppChecker
 
@@ -34,6 +35,7 @@ internal class PropertiesProviderFactory(
     private val logsManager: LogsManager,
     private val deeplinkClickRepository: DeeplinkClickRepository,
     private val deviceUseCase: DeviceUseCase,
+    private val remarketingUseCase: RemarketingUseCase,
 ) {
 
     fun create(): PostBackModelFactory {
@@ -86,7 +88,7 @@ internal class PropertiesProviderFactory(
                 MNCProvider(app),
                 RegionProvider(),
                 CountryProvider(),
-                LanguageProvider(),
+                LanguageProvider(remarketingUseCase),
                 DeviceNameProvider(app),
                 DeviceTypeProvider(app),
                 OsNameProvider(buildConfigPropertiesProvider),
@@ -113,6 +115,9 @@ internal class PropertiesProviderFactory(
                 EmptyStringProvider(ProviderType.LABEL, 62.0f),
 //                AffSDKSecretIdProvider(initPropertiesStorage),
                 PushTokenProvider(sharedPreferences),
+                OsAndVersionProvider(remarketingUseCase),
+                DeviceProvider(remarketingUseCase),
+                BuildProvider(remarketingUseCase),
             )
         )
     }

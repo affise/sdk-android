@@ -70,6 +70,7 @@ internal class AffiseComponent(
             logsManager,
             isDeeplinkClickRepository,
             deviceUseCase,
+            remarketingUseCase
         ).create()
     }
 
@@ -271,6 +272,13 @@ internal class AffiseComponent(
      */
     private val deviceUseCase: DeviceUseCase by lazy {
         DeviceUseCaseImpl()
+    }
+
+    /**
+     * Provides [RemarketingUseCase]
+     */
+    private val remarketingUseCase: RemarketingUseCase by lazy {
+        RemarketingUseCaseImpl()
     }
 
     /**

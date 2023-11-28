@@ -83,6 +83,11 @@ enum class ProviderType(val provider: String) {
     IS_ROOTED("is_rooted"),
     IS_EMULATOR("is_emulator"),
 
+    // remarketing
+    OS_AND_VERSION("os_and_version"),
+    DEVICE("device"),
+    BUILD("build"),
+
     // advertising
     GAID_ADID("gaid_adid"),
     GAID_ADID_MD5("gaid_adid_md5"),
