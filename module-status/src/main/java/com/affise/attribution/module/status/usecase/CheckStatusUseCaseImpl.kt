@@ -18,7 +18,7 @@ import java.net.URL
 
 class CheckStatusUseCaseImpl(
     affiseModule: AffiseModule,
-    private val logsManager: LogsManager,
+    private val logsManager: LogsManager?,
     private val httpClient: HttpClient,
     private val sendServiceProvider: ExecutorServiceProvider,
     private val converter: ProvidersToJsonStringConverter,
@@ -58,7 +58,7 @@ class CheckStatusUseCaseImpl(
 
                     onComplete.handle(emptyList())
                     //Log error
-                    logsManager.addSdkError(
+                    logsManager?.addSdkError(
                         CloudException(
                             url,
                             NetworkException(response.code, response.body ?: ""),

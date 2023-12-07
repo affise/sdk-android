@@ -10,54 +10,50 @@ import com.affise.attribution.parameters.base.getRequestProviders
 abstract class AffiseModule {
 
     protected var application: Application? = null
+    protected var logsManager: LogsManager? = null
     var dependencies: List<Any>? = null
+        private set
     var baseProviders: List<Provider>? = null
+        private set
 
-    fun init(
+    open val isManual: Boolean = false
+
+    fun dependencies(
         application: Application,
         logsManager: LogsManager,
         dependencies: List<Any>,
         providers: List<Provider>
     ) {
         this.dependencies = dependencies
+        this.logsManager = logsManager
         this.application = application
         this.baseProviders = providers
-        init(logsManager)
     }
 
-    fun init(
-        application: Application,
-        logsManager: LogsManager,
-        dependencies: List<Any>
-    ) {
-        init(
-            application = application,
-            logsManager = logsManager,
-            dependencies = dependencies,
-            providers = emptyList()
-        )
-    }
+    abstract fun start()
 
-    abstract fun init(logsManager: LogsManager)
-
-    abstract fun providers(): List<PropertyProvider<*>>
+    open fun providers(): List<PropertyProvider<*>> = emptyList()
 
     open fun status(onComplete: OnKeyValueCallback) {
-        onComplete.handle(listOf(
-            AffiseKeyValue(key = "state", value = "enabled")
-        ))
+        onComplete.handle(
+            listOf(
+                AffiseKeyValue(key = "state", value = "enabled")
+            )
+        )
     }
 
     inline fun <reified T> get(): T? {
         return dependencies?.firstOrNull { it is T } as? T
     }
-    inline fun <reified T: Provider> getProvider(): T? {
+
+    inline fun <reified T : Provider> getProvider(): T? {
         return baseProviders?.firstOrNull { it is T } as? T
     }
 
     fun getProviders(types: List<Class<out Provider>>): List<Provider> {
         return baseProviders?.getProviders(types) ?: emptyList()
     }
+
     fun getRequestProviders(): List<Provider> {
         return baseProviders?.getRequestProviders() ?: emptyList()
     }

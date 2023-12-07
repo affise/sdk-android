@@ -1,10 +1,9 @@
 package com.affise.attribution.module.phone
 
-import com.affise.attribution.modules.AffiseModule
-import com.affise.attribution.logs.LogsManager
-import com.affise.attribution.parameters.base.PropertyProvider
 import com.affise.attribution.module.phone.parameters.IspNameProvider
 import com.affise.attribution.module.phone.parameters.NetworkTypeProvider
+import com.affise.attribution.modules.AffiseModule
+import com.affise.attribution.parameters.base.PropertyProvider
 
 class PhoneModule : AffiseModule() {
 
@@ -20,11 +19,14 @@ class PhoneModule : AffiseModule() {
         }
     }
 
-    override fun init( logsManager: LogsManager) {
+    private var providers: List<PropertyProvider<*>> = emptyList()
+
+    override fun start() {
+        providers = listOfNotNull(
+            ispNameProvider,
+            networkTypeProvider,
+        )
     }
 
-    override fun providers(): List<PropertyProvider<*>> = listOfNotNull(
-        ispNameProvider,
-        networkTypeProvider,
-    )
+    override fun providers(): List<PropertyProvider<*>> = providers
 }

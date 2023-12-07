@@ -14,5 +14,5 @@ internal class LanguageProvider(
     override val order: Float = 40.0f
     override val key: ProviderType = ProviderType.LANGUAGE
 
-    override fun provide(): String = useCase.locale
+    override fun provide(): String = useCase.locale()
 }

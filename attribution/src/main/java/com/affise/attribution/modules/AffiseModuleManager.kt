@@ -14,22 +14,50 @@ internal class AffiseModuleManager(
     private var modules: MutableMap<AffiseModules, AffiseModule> = mutableMapOf()
 
     fun init(dependencies: List<Any>) {
-        AffiseModules.values().forEach { module ->
-            getClass(module.module)?.let {
-                it.init(application, logsManager, dependencies, postBackModelFactory.getProviders())
-                postBackModelFactory.addProviders(it.providers())
-                modules[module] = it
+        initAffiseModules { module ->
+            module.dependencies(
+                application,
+                logsManager,
+                dependencies,
+                postBackModelFactory.getProviders()
+            )
+
+            if (!module.isManual) {
+                moduleStart(module)
             }
         }
     }
 
+    fun manualStart(module: AffiseModules) {
+        getModule(module)?.let {
+            if (!it.isManual) return
+            moduleStart(it)
+        }
+    }
+
     fun status(module: AffiseModules, onComplete: OnKeyValueCallback) {
-        modules[module]?.status(onComplete) ?: onComplete.handle(emptyList())
+        getModule(module)?.status(onComplete) ?: onComplete.handle(emptyList())
     }
 
     private fun getClass(className: String): AffiseModule? = try {
         Class.forName(className).newInstance() as? AffiseModule
     } catch (_: Exception) {
         null
+    }
+
+    private fun moduleStart(module: AffiseModule) {
+        module.start()
+        postBackModelFactory.addProviders(module.providers())
+    }
+
+    private fun getModule(module: AffiseModules): AffiseModule? = modules[module]
+
+    private fun initAffiseModules(callback: (AffiseModule) -> Unit) {
+        AffiseModules.values().forEach { name ->
+            getClass(name.module)?.let { module ->
+                modules[name] = module
+                callback(module)
+            }
+        }
     }
 }

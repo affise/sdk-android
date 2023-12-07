@@ -250,6 +250,14 @@ object Affise {
     }
 
     /**
+     * Manual module start
+     */
+    @JvmStatic
+    fun moduleStart(module: AffiseModules) {
+        api?.moduleManager?.manualStart(module)
+    }
+
+    /**
      * Get random User Id
      */
     @JvmStatic
