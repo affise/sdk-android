@@ -66,6 +66,7 @@ class AffiseApiWrapper(private val app: Application?) {
             AffiseApiMethod.IS_INITIALIZED ->
                 callIsInitialized(api, map, result)
 
+//          Deprecated
             AffiseApiMethod.SEND_EVENTS ->
                 callSendEvents(api, map, result)
 
@@ -125,6 +126,9 @@ class AffiseApiWrapper(private val app: Application?) {
 
             AffiseApiMethod.MODULE_START ->
                 callModuleStart(api, map, result)
+
+            AffiseApiMethod.GET_MODULES_INSTALLED ->
+                callGetModulesInstalled(api, map, result)
 
             AffiseApiMethod.GET_REFERRER_CALLBACK ->
                 callGetReferrer(api, map, result)
@@ -197,6 +201,7 @@ class AffiseApiWrapper(private val app: Application?) {
         }
     }
 
+//    Deprecated
     private fun callSendEvents(
         api: AffiseApiMethod,
         map: Map<String, *>,
@@ -428,9 +433,16 @@ class AffiseApiWrapper(private val app: Application?) {
         if (module == null) {
             result.error("api [${api.method}]: no valid AffiseModules")
         } else {
-            Affise.moduleStart(module)
-            result.success(null)
+            result.success(Affise.moduleStart(module))
         }
+    }
+
+    private fun callGetModulesInstalled(
+        api: AffiseApiMethod,
+        map: Map<String, *>,
+        result: AffiseResult
+    ) {
+        result.success(Affise.getModulesInstalled().map { it.name })
     }
 
     private fun callGetReferrer(

@@ -62,22 +62,6 @@ object Affise {
         }
     }
 
-    /**
-     * Use [Affise.settings(affiseAppId, secretKey).start(context)][settings] instead
-     *
-     * Init [AffiseComponent] with [app] and [initProperties]
-     */
-    @Deprecated("Use Affise.settings(...).start(context)",
-        ReplaceWith("Affise\n\t.settings(\n\t\taffiseAppId, \n\t\tsecretKey\n\t)\n\t.start(context)", "com.affise.attribution.Affise.start"),
-    )
-    @JvmStatic
-    fun init(
-        app: Application,
-        initProperties: AffiseInitProperties
-    ) {
-        start(initProperties, app)
-    }
-
     @JvmStatic
     fun isInitialized(): Boolean {
         return api?.isInitialized() ?: false
@@ -86,6 +70,7 @@ object Affise {
     /**
      * Send events
      */
+    @Deprecated("This method will be removed")
     @JvmStatic
     fun sendEvents() {
         api?.eventsManager?.sendEvents()
@@ -253,8 +238,16 @@ object Affise {
      * Manual module start
      */
     @JvmStatic
-    fun moduleStart(module: AffiseModules) {
-        api?.moduleManager?.manualStart(module)
+    fun moduleStart(module: AffiseModules): Boolean {
+        return api?.moduleManager?.manualStart(module) ?: false
+    }
+
+    /**
+     * Get installed modules
+     */
+    @JvmStatic
+    fun getModulesInstalled(): List<AffiseModules> {
+        return api?.moduleManager?.getModules() ?: emptyList()
     }
 
     /**

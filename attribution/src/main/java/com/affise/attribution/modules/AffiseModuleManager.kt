@@ -28,15 +28,21 @@ internal class AffiseModuleManager(
         }
     }
 
-    fun manualStart(module: AffiseModules) {
+    fun manualStart(module: AffiseModules) : Boolean {
         getModule(module)?.let {
-            if (!it.isManual) return
+            if (!it.isManual) return false
             moduleStart(it)
+            return true
         }
+        return false
     }
 
     fun status(module: AffiseModules, onComplete: OnKeyValueCallback) {
-        getModule(module)?.status(onComplete) ?: onComplete.handle(emptyList())
+        getModule(module)?.status(onComplete) ?: onComplete.handle(listOf(AffiseKeyValue(module.name, "not found")))
+    }
+
+    fun getModules(): List<AffiseModules> {
+        return modules.map { it.key }
     }
 
     private fun getClass(className: String): AffiseModule? = try {

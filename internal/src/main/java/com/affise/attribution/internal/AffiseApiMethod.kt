@@ -3,6 +3,7 @@ package com.affise.attribution.internal
 enum class AffiseApiMethod(val method: String) {
     INIT("init"),
     IS_INITIALIZED("is_initialized"),
+//    Deprecated
     SEND_EVENTS("send_events"),
     SEND_EVENT("send_event"),
     ADD_PUSH_TOKEN("add_push_token"),
@@ -23,6 +24,7 @@ enum class AffiseApiMethod(val method: String) {
     GET_RANDOM_DEVICE_ID("get_random_device_id"),
     GET_PROVIDERS("get_providers"),
     MODULE_START("module_start"),
+    GET_MODULES_INSTALLED("get_modules_installed"),
 
     // callback methods
     GET_REFERRER_CALLBACK("get_referrer_callback"),

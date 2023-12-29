@@ -33,7 +33,13 @@ enum class ReferrerKey(val type: String) {
     SUB_2("sub2"),
     SUB_3("sub3"),
     SUB_4("sub4"),
-    SUB_5("sub5");
+    SUB_5("sub5"),
+    AFFISE_SUB_1("affise_sub1"),
+    AFFISE_SUB_2("affise_sub2"),
+    AFFISE_SUB_3("affise_sub3"),
+    AFFISE_SUB_4("affise_sub4"),
+    AFFISE_SUB_5("affise_sub5");
+
     companion object {
         @JvmStatic
         fun from(name: String?): ReferrerKey? = name?.let { type ->
