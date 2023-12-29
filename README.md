@@ -223,6 +223,14 @@ class App : Application() {
 
 ### Modules
 
+> **Warning**
+>
+> 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
+> 
+> How to install modules read in [Integration section](#integration)
+> 
+> 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
+
 | Module        | Version                                                                                                                                                                      | Start  |
 |:--------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------:|
 | `Advertising` | [![module-advertising](https://img.shields.io/maven-central/v/com.affise/module-advertising?label=latest)](https://mvnrepository.com/artifact/com.affise/module-advertising) | `Auto` |
