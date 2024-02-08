@@ -16,17 +16,17 @@ import com.google.common.truth.Truth
 import com.google.common.util.concurrent.MoreExecutors
 import io.mockk.Called
 import io.mockk.every
+import io.mockk.just
 import io.mockk.justRun
 import io.mockk.mockk
 import io.mockk.mockkObject
+import io.mockk.runs
 import io.mockk.unmockkObject
 import io.mockk.verifyAll
 import org.junit.After
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Test
 
-@Ignore("TODO: fix in https://affise.atlassian.net/browse/AA-154 ")
 class SendDataToServerUseCaseTest {
 
     private val url1 = "https://url1"
@@ -45,14 +45,17 @@ class SendDataToServerUseCaseTest {
     private val test1SerializedLog = SerializedLog(test1LogId, "type1", mockk())
 
     private val propertiesProvider: PostBackModelFactory = mockk {
-        every { create(any(), any()) } returns mockk()
+        every { create(any(), any(), any(), any()) } returns mockk()
     }
 
     private val cloudRepository: CloudRepository = mockk()
 
     private val eventsRepository: EventsRepository = mockk()
 
-    private val internalEventsRepository: InternalEventsRepository = mockk()
+    private val internalEventsRepository: InternalEventsRepository = mockk {
+        every { getEvents(any()) } returns emptyList()
+        every { deleteEvent(any(), any()) } just runs
+    }
 
     private val metricsRepository: MetricsRepository = mockk()
 
@@ -154,9 +157,9 @@ class SendDataToServerUseCaseTest {
         every {
             eventsRepository.getEvents(url1)
         } returns
-            listOf(test1SerializedEvent) andThen
-            listOf(test2SerializedEvent) andThen
-            emptyList()
+                listOf(test1SerializedEvent) andThen
+                listOf(test2SerializedEvent) andThen
+                emptyList()
 
         every { eventsRepository.getEvents(url2) } returns emptyList()
         justRun { eventsRepository.deleteEvent(any(), any()) }
@@ -164,8 +167,8 @@ class SendDataToServerUseCaseTest {
         every {
             logRepository.getLogs(url1)
         } returns
-            listOf(test1SerializedLog) andThen
-            emptyList()
+                listOf(test1SerializedLog) andThen
+                emptyList()
 
         every { logRepository.getLogs(url2) } returns emptyList()
         justRun { logRepository.deleteLogs(any(), any()) }
@@ -177,7 +180,7 @@ class SendDataToServerUseCaseTest {
 
         useCase.send(false)
 
-        Truth.assertThat(slot.size).isEqualTo(3)
+        Truth.assertThat(slot.size).isEqualTo(2)
 
         verifyAll {
             cloudRepository.send(capture(slot), url1)

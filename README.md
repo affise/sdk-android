@@ -504,6 +504,13 @@ Use any of custom events if default doesn't fit your scenario:
 - `CustomId09`
 - `CustomId10`
 
+If above event functionality still limits your usecase, you can use `UserCustomEvent`
+
+```kotlin
+UserCustomEvent("MyCustomEvent")
+    .send() 
+```
+
 ## Predefined event parameters
 
 To enrich your event with another dimension, you can use predefined parameters for most common cases.
