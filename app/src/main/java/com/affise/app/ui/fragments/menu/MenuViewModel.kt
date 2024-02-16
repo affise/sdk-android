@@ -19,8 +19,13 @@ class MenuViewModel @Inject constructor() : ViewModel(), MenuContract.ViewModel 
             R.navigation.test_buttons
         ),
         Menu.MenuItem(
+            R.drawable.ic_menu_buttons,
+            R.string.menu_api,
+            R.navigation.api
+        ),
+        Menu.MenuItem(
             R.drawable.ic_menu_auto_cathing,
-            R.string.menu_test_auto_cathing,
+            R.string.menu_test_auto_catching,
             R.navigation.test_auto_cathing
         ),
         Menu.MenuItem(R.drawable.ic_menu_metrics, R.string.menu_test_metrics, R.navigation.metrics),

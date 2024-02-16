@@ -132,3 +132,20 @@ jobs:
 #          asset_path: internal/build/outputs/aar/internal-release.aar
 #          asset_name: internal-${{ steps.version_tag.outputs.VERSION }}.aar
 #          asset_content_type: application/aar
+
+      - name: Build Demo App
+        if: ${{ !cancelled() }}
+        run: |
+          ./gradlew :app:assembleDebug --no-daemon --no-parallel
+
+      - name: Upload Demo App 🗳
+        if: ${{ !cancelled() }}
+        id: upload-demo-app-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: app/build/outputs/apk/debug/app-debug.apk
+          asset_name: Affise-Demo-${{ steps.version_tag.outputs.VERSION }}.apk
+          asset_content_type: application/vnd.android.package-archive

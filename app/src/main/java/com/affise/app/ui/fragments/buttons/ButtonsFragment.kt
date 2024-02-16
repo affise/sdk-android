@@ -1,5 +1,6 @@
 package com.affise.app.ui.fragments.buttons
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebViewClient
 import androidx.core.view.isVisible
+import com.affise.app.R
 import com.affise.app.databinding.FragmentMainButtonsBinding
 import com.affise.app.extensions.hideKeyboard
 import com.affise.app.ui.activity.main.MenuHolder
@@ -28,6 +30,7 @@ class ButtonsFragment : DaggerFragment() {
 
     lateinit var binding: FragmentMainButtonsBinding
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,17 +50,9 @@ class ButtonsFragment : DaggerFragment() {
 
         tabEvents.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                when (tab?.text) {
-                    "events" -> {
-                        binding.eventsRecyclerView.isVisible = true
-                        binding.webView.isVisible = false
-                    }
-                    "Web events" -> {
-                        binding.eventsRecyclerView.isVisible = false
-                        binding.webView.isVisible = true
-                    }
-                    else -> Unit
-                }
+                val tabText = tab?.text ?: ""
+                binding.eventsRecyclerView.isVisible = tabText == resources.getString(R.string.events)
+                binding.webView.isVisible = tabText == resources.getString(R.string.web_events)
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {

@@ -8,8 +8,8 @@ class DebugNetworkUseCaseImpl(
     private val httpClient: HttpClient
 ) : DebugNetworkUseCase {
 
-    override fun onRequest(onDebug: DebugOnNetworkCallback) {
+    override fun onRequest(onComplete: DebugOnNetworkCallback) {
         if (initProperties.isProduction) return
-        httpClient.debugRequest = onDebug
+        httpClient.debugRequest = onComplete
     }
 }

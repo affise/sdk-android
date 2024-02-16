@@ -2,6 +2,7 @@ package com.affise.app.dependencies.fragments
 
 import com.affise.app.dependencies.fragments.modules.*
 import com.affise.app.dependencies.scope.FragmentScope
+import com.affise.app.ui.fragments.api.ApiFragment
 import com.affise.app.ui.fragments.autoCatching.AutoCatchingFragment
 import com.affise.app.ui.fragments.buttons.ButtonsFragment
 import com.affise.app.ui.fragments.cart.CartFragment
@@ -52,4 +53,8 @@ abstract class FragmentModule {
     @FragmentScope
     @ContributesAndroidInjector(modules = [MetricsFragmentModule::class])
     abstract fun metricsFragment(): MetricsFragment
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [ApiFragmentModule::class])
+    abstract fun apiFragment(): ApiFragment
 }

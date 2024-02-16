@@ -2,6 +2,7 @@ package com.affise.app.dependencies.models
 
 import androidx.lifecycle.ViewModel
 import com.affise.app.ui.activity.main.MainActivityViewModel
+import com.affise.app.ui.fragments.api.ApiViewModel
 import com.affise.app.ui.fragments.autoCatching.AutoCatchingViewModel
 import com.affise.app.ui.fragments.buttons.ButtonsViewModel
 import com.affise.app.ui.fragments.cart.CartViewModel
@@ -67,4 +68,9 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(MetricsViewModel::class)
     fun metricsViewModel(viewModel: MetricsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ApiViewModel::class)
+    fun apiViewModel(viewModel: ApiViewModel): ViewModel
 }

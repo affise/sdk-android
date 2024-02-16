@@ -37,15 +37,40 @@ class SettingsFragment : DaggerFragment() {
             menuHolder.changeMenuSate()
         }
 
-        binding.save.setOnClickListener {
-            viewModel.setSecretId(binding.secretIdValue.text.toString())
+        viewModel.affiseAppId.observe(viewLifecycleOwner, binding.affiseAppIdValue::setText)
+        viewModel.secretKey.observe(viewLifecycleOwner, binding.secretIdValue::setText)
+        viewModel.domain.observe(viewLifecycleOwner, binding.domainValue::setText)
 
-            binding.secretIdValue.setText("")
+        binding.save.setOnClickListener {
+            viewModel.setAffiseAppId(binding.affiseAppIdValue.text.toString())
+            viewModel.setSecretKey(binding.secretIdValue.text.toString())
+            viewModel.setDomain(binding.domainValue.text.toString())
 
             AlertDialog.Builder(requireContext())
-                .setMessage(R.string.change_secrat_id_complate)
+                .setMessage(R.string.change_complete)
                 .setPositiveButton(R.string.ok, null)
                 .show()
+        }
+
+        binding.setDebugSwitch.apply {
+            viewModel.debugModeState.observe(viewLifecycleOwner, ::setChecked)
+            setOnClickListener {
+                viewModel.setDebug(isChecked)
+            }
+        }
+
+        binding.logDebugRequestSwitch.apply {
+            viewModel.debugLogRequestState.observe(viewLifecycleOwner, ::setChecked)
+            setOnClickListener {
+                viewModel.debugLogRequest(isChecked)
+            }
+        }
+
+        binding.logDebugResponseSwitch.apply {
+            viewModel.debugLogResponseState.observe(viewLifecycleOwner, ::setChecked)
+            setOnClickListener {
+                viewModel.debugLogResponse(isChecked)
+            }
         }
 
         binding.setOfflineModeSwitch.apply {

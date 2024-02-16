@@ -6,18 +6,31 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.affise.app.application.App
 import com.affise.attribution.Affise
-import com.google.android.gms.tasks.Task
 import com.google.firebase.messaging.FirebaseMessaging
-import java.lang.IllegalStateException
 import javax.inject.Inject
 
 class SettingsViewModel @Inject constructor(
     private val preferences: SharedPreferences
 ) : ViewModel(), SettingsContract.ViewModel {
+    private val _debugModeState = MutableLiveData<Boolean>()
+    private val _debugLogRequestState = MutableLiveData<Boolean>()
+    private val _debugLogResponseState = MutableLiveData<Boolean>()
     private val _offlineModeState = MutableLiveData<Boolean>()
     private val _backgroundTrackingModeState = MutableLiveData<Boolean>()
     private val _trackingModeState = MutableLiveData<Boolean>()
     private val _pushToken = MutableLiveData<String>()
+    private val _affiseAppId = MutableLiveData<String>()
+    private val _secretKey = MutableLiveData<String>()
+    private val _domain = MutableLiveData<String>()
+
+    override val debugLogRequestState: LiveData<Boolean>
+        get() = _debugLogRequestState
+
+    override val debugLogResponseState: LiveData<Boolean>
+        get() = _debugLogResponseState
+
+    override val debugModeState: LiveData<Boolean>
+        get() = _debugModeState
 
     override val offlineModeState: LiveData<Boolean>
         get() = _offlineModeState
@@ -31,7 +44,22 @@ class SettingsViewModel @Inject constructor(
     override val pushToken: LiveData<String>
         get() = _pushToken
 
+    override val affiseAppId: LiveData<String>
+        get() = _affiseAppId
+
+    override val secretKey: LiveData<String>
+        get() = _secretKey
+    override val domain: LiveData<String>
+        get() = _domain
+
     init {
+        _debugModeState.value = !preferences.getBoolean(App.PRODUCTION_KEY, false)
+        _debugLogRequestState.value = preferences.getBoolean(App.DEBUG_REQUEST_KEY, false)
+        _debugLogResponseState.value = preferences.getBoolean(App.DEBUG_RESPONSE_KEY, false)
+        _affiseAppId.value = preferences.getString(App.AFFISE_APP_ID_KEY, null)
+        _secretKey.value = preferences.getString(App.SECRET_ID_KEY, null)
+        _domain.value = preferences.getString(App.DOMAIN_KEY, null)
+
         _offlineModeState.value = Affise.isOfflineModeEnabled()
         _backgroundTrackingModeState.value = Affise.isBackgroundTrackingEnabled()
         _trackingModeState.value = Affise.isTrackingEnabled()
@@ -46,12 +74,53 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    override fun setSecretId(secretId: String) {
+    override fun setDebug(enabled: Boolean) {
         preferences.edit()
-            .putString(App.SECRET_ID_KEY, secretId)
+            .putBoolean(App.PRODUCTION_KEY, !enabled)
+            .apply()
+    }
+
+    override fun debugLogRequest(show: Boolean) {
+        preferences.edit()
+            .putBoolean(App.DEBUG_REQUEST_KEY, show)
+            .apply()
+        App.debugRequest = show
+    }
+
+    override fun debugLogResponse(show: Boolean) {
+        preferences.edit()
+            .putBoolean(App.DEBUG_RESPONSE_KEY, show)
+            .apply()
+        App.debugResponse = show
+    }
+
+    override fun setDomain(domain: String) {
+        val value: String? = domain.ifBlank {
+            null
+        }
+        preferences.edit()
+            .putString(App.DOMAIN_KEY, value)
+            .apply()
+    }
+
+    override fun setAffiseAppId(affiseAppId: String) {
+        val value: String? = affiseAppId.ifBlank {
+            null
+        }
+        preferences.edit()
+            .putString(App.AFFISE_APP_ID_KEY, value)
+            .apply()
+    }
+
+    override fun setSecretKey(secretKey: String) {
+        val value: String? = secretKey.ifBlank {
+            null
+        }
+        preferences.edit()
+            .putString(App.SECRET_ID_KEY, value)
             .apply()
 
-        Affise.setSecretId(secretId)
+        Affise.setSecretId(secretKey)
     }
 
     override fun onSetOfflineModeCheckboxClicked(isChecked: Boolean) {
