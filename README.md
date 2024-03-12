@@ -52,6 +52,7 @@
   - [Get random user Id](#get-random-user-id)
   - [Get random device Id](#get-random-device-id)
   - [Get providers](#get-providers)
+  - [Is first run](#is-first-run)
   - [WebView tracking](#webview-tracking)
     - [Initialize WebView](#initialize-webview)
     - [Events tracking JS](#events-tracking-js)
@@ -84,12 +85,12 @@ For kotlin build script build.gradle.kts use:
 ```kotlin
 dependencies {
   // Add Affise library 
-  implementation("com.affise:attribution:1.6.25")
+  implementation("com.affise:attribution:1.6.26")
   // Add Affise modules 
-  implementation("com.affise:module-advertising:1.6.25")
-  implementation("com.affise:module-network:1.6.25")
-  implementation("com.affise:module-phone:1.6.25")
-  implementation("com.affise:module-status:1.6.25")
+  implementation("com.affise:module-advertising:1.6.26")
+  implementation("com.affise:module-network:1.6.26")
+  implementation("com.affise:module-phone:1.6.26")
+  implementation("com.affise:module-status:1.6.26")
   // Add install referrer
   implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -100,12 +101,12 @@ For groovy build script build.gradle use:
 ```groovy
 dependencies {
     // Add Affise library 
-    implementation 'com.affise:attribution:1.6.25'
+    implementation 'com.affise:attribution:1.6.26'
     // Add Affise modules 
-    implementation 'com.affise:module-advertising:1.6.25'
-    implementation 'com.affise:module-network:1.6.25'
-    implementation 'com.affise:module-phone:1.6.25'
-    implementation 'com.affise:module-status:1.6.25'
+    implementation 'com.affise:module-advertising:1.6.26'
+    implementation 'com.affise:module-network:1.6.26'
+    implementation 'com.affise:module-phone:1.6.26'
+    implementation 'com.affise:module-status:1.6.26'
     // Add install referrer
     implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -113,9 +114,9 @@ dependencies {
 
 ### Integrate as file dependency
 
-Download latest Affise SDK (`attribution-1.6.25.aar`)
+Download latest Affise SDK (`attribution-1.6.26.aar`)
 from [releases page](https://github.com/affise/sdk-android/releases) and place this binary to gradle application
-module lib directory `app/libs/attribution-1.6.25.aar`
+module lib directory `app/libs/attribution-1.6.26.aar`
 
 Add library as gradle file dependency to application module build script
 Add install referrer library
@@ -126,12 +127,12 @@ For kotlin build script build.gradle.kts use:
 dependencies {
     // ...
     // Add Affise library 
-    implementation(files("libs/attribution-1.6.25.aar"))
+    implementation(files("libs/attribution-1.6.26.aar"))
     // Add Affise modules 
-    implementation(files("libs/module-advertising-1.6.25.aar"))
-    implementation(files("libs/module-network-1.6.25.aar"))
-    implementation(files("libs/module-phone-1.6.25.aar"))
-    implementation(files("libs/module-status-1.6.25.aar"))
+    implementation(files("libs/module-advertising-1.6.26.aar"))
+    implementation(files("libs/module-network-1.6.26.aar"))
+    implementation(files("libs/module-phone-1.6.26.aar"))
+    implementation(files("libs/module-status-1.6.26.aar"))
     // Add install referrer
     implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -143,12 +144,12 @@ For groovy build script build.gradle use:
 dependencies {
   // ...  
   // Add Affise library 
-  implementation files('libs/attribution-1.6.25.aar')
+  implementation files('libs/attribution-1.6.26.aar')
   // Add Affise modules 
-  implementation files('libs/module-advertising-1.6.25.aar')
-  implementation files('libs/module-network-1.6.25.aar')
-  implementation files('libs/module-phone-1.6.25.aar')
-  implementation files('libs/module-status-1.6.25.aar')
+  implementation files('libs/module-advertising-1.6.26.aar')
+  implementation files('libs/module-network-1.6.26.aar')
+  implementation files('libs/module-phone-1.6.26.aar')
+  implementation files('libs/module-status-1.6.26.aar')
   // Add install referrer
   implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -985,6 +986,16 @@ Returns providers map with [ProviderType](#providertype-identifiers-collection) 
 val providers: Map<ProviderType, Any?> = Affise.getProviders()
 val key = ProviderType.AFFISE_APP_TOKEN
 val value = providers[key]
+```
+
+## Is first run
+
+Use the next public method of SDK
+
+For kotlin:
+
+```kotlin
+Affise.isFirstRun()
 ```
 
 ## WebView tracking

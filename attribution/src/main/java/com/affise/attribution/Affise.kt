@@ -274,6 +274,14 @@ object Affise {
         return api?.postBackModelFactory?.getProvidersMap() ?: emptyMap()
     }
 
+    /**
+     * Is it first run
+     */
+    @JvmStatic
+    fun isFirstRun(): Boolean {
+        return api?.firstAppOpenUseCase?.isFirstRun() ?: true
+    }
+
     internal fun getApi(): AffiseApi? = api
 
     /**

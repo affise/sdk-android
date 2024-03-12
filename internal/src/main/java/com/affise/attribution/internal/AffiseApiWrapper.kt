@@ -130,6 +130,9 @@ class AffiseApiWrapper(private val app: Application?) {
             AffiseApiMethod.GET_MODULES_INSTALLED ->
                 callGetModulesInstalled(api, map, result)
 
+            AffiseApiMethod.IS_FIRST_RUN ->
+                callIsFirstRun(api, map, result)
+
             AffiseApiMethod.GET_REFERRER_CALLBACK ->
                 callGetReferrer(api, map, result)
 
@@ -443,6 +446,14 @@ class AffiseApiWrapper(private val app: Application?) {
         result: AffiseResult
     ) {
         result.success(Affise.getModulesInstalled().map { it.name })
+    }
+
+    private fun callIsFirstRun(
+        api: AffiseApiMethod,
+        map: Map<String, *>,
+        result: AffiseResult
+    ) {
+        result.success(Affise.isFirstRun())
     }
 
     private fun callGetReferrer(

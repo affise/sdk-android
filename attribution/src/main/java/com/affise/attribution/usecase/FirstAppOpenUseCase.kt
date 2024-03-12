@@ -15,6 +15,8 @@ class FirstAppOpenUseCase(
     private val activityCountProvider: CurrentActiveActivityCountProvider
 ) {
 
+    private var firstRun: Boolean = false
+
     /**
      * Check preferences for have first opened date and generate properties if no data
      */
@@ -23,6 +25,8 @@ class FirstAppOpenUseCase(
             onAppFirstOpen()
         }
         checkSaveUUIDs()
+
+        firstRun = preferences.getBoolean(FIRST_OPENED, true)
 
         //init session observer
         activityCountProvider.init()
@@ -76,6 +80,12 @@ class FirstAppOpenUseCase(
                false
             }
         }
+
+    /**
+     * Get first run
+     * @return is first run
+     */
+    fun isFirstRun(): Boolean = firstRun
 
     /**
      * Get first open date
