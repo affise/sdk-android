@@ -15,4 +15,9 @@ interface AdvertisingIdManager {
      * Returns google advertising id if present
      */
     fun getAdvertisingId(): String?
+
+    /**
+     * Returns true if advertising id is set
+     */
+    fun getAdPersonalization(): Boolean
 }

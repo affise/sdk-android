@@ -7,7 +7,7 @@ import com.affise.attribution.parameters.ProviderType
 /**
  * Provider for parameter [ProviderType.GAID_ADID]
  *
- * provides google advertising id encoded with md5 or "unknown" if not set
+ * provides google advertising id
  *
  * @property advertisingIdManager manager to fetch advertising id from
  */

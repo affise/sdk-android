@@ -9,6 +9,7 @@ import com.affise.attribution.module.advertising.oaid.OaidManager
 import com.affise.attribution.module.advertising.oaid.OaidManagerImpl
 import com.affise.attribution.module.advertising.parameters.GoogleAdvertisingIdMd5Provider
 import com.affise.attribution.module.advertising.parameters.GoogleAdvertisingIdProvider
+import com.affise.attribution.module.advertising.parameters.GoogleAdvertisingPersonalizationProvider
 import com.affise.attribution.module.advertising.parameters.OaidMD5Provider
 import com.affise.attribution.module.advertising.parameters.OaidProvider
 import com.affise.attribution.modules.AffiseModule
@@ -33,6 +34,11 @@ class AdvertisingModule : AffiseModule() {
             advManager?.let { adv ->
                 GoogleAdvertisingIdMd5Provider(adv, md5)
             }
+        }
+    }
+    private val googleAdvertisingPersonalizationProvider: PropertyProvider<*>? by lazy {
+        advManager?.let { adv ->
+            GoogleAdvertisingPersonalizationProvider(adv)
         }
     }
 
@@ -82,6 +88,7 @@ class AdvertisingModule : AffiseModule() {
         providers = listOfNotNull(
             googleAdvertisingIdProvider,
             googleAdvertisingIdMd5Provider,
+            googleAdvertisingPersonalizationProvider,
             oaidProvider,
             oaidMD5Provider,
             EmptyStringProvider(ProviderType.ADID, 29.0f),

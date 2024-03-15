@@ -97,6 +97,7 @@ enum class ProviderType(val provider: String) {
     ALTSTR_ADID("altstr_adid"),
     FIREOS_ADID("fireos_adid"),
     COLOROS_ADID("coloros_adid"),
+    AD_PERSONALIZATION("ad_personalization"),
 
     // network
     MAC_SHA1("mac_sha1"),

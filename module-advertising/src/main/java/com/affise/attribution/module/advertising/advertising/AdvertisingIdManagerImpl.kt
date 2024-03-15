@@ -23,6 +23,7 @@ internal class AdvertisingIdManagerImpl(
      * Google Advertising ID
      */
     private var advertisingId: String? = null
+    private var adPersonalization: Boolean = false
 
     /**
      * Init Advertising IdManager
@@ -31,6 +32,7 @@ internal class AdvertisingIdManagerImpl(
         try {
             //Get Google Advertising ID with context
             advertisingId = getGoogleAdvertisingId(app)
+            adPersonalization = checkGoogleAdPersonalization()
         } catch (throwable: Throwable) {
             //Log error
             logsManager.addDeviceError(throwable)
@@ -44,6 +46,12 @@ internal class AdvertisingIdManagerImpl(
     override fun getAdvertisingId() = advertisingId
 
     /**
+     * Get cashed Google Advertising Personalization
+     * @return Google Advertising Personalization
+     */
+    override fun getAdPersonalization() = adPersonalization
+
+    /**
      * Get Google Advertising ID with [context] app
      */
     private fun getGoogleAdvertisingId(context: Context): String? {
@@ -53,5 +61,12 @@ internal class AdvertisingIdManagerImpl(
         } catch (throwable: Throwable) {
             null
         }
+    }
+
+    private fun checkGoogleAdPersonalization(): Boolean {
+        advertisingId?.let {
+            return !it.startsWith("00000000-", false)
+        }
+        return false
     }
 }
