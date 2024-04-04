@@ -3,7 +3,6 @@ package com.affise.attribution
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.Build
 import com.affise.attribution.build.BuildConfigPropertiesProviderImpl
 import com.affise.attribution.converter.*
 import com.affise.attribution.converter.JsonObjectToMetricsEventConverter
@@ -45,7 +44,6 @@ import com.affise.attribution.test.CrashApplicationUseCaseImpl
 import com.affise.attribution.usecase.*
 import com.affise.attribution.utils.ActivityActionsManager
 import com.affise.attribution.utils.ActivityActionsManagerImpl
-import com.affise.attribution.utils.EncryptedSharedPreferences
 import com.affise.attribution.webBridge.WebBridgeManager
 
 internal class AffiseComponent(
@@ -373,11 +371,7 @@ internal class AffiseComponent(
      * SharedPreferences
      */
     override val sharedPreferences: SharedPreferences by lazy {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            EncryptedSharedPreferences(app, PREFERENCES_ENCRYPTED_FILE_NAME)
-        } else {
-            app.getSharedPreferences(PREFERENCES_FILE_NAME, Context.MODE_PRIVATE)
-        }
+        app.getSharedPreferences(PREFERENCES_FILE_NAME, Context.MODE_PRIVATE)
     }
 
     /**
@@ -508,6 +502,5 @@ internal class AffiseComponent(
 
     companion object {
         private const val PREFERENCES_FILE_NAME = "com.affise.attribution"
-        private const val PREFERENCES_ENCRYPTED_FILE_NAME = "com.affise.attribution.encrypted"
     }
 }
