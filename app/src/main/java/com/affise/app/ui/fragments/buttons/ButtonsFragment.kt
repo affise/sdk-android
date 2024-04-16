@@ -50,9 +50,11 @@ class ButtonsFragment : DaggerFragment() {
 
         tabEvents.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                val tabText = tab?.text ?: ""
+                tab ?: return
+                val tabText = tab.text
                 binding.eventsRecyclerView.isVisible = tabText == resources.getString(R.string.events)
                 binding.webView.isVisible = tabText == resources.getString(R.string.web_events)
+                binding.billingView.isVisible = tabText == resources.getString(R.string.store)
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {

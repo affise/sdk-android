@@ -6,7 +6,7 @@ import org.json.JSONObject
  * Event ConvertedTrial use [data] of event and [userData]
  */
 class ConvertedTrialEvent @JvmOverloads constructor(
-    data: JSONObject,
+    data: JSONObject? = null,
     userData: String? = null
 ) : BaseSubscriptionEvent(data, userData) {
 
@@ -25,7 +25,7 @@ class ConvertedTrialEvent @JvmOverloads constructor(
  * Event ConvertedOffer use [data] of event and [userData]
  */
 class ConvertedOfferEvent @JvmOverloads constructor(
-    data: JSONObject,
+    data: JSONObject? = null,
     userData: String? = null
 ) : BaseSubscriptionEvent(data, userData) {
 

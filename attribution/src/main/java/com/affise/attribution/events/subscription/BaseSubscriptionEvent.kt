@@ -9,7 +9,7 @@ import org.json.JSONObject
  * Base Event of Subscription use [data] of event and [userData]
  */
 abstract class BaseSubscriptionEvent(
-    private val data: JSONObject,
+    private val data: JSONObject?,
     private val userData: String? = null,
 ) : NativeEvent(timeStampMillis = timestamp(), userData = userData) {
 
@@ -26,8 +26,10 @@ abstract class BaseSubscriptionEvent(
 
     override fun serializeBuilder(): AffisePropertyBuilder = super.serializeBuilder()
         .addRaw(SubscriptionParameters.AFFISE_SUBSCRIPTION_EVENT_TYPE_KEY, subtype).apply {
-            data.keys().forEach { key ->
-                addRaw(key, data.get(key))
+            data?.let {
+                it.keys().forEach { key ->
+                    addRaw(key, it.get(key))
+                }
             }
         }
 

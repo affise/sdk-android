@@ -44,7 +44,7 @@ class FailedOfferiseEvent @JvmOverloads constructor(
  * Event FailedSubscription use [data] of event and [userData]
  */
 class FailedSubscriptionEvent @JvmOverloads constructor(
-    data: JSONObject,
+    data: JSONObject? = null,
     userData: String? = null
 ) : BaseSubscriptionEvent(data, userData) {
 
@@ -63,7 +63,7 @@ class FailedSubscriptionEvent @JvmOverloads constructor(
  * Event FailedTrialFromRetry use [data] of event and [userData]
  */
 class FailedTrialFromRetryEvent @JvmOverloads constructor(
-    data: JSONObject,
+    data: JSONObject? = null,
     userData: String? = null
 ) : BaseSubscriptionEvent(data, userData) {
 
@@ -82,7 +82,7 @@ class FailedTrialFromRetryEvent @JvmOverloads constructor(
  * Event FailedOfferFromRetry use [data] of event and [userData]
  */
 class FailedOfferFromRetryEvent @JvmOverloads constructor(
-    data: JSONObject,
+    data: JSONObject? = null,
     userData: String? = null
 ) : BaseSubscriptionEvent(data, userData) {
 
@@ -101,7 +101,7 @@ class FailedOfferFromRetryEvent @JvmOverloads constructor(
  * Event FailedSubscriptionFromRetry use [data] of event and [userData]
  */
 class FailedSubscriptionFromRetryEvent @JvmOverloads constructor(
-    data: JSONObject,
+    data: JSONObject? = null,
     userData: String? = null
 ) : BaseSubscriptionEvent(data, userData) {
 

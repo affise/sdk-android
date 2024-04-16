@@ -74,6 +74,9 @@ enum class PredefinedString(private val value: String): Predefined {
     NETWORK("network"),
     UNIT("unit"),
     PLACEMENT("placement"),
+    PRODUCT_TYPE("product_type"),
+    SUBSCRIPTION_TYPE("subscription_type"),
+    ORIGINAL_ORDER_ID("original_order_id"),
     ;
 
     override fun value(): String = "${Predefined.PREFIX}${this.value}"

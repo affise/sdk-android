@@ -46,7 +46,7 @@ internal class AffiseModuleManager(
     }
 
     private fun getClass(className: String): AffiseModule? = try {
-        Class.forName(className).newInstance() as? AffiseModule
+        Class.forName(className).getDeclaredConstructor().newInstance() as? AffiseModule
     } catch (_: Exception) {
         null
     }
@@ -59,7 +59,7 @@ internal class AffiseModuleManager(
     private fun getModule(module: AffiseModules): AffiseModule? = modules[module]
 
     private fun initAffiseModules(callback: (AffiseModule) -> Unit) {
-        AffiseModules.values().forEach { name ->
+        AffiseModules.entries.forEach { name ->
             getClass(name.module)?.let { module ->
                 modules[name] = module
                 callback(module)

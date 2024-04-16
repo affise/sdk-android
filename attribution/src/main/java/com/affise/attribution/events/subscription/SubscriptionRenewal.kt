@@ -6,7 +6,7 @@ import org.json.JSONObject
  * Event RenewedSubscription use [data] of event and [userData]
  */
 class RenewedSubscriptionEvent @JvmOverloads constructor(
-    data: JSONObject,
+    data: JSONObject? = null,
     userData: String? = null
 ) : BaseSubscriptionEvent(data, userData) {
 

@@ -21,10 +21,11 @@ class App : DaggerApplication() {
         // Initialize https://github.com/affise/sdk-android#initialize
         Affise
             .settings(
-                affiseAppId = prefString(AFFISE_APP_ID_KEY,"129"),
-                secretKey = prefString(SECRET_ID_KEY,"93a40b54-6f12-443f-a250-ebf67c5ee4d2")
+                affiseAppId = prefString(AFFISE_APP_ID_KEY, "129"),
+                secretKey = prefString(SECRET_ID_KEY, "93a40b54-6f12-443f-a250-ebf67c5ee4d2")
             )
-            .setProduction(prefBoolean(PRODUCTION_KEY, false)) //To enable debug methods set Production to false
+            //To enable debug methods set Production to false
+            .setProduction(prefBoolean(PRODUCTION_KEY,false))
             // Custom domain example
             // Url trailing slash is irrelevant
             .setDomain(prefString(DOMAIN_KEY, "https://tracking.affattr.com"))

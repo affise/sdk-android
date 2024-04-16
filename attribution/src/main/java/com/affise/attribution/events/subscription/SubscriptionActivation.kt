@@ -6,7 +6,7 @@ import org.json.JSONObject
  * Event InitialSubscription use [data] of event and [userData]
  */
 class InitialSubscriptionEvent @JvmOverloads constructor(
-    data: JSONObject,
+    data: JSONObject? = null,
     userData: String? = null
 ) : BaseSubscriptionEvent(data, userData) {
 
@@ -25,7 +25,7 @@ class InitialSubscriptionEvent @JvmOverloads constructor(
  * Event InitialTrial use [data] of event and [userData]
  */
 class InitialTrialEvent @JvmOverloads constructor(
-    data: JSONObject,
+    data: JSONObject? = null,
     userData: String? = null
 ) : BaseSubscriptionEvent(data, userData) {
 
@@ -44,7 +44,7 @@ class InitialTrialEvent @JvmOverloads constructor(
  * Event of InitialOffer use [data] of event and [userData]
  */
 class InitialOfferEvent @JvmOverloads constructor(
-    data: JSONObject,
+    data: JSONObject? = null,
     userData: String? = null
 ) : BaseSubscriptionEvent(data, userData) {
 

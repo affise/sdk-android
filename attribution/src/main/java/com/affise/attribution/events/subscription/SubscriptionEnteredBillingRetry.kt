@@ -6,7 +6,7 @@ import org.json.JSONObject
  * Event TrialInRetry use [data] of event and [userData]
  */
 class TrialInRetryEvent @JvmOverloads constructor(
-    data: JSONObject,
+    data: JSONObject? = null,
     userData: String? = null
 ) : BaseSubscriptionEvent(data, userData) {
 
@@ -25,7 +25,7 @@ class TrialInRetryEvent @JvmOverloads constructor(
  * Event OfferInRetry use [data] of event and [userData]
  */
 class OfferInRetryEvent @JvmOverloads constructor(
-    data: JSONObject,
+    data: JSONObject? = null,
     userData: String? = null
 ) : BaseSubscriptionEvent(data, userData) {
 
@@ -44,7 +44,7 @@ class OfferInRetryEvent @JvmOverloads constructor(
  * Event SubscriptionInRetry use [data] of event and [userData]
  */
 class SubscriptionInRetryEvent @JvmOverloads constructor(
-    data: JSONObject,
+    data: JSONObject? = null,
     userData: String? = null
 ) : BaseSubscriptionEvent(data, userData) {
 

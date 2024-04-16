@@ -3,6 +3,7 @@
     <string name="send_all_events">Send All Events</string>
     <string name="events">Events</string>
     <string name="web_events">Web events</string>
+    <string name="store">Store</string>
     <string name="api">API</string>
     <string name="affise_events_demo">Affise events demo</string>
     <string name="back">Back</string>

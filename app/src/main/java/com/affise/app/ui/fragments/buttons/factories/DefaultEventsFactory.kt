@@ -842,8 +842,8 @@ class DefaultEventsFactory : EventsFactory {
         "Subscription Plus"
     )
         .addPredefinedParameter(PredefinedFloat.REVENUE, 225522.0f)
+}
 
-    private fun String.toTimestamp(format: String = "dd.MM.yyyy"): Long? {
-        return SimpleDateFormat(format, Locale.getDefault()).parse(this)?.time
-    }
+internal fun String.toTimestamp(format: String = "dd.MM.yyyy"): Long? {
+    return SimpleDateFormat(format, Locale.getDefault()).parse(this)?.time
 }

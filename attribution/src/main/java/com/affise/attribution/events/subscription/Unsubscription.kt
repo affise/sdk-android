@@ -6,7 +6,7 @@ import org.json.JSONObject
  * Event Unsubscription use [data] of event and [userData]
  */
 class UnsubscriptionEvent @JvmOverloads constructor(
-    data: JSONObject,
+    data: JSONObject? = null,
     userData: String? = null
 ) : BaseSubscriptionEvent(data, userData) {
 

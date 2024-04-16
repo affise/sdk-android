@@ -43,6 +43,7 @@ enum class EventName(val eventName: String) {
     ORDER_RETURN_REQUEST("OrderReturnRequest"),
     ORDER_RETURN_REQUEST_CANCEL("OrderReturnRequestCancel"),
     PURCHASE("Purchase"),
+    FAILED_PURCHASE("FailedPurchase"),
     RATE("Rate"),
     RE_ENGAGE("ReEngage"),
     RESERVE("Reserve"),

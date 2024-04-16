@@ -52,6 +52,11 @@
             android:layout_height="wrap_content"
             android:text="@string/web_events" />
 
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/store" />
+
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -84,5 +89,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tabEvents" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/billing_view"
+        android:name="com.affise.app.ui.fragments.billing.BillingFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:background="@android:color/transparent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tabEvents"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
