@@ -46,7 +46,7 @@ apply from: '../publish.gradle'
 afterEvaluate {
     publishing {
         publications {
-            aar(MavenPublication) {
+            affiseRelease(MavenPublication) {
                 artifactId = 'module-status'
                 pom {
                     description = 'Affise Attribution Library Status Module'

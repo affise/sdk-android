@@ -47,7 +47,7 @@ apply from: '../publish.gradle'
 afterEvaluate {
     publishing {
         publications {
-            aar(MavenPublication) {
+            affiseRelease(MavenPublication) {
                 artifactId = 'internal'
                 pom {
                     description = 'Affise Attribution Internal Library'

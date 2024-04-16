@@ -45,7 +45,7 @@ afterEvaluate {
                     }
 
                     name = artifactId
-                    description = ''
+                    description = 'affise'
                     url = 'https://affise.com/'
 
                     licenses {

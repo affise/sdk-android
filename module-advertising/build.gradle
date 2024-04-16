@@ -52,7 +52,7 @@ apply from: '../publish.gradle'
 afterEvaluate {
     publishing {
         publications {
-            aar(MavenPublication) {
+            affiseRelease(MavenPublication) {
                 artifactId = 'module-advertising'
                 pom {
                     description = 'Affise Attribution Library Advertising Module'

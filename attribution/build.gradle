@@ -83,7 +83,7 @@ apply from: '../publish.gradle'
 afterEvaluate {
     publishing {
         publications {
-            aar(MavenPublication) {
+            affiseRelease(MavenPublication) {
                 artifactId = 'attribution'
                 pom {
                     description = 'Affise Attribution Library'

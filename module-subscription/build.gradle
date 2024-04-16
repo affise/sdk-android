@@ -49,7 +49,7 @@ apply from: '../publish.gradle'
 afterEvaluate {
     publishing {
         publications {
-            aar(MavenPublication) {
+            affiseRelease(MavenPublication) {
                 artifactId = 'module-subscription'
                 pom {
                     description = 'Affise Attribution Library Subscription Module'
