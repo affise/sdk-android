@@ -41,6 +41,7 @@
   - [Reinstall Uninstall tracking](#reinstall-uninstall-tracking)
   - [APK preinstall tracking](#apk-preinstall-tracking)
   - [Deeplinks](#deeplinks)
+  - [AppLinks](#applinks)
   - [Offline mode](#offline-mode)
   - [Disable tracking](#disable-tracking)
   - [Disable background tracking](#disable-background-tracking)
@@ -735,9 +736,85 @@ To use this feature, create file with name `partner_key` in your app assets dire
 
 ## Deeplinks
 
+> **Warning**
+>
+> 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
+>
+> Deeplinks support only **CUSTOM** scheme **NOT** `http` or `https`
+>
+> For `http` or `https` read how to setup [AppLinks](#applinks)
+>
+> 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
+
+To integrate deeplink support you need:
+
+- Add intent filter to one of your activities
+- Add **custom** scheme (**NOT** `http` or `https`) and host to filter
+
+Example: `YOUR_SCHEME://YOUR_DOMAIN`
+
+Example: `myapp://mydomain.com`
+
+```xml
+<intent-filter android:autoVerify="true">
+  <action android:name="android.intent.action.VIEW" />
+  <category android:name="android.intent.category.DEFAULT" />
+  <category android:name="android.intent.category.BROWSABLE" />
+  <data android:scheme="YOUR_SCHEME" />
+  <data android:host="YOUR_DOMAIN" />
+</intent-filter>
+```
+
+- Register deeplink callback right after `Affise.settings(..).start(..)`
+
+for kotlin:
+
+```kotlin
+Affise.settings(affiseAppId, secretKey).start(context) // Start Affise SDK
+
+Affise.registerDeeplinkCallback { uri ->
+  val value = uri.getQueryParameter("<your_uri_key>")
+  if(value == "<your_uri_key_value>") {
+    // handle value
+  }
+  // return true if deeplink is handled successfully
+  true
+}
+```
+
+for java:
+
+```java
+Affise.registerDeeplinkCallback(uri -> {
+    String value = uri.getQueryParameter("your_uri_key");
+    if (value.equals("your_uri_key_value")) {
+        // handle value
+    }
+    // return true if deeplink is handled successfully
+    return true;
+});
+```
+
+## AppLinks
+
+> **Warning**
+>
+> 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
+>
+> You must owne website domain.
+>
+> And has ability to add file `https://yoursite/.well-known/assetlinks.json`
+>
+> 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
+
 To integrate applink support you need:
 
-- add intent filter to one of your activities, replacing YOUR_AFFISE_APP_ID with id from your affise personal cabinet
+- Add intent filter to one of your activities
+- Add `https` or `http` scheme and host to filter
+
+Example: `https://YOUR_DOMAIN`
+
+Example: `https://mydomain.com`
 
 ```xml
 <intent-filter android:autoVerify="true">
@@ -749,7 +826,47 @@ To integrate applink support you need:
 </intent-filter>
 ```
 
-- register applink callback right after `Affise.settings(..).start(..)`
+- Associate your app with your website. [Read Google instructions](https://developer.android.com/studio/write/app-link-indexing#associatesite) <details>
+  <summary>How To Associate your app with your website</summary>
+  
+  ---
+
+  After setting up URL support for your app, the App Links Assistant generates a Digital Assets Links file you can use to [associate your website with your app](https://developer.android.com/training/app-links/verify-android-applinks#web-assoc).
+
+  As an alternative to using the Digital Asset Links file, you can [associate your site and app in Search Console](https://support.google.com/webmasters/answer/6212023).
+
+  If you're using [Play App Signing](https://support.google.com/googleplay/android-developer/answer/9842756) for your app, then the certificate fingerprint produced by the App Links Assistant usually doesn't match the one on users' devices. In this case, you can find the correct Digital Asset Links JSON snippet for your app in your [Play Console](https://play.google.com/console/) developer account under **Release** > **Setup** > **App signing**.
+
+  To associate your app and your website using the App Links Assistant, click **Open Digital Asset Links File Generator** from the App Links Assistant and follow these steps:
+
+  ![app-links-assistant-dal-file-generator_2x](https://developer.android.com/static/studio/images/write/app-links-assistant-dal-file-generator_2x.png)
+  **Figure 2**. Enter details about your site and app to generate a Digital Asset Links file.
+
+  1. Enter your **Site domain** and your [**Application ID**](https://developer.android.com/studio/build/configure-app-module#set-application-id).
+  
+  2. To include support in your Digital Asset Links file for [One Tap sign-in](https://developers.google.com/identity/one-tap/android/overview), select **Support sharing credentials between the app and the website** and enter your site's sign-in URL.This adds the following string to your Digital Asset Links file declaring that your app and website share sign-in credentials: `delegate_permission/common.get_login_creds`.
+
+  3. Specify the [signing config](https://developer.android.com/studio/publish/app-signing#sign-auto) or select a [keystore file](https://developer.android.com/studio/publish/app-signing#certificates-keystores).
+
+  Make sure you select the right release config or keystore file for the release build or the debug config or keystore file for the debug build of your app. If you want to set up your production build, use the release config. If you want to test your build, use the debug config.
+
+  4. Click **Generate Digital Asset Links file**.
+  5. Once Android Studio generates the file, click **Save file** to download it.
+  6. Upload the `assetlinks.json` file to your site, with read access for everyone, at `https://yoursite/.well-known/assetlinks.json`.
+
+  > **Important**
+  >
+  > The system verifies the Digital Asset Links file via the encrypted HTTPS protocol. Make sure that the **assetlinks.json** file is accessible over an HTTPS connection, regardless of whether your app's intent filter includes **https**.
+
+  7. Click **Link and Verify** to confirm that you've uploaded the correct Digital Asset Links file to the correct location.
+
+  Learn more about associating your website with your app through the Digital Asset Links file in Declare website associations.
+  
+  ---
+
+</details>
+
+- Register deeplink callback right after `Affise.settings(..).start(..)`
 
 for kotlin:
 
