@@ -48,7 +48,6 @@ jobs:
           ./gradlew :module-network:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
           ./gradlew :module-phone:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
           ./gradlew :module-status:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
-#          ./gradlew :module-subscription:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
           ./gradlew :internal:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
 
       - name: Version Tag
