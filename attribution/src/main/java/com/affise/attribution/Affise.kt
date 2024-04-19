@@ -7,6 +7,8 @@ import com.affise.attribution.debug.network.DebugOnNetworkCallback
 import com.affise.attribution.debug.validate.DebugOnValidateCallback
 import com.affise.attribution.deeplink.OnDeeplinkCallback
 import com.affise.attribution.events.Event
+import com.affise.attribution.events.OnSendFailedCallback
+import com.affise.attribution.events.OnSendSuccessCallback
 import com.affise.attribution.referrer.ReferrerKey
 import com.affise.attribution.events.autoCatchingClick.AutoCatchingType
 import com.affise.attribution.events.predefined.GDPREvent
@@ -72,7 +74,7 @@ object Affise {
      */
     @Deprecated("This method will be removed")
     @JvmStatic
-    fun sendEvents() {
+    internal fun sendEvents() {
         api?.eventsManager?.sendEvents()
     }
 
@@ -80,8 +82,22 @@ object Affise {
      * Store and send [event]
      */
     @JvmStatic
-    fun sendEvent(event: Event) {
+    internal fun sendEvent(event: Event) {
         api?.storeEventUseCase?.storeEvent(event)
+    }
+
+    /**
+     * Store and send [event]
+     */
+    @JvmStatic
+    internal fun sendEventNow(event: Event, success: OnSendSuccessCallback, failed: OnSendFailedCallback) {
+        api?.immediateSendToServerUseCase?.sendNow(event, success) { response ->
+            return@sendNow failed.handle(response).also { toSave ->
+                if (toSave) {
+                    api?.storeEventUseCase?.storeEvent(event)
+                }
+            }
+        }
     }
 
     /**

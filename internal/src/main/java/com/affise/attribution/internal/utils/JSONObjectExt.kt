@@ -15,6 +15,17 @@ private fun toValue(element: Any?) = when (element) {
     else -> element
 }
 
+fun jsonToMap(data: String?): Map<String, Any?> {
+    if (data.isNullOrEmpty()) return emptyMap()
+    val json = try {
+        JSONObject(data)
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null
+    }
+    return json?.toMap() ?: emptyMap()
+}
+
 fun Map<*, *>?.toJSONObject(): JSONObject? {
     return this?.let {
         try {

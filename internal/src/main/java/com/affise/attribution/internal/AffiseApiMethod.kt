@@ -4,8 +4,9 @@ enum class AffiseApiMethod(val method: String) {
     INIT("init"),
     IS_INITIALIZED("is_initialized"),
 //    Deprecated
-    SEND_EVENTS("send_events"),
+//    SEND_EVENTS("send_events"),
     SEND_EVENT("send_event"),
+    SEND_EVENT_NOW("send_event_now"),
     ADD_PUSH_TOKEN("add_push_token"),
     REGISTER_WEB_VIEW("register_web_view"),
     UNREGISTER_WEB_VIEW("unregister_web_view"),

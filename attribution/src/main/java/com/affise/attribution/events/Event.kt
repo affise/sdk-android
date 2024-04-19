@@ -3,7 +3,6 @@ package com.affise.attribution.events
 import com.affise.attribution.Affise
 import com.affise.attribution.events.parameters.PredefinedCustom
 import com.affise.attribution.events.parameters.PredefinedFloat
-import com.affise.attribution.events.parameters.PredefinedGroup
 import com.affise.attribution.events.parameters.PredefinedListObject
 import com.affise.attribution.events.parameters.PredefinedListString
 import com.affise.attribution.events.parameters.PredefinedLong
@@ -135,6 +134,10 @@ abstract class Event: PredefinedParameter {
      */
     fun send() {
         Affise.sendEvent(this)
+    }
+
+    fun sendNow(success: OnSendSuccessCallback, failed: OnSendFailedCallback) {
+        Affise.sendEventNow(this, success, failed)
     }
 
     /**

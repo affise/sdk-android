@@ -45,7 +45,7 @@ internal class CloudRepositoryImpl(
     /**
      * Send [data] to [url]
      */
-    private fun createRequest(url: String, data: List<PostBackModel>): HttpResponse {
+    override fun createRequest(url: String, data: List<PostBackModel>): HttpResponse {
         //Create request
         return httpClient.executeRequest(
             URL(url),

@@ -15,9 +15,7 @@ class ExecutorServiceProviderImpl(
     /**
      * Executor
      */
-    private val executor = Executors.newSingleThreadExecutor {
-        Thread(it, threadName)
-    }
+    private val executor = Executors.newSingleThreadExecutor()
 
     /**
      * Provide executor service

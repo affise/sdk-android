@@ -11,4 +11,6 @@ interface CloudRepository {
      * Send [data] to current [url]
      */
     fun send(data: List<PostBackModel>, url: String)
+
+    fun createRequest(url: String, data: List<PostBackModel>): HttpResponse
 }

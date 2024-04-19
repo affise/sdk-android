@@ -20,6 +20,8 @@ import com.affise.attribution.usecase.RetrieveInstallReferrerUseCase
 import com.affise.attribution.usecase.EraseUserDataUseCaseImpl
 import com.affise.attribution.usecase.FirstAppOpenUseCase
 import com.affise.attribution.usecase.PreferencesUseCaseImpl
+import com.affise.attribution.usecase.ImmediateSendToServerUseCase
+import com.affise.attribution.usecase.SendDataToServerUseCase
 import com.affise.attribution.usecase.SendGDPREventUseCaseImpl
 import com.affise.attribution.webBridge.WebBridgeManager
 
@@ -49,6 +51,7 @@ internal interface AffiseApi {
     val postBackModelFactory: PostBackModelFactory
     val debugValidateUseCase: DebugValidateUseCase
     val debugNetworkUseCase: DebugNetworkUseCase
+    val immediateSendToServerUseCase: ImmediateSendToServerUseCase
 
     fun isInitialized(): Boolean
 }

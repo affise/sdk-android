@@ -92,6 +92,10 @@ internal class AffiseComponent(
         ProvidersToJsonStringConverter()
     }
 
+    private val postBackModelToJsonStringConverter: PostBackModelToJsonStringConverter by lazy {
+        PostBackModelToJsonStringConverter()
+    }
+
     private val buildConfigPropertiesProvider: BuildConfigPropertiesProvider by lazy {
         BuildConfigPropertiesProviderImpl()
     }
@@ -209,14 +213,18 @@ internal class AffiseComponent(
         HttpClientImpl()
     }
 
+    private val userAgentProvider: UserAgentProvider? by lazy {
+        postBackModelFactory.getProvider<UserAgentProvider>()
+    }
+
     /**
      * CloudRepository
      */
     private val cloudRepository: CloudRepository by lazy {
         CloudRepositoryImpl(
             httpClient,
-            postBackModelFactory.getProvider<UserAgentProvider>(),
-            PostBackModelToJsonStringConverter()
+            userAgentProvider,
+            postBackModelToJsonStringConverter
         )
     }
 
@@ -238,6 +246,16 @@ internal class AffiseComponent(
             metricsRepository,
             logsManager,
             preferencesUseCase
+        )
+    }
+
+    override val immediateSendToServerUseCase: ImmediateSendToServerUseCase by lazy {
+        ImmediateSendToServerUseCaseImpl(
+            ExecutorServiceProviderImpl("Sending Now Worker"),
+            cloudRepository,
+            postBackModelFactory,
+            eventToSerializedEventConverter,
+            logsManager,
         )
     }
 

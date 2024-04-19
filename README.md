@@ -24,6 +24,7 @@
     - [Advertising](#advertising)
     - [Network](#network)
     - [Phone](#phone)
+  - [Event send control](#event-send-control)
   - [Events tracking](#events-tracking)
   - [Custom events tracking](#custom-events-tracking)
   - [Predefined event parameters](#predefined-event-parameters)
@@ -86,12 +87,12 @@ For kotlin build script build.gradle.kts use:
 ```kotlin
 dependencies {
   // Add Affise library 
-  implementation("com.affise:attribution:1.6.29")
+  implementation("com.affise:attribution:1.6.30")
   // Add Affise modules 
-  implementation("com.affise:module-advertising:1.6.29")
-  implementation("com.affise:module-network:1.6.29")
-  implementation("com.affise:module-phone:1.6.29")
-  implementation("com.affise:module-status:1.6.29")
+  implementation("com.affise:module-advertising:1.6.30")
+  implementation("com.affise:module-network:1.6.30")
+  implementation("com.affise:module-phone:1.6.30")
+  implementation("com.affise:module-status:1.6.30")
   // Add install referrer
   implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -102,12 +103,12 @@ For groovy build script build.gradle use:
 ```groovy
 dependencies {
     // Add Affise library 
-    implementation 'com.affise:attribution:1.6.29'
+    implementation 'com.affise:attribution:1.6.30'
     // Add Affise modules 
-    implementation 'com.affise:module-advertising:1.6.29'
-    implementation 'com.affise:module-network:1.6.29'
-    implementation 'com.affise:module-phone:1.6.29'
-    implementation 'com.affise:module-status:1.6.29'
+    implementation 'com.affise:module-advertising:1.6.30'
+    implementation 'com.affise:module-network:1.6.30'
+    implementation 'com.affise:module-phone:1.6.30'
+    implementation 'com.affise:module-status:1.6.30'
     // Add install referrer
     implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -115,9 +116,9 @@ dependencies {
 
 ### Integrate as file dependency
 
-Download latest Affise SDK (`attribution-1.6.29.aar`)
+Download latest Affise SDK (`attribution-1.6.30.aar`)
 from [releases page](https://github.com/affise/sdk-android/releases) and place this binary to gradle application
-module lib directory `app/libs/attribution-1.6.29.aar`
+module lib directory `app/libs/attribution-1.6.30.aar`
 
 Add library as gradle file dependency to application module build script
 Add install referrer library
@@ -128,12 +129,12 @@ For kotlin build script build.gradle.kts use:
 dependencies {
     // ...
     // Add Affise library 
-    implementation(files("libs/attribution-1.6.29.aar"))
+    implementation(files("libs/attribution-1.6.30.aar"))
     // Add Affise modules 
-    implementation(files("libs/module-advertising-1.6.29.aar"))
-    implementation(files("libs/module-network-1.6.29.aar"))
-    implementation(files("libs/module-phone-1.6.29.aar"))
-    implementation(files("libs/module-status-1.6.29.aar"))
+    implementation(files("libs/module-advertising-1.6.30.aar"))
+    implementation(files("libs/module-network-1.6.30.aar"))
+    implementation(files("libs/module-phone-1.6.30.aar"))
+    implementation(files("libs/module-status-1.6.30.aar"))
     // Add install referrer
     implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -145,12 +146,12 @@ For groovy build script build.gradle use:
 dependencies {
   // ...  
   // Add Affise library 
-  implementation files('libs/attribution-1.6.29.aar')
+  implementation files('libs/attribution-1.6.30.aar')
   // Add Affise modules 
-  implementation files('libs/module-advertising-1.6.29.aar')
-  implementation files('libs/module-network-1.6.29.aar')
-  implementation files('libs/module-phone-1.6.29.aar')
-  implementation files('libs/module-status-1.6.29.aar')
+  implementation files('libs/module-advertising-1.6.30.aar')
+  implementation files('libs/module-network-1.6.30.aar')
+  implementation files('libs/module-phone-1.6.30.aar')
+  implementation files('libs/module-status-1.6.30.aar')
   // Add install referrer
   implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -387,6 +388,29 @@ To match users with events and data library is sending, these `ProviderType` ide
 
 - `NETWORK_TYPE`
 - `ISP`
+
+## Event send control
+
+There are two ways to send events
+
+1. Cache event to later scheduled send in batch
+
+```kotlin
+AddToCartEvent()
+    .send()
+```
+
+2. Send event right now
+
+```kotlin
+AddToCartEvent()
+    .sendNow({
+        // handle event send success
+    }) { errorResponse ->
+        // handle event send failed
+        true // return true to cache event to later scheduled send
+    }
+```
 
 ## Events tracking
 

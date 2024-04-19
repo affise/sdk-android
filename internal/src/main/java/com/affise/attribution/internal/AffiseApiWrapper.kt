@@ -13,6 +13,7 @@ import com.affise.attribution.internal.ext.isValid
 import com.affise.attribution.internal.ext.opt
 import com.affise.attribution.internal.ext.toListOfMap
 import com.affise.attribution.internal.platform.InternalCrossPlatform
+import com.affise.attribution.internal.utils.jsonToMap
 import com.affise.attribution.internal.utils.toJSONObject
 import com.affise.attribution.modules.toAffiseModules
 import com.affise.attribution.referrer.toReferrerKey
@@ -28,15 +29,16 @@ class AffiseApiWrapper(private val app: Application?) {
     private val factory: EventFactory = EventFactory()
     private val affiseBuilder: AffiseBuilder = AffiseBuilder()
 
-    private var callback: ((AffiseApiMethod, Map<String, Any?>) -> Unit)? = null
+    private var callback: ((AffiseApiMethod, Map<String, Any?>) -> Map<String, Any?>?)? = null
 
     fun setCallback(callback: OnAffiseCallback? = null) {
         this.callback = { name, data ->
-            callback?.handleCallback(name.method, JSONObject(data).toString())
+            val result = callback?.handleCallback(name.method, JSONObject(data).toString())
+            jsonToMap(result)
         }
     }
 
-    fun setCallback(callback: ((String, Map<String, Any?>) -> Unit)? = null) {
+    fun setCallback(callback: ((String, Map<String, Any?>) -> Map<String, Any?>?)? = null) {
         this.callback = { name, data ->
             callback?.invoke(name.method, data)
         }
@@ -66,12 +68,11 @@ class AffiseApiWrapper(private val app: Application?) {
             AffiseApiMethod.IS_INITIALIZED ->
                 callIsInitialized(api, map, result)
 
-//          Deprecated
-            AffiseApiMethod.SEND_EVENTS ->
-                callSendEvents(api, map, result)
-
             AffiseApiMethod.SEND_EVENT ->
                 callSendEvent(api, map, result)
+
+            AffiseApiMethod.SEND_EVENT_NOW ->
+                callSendEventNow(api, map, result)
 
             AffiseApiMethod.ADD_PUSH_TOKEN ->
                 callAddPushToken(api, map, result)
@@ -204,16 +205,6 @@ class AffiseApiWrapper(private val app: Application?) {
         }
     }
 
-//    Deprecated
-    private fun callSendEvents(
-        api: AffiseApiMethod,
-        map: Map<String, *>,
-        result: AffiseResult
-    ) {
-        Affise.sendEvents()
-        result.success(null)
-    }
-
     private fun callSendEvent(
         api: AffiseApiMethod,
         map: Map<String, *>,
@@ -228,6 +219,46 @@ class AffiseApiWrapper(private val app: Application?) {
         val event = factory.create(data)
         if (event != null) {
             event.send()
+            result.success(null)
+        } else {
+            result.error("api [${api.method}]: not valid event ${map.toJSONObject()}")
+        }
+    }
+
+    private fun callSendEventNow(
+        api: AffiseApiMethod,
+        map: Map<String, *>,
+        result: AffiseResult
+    ) {
+        val data = map.opt<Map<*, *>>(api)
+        if (data == null) {
+            result.error("api [${api.method}]: value not set")
+            return
+        }
+
+        val event = factory.create(data)
+        if (event != null) {
+            event.sendNow({
+                val uuid = map.opt<String>(UUID)
+                val dataMap = mapOf<String, Any?>(
+                    UUID to uuid,
+                )
+                callback?.invoke(api, dataMap)
+            }) { response ->
+                val uuid = map.opt<String>(UUID)
+                val dataMap = mapOf<String, Any?>(
+                    UUID to uuid,
+                    api.method to mapOf(
+                        "response" to mapOf(
+                            "code" to response.code,
+                            "message" to response.message,
+                            "body" to response.body,
+                        ),
+                    ),
+                )
+                // return true to save event on error
+                return@sendNow callback?.invoke(api, dataMap)?.opt<Boolean>(api) ?: true
+            }
             result.success(null)
         } else {
             result.error("api [${api.method}]: not valid event ${map.toJSONObject()}")

@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -268,7 +267,7 @@ fun purchase(
 }
 
 tailrec fun Context.findActivity(): Activity? = when (this) {
-    is AppCompatActivity -> this
+    is Activity -> this
     is ContextWrapper -> baseContext.findActivity()
     else -> null
 }

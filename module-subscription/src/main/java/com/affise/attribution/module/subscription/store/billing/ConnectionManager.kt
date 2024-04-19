@@ -8,13 +8,11 @@ import com.android.billingclient.api.BillingClientStateListener
 import com.android.billingclient.api.BillingResult
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.PurchasesUpdatedListener
-import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import kotlinx.coroutines.withContext
 import java.io.Closeable
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -35,16 +33,13 @@ internal class ConnectionManager(
 
     private val mutex = Mutex()
 
-    @OptIn(DelicateCoroutinesApi::class)
     fun connection(status: suspend (AffiseResult<Boolean>) -> Unit) {
-        GlobalScope.launch {
-            withContext(Dispatchers.IO) {
-                mutex.withLock {
-                    if (billingClient.isReady) {
-                        status(AffiseResult.Success(true))
-                    } else {
-                        status(billingClient.connect())
-                    }
+        CoroutineScope(Dispatchers.IO).launch {
+            mutex.withLock {
+                if (billingClient.isReady) {
+                    status(AffiseResult.Success(true))
+                } else {
+                    status(billingClient.connect())
                 }
             }
         }
