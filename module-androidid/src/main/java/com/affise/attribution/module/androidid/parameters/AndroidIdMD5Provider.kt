@@ -1,4 +1,4 @@
-package com.affise.attribution.parameters.providers
+package com.affise.attribution.module.androidid.parameters
 
 import com.affise.attribution.converter.Converter
 import com.affise.attribution.parameters.ProviderType

@@ -39,7 +39,7 @@ static def EnvValue(env, defaultValue) {
 }
 
 ext {
-    affiseVersion = "1.6.30"
+    affiseVersion = "1.6.31"
 
     installReferrerVersion = "2.2"
     billingVersion = "6.2.0"

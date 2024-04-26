@@ -1,8 +1,7 @@
-package com.affise.attribution.parameters
+package com.affise.attribution.module.androidid.parameters
 
 import com.affise.attribution.converter.Converter
 import com.affise.attribution.parameters.base.StringPropertyProvider
-import com.affise.attribution.parameters.providers.AndroidIdMD5Provider
 import com.google.common.truth.Truth
 import io.mockk.every
 import io.mockk.mockk
@@ -28,7 +27,7 @@ class AndroidIdMD5ProviderTest {
                 convert(aId)
             } returns aIdConverted
         }
-        val provider = AndroidIdMD5Provider(
+        val provider = com.affise.attribution.module.androidid.parameters.AndroidIdMD5Provider(
             aIdProvider,
             strToMd5Converter
         )
@@ -48,7 +47,7 @@ class AndroidIdMD5ProviderTest {
             } returns null
         }
         val strToMd5Converter: Converter<String, String> = mockk()
-        val provider = AndroidIdMD5Provider(
+        val provider = com.affise.attribution.module.androidid.parameters.AndroidIdMD5Provider(
             aIdProvider,
             strToMd5Converter
         )

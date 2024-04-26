@@ -39,7 +39,6 @@ internal class PropertiesProviderFactory(
 ) {
 
     fun create(): PostBackModelFactory {
-        val androidIdProvider = AndroidIdProvider(app)
         val firstOpenTimeProvider = FirstOpenTimeProvider(firstAppOpenUseCase)
         val lastSessionTimeProvider = LastSessionTimeProvider(sessionManager)
 
@@ -78,8 +77,6 @@ internal class PropertiesProviderFactory(
                 EmptyStringProvider(ProviderType.DEVICE_ATLAS_ID, 26.0f),
                 AffiseDeviceIdProvider(firstAppOpenUseCase),
                 AffiseAltDeviceIdProvider(firstAppOpenUseCase),
-                androidIdProvider,
-                AndroidIdMD5Provider(androidIdProvider, stringToMd5Converter),
                 RefTokenProvider(sharedPreferences),
                 RefTokensProvider(sharedPreferences),
                 InstallReferrerProvider(app, retrieveInstallReferrerUseCase),

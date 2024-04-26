@@ -17,7 +17,7 @@ object AffiseSubscription : AffiseSubscriptionApi {
         productsIds: List<String>,
         callback: AffiseResultCallback<AffiseProductsResult>
     ) {
-        AffiseSubscriptionModule.instance
+        SubscriptionModule.instance
             ?.fetchProducts(productsIds, callback)
             ?: callback.handle(AffiseResult.Error(AffiseSubscriptionError.NotInitialized()))
     }
@@ -28,7 +28,7 @@ object AffiseSubscription : AffiseSubscriptionApi {
         type: AffiseProductType?,
         callback: AffiseResultCallback<AffisePurchasedInfo>,
     ) {
-        AffiseSubscriptionModule.instance
+        SubscriptionModule.instance
             ?.purchase(activity, product, type, callback)
             ?: callback.handle(AffiseResult.Error(AffiseSubscriptionError.NotInitialized()))
     }
@@ -40,7 +40,7 @@ object AffiseSubscription : AffiseSubscriptionApi {
         type: AffiseProductType?,
         callback: AffiseResultCallback<AffisePurchasedInfo>
     ) {
-        AffiseSubscriptionModule.instance
+        SubscriptionModule.instance
             ?.purchase(activity, productId, offerToken, type, callback)
             ?: callback.handle(AffiseResult.Error(AffiseSubscriptionError.NotInitialized()))
     }

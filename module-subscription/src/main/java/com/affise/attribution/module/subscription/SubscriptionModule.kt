@@ -13,7 +13,7 @@ import com.affise.attribution.modules.subscription.AffiseResultCallback
 import com.affise.attribution.modules.subscription.AffiseSubscriptionApi
 import com.affise.attribution.modules.subscription.AffiseSubscriptionError
 
-internal class AffiseSubscriptionModule : AffiseModule(), AffiseSubscriptionApi {
+internal class SubscriptionModule : AffiseModule(), AffiseSubscriptionApi {
 
     private var storeManager: StoreManager? = null
 

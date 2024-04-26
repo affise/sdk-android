@@ -1,4 +1,4 @@
-package com.affise.attribution.parameters.providers
+package com.affise.attribution.module.androidid.parameters
 
 import android.annotation.SuppressLint
 import android.app.Application

@@ -1,9 +1,8 @@
-package com.affise.attribution.parameters
+package com.affise.attribution.module.androidid.parameters
 
 import android.app.Application
 import android.content.ContentResolver
 import android.provider.Settings
-import com.affise.attribution.parameters.providers.AndroidIdProvider
 import com.google.common.truth.Truth
 import io.mockk.every
 import io.mockk.mockk
@@ -31,7 +30,7 @@ class AndroidIdProviderTest {
                 } returns contentResolverMock
             }
 
-            val provider = AndroidIdProvider(app)
+            val provider = com.affise.attribution.module.androidid.parameters.AndroidIdProvider(app)
             val actual = provider.provide()
 
             Truth.assertThat(actual).isEqualTo(secureValue)

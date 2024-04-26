@@ -81,6 +81,7 @@ dependencies {
 
     implementation(project("::attribution"))
     implementation(project("::module-advertising"))
+    implementation(project("::module-androidid"))
     implementation(project("::module-network"))
     implementation(project("::module-phone"))
     implementation(project("::module-status"))
