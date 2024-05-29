@@ -87,17 +87,11 @@ object Affise {
     }
 
     /**
-     * Store and send [event]
+     * Send now [event]
      */
     @JvmStatic
     internal fun sendEventNow(event: Event, success: OnSendSuccessCallback, failed: OnSendFailedCallback) {
-        api?.immediateSendToServerUseCase?.sendNow(event, success) { response ->
-            return@sendNow failed.handle(response).also { toSave ->
-                if (toSave) {
-                    api?.storeEventUseCase?.storeEvent(event)
-                }
-            }
-        }
+        api?.immediateSendToServerUseCase?.sendNow(event, success, failed)
     }
 
     /**

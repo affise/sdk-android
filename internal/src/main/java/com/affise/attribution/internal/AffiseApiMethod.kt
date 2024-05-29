@@ -3,8 +3,6 @@ package com.affise.attribution.internal
 enum class AffiseApiMethod(val method: String) {
     INIT("init"),
     IS_INITIALIZED("is_initialized"),
-//    Deprecated
-//    SEND_EVENTS("send_events"),
     SEND_EVENT("send_event"),
     SEND_EVENT_NOW("send_event_now"),
     ADD_PUSH_TOKEN("add_push_token"),

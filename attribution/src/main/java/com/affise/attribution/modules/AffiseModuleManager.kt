@@ -59,7 +59,7 @@ internal class AffiseModuleManager(
     private fun getModule(module: AffiseModules): AffiseModule? = modules[module]
 
     private fun initAffiseModules(callback: (AffiseModule) -> Unit) {
-        AffiseModules.entries.forEach { name ->
+        AffiseModules.values().forEach { name ->
             getClass(name.module)?.let { module ->
                 modules[name] = module
                 callback(module)

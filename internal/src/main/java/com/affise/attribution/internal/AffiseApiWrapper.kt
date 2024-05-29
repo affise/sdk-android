@@ -24,12 +24,13 @@ class AffiseApiWrapper(private val app: Application?) {
 
     companion object {
         private const val UUID = "callback_uuid"
+        private const val TAG = "callback_tag"
     }
 
     private val factory: EventFactory = EventFactory()
     private val affiseBuilder: AffiseBuilder = AffiseBuilder()
 
-    private var callback: ((AffiseApiMethod, Map<String, Any?>) -> Map<String, Any?>?)? = null
+    private var callback: ((AffiseApiMethod, Map<String, Any?>) -> Unit)? = null
 
     fun setCallback(callback: OnAffiseCallback? = null) {
         this.callback = { name, data ->
@@ -38,7 +39,7 @@ class AffiseApiWrapper(private val app: Application?) {
         }
     }
 
-    fun setCallback(callback: ((String, Map<String, Any?>) -> Map<String, Any?>?)? = null) {
+    fun setCallback(callback: ((String, Map<String, Any?>) -> Unit)? = null) {
         this.callback = { name, data ->
             callback?.invoke(name.method, data)
         }
@@ -237,32 +238,34 @@ class AffiseApiWrapper(private val app: Application?) {
         }
 
         val event = factory.create(data)
-        if (event != null) {
-            event.sendNow({
-                val uuid = map.opt<String>(UUID)
-                val dataMap = mapOf<String, Any?>(
-                    UUID to uuid,
-                )
-                callback?.invoke(api, dataMap)
-            }) { response ->
-                val uuid = map.opt<String>(UUID)
-                val dataMap = mapOf<String, Any?>(
-                    UUID to uuid,
-                    api.method to mapOf(
-                        "response" to mapOf(
-                            "code" to response.code,
-                            "message" to response.message,
-                            "body" to response.body,
-                        ),
-                    ),
-                )
-                // return true to save event on error
-                return@sendNow callback?.invoke(api, dataMap)?.opt<Boolean>(api) ?: true
-            }
-            result.success(null)
-        } else {
+        if (event == null) {
             result.error("api [${api.method}]: not valid event ${map.toJSONObject()}")
+            return
         }
+
+        val uuid = map.opt<String>(UUID)
+        event.sendNow({
+            val dataMap = mapOf<String, Any?>(
+                UUID to uuid,
+                TAG to "success",
+            )
+            callback?.invoke(api, dataMap)
+        }) { response ->
+            val dataMap = mapOf<String, Any?>(
+                UUID to uuid,
+                TAG to "failed",
+                api.method to mapOf(
+                    "response" to mapOf(
+                        "code" to response.code,
+                        "message" to response.message,
+                        "body" to response.body,
+                    ),
+                ),
+            )
+            callback?.invoke(api, dataMap)
+        }
+
+        result.success(null)
     }
 
     private fun callAddPushToken(

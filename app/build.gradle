@@ -1,12 +1,26 @@
 import java.text.SimpleDateFormat
 
-plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-    id 'com.google.gms.google-services'
-    id "com.google.devtools.ksp" version "1.9.0-1.0.12"
+buildscript {
+    ext.build_kotlin_version = kotlin_version
+    ext.compose_version = "1.5.2"
+    ext.ksp_version = "1.9.0-1.0.12"
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$build_kotlin_version"
+        classpath "org.jetbrains.compose:compose-gradle-plugin:$compose_version"
+        classpath "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:$ksp_version"
+    }
 }
 
+plugins {
+    id 'com.android.application'
+    id 'com.google.gms.google-services'
+//    id 'com.google.devtools.ksp' version "$ksp_version"
+}
+
+apply plugin: 'org.jetbrains.kotlin.android'
+apply plugin: 'org.jetbrains.compose'
+apply plugin: 'com.google.devtools.ksp'
 
 android {
     namespace 'com.affise.app'
@@ -18,7 +32,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.2"
+        kotlinCompilerExtensionVersion = "$compose_version"
     }
 
     defaultConfig {

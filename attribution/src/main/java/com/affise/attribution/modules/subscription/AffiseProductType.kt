@@ -9,7 +9,7 @@ enum class AffiseProductType(val value: String) {
     companion object {
         @JvmStatic
         fun from(name: String?): AffiseProductType? = name?.let { value ->
-            entries.firstOrNull { it.value == value }
+            values().firstOrNull { it.value == value }
         }
     }
 }

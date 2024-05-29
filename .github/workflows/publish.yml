@@ -34,6 +34,7 @@ jobs:
       - name: Grant Permission for Gradlew to Execute
         run: chmod +x gradlew
 
+      # Publish
       - name: Nexus Publish
         env:
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
@@ -57,6 +58,7 @@ jobs:
           echo Version: ${GITHUB_REF_NAME#v}
           echo "VERSION=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
 
+      # Release
       - name: Release
         id: create_release
         uses: actions/create-release@v1
@@ -68,6 +70,7 @@ jobs:
           draft: false
           prerelease: false
 
+      # Release Upload Attribution library
       - name: Upload Release Attribution AAR 🗳
         id: upload-attribution-asset
         uses: actions/upload-release-asset@v1
@@ -79,6 +82,7 @@ jobs:
           asset_name: attribution-${{ steps.version_tag.outputs.VERSION }}.aar
           asset_content_type: application/aar
 
+      # Release Upload Module Advertising
       - name: Upload Release Module Advertising AAR 🗳
         id: upload-module-advertising-asset
         uses: actions/upload-release-asset@v1
@@ -90,6 +94,7 @@ jobs:
           asset_name: module-advertising-${{ steps.version_tag.outputs.VERSION }}.aar
           asset_content_type: application/aar
 
+      # Release Upload Module AndroidId
       - name: Upload Release Module AndroidId AAR 🗳
         id: upload-module-androidid-asset
         uses: actions/upload-release-asset@v1
@@ -101,6 +106,7 @@ jobs:
           asset_name: module-androidid-${{ steps.version_tag.outputs.VERSION }}.aar
           asset_content_type: application/aar
 
+      # Release Upload Module Network
       - name: Upload Release Module Network AAR 🗳
         id: upload-module-network-asset
         uses: actions/upload-release-asset@v1
@@ -112,6 +118,7 @@ jobs:
           asset_name: module-network-${{ steps.version_tag.outputs.VERSION }}.aar
           asset_content_type: application/aar
 
+      # Release Upload Module Phone
       - name: Upload Release Module Phone AAR 🗳
         id: upload-module-phone-asset
         uses: actions/upload-release-asset@v1
@@ -123,6 +130,7 @@ jobs:
           asset_name: module-phone-${{ steps.version_tag.outputs.VERSION }}.aar
           asset_content_type: application/aar
 
+      # Release Upload Module Status
       - name: Upload Release Module Status AAR 🗳
         id: upload-module-status-asset
         uses: actions/upload-release-asset@v1
@@ -134,6 +142,7 @@ jobs:
           asset_name: module-status-${{ steps.version_tag.outputs.VERSION }}.aar
           asset_content_type: application/aar
 
+#      # Release Upload Module Subscription
 #      - name: Upload Release Module Subscription AAR 🗳
 #        id: upload-module-subscription-asset
 #        uses: actions/upload-release-asset@v1
@@ -145,6 +154,7 @@ jobs:
 #          asset_name: module-subscription-${{ steps.version_tag.outputs.VERSION }}.aar
 #          asset_content_type: application/aar
 
+#      # Release Upload Internal library
 #      - name: Upload Release Internal AAR 🗳
 #        id: upload-internal-asset
 #        uses: actions/upload-release-asset@v1
@@ -156,11 +166,13 @@ jobs:
 #          asset_name: internal-${{ steps.version_tag.outputs.VERSION }}.aar
 #          asset_content_type: application/aar
 
+      # Demo App
       - name: Build Demo App
         if: ${{ !cancelled() }}
         run: |
           ./gradlew :app:assembleDebug --no-daemon --no-parallel
 
+      # Release Upload Demo App
       - name: Upload Demo App 🗳
         if: ${{ !cancelled() }}
         id: upload-demo-app-asset

@@ -9,7 +9,7 @@ enum class TimeUnitType(val value: String) {
     companion object {
         @JvmStatic
         fun from(name: String?): TimeUnitType? = name?.let { value ->
-            TimeUnitType.entries.firstOrNull { it.value == value }
+            values().firstOrNull { it.value == value }
         }
     }
 }

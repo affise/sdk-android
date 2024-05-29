@@ -1,7 +1,14 @@
+buildscript {
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$build_kotlin_version"
+    }
+}
+
 plugins {
     id 'com.android.library'
-    id 'org.jetbrains.kotlin.android'
 }
+
+apply plugin: 'org.jetbrains.kotlin.android'
 
 android {
     namespace 'com.affise.attribution.module.advertising'

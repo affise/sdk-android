@@ -13,7 +13,7 @@ enum class AffiseModules(val module: String) {
         @JvmStatic
         fun from(name: String?): AffiseModules? {
             name ?:  return null
-            return entries.firstOrNull { it.module.contains(name, true) }
+            return values().firstOrNull { it.module.contains(name, true) }
         }
     }
 }
