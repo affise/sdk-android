@@ -136,6 +136,9 @@ abstract class Event: PredefinedParameter {
         Affise.sendEvent(this)
     }
 
+    /**
+     * Send this event now
+     */
     fun sendNow(success: OnSendSuccessCallback, failed: OnSendFailedCallback) {
         Affise.sendEventNow(this, success, failed)
     }

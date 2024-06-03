@@ -1,16 +1,22 @@
 # Changelog
 
+## [1.6.34] - 2024-06-03
+
+### Changed
+
+- Update `internal` library for `crossplatform`.
+
 ## [1.6.33] - 2024-05-29
 
 ### Removed
 
-- Result for failed `sendEvents`.
+- Result for failed `sendNow`.
 
 ### Changed
 
 - Update `kotlin` version `1.6`.
 - Update each modules for separate `kotlin` version. 
-- Update `internal` library for crossplatform.
+- Update `internal` library for `crossplatform`.
 - Update `gradle-wrapper` version `7.5`.
 
 ## [1.6.32] - 2024-04-26
@@ -56,6 +62,7 @@
 - Improve `AffiseModuleManager`
 - Update gradle for demo app.
 
+[1.6.34]: https://github.com/affise/sdk-android/compare/v1.6.33...v1.6.34
 [1.6.33]: https://github.com/affise/sdk-android/compare/v1.6.32...v1.6.33
 [1.6.32]: https://github.com/affise/sdk-android/compare/v1.6.31...v1.6.32
 [1.6.31]: https://github.com/affise/sdk-android/compare/v1.6.30...v1.6.31

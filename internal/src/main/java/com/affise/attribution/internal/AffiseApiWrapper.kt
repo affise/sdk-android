@@ -255,11 +255,9 @@ class AffiseApiWrapper(private val app: Application?) {
                 UUID to uuid,
                 TAG to "failed",
                 api.method to mapOf(
-                    "response" to mapOf(
-                        "code" to response.code,
-                        "message" to response.message,
-                        "body" to response.body,
-                    ),
+                    "code" to response.code,
+                    "message" to response.message,
+                    "body" to response.body,
                 ),
             )
             callback?.invoke(api, dataMap)
