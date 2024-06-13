@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.35] - 2024-06-13
+
+### Changed
+
+- Update `Demo app`.
+- Update modules extensions.
+
 ## [1.6.34] - 2024-06-03
 
 ### Changed
@@ -62,6 +69,7 @@
 - Improve `AffiseModuleManager`
 - Update gradle for demo app.
 
+[1.6.35]: https://github.com/affise/sdk-android/compare/v1.6.34...v1.6.35
 [1.6.34]: https://github.com/affise/sdk-android/compare/v1.6.33...v1.6.34
 [1.6.33]: https://github.com/affise/sdk-android/compare/v1.6.32...v1.6.33
 [1.6.32]: https://github.com/affise/sdk-android/compare/v1.6.31...v1.6.32

@@ -1,75 +1,42 @@
 <resources>
     <string name="app_name">Affise SDK showcase</string>
-    <string name="send_all_events">Send All Events</string>
+
+<!--    Min Screen-->
+    <string name="api">API</string>
     <string name="events">Events</string>
     <string name="web_events">Web events</string>
     <string name="store">Store</string>
-    <string name="api">API</string>
-    <string name="affise_events_demo">Affise events demo</string>
-    <string name="back">Back</string>
-    <string name="affise_web_events_demo">Affise web events demo</string>
-    <string name="retry">Retry</string>
-    <string name="error">Error</string>
-    <string name="search_here">Search here…</string>
-    <string name="popular">Popular</string>
-    <string name="rating_with_value">Ratting %s</string>
-    <string name="reviews">Reviews</string>
-    <string name="size">Size</string>
-    <string name="colors">Colors</string>
-    <string name="actionSizeEuroText">EURO</string>
-    <string name="actionSizeAsiaText">Asia</string>
-    <string name="actionSizeUsText">US</string>
-    <string name="buy_now">Buy Now</string>
-    <string name="menu_home">Home</string>
-    <string name="menu_wishlist">Wishlist</string>
-    <string name="menu_cart">Cart</string>
-    <string name="menu_test_buttons">Test buttons</string>
-    <string name="my_wishlist">My Wishlist</string>
-    <string name="checkout">Checkout</string>
-    <string name="my_cart">My Cart</string>
-    <string name="total">Total</string>
-    <string name="menu_api">API</string>
-    <string name="menu_settings">Settings</string>
-    <string name="secret_key">Secret Key</string>
-    <string name="settings">Settings</string>
-    <string name="save">Save</string>
+
+    <string name="api_output">API Output</string>
+
+<!--    Dialog-->
     <string name="ok">OK</string>
-    <string name="change_complete">Change successful \n(restart if needed)</string>
-    <string name="menu_title">Affise demo</string>
-    <string name="menu_test_auto_catching">Test auto catching</string>
-    <string name="select_auto_catching_types_title">Select types</string>
-    <string name="types">Types</string>
-    <string name="button">Button</string>
-    <string name="text">Text</string>
-    <string name="image_button">ImageButton</string>
-    <string name="image">Image</string>
-    <string name="group">Group</string>
-    <string name="item">Item</string>
-    <string name="price_50">50$</string>
+
+<!--    Store screen-->
+    <string name="no_subscription_module">No Subscription Module</string>
+
+    <string name="products">Products</string>
+    <string name="fetch_products">Fetch Products</string>
+    <string name="fetch_result">Fetch result</string>
+    <string name="fetch_result_error">Fetch result error</string>
+    <string name="purchase_result">Purchase result</string>
+    <string name="purchase_result_error">Purchase result error</string>
+
+    <string name="buy">Buy</string>
+    <string name="invalid_ids">Invalid Ids</string>
+
+<!--    Settings-->
+    <string name="domain">Domain (restart needed)</string>
+    <string name="production">Production mode</string>
+    <string name="offline_mode">Offline Mode</string>
+    <string name="background_tracking">Background Tracking</string>
+    <string name="tracking">Tracking</string>
     <string name="metrics">Metrics</string>
-    <string name="metrics_enabled">Metrics enabled</string>
-    <string name="menu_test_metrics">Metrics settings</string>
-    <string name="set_offline_mode_enabled_switch_title">Set offline mode</string>
-    <string name="set_background_tracking_mode_enabled_switch_title">Set background tracking mode</string>
-    <string name="set_tracking_mode_enabled_switch_title">Set tracking mode</string>
-    <string name="gdpr_forget_button_title">Send GDPR Forget event</string>
-    <string name="test_application_crash_affise_button_title">Crash application with affise library</string>
-    <string name="test_application_crash_button_title">Crash application with demo app</string>
-    <string name="push_token_input_edit_text_hint">Current push token</string>
-    <string name="default_push_token_input_edit_text_value">unknown</string>
-    <string name="affise_app_id">Affise App Id (restart needed)</string>
-    <string name="affise_domain">Domain (restart needed)</string>
-    <string name="set_debug_switch_title">Set Debug (restart needed)</string>
-    <string name="log_debug_request_switch_title">Debug Log Request</string>
-    <string name="log_debug_response_switch_title">Debug Log Response</string>
-    <string name="output">Output</string>
-    <string name="debug_validate_button_title">Debug: Validate credentials</string>
-    <string name="register_deeplink_button_title">RegisterDeeplinkCallback</string>
-    <string name="get_referrer_button_title">Get Referrer</string>
-    <string name="get_referrer_value_button_title">Get Referrer Value</string>
-    <string name="status_button_title">Get Status</string>
-    <string name="random_push_token_button_title">Random push Token</string>
-    <string name="random_user_id_button_title">Get Random User Id</string>
-    <string name="random_device_id_button_title">Get Random Device Id</string>
-    <string name="providers_button_title">Get Providers</string>
+    <string name="debug_request">Debug Request</string>
+    <string name="debug_response">Debug Response</string>
+    <string name="app_id">App ID</string>
+    <string name="secret_key">Secret Key</string>
+    <string name="push_token">Push token</string>
+    <string name="forget_all">GDPR forget all</string>
+    <string name="crash_application">CRASH Application</string>
 </resources>

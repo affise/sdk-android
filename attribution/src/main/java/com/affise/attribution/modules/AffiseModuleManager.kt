@@ -56,7 +56,7 @@ internal class AffiseModuleManager(
         postBackModelFactory.addProviders(module.providers())
     }
 
-    private fun getModule(module: AffiseModules): AffiseModule? = modules[module]
+    fun getModule(module: AffiseModules): AffiseModule? = modules[module]
 
     private fun initAffiseModules(callback: (AffiseModule) -> Unit) {
         AffiseModules.values().forEach { name ->
