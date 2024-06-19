@@ -35,6 +35,7 @@ import com.affise.app.ui.screen.settings.SettingsScreen
 import com.affise.app.ui.screen.store.StoreScreen
 import com.affise.app.ui.screen.web.WebScreen
 import com.affise.app.ui.theme.AffiseAttributionLibTheme
+import com.affise.attribution.Affise
 import com.google.firebase.messaging.FirebaseMessaging
 
 class MainActivity : ComponentActivity() {
@@ -47,6 +48,16 @@ class MainActivity : ComponentActivity() {
             AffiseAttributionLibTheme {
                 MainView()
             }
+        }
+        Affise.registerDeeplinkCallback {
+            popDialog(
+                title = "Deeplink",
+                text = "\"${it.deeplink}\"\n\n" +
+                        "scheme: \"${it.scheme}\"\n\n" +
+                        "host: \"${it.host}\"\n\n" +
+                        "path: \"${it.path}\"\n\n" +
+                        "parameters: ${it.parameters}"
+            )
         }
     }
 

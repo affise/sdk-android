@@ -552,14 +552,17 @@ class AffiseApiWrapper(private val app: Application?) {
         map: Map<String, *>,
         result: AffiseResult
     ) {
-        val uuid = map.opt<String>(UUID)
-        Affise.registerDeeplinkCallback { uri ->
+        Affise.registerDeeplinkCallback { value ->
             val data = mapOf<String, Any?>(
-                UUID to uuid,
-                api.method to uri.toString(),
+                api.method to mapOf(
+                    "deeplink" to value.deeplink,
+                    "scheme" to value.scheme,
+                    "host" to value.host,
+                    "path" to value.path,
+                    "parameters" to value.parameters
+                ),
             )
             callback?.invoke(api, data)
-            true
         }
         result.success(null)
     }

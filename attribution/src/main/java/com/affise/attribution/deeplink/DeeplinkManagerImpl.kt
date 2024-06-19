@@ -44,27 +44,25 @@ internal class DeeplinkManagerImpl(
         }
     }
 
-    override fun setDeeplinkCallback(callback: OnDeeplinkCallback) {
+    override fun setDeeplinkCallback(callback: OnDeeplinkCallback?) {
         deeplinkCallback = callback
     }
 
-    override fun handleDeeplink(uri: Uri): Boolean {
-        isDeeplinkRepository.setDeeplinkClick(true)
-        isDeeplinkRepository.setDeeplink(uri.toString())
-        return deeplinkCallback?.handleDeeplink(uri) ?: false
+    override fun handleDeeplink(uri: Uri) {
+        try {
+            isDeeplinkRepository.setDeeplinkClick(true)
+            isDeeplinkRepository.setDeeplink(uri.toString())
+            deeplinkCallback?.handleDeeplink(uri.toDeeplinkValue())
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun handleIntent(intent: Intent?) {
         intent ?: return
         if (intent.action != Intent.ACTION_VIEW) return
         intent.data?.let { uri ->
-            try {
-                if (handleDeeplink(uri)) {
-                    intent.data = null
-                }
-            } catch (e: Exception) {
-
-            }
+            handleDeeplink(uri)
         }
     }
 }

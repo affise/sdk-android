@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.36] - 2024-06-19
+
+### Changed
+
+- Update `registerDeeplinkCallback` change uri to convenient values.
+- Update `registerDeeplinkCallback` return removed.
+
 ## [1.6.35] - 2024-06-13
 
 ### Changed
@@ -69,6 +76,7 @@
 - Improve `AffiseModuleManager`
 - Update gradle for demo app.
 
+[1.6.36]: https://github.com/affise/sdk-android/compare/v1.6.35...v1.6.36
 [1.6.35]: https://github.com/affise/sdk-android/compare/v1.6.34...v1.6.35
 [1.6.34]: https://github.com/affise/sdk-android/compare/v1.6.33...v1.6.34
 [1.6.33]: https://github.com/affise/sdk-android/compare/v1.6.32...v1.6.33

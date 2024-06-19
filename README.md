@@ -90,13 +90,13 @@ For kotlin build script build.gradle.kts use:
 ```kotlin
 dependencies {
   // Add Affise library 
-  implementation("com.affise:attribution:1.6.35")
+  implementation("com.affise:attribution:1.6.36")
   // Add Affise modules 
-  implementation("com.affise:module-advertising:1.6.35")
-  implementation("com.affise:module-androidid:1.6.35")
-  implementation("com.affise:module-network:1.6.35")
-  implementation("com.affise:module-phone:1.6.35")
-  implementation("com.affise:module-status:1.6.35")
+  implementation("com.affise:module-advertising:1.6.36")
+  implementation("com.affise:module-androidid:1.6.36")
+  implementation("com.affise:module-network:1.6.36")
+  implementation("com.affise:module-phone:1.6.36")
+  implementation("com.affise:module-status:1.6.36")
   // Add install referrer
   implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -107,13 +107,13 @@ For groovy build script build.gradle use:
 ```groovy
 dependencies {
     // Add Affise library 
-    implementation 'com.affise:attribution:1.6.35'
+    implementation 'com.affise:attribution:1.6.36'
     // Add Affise modules 
-    implementation 'com.affise:module-advertising:1.6.35'
-    implementation 'com.affise:module-androidid:1.6.35'
-    implementation 'com.affise:module-network:1.6.35'
-    implementation 'com.affise:module-phone:1.6.35'
-    implementation 'com.affise:module-status:1.6.35'
+    implementation 'com.affise:module-advertising:1.6.36'
+    implementation 'com.affise:module-androidid:1.6.36'
+    implementation 'com.affise:module-network:1.6.36'
+    implementation 'com.affise:module-phone:1.6.36'
+    implementation 'com.affise:module-status:1.6.36'
     // Add install referrer
     implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -121,9 +121,9 @@ dependencies {
 
 ### Integrate as file dependency
 
-Download latest Affise SDK (`attribution-1.6.35.aar`)
+Download latest Affise SDK (`attribution-1.6.36.aar`)
 from [releases page](https://github.com/affise/sdk-android/releases) and place this binary to gradle application
-module lib directory `app/libs/attribution-1.6.35.aar`
+module lib directory `app/libs/attribution-1.6.36.aar`
 
 Add library as gradle file dependency to application module build script
 Add install referrer library
@@ -134,13 +134,13 @@ For kotlin build script build.gradle.kts use:
 dependencies {
     // ...
     // Add Affise library 
-    implementation(files("libs/attribution-1.6.35.aar"))
+    implementation(files("libs/attribution-1.6.36.aar"))
     // Add Affise modules 
-    implementation(files("libs/module-advertising-1.6.35.aar"))
-    implementation(files("libs/module-androidid-1.6.35.aar"))
-    implementation(files("libs/module-network-1.6.35.aar"))
-    implementation(files("libs/module-phone-1.6.35.aar"))
-    implementation(files("libs/module-status-1.6.35.aar"))
+    implementation(files("libs/module-advertising-1.6.36.aar"))
+    implementation(files("libs/module-androidid-1.6.36.aar"))
+    implementation(files("libs/module-network-1.6.36.aar"))
+    implementation(files("libs/module-phone-1.6.36.aar"))
+    implementation(files("libs/module-status-1.6.36.aar"))
     // Add install referrer
     implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -152,13 +152,13 @@ For groovy build script build.gradle use:
 dependencies {
   // ...  
   // Add Affise library 
-  implementation files('libs/attribution-1.6.35.aar')
+  implementation files('libs/attribution-1.6.36.aar')
   // Add Affise modules 
-  implementation files('libs/module-advertising-1.6.35.aar')
-  implementation files('libs/module-androidid-1.6.35.aar')
-  implementation files('libs/module-network-1.6.35.aar')
-  implementation files('libs/module-phone-1.6.35.aar')
-  implementation files('libs/module-status-1.6.35.aar')
+  implementation files('libs/module-advertising-1.6.36.aar')
+  implementation files('libs/module-androidid-1.6.36.aar')
+  implementation files('libs/module-network-1.6.36.aar')
+  implementation files('libs/module-phone-1.6.36.aar')
+  implementation files('libs/module-status-1.6.36.aar')
   // Add install referrer
   implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -807,27 +807,45 @@ for kotlin:
 ```kotlin
 Affise.settings(affiseAppId, secretKey).start(context) // Start Affise SDK
 
-Affise.registerDeeplinkCallback { uri ->
-  val value = uri.getQueryParameter("<your_uri_key>")
-  if(value == "<your_uri_key_value>") {
-    // handle value
-  }
-  // return true if deeplink is handled successfully
-  true
+Affise.registerDeeplinkCallback { value ->
+    // full uri "scheme://host/path?parameters"   
+    val deeplink = value.deeplink
+    
+    // separated for convenience 
+    val scheme = value.scheme
+    val host = value.host
+    val path = value.path
+    val queryParametersMap = value.parameters
+    
+    if(queryParametersMap["<your_uri_key>"].contains("<your_uri_key_value>")) {
+        // handle value
+    }
 }
 ```
 
 for java:
 
 ```java
-Affise.registerDeeplinkCallback(uri -> {
-    String value = uri.getQueryParameter("your_uri_key");
-    if (value.equals("your_uri_key_value")) {
+Affise.registerDeeplinkCallback(value -> {
+    // full uri "scheme://host/path?parameters"   
+    String deeplink = value.getDeeplink();
+
+    // separated for convenience 
+    String scheme = value.getScheme();
+    String host = value.getHost();
+    String path = value.getPath();
+    Map<String, List<String>> queryParametersMap = value.getParameters();
+    
+    if (queryParametersMap.get("your_uri_key").contains("your_uri_key_value")) {
         // handle value
     }
-    // return true if deeplink is handled successfully
-    return true;
 });
+```
+
+Test DeepLink via terminal command:
+
+```terminal
+adb shell am start -a android.intent.action.VIEW -d "YOUR_SCHEME://YOUR_DOMAIN/somepath?param=1\&list=some\&list=other\&list="
 ```
 
 ## AppLinks
@@ -836,7 +854,7 @@ Affise.registerDeeplinkCallback(uri -> {
 >
 > 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
 >
-> You must owne website domain.
+> You must own website domain.
 >
 > And has ability to add file `https://yoursite/.well-known/assetlinks.json`
 >
@@ -908,27 +926,45 @@ for kotlin:
 ```kotlin
 Affise.settings(affiseAppId, secretKey).start(context) // Start Affise SDK
 
-Affise.registerDeeplinkCallback { uri ->
-  val value = uri.getQueryParameter("<your_uri_key>")
-  if(value == "<your_uri_key_value>") {
-    // handle value
-  }
-  // return true if deeplink is handled successfully
-  true
+Affise.registerDeeplinkCallback { value ->
+    // full uri "scheme://host/path?parameters"   
+    val deeplink = value.deeplink
+  
+    // separated for convenience 
+    val scheme = value.scheme
+    val host = value.host
+    val path = value.path
+    val queryParametersMap = value.parameters
+  
+    if(queryParametersMap["<your_uri_key>"].contains("<your_uri_key_value>")) {
+        // handle value
+    }
 }
 ```
 
 for java:
 
 ```java
-Affise.registerDeeplinkCallback(uri -> {
-    String value = uri.getQueryParameter("your_uri_key");
-    if (value.equals("your_uri_key_value")) {
+Affise.registerDeeplinkCallback(value -> {
+    // full uri "scheme://host/path?parameters"   
+    String deeplink = value.getDeeplink();
+    
+    // separated for convenience 
+    String scheme = value.getScheme();
+    String host = value.getHost();
+    String path = value.getPath();
+    Map<String, List<String>> queryParametersMap = value.getParameters();
+      
+    if (queryParametersMap.get("your_uri_key").contains("your_uri_key_value")) {
         // handle value
     }
-    // return true if deeplink is handled successfully
-    return true;
 });
+```
+
+Test AppLinks via terminal command:
+
+```terminal
+adb shell am start -a android.intent.action.VIEW -d "https://YOUR_DOMAIN/somepath?param=1\&list=some\&list=other\&list="
 ```
 
 ## Offline mode

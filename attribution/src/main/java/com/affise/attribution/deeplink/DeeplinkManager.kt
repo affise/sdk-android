@@ -14,10 +14,10 @@ interface DeeplinkManager {
     /**
      * Sets [callback] to invoke when app receives deeplink
      */
-    fun setDeeplinkCallback(callback: OnDeeplinkCallback)
+    fun setDeeplinkCallback(callback: OnDeeplinkCallback?)
 
     /**
-     * Process [uri] as deeplink, returns [Boolean] indicating if deeplink is processed successfully
+     * Process [uri] as deeplink
      */
-    fun handleDeeplink(uri: Uri): Boolean
+    fun handleDeeplink(uri: Uri)
 }

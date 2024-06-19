@@ -69,8 +69,8 @@ class DeeplinkManagerImplTest {
         }
         val deeplinkCallback: OnDeeplinkCallback = mockk {
             every {
-                handleDeeplink(uri)
-            } returns true
+                handleDeeplink(uri.toDeeplinkValue())
+            }
         }
 
         val listeners = slot<ActivityLifecycleCallback>()
@@ -104,7 +104,7 @@ class DeeplinkManagerImplTest {
         listeners.captured.handle(activity)
 
         verifyAll {
-            deeplinkCallback.handleDeeplink(uri)
+            deeplinkCallback.handleDeeplink(uri.toDeeplinkValue())
         }
     }
 }
