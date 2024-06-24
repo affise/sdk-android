@@ -22,14 +22,11 @@ enum class AffiseApiMethod(val method: String) {
     GET_RANDOM_USER_ID("get_random_user_id"),
     GET_RANDOM_DEVICE_ID("get_random_device_id"),
     GET_PROVIDERS("get_providers"),
-    MODULE_START("module_start"),
-    GET_MODULES_INSTALLED("get_modules_installed"),
     IS_FIRST_RUN("is_first_run"),
 
     // callback methods
     GET_REFERRER_CALLBACK("get_referrer_callback"),
     GET_REFERRER_VALUE_CALLBACK("get_referrer_value_callback"),
-    GET_STATUS_CALLBACK("get_status_callback"),
     REGISTER_DEEPLINK_CALLBACK("register_deeplink_callback"),
 
     // debug
@@ -37,7 +34,23 @@ enum class AffiseApiMethod(val method: String) {
     DEBUG_NETWORK_CALLBACK("debug_network_callback"),
 
     // affise builder
-    AFFISE_BUILDER("affise_builder");
+    AFFISE_BUILDER("affise_builder"),
+
+    ////////////////////////////////////////
+    // modules
+    ////////////////////////////////////////
+    MODULE_START("module_start"),
+    GET_MODULES_INSTALLED("get_modules_installed"),
+    GET_STATUS_CALLBACK("get_status_callback"),
+    // Link Module
+    MODULE_LINK_LINK_RESOLVE_CALLBACK("module_link_link_resolve_callback"),
+    // Subscription Module
+    MODULE_SUBS_FETCH_PRODUCTS_CALLBACK("module_subs_fetch_products_callback"),
+    MODULE_SUBS_PURCHASE_CALLBACK("module_subs_purchase_callback"),
+    ////////////////////////////////////////
+    // modules
+    ////////////////////////////////////////
+    ;
 
     companion object {
         @JvmStatic

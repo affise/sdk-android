@@ -47,7 +47,7 @@ class CheckStatusUseCaseImpl(
         //While has attempts and not send
         while (attempts != 0 && !send) {
             val response = createRequest()
-            if (isHttpValid(response.code)) {
+            if (response.isHttpValid()) {
                 onComplete.handle(keyValueConverter.convert(response.body))
 
                 //Send is ok

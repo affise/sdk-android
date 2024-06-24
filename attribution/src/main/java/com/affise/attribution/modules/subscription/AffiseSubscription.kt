@@ -5,64 +5,139 @@ import com.affise.attribution.Affise
 import com.affise.attribution.modules.AffiseModules
 
 
-internal object AffiseSubscription : AffiseSubscriptionApi {
+object AffiseSubscription {
 
-    internal val module: AffiseSubscriptionApi?
-        get() {
-            return _module ?: getSubscriptionModule().also {
-                _module = it
-            }
+    internal val api: AffiseSubscriptionApi?
+        get() = module ?: Affise.Module.api<AffiseSubscriptionApi>(AffiseModules.Subscription).also {
+            module = it
         }
 
-    private var _module: AffiseSubscriptionApi? = null
+    private var module: AffiseSubscriptionApi? = null
 
-    private fun getSubscriptionModule() = Affise.getApi()
-        ?.moduleManager
-        ?.getModule(AffiseModules.Subscription) as? AffiseSubscriptionApi
+    /**
+     * Get Subscription Module status
+     * (billingclient wrapper)
+     */
+    @JvmStatic
+    fun hasSubscriptionModule(): Boolean = api != null
 
-    override fun fetchProducts(
+    /**
+     * Subscription Module fetch products for purchase from [productsIds]
+     * (billingclient wrapper)
+     */
+    @JvmStatic
+    fun fetchProducts(
         productsIds: List<String>,
         callback: AffiseResultCallback<AffiseProductsResult>,
     ) {
-        module
+        api
             ?.fetchProducts(productsIds, callback)
             ?: callback.handle(AffiseResult.Error(AffiseSubscriptionError.NotInitialized()))
     }
 
-    override fun purchase(
+    /**
+     * Subscription Module purchase product
+     * (billingclient wrapper)
+     */
+    @JvmStatic
+    fun purchase(
         activity: Activity,
         product: AffiseProduct,
         type: AffiseProductType?,
         callback: AffiseResultCallback<AffisePurchasedInfo>,
     ) {
-        module
+        api
             ?.purchase(activity, product, type, callback)
             ?: callback.handle(AffiseResult.Error(AffiseSubscriptionError.NotInitialized()))
     }
 
-    override fun purchase(
+    /**
+     * Subscription Module purchase product
+     * (billingclient wrapper)
+     */
+    @JvmStatic
+    fun purchase(
         activity: Activity,
         productId: String,
         offerToken: String?,
         type: AffiseProductType?,
         callback: AffiseResultCallback<AffisePurchasedInfo>,
     ) {
-        module
+        api
             ?.purchase(activity, productId, offerToken, type, callback)
             ?: callback.handle(AffiseResult.Error(AffiseSubscriptionError.NotInitialized()))
     }
 }
+
+@Deprecated(
+    message = "Method moved to Affise.Module",
+    replaceWith = ReplaceWith("Affise.Module.hasSubscriptionModule()")
+)
 fun Affise.hasSubscriptionModule(): Boolean {
-    return AffiseSubscription.module != null
+    return Affise.Module.hasSubscriptionModule()
 }
 
+@Deprecated(
+    message = "Method moved to Affise.Module",
+    replaceWith = ReplaceWith("Affise.Module.fetchProducts(productsIds, callback)")
+)
 fun Affise.fetchProducts(
+    productsIds: List<String>,
+    callback: AffiseResultCallback<AffiseProductsResult>,
+) {
+    Affise.Module.fetchProducts(productsIds, callback)
+}
+
+@Deprecated(
+    message = "Method moved to Affise.Module",
+    replaceWith = ReplaceWith("Affise.Module.purchase(activity, product, type, callback)")
+)
+fun Affise.purchase(
+    activity: Activity,
+    product: AffiseProduct,
+    type: AffiseProductType? = null,
+    callback: AffiseResultCallback<AffisePurchasedInfo>,
+) {
+    Affise.Module.purchase(activity, product, type, callback)
+}
+
+@Deprecated(
+    message = "Method moved to Affise.Module",
+    replaceWith = ReplaceWith("Affise.Module.purchase(activity, productId, offerToken, type, callback)")
+)
+fun Affise.purchase(
+    activity: Activity,
+    productId: String,
+    offerToken: String? = null,
+    type: AffiseProductType? = null,
+    callback: AffiseResultCallback<AffisePurchasedInfo>,
+) {
+    Affise.Module.purchase(activity, productId, offerToken, type, callback)
+}
+
+/**
+ * Get Subscription Module status
+ * (billingclient wrapper)
+ */
+fun Affise.Module.hasSubscriptionModule(): Boolean {
+    return AffiseSubscription.hasSubscriptionModule()
+}
+
+/**
+ * Subscription Module fetch products for purchase from [productsIds]
+ * (billingclient wrapper)
+ */
+fun Affise.Module.fetchProducts(
     productsIds: List<String>, callback: AffiseResultCallback<AffiseProductsResult>,
 ) {
     AffiseSubscription.fetchProducts(productsIds, callback)
 }
 
-fun Affise.purchase(
+/**
+ * Subscription Module purchase product
+ * (billingclient wrapper)
+ */
+fun Affise.Module.purchase(
     activity: Activity,
     product: AffiseProduct,
     type: AffiseProductType? = null,
@@ -71,7 +146,11 @@ fun Affise.purchase(
     AffiseSubscription.purchase(activity, product, type, callback)
 }
 
-fun Affise.purchase(
+/**
+ * Subscription Module purchase product
+ * (billingclient wrapper)
+ */
+fun Affise.Module.purchase(
     activity: Activity,
     productId: String,
     offerToken: String? = null,

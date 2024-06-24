@@ -89,7 +89,7 @@ afterEvaluate {
                     url "$snapshotsRepoUrl"
                 }
 
-                credentials{
+                credentials {
                     username ossrhUsername
                     password ossrhPassword
                 }

@@ -22,18 +22,23 @@ class HttpClientImpl : HttpClient {
         httpsUrl: URL,
         method: HttpClient.Method,
         data: String,
-        headers: Map<String, String>
+        headers: Map<String, String>,
+        redirect: Boolean
     ): HttpResponse {
+
         var connection: HttpsURLConnection? = null
         var responseCode: Int = 0
         var responseBody: String? = null
         var responseMessage: String = ""
+        var responseHeaders: Map<String,List<String>> = emptyMap()
+
         try {
             //Create data bytes
             val postDataBytes = data.toByteArray(charset("UTF-8"))
 
             //Create connection
             connection = httpsUrl.openConnection() as HttpsURLConnection
+            connection.instanceFollowRedirects = redirect
             connection.doOutput = true
             connection.doInput = true
             connection.requestMethod = method.name
@@ -52,6 +57,7 @@ class HttpClientImpl : HttpClient {
             //Get response code
             responseCode = connection.responseCode
             responseMessage = connection.responseMessage
+            responseHeaders = connection.headerFields
 
             //Get response body
             responseBody = if (isHttpValid(responseCode)) {
@@ -65,14 +71,20 @@ class HttpClientImpl : HttpClient {
             connection?.disconnect()
         }
 
-        return HttpResponse(responseCode, responseMessage, responseBody).also {
+        return HttpResponse(
+            code = responseCode,
+            message = responseMessage,
+            body = responseBody,
+            headers = responseHeaders
+        ).also { httpResponse ->
             debugRequest?.handle(
-                HttpRequest(
+                request = HttpRequest(
                     url = httpsUrl,
                     method = method,
                     headers = headers,
                     body = data
-                ), it
+                ),
+                response = httpResponse
             )
         }
     }

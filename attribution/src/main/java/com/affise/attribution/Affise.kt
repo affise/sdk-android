@@ -14,6 +14,7 @@ import com.affise.attribution.events.autoCatchingClick.AutoCatchingType
 import com.affise.attribution.events.predefined.GDPREvent
 import com.affise.attribution.init.AffiseInitProperties
 import com.affise.attribution.internal.InternalEvent
+import com.affise.attribution.modules.AffiseModuleApi
 import com.affise.attribution.modules.AffiseModules
 import com.affise.attribution.modules.OnKeyValueCallback
 import com.affise.attribution.parameters.providers.AffiseDeviceIdProvider
@@ -239,25 +240,37 @@ object Affise {
     /**
      * Get module status
      */
+    @Deprecated(
+        message = "Method moved to Affise.Module",
+        replaceWith = ReplaceWith("Affise.Module.getStatus(module, onComplete)")
+    )
     @JvmStatic
     fun getStatus(module: AffiseModules, onComplete: OnKeyValueCallback) {
-        api?.moduleManager?.status(module, onComplete)
+        Module.getStatus(module, onComplete)
     }
 
     /**
      * Manual module start
      */
+    @Deprecated(
+        message = "Method moved to Affise.Module",
+        replaceWith = ReplaceWith("Affise.Module.moduleStart(module)")
+    )
     @JvmStatic
     fun moduleStart(module: AffiseModules): Boolean {
-        return api?.moduleManager?.manualStart(module) ?: false
+        return Module.moduleStart(module)
     }
 
     /**
      * Get installed modules
      */
+    @Deprecated(
+        message = "Method moved to Affise.Module",
+        replaceWith = ReplaceWith("Affise.Module.getModulesInstalled()")
+    )
     @JvmStatic
     fun getModulesInstalled(): List<AffiseModules> {
-        return api?.moduleManager?.getModules() ?: emptyList()
+        return Module.getModulesInstalled()
     }
 
     /**
@@ -300,6 +313,36 @@ object Affise {
     @JvmStatic
     internal fun sendInternalEvent(event: InternalEvent) {
         api?.storeInternalEventUseCase?.storeInternalEvent(event)
+    }
+
+    object Module {
+        /**
+         * Get module status
+         */
+        @JvmStatic
+        fun getStatus(module: AffiseModules, onComplete: OnKeyValueCallback) {
+            api?.moduleManager?.status(module, onComplete)
+        }
+
+        /**
+         * Manual module start
+         */
+        @JvmStatic
+        fun moduleStart(module: AffiseModules): Boolean {
+            return api?.moduleManager?.manualStart(module) ?: false
+        }
+
+        /**
+         * Get installed modules
+         */
+        @JvmStatic
+        fun getModulesInstalled(): List<AffiseModules> {
+            return api?.moduleManager?.getModules() ?: emptyList()
+        }
+
+        internal fun <API:AffiseModuleApi> api(module: AffiseModules): API? {
+            return api?.moduleManager?.api(module)
+        }
     }
 
 

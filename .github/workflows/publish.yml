@@ -47,6 +47,7 @@ jobs:
           ./gradlew :attribution:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
           ./gradlew :module-advertising:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
           ./gradlew :module-androidid:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
+          ./gradlew :module-link:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
           ./gradlew :module-network:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
           ./gradlew :module-phone:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
           ./gradlew :module-status:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
@@ -104,6 +105,18 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: module-androidid/build/outputs/aar/module-androidid-release.aar
           asset_name: module-androidid-${{ steps.version_tag.outputs.VERSION }}.aar
+          asset_content_type: application/aar
+
+      # Release Upload Module Link
+      - name: Upload Release Module Link AAR 🗳
+        id: upload-module-link-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: module-link/build/outputs/aar/module-link-release.aar
+          asset_name: module-link-${{ steps.version_tag.outputs.VERSION }}.aar
           asset_content_type: application/aar
 
       # Release Upload Module Network

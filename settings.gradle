@@ -1,6 +1,7 @@
 include ':attribution'
 include ':module-androidid'
 include ':module-advertising'
+include ':module-link'
 include ':module-network'
 include ':module-phone'
 include ':module-status'

@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.6.37] - 2024-06-24
+
+### Added
+
+- New module `Link`.
+
+### Changed
+
+- Update api `Affise.getStatus` moved to `Affise.Module.getStatus`.
+- Update api `Affise.moduleStart` moved to `Affise.Module.moduleStart`.
+- Update api `Affise.getModulesInstalled` moved to `Affise.Module.getModulesInstalled`.
+
 ## [1.6.36] - 2024-06-19
 
 ### Changed
@@ -57,7 +69,7 @@
 
 ### Removed
 
-- Event api `sendEvents`.
+- Api `sendEvents`.
 
 ### Changed
 
@@ -76,6 +88,7 @@
 - Improve `AffiseModuleManager`
 - Update gradle for demo app.
 
+[1.6.37]: https://github.com/affise/sdk-android/compare/v1.6.36...v1.6.37
 [1.6.36]: https://github.com/affise/sdk-android/compare/v1.6.35...v1.6.36
 [1.6.35]: https://github.com/affise/sdk-android/compare/v1.6.34...v1.6.35
 [1.6.34]: https://github.com/affise/sdk-android/compare/v1.6.33...v1.6.34

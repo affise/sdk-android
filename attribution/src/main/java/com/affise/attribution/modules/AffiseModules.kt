@@ -4,6 +4,7 @@ package com.affise.attribution.modules
 enum class AffiseModules(val module: String) {
     Advertising("com.affise.attribution.module.advertising.AdvertisingModule"),
     AndroidId("com.affise.attribution.module.androidid.AndroidIdModule"),
+    Link("com.affise.attribution.module.link.LinkModule"),
     Network("com.affise.attribution.module.network.NetworkModule"),
     Phone("com.affise.attribution.module.phone.PhoneModule"),
     Status("com.affise.attribution.module.status.StatusModule"),

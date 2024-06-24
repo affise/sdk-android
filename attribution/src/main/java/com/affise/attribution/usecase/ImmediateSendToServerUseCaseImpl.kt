@@ -33,7 +33,7 @@ internal class ImmediateSendToServerUseCaseImpl(
                 //Send to this url
                 val response = sendNow(event, url)
 
-                if (isHttpValid(response.code)) {
+                if (response.isHttpValid()) {
                     success.handle()
                 } else {
                     failed.handle(response)

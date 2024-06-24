@@ -29,7 +29,7 @@ internal class CloudRepositoryImpl(
         while (attempts != 0 && !send) {
             //Create request
             val response = createRequest(url, data)
-            if (isHttpValid(response.code)) {
+            if (response.isHttpValid()) {
                 //Send is ok
                 send = true
             } else {

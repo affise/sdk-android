@@ -25,6 +25,7 @@ interface HttpClient {
         httpsUrl: URL,
         method: Method,
         data: String,
-        headers: Map<String, String>
+        headers: Map<String, String>,
+        redirect: Boolean = true
     ): HttpResponse
 }

@@ -66,4 +66,9 @@ internal class AffiseModuleManager(
             }
         }
     }
+
+    fun <API:AffiseModuleApi> api(module: AffiseModules): API? {
+        @Suppress("UNCHECKED_CAST")
+        return getModule(module) as? API
+    }
 }

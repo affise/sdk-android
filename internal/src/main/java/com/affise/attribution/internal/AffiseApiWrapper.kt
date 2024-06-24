@@ -15,8 +15,12 @@ import com.affise.attribution.internal.ext.toListOfMap
 import com.affise.attribution.internal.platform.InternalCrossPlatform
 import com.affise.attribution.internal.utils.jsonToMap
 import com.affise.attribution.internal.utils.toJSONObject
+import com.affise.attribution.internal.utils.toListOfMap
+import com.affise.attribution.modules.link.linkResolve
+import com.affise.attribution.modules.subscription.fetchProducts
 import com.affise.attribution.modules.toAffiseModules
 import com.affise.attribution.referrer.toReferrerKey
+import com.affise.attribution.modules.subscription.AffiseResult as MatchResult
 import org.json.JSONObject
 
 
@@ -126,12 +130,6 @@ class AffiseApiWrapper(private val app: Application?) {
             AffiseApiMethod.GET_PROVIDERS ->
                 callGetProviders(api, map, result)
 
-            AffiseApiMethod.MODULE_START ->
-                callModuleStart(api, map, result)
-
-            AffiseApiMethod.GET_MODULES_INSTALLED ->
-                callGetModulesInstalled(api, map, result)
-
             AffiseApiMethod.IS_FIRST_RUN ->
                 callIsFirstRun(api, map, result)
 
@@ -140,9 +138,6 @@ class AffiseApiWrapper(private val app: Application?) {
 
             AffiseApiMethod.GET_REFERRER_VALUE_CALLBACK ->
                 callGetReferrerValue(api, map, result)
-
-            AffiseApiMethod.GET_STATUS_CALLBACK ->
-                callGetStatusCallback(api, map, result)
 
             AffiseApiMethod.REGISTER_DEEPLINK_CALLBACK ->
                 callRegisterDeeplinkCallback(api, map, result)
@@ -155,6 +150,30 @@ class AffiseApiWrapper(private val app: Application?) {
 
             AffiseApiMethod.AFFISE_BUILDER ->
                 callBuilder(api, map, result)
+
+            ////////////////////////////////////////
+            // modules
+            ////////////////////////////////////////
+            AffiseApiMethod.MODULE_START ->
+                callModuleStart(api, map, result)
+
+            AffiseApiMethod.GET_MODULES_INSTALLED ->
+                callGetModulesInstalled(api, map, result)
+
+            AffiseApiMethod.GET_STATUS_CALLBACK ->
+                callGetStatusCallback(api, map, result)
+
+            AffiseApiMethod.MODULE_LINK_LINK_RESOLVE_CALLBACK ->
+                callModuleLinkLinkResolveCallback(api, map, result)
+
+            AffiseApiMethod.MODULE_SUBS_FETCH_PRODUCTS_CALLBACK ->
+                callModuleSubsFetchProductsCallback(api, map, result)
+
+            AffiseApiMethod.MODULE_SUBS_PURCHASE_CALLBACK ->
+                callModuleSubsPurchaseCallback(api, map, result)
+            ////////////////////////////////////////
+            // modules
+            ////////////////////////////////////////
 
             else -> result.notImplemented()
         }
@@ -459,27 +478,6 @@ class AffiseApiWrapper(private val app: Application?) {
         result.success(Affise.getProviders().entries.associate { it.key.provider to it.value })
     }
 
-    private fun callModuleStart(
-        api: AffiseApiMethod,
-        map: Map<String, *>,
-        result: AffiseResult
-    ) {
-        val module = map.opt<String>(api)?.toAffiseModules()
-        if (module == null) {
-            result.error("api [${api.method}]: no valid AffiseModules")
-        } else {
-            result.success(Affise.moduleStart(module))
-        }
-    }
-
-    private fun callGetModulesInstalled(
-        api: AffiseApiMethod,
-        map: Map<String, *>,
-        result: AffiseResult
-    ) {
-        result.success(Affise.getModulesInstalled().map { it.name })
-    }
-
     private fun callIsFirstRun(
         api: AffiseApiMethod,
         map: Map<String, *>,
@@ -519,27 +517,6 @@ class AffiseApiWrapper(private val app: Application?) {
                 val data = mapOf<String, Any?>(
                     UUID to uuid,
                     api.method to referrer,
-                )
-                callback?.invoke(api, data)
-            }
-            result.success(null)
-        }
-    }
-
-    private fun callGetStatusCallback(
-        api: AffiseApiMethod,
-        map: Map<String, *>,
-        result: AffiseResult
-    ) {
-        val uuid = map.opt<String>(UUID)
-        val module = map.opt<String>(api)?.toAffiseModules()
-        if (module == null) {
-            result.error("api [${api.method}]: value not set")
-        } else {
-            Affise.getStatus(module) {
-                val data = mapOf<String, Any?>(
-                    UUID to uuid,
-                    api.method to it.toListOfMap(),
                 )
                 callback?.invoke(api, data)
             }
@@ -616,4 +593,123 @@ class AffiseApiWrapper(private val app: Application?) {
     ) {
         affiseBuilder.call(api, map, result)
     }
+
+    ////////////////////////////////////////
+    // Modules
+    ////////////////////////////////////////
+
+    private fun callModuleStart(
+        api: AffiseApiMethod,
+        map: Map<String, *>,
+        result: AffiseResult
+    ) {
+        val module = map.opt<String>(api)?.toAffiseModules()
+        if (module == null) {
+            result.error("api [${api.method}]: no valid AffiseModules")
+        } else {
+            result.success(Affise.Module.moduleStart(module))
+        }
+    }
+
+    private fun callGetModulesInstalled(
+        api: AffiseApiMethod,
+        map: Map<String, *>,
+        result: AffiseResult
+    ) {
+        result.success(Affise.Module.getModulesInstalled().map { it.name })
+    }
+
+    private fun callGetStatusCallback(
+        api: AffiseApiMethod,
+        map: Map<String, *>,
+        result: AffiseResult
+    ) {
+        val uuid = map.opt<String>(UUID)
+        val module = map.opt<String>(api)?.toAffiseModules()
+        if (module == null) {
+            result.error("api [${api.method}]: value not set")
+        } else {
+            Affise.Module.getStatus(module) {
+                val data = mapOf<String, Any?>(
+                    UUID to uuid,
+                    api.method to it.toListOfMap(),
+                )
+                callback?.invoke(api, data)
+            }
+            result.success(null)
+        }
+    }
+
+    // Link Module
+    private fun callModuleLinkLinkResolveCallback(
+        api: AffiseApiMethod,
+        map: Map<String, *>,
+        result: AffiseResult
+    ) {
+        val uuid = map.opt<String>(UUID)
+        val url = map.opt<String>(api)
+        if (url == null) {
+            result.error("api [${api.method}]: value not set")
+        } else {
+            Affise.Module.linkResolve(url) {
+                val data = mapOf<String, Any?>(
+                    UUID to uuid,
+                    api.method to it,
+                )
+                callback?.invoke(api, data)
+            }
+            result.success(null)
+        }
+    }
+
+    // Subscription Module
+    private fun callModuleSubsFetchProductsCallback(
+        api: AffiseApiMethod,
+        map: Map<String, *>,
+        result: AffiseResult
+    ) {
+        val uuid = map.opt<String>(UUID)
+        val ids = map.opt<List<String>>(api)
+        if (ids.isNullOrEmpty()) {
+            result.error("api [${api.method}]: value not set")
+            return
+        }
+
+        Affise.Module.fetchProducts(ids) {
+            val fetchResult: MutableMap<String, Any?> = mutableMapOf()
+            when (it) {
+                is MatchResult.Success -> {
+                    fetchResult["success"] = mapOf(
+                        "products" to it.value.products.toListOfMap(),
+                        "invalidIds" to it.value.invalidIds
+                    )
+                }
+
+                is MatchResult.Error -> {
+                    fetchResult["error"] = it.error.message.toString()
+                }
+            }
+
+            val data = mapOf<String, Any?>(
+                UUID to uuid,
+                api.method to fetchResult,
+            )
+            callback?.invoke(api, data)
+        }
+
+        result.success(null)
+    }
+
+    // Subscription Module
+    private fun callModuleSubsPurchaseCallback(
+        api: AffiseApiMethod,
+        map: Map<String, *>,
+        result: AffiseResult
+    ) {
+//        val uuid = map.opt<String>(UUID)
+//        Affise.Module.purchase()
+    }
+    ////////////////////////////////////////
+    // modules
+    ////////////////////////////////////////
 }

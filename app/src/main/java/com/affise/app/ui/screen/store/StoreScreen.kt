@@ -67,7 +67,7 @@ private val ids = listOf(
 var fetchProductsResult = mutableStateOf<AffiseProductsResult?>(null)
 
 fun fetchProducts(onError: ((String?, List<String>?) -> Unit)? = null) {
-    Affise.fetchProducts(ids) { result ->
+    Affise.Module.fetchProducts(ids) { result ->
         when (result) {
             is AffiseResult.Success -> {
                 fetchProductsResult.value = result.value
@@ -90,7 +90,7 @@ fun purchase(
     onResult: (AffisePurchasedInfo?, String?) -> Unit,
 ) {
     activity?.let {
-        Affise.purchase(it, product) { result ->
+        Affise.Module.purchase(it, product) { result ->
             when (result) {
                 is AffiseResult.Success -> onResult(result.value, null)
                 is AffiseResult.Error -> onResult(null, result.error.message)
@@ -99,7 +99,7 @@ fun purchase(
     } ?: onResult(null, "no activity")
 }
 
-private val hasSubscriptionModule = mutableStateOf(Affise.hasSubscriptionModule())
+private val hasSubscriptionModule = mutableStateOf(Affise.Module.hasSubscriptionModule())
 
 @Composable
 fun StoreScreen() {
@@ -124,9 +124,9 @@ fun Products() {
             if (!error.isNullOrEmpty()) {
                 alertDialog(fetchResultErrorTitle, "$error")
             }
-            if (!invalidIds.isNullOrEmpty()) {
+//            if (!invalidIds.isNullOrEmpty()) {
 //                alertDialog(fetchResultTitle, "$invalidIdsTitle: $ids")
-            }
+//            }
         }
     }
 

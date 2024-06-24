@@ -7,6 +7,7 @@
 | `com.affise:attribution`        | [![attribution](https://img.shields.io/maven-central/v/com.affise/attribution?label=latest)](https://mvnrepository.com/artifact/com.affise/attribution)                      |
 | `com.affise:module-advertising` | [![module-advertising](https://img.shields.io/maven-central/v/com.affise/module-advertising?label=latest)](https://mvnrepository.com/artifact/com.affise/module-advertising) |
 | `com.affise:module-androidid`   | [![module-androidid](https://img.shields.io/maven-central/v/com.affise/module-androidid?label=latest)](https://mvnrepository.com/artifact/com.affise/module-androidid)       |
+| `com.affise:module-link`        | [![module-link](https://img.shields.io/maven-central/v/com.affise/module-link?label=latest)](https://mvnrepository.com/artifact/com.affise/module-link)                      |
 | `com.affise:module-network`     | [![module-network](https://img.shields.io/maven-central/v/com.affise/module-network?label=latest)](https://mvnrepository.com/artifact/com.affise/module-network)             |
 | `com.affise:module-phone`       | [![module-phone](https://img.shields.io/maven-central/v/com.affise/module-phone?label=latest)](https://mvnrepository.com/artifact/com.affise/module-phone)                   |
 | `com.affise:module-status`      | [![module-status](https://img.shields.io/maven-central/v/com.affise/module-status?label=latest)](https://mvnrepository.com/artifact/com.affise/module-status)                |
@@ -20,11 +21,14 @@
     - [Initialize](#initialize)
       - [Domain](#domain)
     - [Modules](#modules)
+      - [Module Advertising](#module-advertising)
+      - [Module Link](#module-link)
     - [Requirements](#requirements)
 - [Features](#features)
   - [ProviderType identifiers collection](#providertype-identifiers-collection)
     - [Attribution](#attribution)
     - [Advertising](#advertising)
+    - [AndroidId](#androidid)
     - [Network](#network)
     - [Phone](#phone)
   - [Event send control](#event-send-control)
@@ -90,13 +94,14 @@ For kotlin build script build.gradle.kts use:
 ```kotlin
 dependencies {
   // Add Affise library 
-  implementation("com.affise:attribution:1.6.36")
+  implementation("com.affise:attribution:1.6.37")
   // Add Affise modules 
-  implementation("com.affise:module-advertising:1.6.36")
-  implementation("com.affise:module-androidid:1.6.36")
-  implementation("com.affise:module-network:1.6.36")
-  implementation("com.affise:module-phone:1.6.36")
-  implementation("com.affise:module-status:1.6.36")
+  implementation("com.affise:module-advertising:1.6.37")
+  implementation("com.affise:module-androidid:1.6.37")
+  implementation("com.affise:module-link:1.6.37")
+  implementation("com.affise:module-network:1.6.37")
+  implementation("com.affise:module-phone:1.6.37")
+  implementation("com.affise:module-status:1.6.37")
   // Add install referrer
   implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -107,13 +112,14 @@ For groovy build script build.gradle use:
 ```groovy
 dependencies {
     // Add Affise library 
-    implementation 'com.affise:attribution:1.6.36'
+    implementation 'com.affise:attribution:1.6.37'
     // Add Affise modules 
-    implementation 'com.affise:module-advertising:1.6.36'
-    implementation 'com.affise:module-androidid:1.6.36'
-    implementation 'com.affise:module-network:1.6.36'
-    implementation 'com.affise:module-phone:1.6.36'
-    implementation 'com.affise:module-status:1.6.36'
+    implementation 'com.affise:module-advertising:1.6.37'
+    implementation 'com.affise:module-androidid:1.6.37'
+    implementation 'com.affise:module-link:1.6.37'
+    implementation 'com.affise:module-network:1.6.37'
+    implementation 'com.affise:module-phone:1.6.37'
+    implementation 'com.affise:module-status:1.6.37'
     // Add install referrer
     implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -121,9 +127,9 @@ dependencies {
 
 ### Integrate as file dependency
 
-Download latest Affise SDK (`attribution-1.6.36.aar`)
+Download latest Affise SDK (`attribution-1.6.37.aar`)
 from [releases page](https://github.com/affise/sdk-android/releases) and place this binary to gradle application
-module lib directory `app/libs/attribution-1.6.36.aar`
+module lib directory `app/libs/attribution-1.6.37.aar`
 
 Add library as gradle file dependency to application module build script
 Add install referrer library
@@ -134,13 +140,14 @@ For kotlin build script build.gradle.kts use:
 dependencies {
     // ...
     // Add Affise library 
-    implementation(files("libs/attribution-1.6.36.aar"))
+    implementation(files("libs/attribution-1.6.37.aar"))
     // Add Affise modules 
-    implementation(files("libs/module-advertising-1.6.36.aar"))
-    implementation(files("libs/module-androidid-1.6.36.aar"))
-    implementation(files("libs/module-network-1.6.36.aar"))
-    implementation(files("libs/module-phone-1.6.36.aar"))
-    implementation(files("libs/module-status-1.6.36.aar"))
+    implementation(files("libs/module-advertising-1.6.37.aar"))
+    implementation(files("libs/module-androidid-1.6.37.aar"))
+    implementation(files("libs/module-link-1.6.37.aar"))
+    implementation(files("libs/module-network-1.6.37.aar"))
+    implementation(files("libs/module-phone-1.6.37.aar"))
+    implementation(files("libs/module-status-1.6.37.aar"))
     // Add install referrer
     implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -152,13 +159,14 @@ For groovy build script build.gradle use:
 dependencies {
   // ...  
   // Add Affise library 
-  implementation files('libs/attribution-1.6.36.aar')
+  implementation files('libs/attribution-1.6.37.aar')
   // Add Affise modules 
-  implementation files('libs/module-advertising-1.6.36.aar')
-  implementation files('libs/module-androidid-1.6.36.aar')
-  implementation files('libs/module-network-1.6.36.aar')
-  implementation files('libs/module-phone-1.6.36.aar')
-  implementation files('libs/module-status-1.6.36.aar')
+  implementation files('libs/module-advertising-1.6.37.aar')
+  implementation files('libs/module-androidid-1.6.37.aar')
+  implementation files('libs/module-link-1.6.37.aar')
+  implementation files('libs/module-network-1.6.37.aar')
+  implementation files('libs/module-phone-1.6.37.aar')
+  implementation files('libs/module-status-1.6.37.aar')
   // Add install referrer
   implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -168,7 +176,7 @@ dependencies {
 
 After library is added as dependency sync project with gradle files and initialize.
 
-> Demo app [App.kt](app/src/main/java/com/affise/app/application/App.kt)
+> Demo app [App.kt](app/src/main/java/com/affise/app/App.kt)
 
 For kotlin use:
 
@@ -245,6 +253,7 @@ class App : Application() {
 |:--------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------:|
 | `Advertising` | [![module-advertising](https://img.shields.io/maven-central/v/com.affise/module-advertising?label=latest)](https://mvnrepository.com/artifact/com.affise/module-advertising) | `Auto` |
 | `AndroidId`   | [![module-androidid](https://img.shields.io/maven-central/v/com.affise/module-androidid?label=latest)](https://mvnrepository.com/artifact/com.affise/module-androidid)       | `Auto` |
+| `Link`        | [![module-link](https://img.shields.io/maven-central/v/com.affise/module-link?label=latest)](https://mvnrepository.com/artifact/com.affise/module-link)                      | `Auto` |
 | `Network`     | [![module-network](https://img.shields.io/maven-central/v/com.affise/module-network?label=latest)](https://mvnrepository.com/artifact/com.affise/module-network)             | `Auto` |
 | `Phone`       | [![module-phone](https://img.shields.io/maven-central/v/com.affise/module-phone?label=latest)](https://mvnrepository.com/artifact/com.affise/module-phone)                   | `Auto` |
 | `Status`      | [![module-status](https://img.shields.io/maven-central/v/com.affise/module-status?label=latest)](https://mvnrepository.com/artifact/com.affise/module-status)                | `Auto` |
@@ -252,14 +261,16 @@ class App : Application() {
 If module start type is `Manual`, then call:
 
 ```kotlin
-Affise.moduleStart(AffiseModules.Advertising)
+Affise.Module.moduleStart(AffiseModules.Advertising)
 ```
 
 Get list of installed modules:
 
 ```kotlin
-Affise.getModulesInstalled()
+Affise.Module.getModulesInstalled()
 ```
+
+#### Module Advertising
 
 > **Warning**
 >
@@ -270,6 +281,26 @@ Affise.getModulesInstalled()
 > You must setup `com.google.gms:google-services`
 >
 > 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
+
+#### Module Link
+
+Return last url in chan of redirection
+
+🟥Support MAX 10 redirections🟥
+
+```kotlin
+Affise.Module.linkResolve("SITE_WITH_REDIRECTION") { redirectUrl ->
+    // handle redirect url
+}
+```
+
+For java use:
+
+```java
+AffiseLink.linkResolve("SITE_WITH_REDIRECTION", redirectUrl -> {
+    // handle redirect url  
+});
+```
 
 ### Requirements
 
@@ -425,7 +456,7 @@ AddToCartEvent()
 
 ## Events tracking
 
-> Demo app [DefaultEventsFactory.kt](app/src/main/java/com/affise/app/ui/fragments/buttons/factories/DefaultEventsFactory.kt)
+> Demo app [DefaultEventsFactory.kt](app/src/main/java/com/affise/app/ui/screen/buttons/factories/DefaultEventsFactory.kt)
 
 For example, we want to track what items usually user adds to shopping cart. To send event first create it with
 following code
@@ -1134,7 +1165,7 @@ In examples above `ReferrerKey.CLICK_ID` is used, but many others is available:
 For kotlin:
 
 ```kotlin
-Affise.getStatus(AffiseModules.Status) { response ->
+Affise.Module.getStatus(AffiseModules.Status) { response ->
   // handle response
 }
 ```
@@ -1142,7 +1173,7 @@ Affise.getStatus(AffiseModules.Status) { response ->
 For java:
 
 ```java
-Affise.getStatus(AffiseModules.Status, response -> {
+Affise.Module.getStatus(AffiseModules.Status, response -> {
     // handle response
 });
 ```
