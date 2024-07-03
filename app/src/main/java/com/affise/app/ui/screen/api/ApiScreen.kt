@@ -78,7 +78,7 @@ private fun demoApi(): List<Pair<String, () -> Unit>> {
         },
         Pair("getStatus") {
             output("getStatus: requesting...")
-            Affise.getStatus(AffiseModules.Status) { keyValue ->
+            Affise.Module.getStatus(AffiseModules.Status) { keyValue ->
                 output(
                     "getStatus: ${
                         keyValue.joinToString("\n") { "key = ${it.key}; value = ${it.value}" }
@@ -87,7 +87,7 @@ private fun demoApi(): List<Pair<String, () -> Unit>> {
             }
         },
         Pair("getModulesInstalled") {
-            val value = Affise.getModulesInstalled()
+            val value = Affise.Module.getModulesInstalled()
             output("getModulesInstalled: [ ${value.joinToString(", ")}]")
         },
         Pair("getRandomUserId") {

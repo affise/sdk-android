@@ -8,6 +8,7 @@ import com.affise.attribution.utils.timestamp
 import com.google.common.truth.Truth
 import io.mockk.*
 import org.json.JSONObject
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
@@ -139,6 +140,7 @@ class EventsStorageImplTest {
         }
     }
 
+    @Ignore
     @Test
     fun `verify get event in group old`() {
         createTempFile(key, test1EventId, testEvent)

@@ -82,6 +82,7 @@ class NetworkTypeProvider(
             }
         }
 
+    @Suppress("DEPRECATION")
     private fun getNetworkType(type: Int) = when (type) {
         TelephonyManager.NETWORK_TYPE_UNKNOWN -> ""
         TelephonyManager.NETWORK_TYPE_GPRS -> "GPRS"

@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -29,7 +29,7 @@ fun ButtonsScreen(
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
         modifier = modifier.fillMaxWidth()
     ) {
-        itemsIndexed(events) { idx, event ->
+        items(events) { event ->
             ButtonEvent(event)
         }
     }
@@ -49,6 +49,7 @@ fun ButtonEvent(event: Event, modifier: Modifier = Modifier) {
     }.uppercase()
 
     AffiseButton(
+        modifier = modifier,
         text = name,
         color = color,
         onClick = {

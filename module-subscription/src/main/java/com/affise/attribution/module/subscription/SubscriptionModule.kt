@@ -21,8 +21,6 @@ internal class SubscriptionModule : AffiseModule(), AffiseSubscriptionApi {
         application?.let { app ->
             storeManager = StoreManager(app)
         }
-
-        instance = this
     }
 
     override fun fetchProducts(
@@ -58,10 +56,5 @@ internal class SubscriptionModule : AffiseModule(), AffiseSubscriptionApi {
     ) {
         storeManager?.purchase(activity, productId, offerToken, type, callback)
             ?: callback.handle(AffiseResult.Error(AffiseSubscriptionError.NotInitialized()))
-    }
-
-    companion object {
-        internal var instance: AffiseSubscriptionApi? = null
-            private set
     }
 }

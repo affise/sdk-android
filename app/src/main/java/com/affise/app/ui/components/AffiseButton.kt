@@ -17,11 +17,12 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun AffiseButton(
     text: String,
+    modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colorScheme.primary,
     onClick: () -> Unit,
 ) {
     Button(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth(),
         shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(containerColor = color),

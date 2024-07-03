@@ -19,7 +19,8 @@ internal fun Map<*, *>.getEventParameters(): Map<*, *>? =
     this[Parameters.AFFISE_PARAMETERS] as? Map<*, *>
 
 internal fun Map<*, *>.getTimeStamp(): Long? =
-    getPropertyByKey(AffiseProperty.TIMESTAMP.type)
+    getPropertyByKey<Number>(AffiseProperty.TIMESTAMP.type)
+        ?.toLong()
 
 internal fun Map<*, *>.getSubTypeName(): String? =
     getPropertyByName(SubscriptionParameters.AFFISE_SUBSCRIPTION_EVENT_TYPE_KEY)
@@ -33,4 +34,8 @@ internal fun <T> Map<*, *>.getPropertyByKey(key: String? = null): T? {
 @Suppress("UNCHECKED_CAST")
 internal fun <T> Map<*, *>.getPropertyByName(name: String): T? {
     return getEventData()?.get(name) as? T
+}
+
+internal fun Map<*, *>.getPropertyByNameAny(name: String): Any? {
+    return getEventData()?.get(name)
 }

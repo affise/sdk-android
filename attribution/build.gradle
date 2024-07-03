@@ -1,16 +1,9 @@
 import java.text.SimpleDateFormat
 
-buildscript {
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$build_kotlin_version"
-    }
-}
-
 plugins {
     id 'com.android.library'
+    id 'kotlin-android'
 }
-
-apply plugin: 'org.jetbrains.kotlin.android'
 
 android {
     namespace 'com.affise.attribution'
@@ -18,12 +11,16 @@ android {
 
     defaultConfig {
         minSdk 21
-        targetSdk 33
+        targetSdk 34
         versionCode 4
         versionName "$affiseVersion build (${buildTime()})"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     buildTypes {
@@ -62,7 +59,7 @@ android {
 }
 
 dependencies {
-    //Installreferrer
+    //Install Referrer
     implementation "com.android.installreferrer:installreferrer:$installReferrerVersion"
 
     //Tests
@@ -70,7 +67,6 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$testAndroidxJunit"
     testImplementation "com.google.truth:truth:$testTruth"
     testImplementation "io.mockk:mockk:$testMockk"
-    testImplementation 'androidx.test:core:1.5.0'
     testImplementation "junit:junit:$testJunit"
     testImplementation "org.json:json:$testJson"
 }

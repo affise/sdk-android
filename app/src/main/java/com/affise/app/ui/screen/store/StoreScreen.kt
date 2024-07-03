@@ -124,9 +124,10 @@ fun Products() {
             if (!error.isNullOrEmpty()) {
                 alertDialog(fetchResultErrorTitle, "$error")
             }
-//            if (!invalidIds.isNullOrEmpty()) {
+            if (!invalidIds.isNullOrEmpty()) {
+                println("Affise: fetchProducts invalidIds = [${invalidIds.joinToString(", ")}]")
 //                alertDialog(fetchResultTitle, "$invalidIdsTitle: $ids")
-//            }
+            }
         }
     }
 

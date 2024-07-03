@@ -1,40 +1,19 @@
 import java.text.SimpleDateFormat
 
-buildscript {
-    ext.build_kotlin_version = kotlin_version
-    ext.compose_gradle_version = "1.6.11"
-    ext.compose_bom = "2024.06.00"
-
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$build_kotlin_version"
-        classpath "org.jetbrains.compose:compose-gradle-plugin:$compose_gradle_version"
-    }
-}
-
 plugins {
     id 'com.android.application'
+    id 'kotlin-android'
     id 'com.google.gms.google-services'
 }
-
-apply plugin: 'org.jetbrains.kotlin.android'
-apply plugin: 'org.jetbrains.compose'
 
 android {
     namespace 'com.affise.app'
     compileSdk 34
 
-    buildFeatures {
-        compose true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = "$compose_gradle_version"
-    }
-
     defaultConfig {
         applicationId "com.affise.app"
         minSdk 21
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0 build (${buildTime()})"
 
@@ -43,7 +22,6 @@ android {
             useSupportLibrary true
         }
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -57,6 +35,12 @@ android {
     kotlinOptions {
         jvmTarget = jvmVersion
     }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "$compose_compiler_version"
+    }
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
@@ -65,21 +49,6 @@ android {
 }
 
 dependencies {
-    implementation platform("androidx.compose:compose-bom:$compose_bom")
-    implementation "androidx.compose.ui:ui"
-    implementation "androidx.compose.material:material"
-    implementation "androidx.compose.ui:ui-tooling-preview"
-    implementation "androidx.activity:activity-compose"
-
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4"
-    debugImplementation "androidx.compose.ui:ui-tooling"
-
-    implementation "androidx.compose.material3:material3-android"
-    implementation "androidx.activity:activity-compose:1.9.0"
-
-    implementation "com.google.firebase:firebase-messaging-ktx:24.0.0"
-
-
     implementation(project("::attribution"))
     implementation(project("::module-advertising"))
     implementation(project("::module-androidid"))
@@ -89,13 +58,21 @@ dependencies {
     implementation(project("::module-status"))
     implementation(project("::module-subscription"))
 
-
-    androidTestImplementation platform("androidx.compose:compose-bom:$compose_bom")
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4"
+    implementation "com.google.firebase:firebase-messaging-ktx:$firebase"
+    implementation platform("androidx.compose:compose-bom:$compose_bom")
+    implementation "androidx.compose.ui:ui"
+    implementation "androidx.compose.material:material"
+    implementation "androidx.compose.ui:ui-tooling-preview"
+    implementation "androidx.activity:activity-compose"
+    implementation "androidx.compose.material3:material3-android"
+    implementation "androidx.activity:activity-compose:$activityCompose"
 
     testImplementation "junit:junit:$testJunit"
     androidTestImplementation "androidx.test.ext:junit:$testAndroidxJunit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$testEspressoCore"
+    androidTestImplementation platform("androidx.compose:compose-bom:$compose_bom")
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4"
+    debugImplementation "androidx.compose.ui:ui-tooling"
 }
 
 static def buildTime() {

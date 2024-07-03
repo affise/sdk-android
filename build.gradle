@@ -1,12 +1,10 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.kotlin_version = "1.9.0"
-    ext.kotlin_base_version = "1.6.0"
-    ext.build_kotlin_version = kotlin_base_version
+    ext.kotlin_version = "1.8.22"
     ext.dokka_version = "1.9.0"
-    ext.agp_version = "7.2.2"
+    ext.agp_version = "7.3.1"
     ext.gms_version = "4.3.15"
-    ext.nexus_publish_version = "1.3.0"
+    ext.nexus_publish_version = "2.0.0"
 
     repositories {
         google()
@@ -15,6 +13,8 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$agp_version"
         classpath "com.google.gms:google-services:$gms_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -22,14 +22,14 @@ buildscript {
 }
 
 plugins {
-    id 'io.github.gradle-nexus.publish-plugin' version "$nexus_publish_version"
+    id "io.github.gradle-nexus.publish-plugin" version "$nexus_publish_version"
 }
 
 allprojects {
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://jitpack.io' }
+        maven { url "https://jitpack.io" }
     }
 }
 
@@ -37,19 +37,20 @@ tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }
 
-static def EnvValue(env, defaultValue) {
-    return System.getenv(env) != null ? System.getenv(env) : defaultValue
-}
-
 ext {
-    affiseVersion = "1.6.37"
+    affiseVersion = "1.6.38"
+
+    compose_compiler_version = "1.4.8"
+    compose_bom = "2024.06.00"
+    firebase = "24.0.0"
+    activityCompose = "1.9.0"
 
     installReferrerVersion = "2.2"
-    billingVersion = "6.2.0"
+    billingVersion = "7.0.0"
 
     testJunit = "4.13.2"
-    testAndroidxJunit = "1.1.5"
-    testEspressoCore = "3.5.1"
+    testAndroidxJunit = "1.2.1"
+    testEspressoCore = "3.6.1"
     testMockk = "1.12.0"
     testTruth = "1.1.3"
     testJson = "20210307"
@@ -60,28 +61,16 @@ ext {
     releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
     snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
 
-    ossrhUsername = EnvValue('OSSRH_USERNAME', '')
-    ossrhPassword = EnvValue('OSSRH_PASSWORD', '')
-    signingKey = EnvValue('SIGNING_KEY', '')
-    signingPassword = EnvValue('SIGNING_PASSWORD', '')
-    signingKeyId = EnvValue('SIGNING_KEY_ID', '')
-    mvnSnapshot = EnvValue('SNAPSHOT', false)
-}
-
-def localPropsFile = project.rootProject.file('local.properties')
-if (localPropsFile.exists()) {
-    Properties prop = new Properties()
-    prop.load(new FileInputStream(localPropsFile))
-    prop.each { name, value ->
-        ext[name] = value
-    }
+    ossrhUsername = env("OSSRH_USERNAME", "")
+    ossrhPassword = env("OSSRH_PASSWORD", "")
+    signingKey = env("SIGNING_KEY", "")
+    signingKeyId = env("SIGNING_KEY_ID", "")
+    signingPassword = env("SIGNING_PASSWORD", "")
+    snapshot = env("SNAPSHOT", "false").toBoolean()
 }
 
 group = "com.affise"
-version = "$affiseVersion"
-if (mvnSnapshot.toBoolean()) {
-    version = "$affiseVersion-SNAPSHOT"
-}
+version = asSnapshot(affiseVersion, snapshot)
 
 nexusPublishing {
     repositories {
@@ -93,4 +82,26 @@ nexusPublishing {
             password = ossrhPassword
         }
     }
+}
+
+def env(String key, defaultValue) {
+    var value = System.getenv(key)
+    if (value != null) return value
+    value = localProp(key)
+    if (value != null) return value
+    return defaultValue
+}
+
+def localProp(String key) {
+    var properties = new Properties()
+    properties.load(rootProject.file("local.properties").newInputStream())
+    return properties.getProperty(key)
+}
+
+static def asSnapshot(String version, boolean value) {
+    var result = version
+    if (value && !result.endsWith('SNAPSHOT')) {
+        result += "-SNAPSHOT"
+    }
+    return result
 }

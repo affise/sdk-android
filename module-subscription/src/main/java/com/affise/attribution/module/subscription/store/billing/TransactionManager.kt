@@ -140,11 +140,9 @@ internal class TransactionManager(
 
     private fun handlePurchases(purchases: List<Purchase>, billingResult: BillingResult) {
         GlobalScope.launch {
-//            withContext(Dispatchers.IO) {
             for (purchase in purchases) {
                 acknowledgeAndConsume(purchase, billingResult)
             }
-//            }
         }
     }
 

@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.6.38] - 2024-07-03
+
+### Changed
+
+- Update `kotlin` version `1.8.22`.
+
+### Fixed
+
+- AGP error for `crossplatform`.
+- Event timestamp field for `crossplatform`.
+
 ## [1.6.37] - 2024-06-24
 
 ### Added
@@ -88,6 +99,7 @@
 - Improve `AffiseModuleManager`
 - Update gradle for demo app.
 
+[1.6.38]: https://github.com/affise/sdk-android/compare/v1.6.37...v1.6.38
 [1.6.37]: https://github.com/affise/sdk-android/compare/v1.6.36...v1.6.37
 [1.6.36]: https://github.com/affise/sdk-android/compare/v1.6.35...v1.6.36
 [1.6.35]: https://github.com/affise/sdk-android/compare/v1.6.34...v1.6.35

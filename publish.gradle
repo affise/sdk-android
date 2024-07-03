@@ -1,18 +1,8 @@
-buildscript {
-    repositories {
-        gradlePluginPortal()
-    }
-    dependencies {
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
-    }
-}
+apply plugin: "maven-publish"
+apply plugin: "signing"
+apply plugin: "org.jetbrains.dokka"
 
-apply plugin: 'maven-publish'
-apply plugin: 'signing'
-apply plugin : org.jetbrains.dokka.gradle.DokkaPlugin
-
-
-tasks.register('androidSourcesJar', Jar) {
+tasks.register("androidSourcesJar", Jar) {
     archiveClassifier.set("sources")
     from(android.sourceSets.main.java.srcDirs)
 }
@@ -38,17 +28,10 @@ afterEvaluate {
             affiseRelease(MavenPublication) {
                 from components.release
 
-                groupId = 'com.affise'
-                version = "$affiseVersion"
-
-                if (mvnSnapshot.toBoolean()) {
-                    version = "$affiseVersion-SNAPSHOT"
-                }
+                groupId = "com.affise"
+                version = asSnapshot(affiseVersion, snapshot)
 
                 artifact androidJavadocJar
-                if (build_kotlin_version == kotlin_base_version) {
-                    artifact androidSourcesJar
-                }
 
                 pom {
                     signing {
@@ -57,24 +40,24 @@ afterEvaluate {
                     }
 
                     name = artifactId
-                    description = 'affise'
-                    url = 'https://affise.com/'
+                    description = "affise"
+                    url = "https://affise.com/"
 
                     licenses {
                         license {
-                            name = 'MIT license'
-                            url = 'https://github.com/affise/sdk-android/blob/main/LICENSE'
+                            name = "MIT license"
+                            url = "https://github.com/affise/sdk-android/blob/main/LICENSE"
                         }
                     }
                     scm {
-                        connection = 'scm:git:git://github.com:affise/sdk-android.git'
-                        developerConnection = 'scm:git:ssh://github.com:affise/sdk-android.git'
-                        url = 'https://github.com/affise/sdk-android'
+                        connection = "scm:git:git://github.com:affise/sdk-android.git"
+                        developerConnection = "scm:git:ssh://github.com:affise/sdk-android.git"
+                        url = "https://github.com/affise/sdk-android"
                     }
                     developers {
                         developer {
-                            name = 'Sergey Korney'
-                            email = 's.korney@affise.com'
+                            name = "Sergey Korney"
+                            email = "s.korney@affise.com"
                         }
                     }
                 }
@@ -83,11 +66,7 @@ afterEvaluate {
 
         repositories {
             maven {
-                url "$releasesRepoUrl"
-
-                if (mvnSnapshot.toBoolean()) {
-                    url "$snapshotsRepoUrl"
-                }
+                url = version.endsWith("SNAPSHOT") ? snapshotsRepoUrl : releasesRepoUrl
 
                 credentials {
                     username ossrhUsername
@@ -96,4 +75,12 @@ afterEvaluate {
             }
         }
     }
+}
+
+static def asSnapshot(String version, boolean value) {
+    var result = version
+    if (value && !result.endsWith("SNAPSHOT")) {
+        result += "-SNAPSHOT"
+    }
+    return result
 }

@@ -16,8 +16,8 @@ import com.affise.attribution.internal.platform.InternalCrossPlatform
 import com.affise.attribution.internal.utils.jsonToMap
 import com.affise.attribution.internal.utils.toJSONObject
 import com.affise.attribution.internal.utils.toListOfMap
-import com.affise.attribution.modules.link.linkResolve
-import com.affise.attribution.modules.subscription.fetchProducts
+import com.affise.attribution.modules.link.AffiseLink
+import com.affise.attribution.modules.subscription.AffiseSubscription
 import com.affise.attribution.modules.toAffiseModules
 import com.affise.attribution.referrer.toReferrerKey
 import com.affise.attribution.modules.subscription.AffiseResult as MatchResult
@@ -651,7 +651,7 @@ class AffiseApiWrapper(private val app: Application?) {
         if (url == null) {
             result.error("api [${api.method}]: value not set")
         } else {
-            Affise.Module.linkResolve(url) {
+            AffiseLink.linkResolve(url) {
                 val data = mapOf<String, Any?>(
                     UUID to uuid,
                     api.method to it,
@@ -675,7 +675,7 @@ class AffiseApiWrapper(private val app: Application?) {
             return
         }
 
-        Affise.Module.fetchProducts(ids) {
+        AffiseSubscription.fetchProducts(ids) {
             val fetchResult: MutableMap<String, Any?> = mutableMapOf()
             when (it) {
                 is MatchResult.Success -> {
@@ -707,7 +707,8 @@ class AffiseApiWrapper(private val app: Application?) {
         result: AffiseResult
     ) {
 //        val uuid = map.opt<String>(UUID)
-//        Affise.Module.purchase()
+//        AffiseSubscription.purchase()
+        result.notImplemented()
     }
     ////////////////////////////////////////
     // modules

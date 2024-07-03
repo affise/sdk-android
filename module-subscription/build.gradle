@@ -1,16 +1,7 @@
-buildscript {
-    ext.build_kotlin_version = kotlin_version
-
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$build_kotlin_version"
-    }
-}
-
 plugins {
     id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
 }
-
-apply plugin: 'org.jetbrains.kotlin.android'
 
 android {
     namespace 'com.affise.attribution.module.subscription'
@@ -18,7 +9,7 @@ android {
 
     defaultConfig {
         minSdk 21
-        targetSdk 33
+        targetSdk 34
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -43,7 +34,7 @@ dependencies {
     //Affise library
     api(project("::attribution"))
 
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
+//    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0"
     implementation "com.android.billingclient:billing-ktx:$billingVersion"
 
     testImplementation "com.google.truth:truth:$testTruth"
