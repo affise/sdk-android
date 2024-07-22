@@ -33,12 +33,29 @@ allprojects {
     }
 }
 
+subprojects {
+    afterEvaluate { project ->
+        if (project.hasProperty('android')) {
+            project.android {
+                buildFeatures {
+                    buildConfig = true
+                }
+                buildTypes {
+                    configureEach {
+                        buildConfigField("String", "AFFISE_VERSION", "\"$affiseVersion\"")
+                    }
+                }
+            }
+        }
+    }
+}
+
 tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }
 
 ext {
-    affiseVersion = "1.6.38"
+    affiseVersion = "1.6.39"
 
     compose_compiler_version = "1.4.8"
     compose_bom = "2024.06.00"
@@ -93,9 +110,16 @@ def env(String key, defaultValue) {
 }
 
 def localProp(String key) {
+    var localPropertiesFile = project.rootProject.file('local.properties')
+    if (!localPropertiesFile.exists()) return null
     var properties = new Properties()
-    properties.load(rootProject.file("local.properties").newInputStream())
-    return properties.getProperty(key)
+    try {
+        localPropertiesFile.withReader('UTF-8') { reader ->
+            properties.load(reader)
+        }
+        properties.getProperty(key)
+    } catch(ignored) { }
+    return null
 }
 
 static def asSnapshot(String version, boolean value) {

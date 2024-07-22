@@ -14,6 +14,8 @@ import com.affise.attribution.parameters.base.PropertyProvider
 
 class NetworkModule : AffiseModule() {
 
+    override val version: String = BuildConfig.AFFISE_VERSION
+
     private val buildConfigPropertiesProvider: BuildConfigPropertiesProvider? by lazy {
         get<BuildConfigPropertiesProvider>()
     }

@@ -15,6 +15,8 @@ import com.affise.attribution.modules.subscription.AffiseSubscriptionError
 
 internal class SubscriptionModule : AffiseModule(), AffiseSubscriptionApi {
 
+    override val version: String = BuildConfig.AFFISE_VERSION
+
     private var storeManager: StoreManager? = null
 
     override fun start() {

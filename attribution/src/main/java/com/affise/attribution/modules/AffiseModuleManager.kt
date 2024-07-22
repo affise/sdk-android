@@ -1,7 +1,9 @@
 package com.affise.attribution.modules
 
 import android.app.Application
+import com.affise.attribution.BuildConfig
 import com.affise.attribution.logs.LogsManager
+import com.affise.attribution.modules.exceptions.AffiseModuleVersionException
 import com.affise.attribution.parameters.factory.PostBackModelFactory
 
 
@@ -45,7 +47,7 @@ internal class AffiseModuleManager(
         return modules.map { it.key }
     }
 
-    private fun getClass(className: String): AffiseModule? = try {
+    private fun getClassInstance(className: String): AffiseModule? = try {
         Class.forName(className).getDeclaredConstructor().newInstance() as? AffiseModule
     } catch (_: Exception) {
         null
@@ -60,9 +62,13 @@ internal class AffiseModuleManager(
 
     private fun initAffiseModules(callback: (AffiseModule) -> Unit) {
         AffiseModules.values().forEach { name ->
-            getClass(name.module)?.let { module ->
-                modules[name] = module
-                callback(module)
+            getClassInstance(name.module)?.let { module ->
+                if (module.version == BuildConfig.AFFISE_VERSION) {
+                    modules[name] = module
+                    callback(module)
+                } else {
+                    AffiseModuleVersionException(name, module).printStackTrace()
+                }
             }
         }
     }

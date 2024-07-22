@@ -30,6 +30,8 @@ abstract class AffiseModule {
         this.baseProviders = providers
     }
 
+    abstract val version: String
+
     abstract fun start()
 
     open fun providers(): List<PropertyProvider<*>> = emptyList()

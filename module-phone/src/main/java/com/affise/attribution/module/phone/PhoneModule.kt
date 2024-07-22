@@ -7,6 +7,8 @@ import com.affise.attribution.parameters.base.PropertyProvider
 
 class PhoneModule : AffiseModule() {
 
+    override val version: String = BuildConfig.AFFISE_VERSION
+
     private val ispNameProvider: PropertyProvider<*>? by lazy {
         application?.let { app ->
             IspNameProvider(app)

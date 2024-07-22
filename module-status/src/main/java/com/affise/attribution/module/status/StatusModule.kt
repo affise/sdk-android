@@ -12,6 +12,8 @@ import com.affise.attribution.network.HttpClient
 
 class StatusModule : AffiseModule() {
 
+    override val version: String = BuildConfig.AFFISE_VERSION
+
     private var checkStatusUseCase: CheckStatusUseCase? = null
 
     override fun start() {

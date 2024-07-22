@@ -13,6 +13,7 @@ import com.affise.attribution.internal.ext.isValid
 import com.affise.attribution.internal.ext.opt
 import com.affise.attribution.internal.ext.toListOfMap
 import com.affise.attribution.internal.platform.InternalCrossPlatform
+import com.affise.attribution.internal.utils.DataMapper
 import com.affise.attribution.internal.utils.jsonToMap
 import com.affise.attribution.internal.utils.toJSONObject
 import com.affise.attribution.internal.utils.toListOfMap
@@ -531,13 +532,7 @@ class AffiseApiWrapper(private val app: Application?) {
     ) {
         Affise.registerDeeplinkCallback { value ->
             val data = mapOf<String, Any?>(
-                api.method to mapOf(
-                    "deeplink" to value.deeplink,
-                    "scheme" to value.scheme,
-                    "host" to value.host,
-                    "path" to value.path,
-                    "parameters" to value.parameters
-                ),
+                api.method to DataMapper.fromDeeplinkValue(value)
             )
             callback?.invoke(api, data)
         }
@@ -568,17 +563,8 @@ class AffiseApiWrapper(private val app: Application?) {
         Affise.Debug.network { request, response ->
             val data = mapOf<String, Any?>(
                 api.method to mapOf(
-                    "request" to mapOf(
-                        "method" to request.method.toString(),
-                        "url" to request.url.toString(),
-                        "headers" to request.headers,
-                        "body" to request.body,
-                    ),
-                    "response" to mapOf(
-                        "code" to response.code,
-                        "message" to response.message,
-                        "body" to response.body,
-                    ),
+                    "request" to DataMapper.fromRequest(request),
+                    "response" to DataMapper.fromResponse(response),
                 ),
             )
             callback?.invoke(api, data)

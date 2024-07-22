@@ -10,6 +10,8 @@ import com.affise.attribution.parameters.base.StringPropertyProvider
 
 class AndroidIdModule : AffiseModule() {
 
+    override val version: String = BuildConfig.AFFISE_VERSION
+
     private val stringToMD5Converter: StringToMD5Converter? by lazy {
         get<StringToMD5Converter>()
     }

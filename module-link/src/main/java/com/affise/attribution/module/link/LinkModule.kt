@@ -11,6 +11,8 @@ import com.affise.attribution.network.HttpClient
 
 internal class LinkModule : AffiseModule(), AffiseLinkApi {
 
+    override val version: String = BuildConfig.AFFISE_VERSION
+
     private var useCase: LinkResolveUseCase? = null
 
     override fun start() {
