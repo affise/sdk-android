@@ -6,10 +6,10 @@ import com.affise.attribution.network.entity.PostBackModel
 import com.affise.attribution.parameters.ProviderType
 import com.affise.attribution.parameters.base.*
 
-internal class PostBackModelFactory(
+class PostBackModelFactory(
     providers: List<Provider>
 ) {
-    private val allProviders: MutableList<Provider> = providers.toMutableList()
+    val allProviders: MutableList<Provider> = providers.toMutableList()
 
     /**
      * Create PostBackModel with [events] and [logs]

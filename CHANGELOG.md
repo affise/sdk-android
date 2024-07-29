@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.6.40] - 2024-07-29
+
+### Fixed
+
+- Api `Affise.Module.getStatus`.
+
 ## [1.6.39] - 2024-07-22
 
 ### Added
@@ -105,6 +111,7 @@
 - Improve `AffiseModuleManager`
 - Update gradle for demo app.
 
+[1.6.40]: https://github.com/affise/sdk-android/compare/v1.6.39...v1.6.40
 [1.6.39]: https://github.com/affise/sdk-android/compare/v1.6.38...v1.6.39
 [1.6.38]: https://github.com/affise/sdk-android/compare/v1.6.37...v1.6.38
 [1.6.37]: https://github.com/affise/sdk-android/compare/v1.6.36...v1.6.37

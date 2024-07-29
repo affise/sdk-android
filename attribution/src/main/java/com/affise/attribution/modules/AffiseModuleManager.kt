@@ -3,7 +3,7 @@ package com.affise.attribution.modules
 import android.app.Application
 import com.affise.attribution.BuildConfig
 import com.affise.attribution.logs.LogsManager
-import com.affise.attribution.modules.exceptions.AffiseModuleVersionException
+import com.affise.attribution.modules.exceptions.AffiseModuleError
 import com.affise.attribution.parameters.factory.PostBackModelFactory
 
 
@@ -67,7 +67,7 @@ internal class AffiseModuleManager(
                     modules[name] = module
                     callback(module)
                 } else {
-                    AffiseModuleVersionException(name, module).printStackTrace()
+                    AffiseModuleError.Version(name, module).printStackTrace()
                 }
             }
         }

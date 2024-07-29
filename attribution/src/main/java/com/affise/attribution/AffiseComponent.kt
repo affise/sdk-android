@@ -509,7 +509,9 @@ internal class AffiseComponent(
                 stringToMD5Converter,
                 stringToSHA1Converter,
                 providersToJsonStringConverter,
-                httpClient
+                httpClient,
+                postBackModelFactory,
+                postBackModelToJsonStringConverter,
             )
         )
 
