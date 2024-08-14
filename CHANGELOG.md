@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.6.41] - 2024-08-14
+
+### Added
+
+- New internal events.
+
 ## [1.6.40] - 2024-07-29
 
 ### Fixed
@@ -111,6 +117,7 @@
 - Improve `AffiseModuleManager`
 - Update gradle for demo app.
 
+[1.6.41]: https://github.com/affise/sdk-android/compare/v1.6.40...v1.6.41
 [1.6.40]: https://github.com/affise/sdk-android/compare/v1.6.39...v1.6.40
 [1.6.39]: https://github.com/affise/sdk-android/compare/v1.6.38...v1.6.39
 [1.6.38]: https://github.com/affise/sdk-android/compare/v1.6.37...v1.6.38

@@ -4,11 +4,11 @@ import com.affise.attribution.events.Event
 import com.affise.attribution.events.parameters.PredefinedFloat
 import com.affise.attribution.events.parameters.PredefinedLong
 import com.affise.attribution.events.parameters.PredefinedString
-import com.affise.attribution.events.predefined.FailedPurchaseEvent
-import com.affise.attribution.events.predefined.PurchaseEvent
-import com.affise.attribution.events.predefined.SubscribeEvent
-import com.affise.attribution.events.subscription.FailedSubscriptionEvent
-import com.affise.attribution.events.subscription.RenewedSubscriptionEvent
+import com.affise.attribution.module.subscription.events.AfFailedPurchaseEvent
+import com.affise.attribution.module.subscription.events.AfFailedSubscriptionEvent
+import com.affise.attribution.module.subscription.events.AfPurchaseEvent
+import com.affise.attribution.module.subscription.events.AfRenewedSubscriptionEvent
+import com.affise.attribution.module.subscription.events.AfSubscriptionEvent
 import com.affise.attribution.module.subscription.store.utils.getOriginalOrderId
 import com.affise.attribution.module.subscription.store.utils.isOk
 import com.affise.attribution.module.subscription.store.utils.responseStatus
@@ -29,9 +29,9 @@ internal object OperationEvent {
         val event = when (product.productType) {
             AffiseProductType.CONSUMABLE, AffiseProductType.NON_CONSUMABLE -> {
                 if (failed) {
-                    FailedPurchaseEvent()
+                    AfFailedPurchaseEvent()
                 } else {
-                    PurchaseEvent()
+                    AfPurchaseEvent()
                 }
                     .addPredefinedParameter(PredefinedString.PRODUCT_ID, product.productId)
                     .addPredefinedParameter(
@@ -48,12 +48,12 @@ internal object OperationEvent {
                 }
 
                 if (failed) {
-                    FailedSubscriptionEvent()
+                    AfFailedSubscriptionEvent()
                 } else {
                     if (originalOrderId.isNullOrEmpty()) {
-                        SubscribeEvent()
+                        AfSubscriptionEvent()
                     } else {
-                        RenewedSubscriptionEvent()
+                        AfRenewedSubscriptionEvent()
                     }
                 }
                     .addPredefinedParameter(
