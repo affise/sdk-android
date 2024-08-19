@@ -67,12 +67,12 @@ private fun demoApi(): List<Pair<String, () -> Unit>> {
             output("isTrackingEnabled: $value")
         },
         Pair("getReferrer") {
-            Affise.getReferrer {
+            Affise.getReferrerUrl {
                 output("getReferrer: $it")
             }
         },
         Pair("getReferrerValue") {
-            Affise.getReferrerValue(ReferrerKey.AD_ID) {
+            Affise.getReferrerUrlValue(ReferrerKey.AD_ID) {
                 output("getReferrerValue: $it")
             }
         },

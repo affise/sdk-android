@@ -224,8 +224,32 @@ object Affise {
     /**
      * Get referrer
      */
+    @Deprecated(
+        message = "This method will be removed",
+        replaceWith = ReplaceWith("Affise.getReferrerUrl(callback)")
+    )
     @JvmStatic
     fun getReferrer(callback: OnReferrerCallback?) {
+        getReferrerUrl(callback)
+    }
+
+    /**
+     * Get referrer Value
+     */
+    @Deprecated(
+        message = "This method will be removed",
+        replaceWith = ReplaceWith("Affise.getReferrerUrlValue(key,callback)")
+    )
+    @JvmStatic
+    fun getReferrerValue(key: ReferrerKey, callback: OnReferrerCallback?) {
+        getReferrerUrlValue(key, callback)
+    }
+
+    /**
+     * Get referrer
+     */
+    @JvmStatic
+    fun getReferrerUrl(callback: OnReferrerCallback?) {
         api?.retrieveInstallReferrerUseCase?.getReferrer(callback)
     }
 
@@ -233,7 +257,7 @@ object Affise {
      * Get referrer Value
      */
     @JvmStatic
-    fun getReferrerValue(key: ReferrerKey, callback: OnReferrerCallback?) {
+    fun getReferrerUrlValue(key: ReferrerKey, callback: OnReferrerCallback?) {
         api?.retrieveInstallReferrerUseCase?.getReferrerValue(key, callback)
     }
 

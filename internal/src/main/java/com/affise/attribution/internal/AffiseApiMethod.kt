@@ -25,8 +25,8 @@ enum class AffiseApiMethod(val method: String) {
     IS_FIRST_RUN("is_first_run"),
 
     // callback methods
-    GET_REFERRER_CALLBACK("get_referrer_callback"),
-    GET_REFERRER_VALUE_CALLBACK("get_referrer_value_callback"),
+    GET_REFERRER_URL_CALLBACK("get_referrer_url_callback"),
+    GET_REFERRER_URL_VALUE_CALLBACK("get_referrer_url_value_callback"),
     REGISTER_DEEPLINK_CALLBACK("register_deeplink_callback"),
 
     // debug

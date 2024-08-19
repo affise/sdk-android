@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.42] - 2024-08-19
+
+### Changed
+
+-  Api `Affise.getReferrer` to `Affise.getReferrerUrl`.
+-  Api `Affise.getReferrerValue` to `Affise.getReferrerUrlValue`.
+
 ## [1.6.41] - 2024-08-14
 
 ### Added
@@ -117,6 +124,7 @@
 - Improve `AffiseModuleManager`
 - Update gradle for demo app.
 
+[1.6.42]: https://github.com/affise/sdk-android/compare/v1.6.41...v1.6.42
 [1.6.41]: https://github.com/affise/sdk-android/compare/v1.6.40...v1.6.41
 [1.6.40]: https://github.com/affise/sdk-android/compare/v1.6.39...v1.6.40
 [1.6.39]: https://github.com/affise/sdk-android/compare/v1.6.38...v1.6.39

@@ -134,11 +134,11 @@ class AffiseApiWrapper(private val app: Application?) {
             AffiseApiMethod.IS_FIRST_RUN ->
                 callIsFirstRun(api, map, result)
 
-            AffiseApiMethod.GET_REFERRER_CALLBACK ->
-                callGetReferrer(api, map, result)
+            AffiseApiMethod.GET_REFERRER_URL_CALLBACK ->
+                callGetReferrerUrl(api, map, result)
 
-            AffiseApiMethod.GET_REFERRER_VALUE_CALLBACK ->
-                callGetReferrerValue(api, map, result)
+            AffiseApiMethod.GET_REFERRER_URL_VALUE_CALLBACK ->
+                callGetReferrerUrlValue(api, map, result)
 
             AffiseApiMethod.REGISTER_DEEPLINK_CALLBACK ->
                 callRegisterDeeplinkCallback(api, map, result)
@@ -487,13 +487,13 @@ class AffiseApiWrapper(private val app: Application?) {
         result.success(Affise.isFirstRun())
     }
 
-    private fun callGetReferrer(
+    private fun callGetReferrerUrl(
         api: AffiseApiMethod,
         map: Map<String, *>,
         result: AffiseResult
     ) {
         val uuid = map.opt<String>(UUID)
-        Affise.getReferrer { referrer ->
+        Affise.getReferrerUrl { referrer ->
             val data = mapOf<String, Any?>(
                 UUID to uuid,
                 api.method to referrer,
@@ -503,7 +503,7 @@ class AffiseApiWrapper(private val app: Application?) {
         result.success(null)
     }
 
-    private fun callGetReferrerValue(
+    private fun callGetReferrerUrlValue(
         api: AffiseApiMethod,
         map: Map<String, *>,
         result: AffiseResult
@@ -514,7 +514,7 @@ class AffiseApiWrapper(private val app: Application?) {
         if (key == null) {
             result.error("api [${api.method}]: value not set")
         } else {
-            Affise.getReferrerValue(key) { referrer ->
+            Affise.getReferrerUrlValue(key) { referrer ->
                 val data = mapOf<String, Any?>(
                     UUID to uuid,
                     api.method to referrer,
