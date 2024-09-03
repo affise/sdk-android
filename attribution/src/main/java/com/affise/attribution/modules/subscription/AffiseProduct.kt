@@ -3,7 +3,7 @@ package com.affise.attribution.modules.subscription
 data class AffiseProduct(
     val productId: String,
     val title: String,
-    val description: String,
+    val productDescription: String,
 
     var productType: AffiseProductType,
 

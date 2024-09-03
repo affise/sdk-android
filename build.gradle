@@ -55,7 +55,7 @@ tasks.register('clean', Delete) {
 }
 
 ext {
-    affiseVersion = "1.6.42"
+    affiseVersion = "1.6.43"
 
     compose_compiler_version = "1.4.8"
     compose_bom = "2024.06.00"
@@ -117,7 +117,7 @@ def localProp(String key) {
         localPropertiesFile.withReader('UTF-8') { reader ->
             properties.load(reader)
         }
-        properties.getProperty(key)
+        return properties.getProperty(key)
     } catch(ignored) { }
     return null
 }

@@ -3,7 +3,7 @@ package com.affise.attribution.internal.builder
 import com.affise.attribution.ad.AffiseAdRevenue
 import com.affise.attribution.ad.AffiseAdSource
 import com.affise.attribution.internal.AffiseApiMethod
-import com.affise.attribution.internal.callback.AffiseResult
+import com.affise.attribution.internal.callback.InternalResult
 import com.affise.attribution.internal.ext.opt
 import com.affise.attribution.internal.utils.toJSONObject
 
@@ -12,7 +12,7 @@ class AffiseBuilder {
     fun call(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         val data = map.opt<Map<*, *>>(api)
         if (data == null) {
@@ -25,7 +25,7 @@ class AffiseBuilder {
         } ?: result.error("api [${api.method}]: builder name not set")
     }
 
-    private fun callBuilder(name: AffiseBuilderName?, map: Map<*, *>, result: AffiseResult) {
+    private fun callBuilder(name: AffiseBuilderName?, map: Map<*, *>, result: InternalResult) {
         when (name) {
             AffiseBuilderName.AD_REVENUE ->
                 callAdRevenue(name, map, result)
@@ -34,7 +34,7 @@ class AffiseBuilder {
         }
     }
 
-    private fun callAdRevenue(name: AffiseBuilderName, map: Map<*, *>, result: AffiseResult) {
+    private fun callAdRevenue(name: AffiseBuilderName, map: Map<*, *>, result: InternalResult) {
         val source = AffiseAdSource.from(map.opt<String>(AffiseBuilderProperty.SOURCE))
         if (source == null) {
             result.error("api [${name.method}]: not valid source ${map.toJSONObject()}")

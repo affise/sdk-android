@@ -13,6 +13,7 @@ import com.affise.attribution.modules.subscription.AffiseResultCallback
 import com.affise.attribution.modules.subscription.AffiseSubscriptionApi
 import com.affise.attribution.modules.subscription.AffiseSubscriptionError
 
+
 internal class SubscriptionModule : AffiseModule(), AffiseSubscriptionApi {
 
     override val version: String = BuildConfig.AFFISE_VERSION

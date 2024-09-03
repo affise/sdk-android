@@ -2,15 +2,16 @@
 
 [Change Log](CHANGELOG.md)
 
-| Artifact                        | Version                                                                                                                                                                      |
-|---------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `com.affise:attribution`        | [![attribution](https://img.shields.io/maven-central/v/com.affise/attribution?label=latest)](https://mvnrepository.com/artifact/com.affise/attribution)                      |
-| `com.affise:module-advertising` | [![module-advertising](https://img.shields.io/maven-central/v/com.affise/module-advertising?label=latest)](https://mvnrepository.com/artifact/com.affise/module-advertising) |
-| `com.affise:module-androidid`   | [![module-androidid](https://img.shields.io/maven-central/v/com.affise/module-androidid?label=latest)](https://mvnrepository.com/artifact/com.affise/module-androidid)       |
-| `com.affise:module-link`        | [![module-link](https://img.shields.io/maven-central/v/com.affise/module-link?label=latest)](https://mvnrepository.com/artifact/com.affise/module-link)                      |
-| `com.affise:module-network`     | [![module-network](https://img.shields.io/maven-central/v/com.affise/module-network?label=latest)](https://mvnrepository.com/artifact/com.affise/module-network)             |
-| `com.affise:module-phone`       | [![module-phone](https://img.shields.io/maven-central/v/com.affise/module-phone?label=latest)](https://mvnrepository.com/artifact/com.affise/module-phone)                   |
-| `com.affise:module-status`      | [![module-status](https://img.shields.io/maven-central/v/com.affise/module-status?label=latest)](https://mvnrepository.com/artifact/com.affise/module-status)                |
+| Artifact                         | Version                                                                                                                                                                         |
+|----------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `com.affise:attribution`         | [![attribution](https://img.shields.io/maven-central/v/com.affise/attribution?label=latest)](https://mvnrepository.com/artifact/com.affise/attribution)                         |
+| `com.affise:module-advertising`  | [![module-advertising](https://img.shields.io/maven-central/v/com.affise/module-advertising?label=latest)](https://mvnrepository.com/artifact/com.affise/module-advertising)    |
+| `com.affise:module-androidid`    | [![module-androidid](https://img.shields.io/maven-central/v/com.affise/module-androidid?label=latest)](https://mvnrepository.com/artifact/com.affise/module-androidid)          |
+| `com.affise:module-link`         | [![module-link](https://img.shields.io/maven-central/v/com.affise/module-link?label=latest)](https://mvnrepository.com/artifact/com.affise/module-link)                         |
+| `com.affise:module-network`      | [![module-network](https://img.shields.io/maven-central/v/com.affise/module-network?label=latest)](https://mvnrepository.com/artifact/com.affise/module-network)                |
+| `com.affise:module-phone`        | [![module-phone](https://img.shields.io/maven-central/v/com.affise/module-phone?label=latest)](https://mvnrepository.com/artifact/com.affise/module-phone)                      |
+| `com.affise:module-status`       | [![module-status](https://img.shields.io/maven-central/v/com.affise/module-status?label=latest)](https://mvnrepository.com/artifact/com.affise/module-status)                   |
+| `com.affise:module-subscription` | [![module-subscription](https://img.shields.io/maven-central/v/com.affise/module-subscription?label=latest)](https://mvnrepository.com/artifact/com.affise/module-subscription) |
 
 - [Affise Attribution Android Library](#affise-attribution-android-library)
 - [Description](#description)
@@ -23,6 +24,8 @@
     - [Modules](#modules)
       - [Module Advertising](#module-advertising)
       - [Module Link](#module-link)
+      - [Module Status](#module-status)
+      - [Module Subscription](#module-subscription)
     - [Requirements](#requirements)
 - [Features](#features)
   - [ProviderType identifiers collection](#providertype-identifiers-collection)
@@ -94,14 +97,15 @@ For kotlin build script build.gradle.kts use:
 ```kotlin
 dependencies {
   // Add Affise library 
-  implementation("com.affise:attribution:1.6.42")
+  implementation("com.affise:attribution:1.6.43")
   // Add Affise modules 
-  implementation("com.affise:module-advertising:1.6.42")
-  implementation("com.affise:module-androidid:1.6.42")
-  implementation("com.affise:module-link:1.6.42")
-  implementation("com.affise:module-network:1.6.42")
-  implementation("com.affise:module-phone:1.6.42")
-  implementation("com.affise:module-status:1.6.42")
+  implementation("com.affise:module-advertising:1.6.43")
+  implementation("com.affise:module-androidid:1.6.43")
+  implementation("com.affise:module-link:1.6.43")
+  implementation("com.affise:module-network:1.6.43")
+  implementation("com.affise:module-phone:1.6.43")
+  implementation("com.affise:module-status:1.6.43")
+  implementation("com.affise:module-subscription:1.6.43")
   // Add install referrer
   implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -112,14 +116,15 @@ For groovy build script build.gradle use:
 ```groovy
 dependencies {
     // Add Affise library 
-    implementation 'com.affise:attribution:1.6.42'
+    implementation 'com.affise:attribution:1.6.43'
     // Add Affise modules 
-    implementation 'com.affise:module-advertising:1.6.42'
-    implementation 'com.affise:module-androidid:1.6.42'
-    implementation 'com.affise:module-link:1.6.42'
-    implementation 'com.affise:module-network:1.6.42'
-    implementation 'com.affise:module-phone:1.6.42'
-    implementation 'com.affise:module-status:1.6.42'
+    implementation 'com.affise:module-advertising:1.6.43'
+    implementation 'com.affise:module-androidid:1.6.43'
+    implementation 'com.affise:module-link:1.6.43'
+    implementation 'com.affise:module-network:1.6.43'
+    implementation 'com.affise:module-phone:1.6.43'
+    implementation 'com.affise:module-status:1.6.43'
+    implementation 'com.affise:module-subscription:1.6.43'
     // Add install referrer
     implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -127,9 +132,9 @@ dependencies {
 
 ### Integrate as file dependency
 
-Download latest Affise SDK (`attribution-1.6.42.aar`)
+Download latest Affise SDK (`attribution-1.6.43.aar`)
 from [releases page](https://github.com/affise/sdk-android/releases) and place this binary to gradle application
-module lib directory `app/libs/attribution-1.6.42.aar`
+module lib directory `app/libs/attribution-1.6.43.aar`
 
 Add library as gradle file dependency to application module build script
 Add install referrer library
@@ -140,14 +145,15 @@ For kotlin build script build.gradle.kts use:
 dependencies {
     // ...
     // Add Affise library 
-    implementation(files("libs/attribution-1.6.42.aar"))
+    implementation(files("libs/attribution-1.6.43.aar"))
     // Add Affise modules 
-    implementation(files("libs/module-advertising-1.6.42.aar"))
-    implementation(files("libs/module-androidid-1.6.42.aar"))
-    implementation(files("libs/module-link-1.6.42.aar"))
-    implementation(files("libs/module-network-1.6.42.aar"))
-    implementation(files("libs/module-phone-1.6.42.aar"))
-    implementation(files("libs/module-status-1.6.42.aar"))
+    implementation(files("libs/module-advertising-1.6.43.aar"))
+    implementation(files("libs/module-androidid-1.6.43.aar"))
+    implementation(files("libs/module-link-1.6.43.aar"))
+    implementation(files("libs/module-network-1.6.43.aar"))
+    implementation(files("libs/module-phone-1.6.43.aar"))
+    implementation(files("libs/module-status-1.6.43.aar"))
+    implementation(files("libs/module-subscription-1.6.43.aar"))
     // Add install referrer
     implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -159,14 +165,15 @@ For groovy build script build.gradle use:
 dependencies {
   // ...  
   // Add Affise library 
-  implementation files('libs/attribution-1.6.42.aar')
+  implementation files('libs/attribution-1.6.43.aar')
   // Add Affise modules 
-  implementation files('libs/module-advertising-1.6.42.aar')
-  implementation files('libs/module-androidid-1.6.42.aar')
-  implementation files('libs/module-link-1.6.42.aar')
-  implementation files('libs/module-network-1.6.42.aar')
-  implementation files('libs/module-phone-1.6.42.aar')
-  implementation files('libs/module-status-1.6.42.aar')
+  implementation files('libs/module-advertising-1.6.43.aar')
+  implementation files('libs/module-androidid-1.6.43.aar')
+  implementation files('libs/module-link-1.6.43.aar')
+  implementation files('libs/module-network-1.6.43.aar')
+  implementation files('libs/module-phone-1.6.43.aar')
+  implementation files('libs/module-status-1.6.43.aar')
+  implementation files('libs/module-subscription-1.6.43.aar')
   // Add install referrer
   implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -249,14 +256,15 @@ class App : Application() {
 > 
 > 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
 
-| Module        | Version                                                                                                                                                                      | Start  |
-|:--------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------:|
-| `Advertising` | [![module-advertising](https://img.shields.io/maven-central/v/com.affise/module-advertising?label=latest)](https://mvnrepository.com/artifact/com.affise/module-advertising) | `Auto` |
-| `AndroidId`   | [![module-androidid](https://img.shields.io/maven-central/v/com.affise/module-androidid?label=latest)](https://mvnrepository.com/artifact/com.affise/module-androidid)       | `Auto` |
-| `Link`        | [![module-link](https://img.shields.io/maven-central/v/com.affise/module-link?label=latest)](https://mvnrepository.com/artifact/com.affise/module-link)                      | `Auto` |
-| `Network`     | [![module-network](https://img.shields.io/maven-central/v/com.affise/module-network?label=latest)](https://mvnrepository.com/artifact/com.affise/module-network)             | `Auto` |
-| `Phone`       | [![module-phone](https://img.shields.io/maven-central/v/com.affise/module-phone?label=latest)](https://mvnrepository.com/artifact/com.affise/module-phone)                   | `Auto` |
-| `Status`      | [![module-status](https://img.shields.io/maven-central/v/com.affise/module-status?label=latest)](https://mvnrepository.com/artifact/com.affise/module-status)                | `Auto` |
+| Module         | Version                                                                                                                                                                         | Start  |
+|:---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------:|
+| `Advertising`  | [![module-advertising](https://img.shields.io/maven-central/v/com.affise/module-advertising?label=latest)](https://mvnrepository.com/artifact/com.affise/module-advertising)    | `Auto` |
+| `AndroidId`    | [![module-androidid](https://img.shields.io/maven-central/v/com.affise/module-androidid?label=latest)](https://mvnrepository.com/artifact/com.affise/module-androidid)          | `Auto` |
+| `Link`         | [![module-link](https://img.shields.io/maven-central/v/com.affise/module-link?label=latest)](https://mvnrepository.com/artifact/com.affise/module-link)                         | `Auto` |
+| `Network`      | [![module-network](https://img.shields.io/maven-central/v/com.affise/module-network?label=latest)](https://mvnrepository.com/artifact/com.affise/module-network)                | `Auto` |
+| `Phone`        | [![module-phone](https://img.shields.io/maven-central/v/com.affise/module-phone?label=latest)](https://mvnrepository.com/artifact/com.affise/module-phone)                      | `Auto` |
+| `Status`       | [![module-status](https://img.shields.io/maven-central/v/com.affise/module-status?label=latest)](https://mvnrepository.com/artifact/com.affise/module-status)                   | `Auto` |
+| `Subscription` | [![module-subscription](https://img.shields.io/maven-central/v/com.affise/module-subscription?label=latest)](https://mvnrepository.com/artifact/com.affise/module-subscription) | `Auto` |
 
 If module start type is `Manual`, then call:
 
@@ -300,6 +308,50 @@ For java use:
 AffiseLink.linkResolve("SITE_WITH_REDIRECTION", redirectUrl -> {
     // handle redirect url  
 });
+```
+
+#### Module Status
+
+```kotlin
+Affise.Module.getStatus(AffiseModules.Status) { response ->
+  // handle response
+}
+```
+
+#### Module Subscription
+
+Get products by ids:
+
+```kotlin
+val ids = ["exampple.product.id_1", "exampple.product.id_2"]
+
+Affise.Module.fetchProducts(ids) { result ->
+    when (result) {
+        is AffiseResult.Success -> {
+          val products: List<AffiseProduct> = result.value.products
+          val invalidIds: List<String> = result.value.invalidIds
+        }
+        is AffiseResult.Error -> {
+          val error: String = result.error.message
+        }
+    }
+}
+```
+
+Purchase product:
+
+```kotlin
+// Specify product type for correct affise event
+Affise.Module.purchase(activity, product, AffiseProductType.CONSUMABLE) { result ->
+    when (result) {
+        is AffiseResult.Success -> {
+          val purchasedInfo: AffisePurchasedInfo  = result.value
+        }
+        is AffiseResult.Error -> {
+          val error: String = result.error.message
+        }
+    }
+}
 ```
 
 ### Requirements
@@ -1161,6 +1213,8 @@ In examples above `ReferrerKey.CLICK_ID` is used, but many others is available:
 - `SUB_5`
 
 ## Get module state
+
+Get state of the module:
 
 For kotlin:
 

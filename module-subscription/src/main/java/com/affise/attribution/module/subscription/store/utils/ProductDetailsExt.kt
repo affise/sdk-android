@@ -14,7 +14,7 @@ internal fun ProductDetails.toAffiseProduct(): List<AffiseProduct> {
         AffiseProduct(
             productId = this.productId,
             title = this.name,
-            description = this.description,
+            productDescription = this.description,
             productType = AffiseProductType.CONSUMABLE,
             price = this.affisePrice(),
             subscription = null,
@@ -29,7 +29,7 @@ internal fun ProductDetails.toAffiseProduct(): List<AffiseProduct> {
             AffiseProduct(
                 productId = this.productId,
                 title = this.name,
-                description = this.description,
+                productDescription = this.description,
                 productType = pricingPhase.affiseProductType(),
                 price = pricingPhase.affiseProductPrice(),
                 subscription = offer.toAffiseProductSubscriptionDetail(pricingPhase),

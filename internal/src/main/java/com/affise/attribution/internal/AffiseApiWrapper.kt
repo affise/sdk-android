@@ -1,10 +1,11 @@
 package com.affise.attribution.internal
 
+import android.app.Activity
 import android.app.Application
 import com.affise.attribution.Affise
 import com.affise.attribution.events.autoCatchingClick.toAutoCatchingType
 import com.affise.attribution.internal.builder.AffiseBuilder
-import com.affise.attribution.internal.callback.AffiseResult
+import com.affise.attribution.internal.callback.InternalResult
 import com.affise.attribution.internal.callback.OnAffiseCallback
 import com.affise.attribution.internal.events.EventFactory
 import com.affise.attribution.internal.ext.addSettings
@@ -13,24 +14,26 @@ import com.affise.attribution.internal.ext.isValid
 import com.affise.attribution.internal.ext.opt
 import com.affise.attribution.internal.ext.toListOfMap
 import com.affise.attribution.internal.platform.InternalCrossPlatform
-import com.affise.attribution.internal.utils.DataMapper
+import com.affise.attribution.internal.data.DataMapper
 import com.affise.attribution.internal.utils.jsonToMap
 import com.affise.attribution.internal.utils.toJSONObject
-import com.affise.attribution.internal.utils.toListOfMap
 import com.affise.attribution.modules.link.AffiseLink
 import com.affise.attribution.modules.subscription.AffiseSubscription
 import com.affise.attribution.modules.toAffiseModules
 import com.affise.attribution.referrer.toReferrerKey
-import com.affise.attribution.modules.subscription.AffiseResult as MatchResult
 import org.json.JSONObject
 
 
-class AffiseApiWrapper(private val app: Application?) {
+class AffiseApiWrapper(
+    private val app: Application?,
+) {
 
     companion object {
         private const val UUID = "callback_uuid"
         private const val TAG = "callback_tag"
     }
+
+    var activity: Activity? = null
 
     private val factory: EventFactory = EventFactory()
     private val affiseBuilder: AffiseBuilder = AffiseBuilder()
@@ -66,7 +69,7 @@ class AffiseApiWrapper(private val app: Application?) {
         InternalCrossPlatform.unity()
     }
 
-    fun call(api: AffiseApiMethod?, map: Map<String, *>, result: AffiseResult) {
+    fun call(api: AffiseApiMethod?, map: Map<String, *>, result: InternalResult) {
         when (api) {
             AffiseApiMethod.INIT ->
                 callInit(api, map, result)
@@ -183,7 +186,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callInit(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         if (app == null) {
             result.error("api [${api.method}]: no application context")
@@ -219,7 +222,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callIsInitialized(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         Affise.isInitialized().let {
             result.success(it)
@@ -229,7 +232,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callSendEvent(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         val data = map.opt<Map<*, *>>(api)
         if (data == null) {
@@ -249,7 +252,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callSendEventNow(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         val data = map.opt<Map<*, *>>(api)
         if (data == null) {
@@ -289,7 +292,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callAddPushToken(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         val pushToken = map.opt<String>(api)
         if (pushToken.isNullOrBlank()) {
@@ -303,7 +306,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callRegisterWebView(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
 //        Affise.registerWebView()
 //        result.success(null)
@@ -313,7 +316,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callUnregisterWebView(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         Affise.unregisterWebView()
         result.success(null)
@@ -322,7 +325,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callSetSecretId(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         val secretKey = map.opt<String>(api)
         if (secretKey.isNullOrBlank()) {
@@ -336,7 +339,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callSetAutoCatchingTypes(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         val list = map.opt<List<*>>(api)
         val types = list?.mapNotNull {
@@ -349,7 +352,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callSetOfflineModeEnabled(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         val enabled = map.opt<Boolean>(api)
         if (enabled == null) {
@@ -363,7 +366,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callIsOfflineModeEnabled(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         Affise.isOfflineModeEnabled().let {
             result.success(it)
@@ -373,7 +376,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callSetBackgroundTrackingEnabled(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         val enabled = map.opt<Boolean>(api)
         if (enabled == null) {
@@ -387,7 +390,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callIsBackgroundTrackingEnabled(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         Affise.isBackgroundTrackingEnabled().let {
             result.success(it)
@@ -397,7 +400,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callSetTrackingEnabled(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         val enabled = map.opt<Boolean>(api)
         if (enabled == null) {
@@ -411,7 +414,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callIsTrackingEnabled(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         Affise.isTrackingEnabled().let {
             result.success(it)
@@ -421,7 +424,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callForget(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         val userData = map.opt<String>(api)
         if (userData.isNullOrBlank()) {
@@ -435,7 +438,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callSetEnabledMetrics(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         val enabled = map.opt<Boolean>(api)
         if (enabled == null) {
@@ -449,7 +452,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callCrashApplication(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         Affise.crashApplication()
         result.success(null)
@@ -458,7 +461,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callGetRandomUserId(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         result.success(Affise.getRandomUserId())
     }
@@ -466,7 +469,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callGetRandomDeviceId(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         result.success(Affise.getRandomDeviceId())
     }
@@ -474,7 +477,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callGetProviders(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         result.success(Affise.getProviders().entries.associate { it.key.provider to it.value })
     }
@@ -482,7 +485,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callIsFirstRun(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         result.success(Affise.isFirstRun())
     }
@@ -490,7 +493,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callGetReferrerUrl(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         val uuid = map.opt<String>(UUID)
         Affise.getReferrerUrl { referrer ->
@@ -506,7 +509,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callGetReferrerUrlValue(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         val uuid = map.opt<String>(UUID)
         val key = map.opt<String>(api)?.toReferrerKey()
@@ -528,7 +531,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callRegisterDeeplinkCallback(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         Affise.registerDeeplinkCallback { value ->
             val data = mapOf<String, Any?>(
@@ -542,7 +545,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callDebugValidateCallback(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         val uuid = map.opt<String>(UUID)
         Affise.Debug.validate {
@@ -558,7 +561,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callDebugNetworkCallback(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         Affise.Debug.network { request, response ->
             val data = mapOf<String, Any?>(
@@ -575,7 +578,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callBuilder(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         affiseBuilder.call(api, map, result)
     }
@@ -587,7 +590,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callModuleStart(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         val module = map.opt<String>(api)?.toAffiseModules()
         if (module == null) {
@@ -600,7 +603,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callGetModulesInstalled(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         result.success(Affise.Module.getModulesInstalled().map { it.name })
     }
@@ -608,7 +611,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callGetStatusCallback(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         val uuid = map.opt<String>(UUID)
         val module = map.opt<String>(api)?.toAffiseModules()
@@ -630,7 +633,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callModuleLinkLinkResolveCallback(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         val uuid = map.opt<String>(UUID)
         val url = map.opt<String>(api)
@@ -652,7 +655,7 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callModuleSubsFetchProductsCallback(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
         val uuid = map.opt<String>(UUID)
         val ids = map.opt<List<String>>(api)
@@ -662,23 +665,9 @@ class AffiseApiWrapper(private val app: Application?) {
         }
 
         AffiseSubscription.fetchProducts(ids) {
-            val fetchResult: MutableMap<String, Any?> = mutableMapOf()
-            when (it) {
-                is MatchResult.Success -> {
-                    fetchResult["success"] = mapOf(
-                        "products" to it.value.products.toListOfMap(),
-                        "invalidIds" to it.value.invalidIds
-                    )
-                }
-
-                is MatchResult.Error -> {
-                    fetchResult["error"] = it.error.message.toString()
-                }
-            }
-
             val data = mapOf<String, Any?>(
                 UUID to uuid,
-                api.method to fetchResult,
+                api.method to DataMapper.fromFetchProductsResult(it),
             )
             callback?.invoke(api, data)
         }
@@ -690,11 +679,37 @@ class AffiseApiWrapper(private val app: Application?) {
     private fun callModuleSubsPurchaseCallback(
         api: AffiseApiMethod,
         map: Map<String, *>,
-        result: AffiseResult
+        result: InternalResult
     ) {
-//        val uuid = map.opt<String>(UUID)
-//        AffiseSubscription.purchase()
-        result.notImplemented()
+        val uuid = map.opt<String>(UUID)
+
+        if (activity == null) {
+            result.error("api [${api.method}]: activity not set")
+            return
+        }
+
+        val apiData = map.opt<Map<String, Any?>>(api)
+
+        val product = DataMapper.toAffiseProduct(apiData?.opt<Map<String, *>>("product"))
+        if (product == null) {
+            result.error("api [${api.method}]: product not set")
+            return
+        }
+
+        val type = DataMapper.toAffiseProductType(apiData?.opt<String>("type"))
+
+        AffiseSubscription.purchase(
+            activity = activity!!,
+            product = product,
+            type = type
+        ) {
+            val data = mapOf<String, Any?>(
+                UUID to uuid,
+                api.method to DataMapper.fromPurchaseResult(it),
+            )
+            callback?.invoke(api, data)
+        }
+        result.success(null)
     }
     ////////////////////////////////////////
     // modules

@@ -217,7 +217,7 @@ fun ProductItem(
                 .weight(1f)
         ) {
             Text(product.title, color = MaterialTheme.colorScheme.onPrimary)
-            Text(product.description, color = MaterialTheme.colorScheme.onBackground.copy(0.6f))
+            Text(product.productDescription, color = MaterialTheme.colorScheme.onBackground.copy(0.6f))
             product.subscription?.let {
                 Text("id: ${it.offerId}", color = MaterialTheme.colorScheme.onBackground.copy(0.6f))
                 Text("${it.numberOfUnits} ${it.timeUnit?.value}", color = Color.Blue.copy(0.6f))
