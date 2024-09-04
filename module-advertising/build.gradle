@@ -38,7 +38,7 @@ dependencies {
     compileOnly files('libs/oaid_sdk_1.0.26.aar')
 
     //Gaid
-    compileOnly 'com.google.android.gms:play-services-ads:21.4.0'
+    implementation("com.google.android.gms:play-services-ads-identifier:18.1.0")
 
     testImplementation "com.google.truth:truth:$testTruth"
     testImplementation "io.mockk:mockk:$testMockk"

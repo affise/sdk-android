@@ -21,6 +21,7 @@ import com.affise.app.ui.theme.AffiseAttributionLibTheme
 import com.affise.app.ui.utils.toNormalCase
 import com.affise.attribution.Affise
 import com.affise.attribution.modules.AffiseModules
+import com.affise.attribution.parameters.ProviderType
 import com.affise.attribution.referrer.ReferrerKey
 
 private fun demoApi(): List<Pair<String, () -> Unit>> {
@@ -99,8 +100,9 @@ private fun demoApi(): List<Pair<String, () -> Unit>> {
             output("getRandomDeviceId: $value")
         },
         Pair("getProviders") {
+            val providerType = ProviderType.GAID_ADID
             val value = Affise.getProviders()
-            output("getProviders: $value")
+            output("getProviders: ${providerType.provider} = ${value[providerType] as? String}")
         },
         Pair("isFirstRun") {
             val value = Affise.isFirstRun()

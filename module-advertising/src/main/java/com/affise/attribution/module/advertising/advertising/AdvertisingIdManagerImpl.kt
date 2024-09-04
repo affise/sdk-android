@@ -24,14 +24,16 @@ internal class AdvertisingIdManagerImpl(
      */
     private var advertisingId: String? = null
     private var adPersonalization: Boolean = false
+    private var advertisingIdInfo: AdvertisingIdClient.Info? = null
 
     /**
      * Init Advertising IdManager
      */
     override fun init(app: Application) = executorProvider.provideExecutorService().execute {
         try {
-            //Get Google Advertising ID with context
-            advertisingId = getGoogleAdvertisingId(app)
+            advertisingIdInfo = getAdvertisingIdInfo(app)
+            //Get Google Advertising ID
+            advertisingId = getGoogleAdvertisingId()
             adPersonalization = checkGoogleAdPersonalization()
         } catch (throwable: Throwable) {
             //Log error
@@ -51,16 +53,18 @@ internal class AdvertisingIdManagerImpl(
      */
     override fun getAdPersonalization() = adPersonalization
 
+    private fun getAdvertisingIdInfo(context: Context) = try {
+        AdvertisingIdClient.getAdvertisingIdInfo(context)
+    } catch (throwable: Throwable) {
+        null
+    }
+
     /**
-     * Get Google Advertising ID with [context] app
+     * Get Google Advertising ID
      */
-    private fun getGoogleAdvertisingId(context: Context): String? {
-        return try {
-            //Get Google Advertising ID
-            AdvertisingIdClient.getAdvertisingIdInfo(context).id
-        } catch (throwable: Throwable) {
-            null
-        }
+    private fun getGoogleAdvertisingId(): String? {
+        //Get Google Advertising ID
+        return advertisingIdInfo?.id
     }
 
     private fun checkGoogleAdPersonalization(): Boolean {

@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.6.44] - 2024-09-04
+
+### Fixed
+
+- Fix `Gaid` in `Advertising` module.
+
 ## [1.6.43] - 2024-09-03
 
 ### Fixed
@@ -134,6 +140,7 @@
 - Improve `AffiseModuleManager`
 - Update gradle for demo app.
 
+[1.6.44]: https://github.com/affise/sdk-android/compare/v1.6.43...v1.6.44
 [1.6.43]: https://github.com/affise/sdk-android/compare/v1.6.42...v1.6.43
 [1.6.42]: https://github.com/affise/sdk-android/compare/v1.6.41...v1.6.42
 [1.6.41]: https://github.com/affise/sdk-android/compare/v1.6.40...v1.6.41
