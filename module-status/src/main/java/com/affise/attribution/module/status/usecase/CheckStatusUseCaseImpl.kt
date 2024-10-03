@@ -36,15 +36,15 @@ class CheckStatusUseCaseImpl(
     @Synchronized
     override fun send(onComplete: OnKeyValueCallback) {
         sendServiceProvider.provideExecutorService().execute {
-            sendWithRepeat(onComplete) {
-                Thread.sleep(TIME_DELAY_SENDING)
+            sendWithRepeat(onComplete) { attempt ->
+                Thread.sleep(TIME_DELAY * TIMINGS.getOrElse(attempt) { 1 })
             }
         }
     }
 
-    private fun sendWithRepeat(onComplete: OnKeyValueCallback, onFailedAttempt: () -> Unit) {
+    private fun sendWithRepeat(onComplete: OnKeyValueCallback, onFailedAttempt: (Int) -> Unit) {
         //attempts to send
-        var attempts = ATTEMPTS_TO_SEND
+        var attempts = TIMINGS.size + 1
 
         //Send or not
         var send = false
@@ -67,24 +67,25 @@ class CheckStatusUseCaseImpl(
                 //Send is ok
                 send = true
             } else {
+                attempts--
                 //Check attempts
-                if (--attempts <= 0) {
+                if (attempts <= 0) {
 
                     onComplete.handle(emptyList())
 
-                    val httpResponse = response ?: postBackResponse
-
-                    //Log error
-                    logsManager?.addSdkError(
-                        CloudException(
-                            url,
-                            NetworkException(httpResponse?.code ?: 0, httpResponse?.body ?: ""),
-                            ATTEMPTS_TO_SEND,
-                            true
-                        )
-                    )
+//                    val httpResponse = response ?: postBackResponse
+//
+//                    //Log error
+//                    logsManager?.addSdkError(
+//                        CloudException(
+//                            url,
+//                            NetworkException(httpResponse?.code ?: 0, httpResponse?.body ?: ""),
+//                            TIMINGS.size + 1,
+//                            true
+//                        )
+//                    )
                 } else {
-                    onFailedAttempt()
+                    onFailedAttempt(attempts - 1)
                 }
             }
         }
@@ -115,8 +116,8 @@ class CheckStatusUseCaseImpl(
     }
 
     companion object {
-        private const val TIME_DELAY_SENDING: Long = 5000L
-        private const val ATTEMPTS_TO_SEND = 30
+        private val TIMINGS = listOf(1,1,2,3,5,8,13).reversed()
+        private const val TIME_DELAY: Long = 1000L
 
         const val PATH = "check_status"
     }

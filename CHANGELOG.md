@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.6.45] - 2024-10-03
+
+### Fixed
+
+- Fix `Affise.Module.getStatus` timing retry.
+
 ## [1.6.44] - 2024-09-04
 
 ### Fixed
@@ -140,6 +146,7 @@
 - Improve `AffiseModuleManager`
 - Update gradle for demo app.
 
+[1.6.45]: https://github.com/affise/sdk-android/compare/v1.6.44...v1.6.45
 [1.6.44]: https://github.com/affise/sdk-android/compare/v1.6.43...v1.6.44
 [1.6.43]: https://github.com/affise/sdk-android/compare/v1.6.42...v1.6.43
 [1.6.42]: https://github.com/affise/sdk-android/compare/v1.6.41...v1.6.42
