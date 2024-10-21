@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.6.46] - 2024-10-21
+
+### Fixed
+
+- Fix CPU overhead for activity listeners.
+
+### Removed
+
+- Api `setEnabledMetrics`.
+- Api `setAutoCatchingTypes`.
+
 ## [1.6.45] - 2024-10-03
 
 ### Fixed
@@ -146,6 +157,7 @@
 - Improve `AffiseModuleManager`
 - Update gradle for demo app.
 
+[1.6.46]: https://github.com/affise/sdk-android/compare/v1.6.45...v1.6.46
 [1.6.45]: https://github.com/affise/sdk-android/compare/v1.6.44...v1.6.45
 [1.6.44]: https://github.com/affise/sdk-android/compare/v1.6.43...v1.6.44
 [1.6.43]: https://github.com/affise/sdk-android/compare/v1.6.42...v1.6.43

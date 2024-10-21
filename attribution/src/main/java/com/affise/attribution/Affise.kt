@@ -141,10 +141,10 @@ object Affise {
     /**
      * Send enabled autoCatching types
      */
-    @JvmStatic
-    fun setAutoCatchingTypes(types: List<AutoCatchingType>?) {
-        api?.autoCatchingClickProvider?.setTypes(types)
-    }
+//    @JvmStatic
+//    fun setAutoCatchingTypes(types: List<AutoCatchingType>?) {
+//        api?.autoCatchingClickProvider?.setTypes(types)
+//    }
 
     /**
      * Sets offline mode to [enabled] state
@@ -211,10 +211,10 @@ object Affise {
      * When disabled, library should not generate any metrics events,
      * but will send the saved metrics events
      */
-    @JvmStatic
-    fun setEnabledMetrics(enabled: Boolean) {
-        api?.metricsManager?.setEnabledMetrics(enabled)
-    }
+//    @JvmStatic
+//    fun setEnabledMetrics(enabled: Boolean) {
+//        api?.metricsManager?.setEnabledMetrics(enabled)
+//    }
 
     @JvmStatic
     fun crashApplication() {

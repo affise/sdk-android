@@ -40,11 +40,11 @@ internal interface AffiseApi {
     val webBridgeManager: WebBridgeManager
     val deeplinkManager: DeeplinkManagerImpl
     val initPropertiesStorage: InitPropertiesStorage
-    val autoCatchingClickProvider: AutoCatchingClickProvider
+//    val autoCatchingClickProvider: AutoCatchingClickProvider
     val preferencesUseCase: PreferencesUseCaseImpl
     val eraseUserDataUseCase: EraseUserDataUseCaseImpl
     val sendGDPREventUseCase: SendGDPREventUseCaseImpl
-    val metricsManager: MetricsManager
+//    val metricsManager: MetricsManager
     val crashApplicationUseCase: CrashApplicationUseCase
     val retrieveInstallReferrerUseCase: RetrieveInstallReferrerUseCase
     val moduleManager: AffiseModuleManager

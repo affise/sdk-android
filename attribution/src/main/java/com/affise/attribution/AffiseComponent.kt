@@ -188,16 +188,16 @@ internal class AffiseComponent(
     /**
      * MetricsUseCase
      */
-    private val metricsUseCase: MetricsUseCase by lazy {
-        MetricsUseCaseImpl(ExecutorServiceProviderImpl("Metrics Worker"), metricsRepository)
-    }
+//    private val metricsUseCase: MetricsUseCase by lazy {
+//        MetricsUseCaseImpl(ExecutorServiceProviderImpl("Metrics Worker"), metricsRepository)
+//    }
 
     /**
      * MetricsManager
      */
-    override val metricsManager: MetricsManager by lazy {
-        MetricsManagerImpl(activityActionsManager, metricsUseCase, stringToSHA1Converter)
-    }
+//    override val metricsManager: MetricsManager by lazy {
+//        MetricsManagerImpl(activityActionsManager, metricsUseCase, stringToSHA1Converter)
+//    }
 
     /**
      * Provides [CrashApplicationUseCase]
@@ -382,7 +382,11 @@ internal class AffiseComponent(
      * ActivityActionsListeners
      */
     private val activityActionsManager: ActivityActionsManager by lazy {
-        ActivityActionsManagerImpl(app, logsManager)
+        ActivityActionsManagerImpl(
+            app,
+            logsManager,
+            initProperties,
+        )
     }
 
     /**
@@ -440,9 +444,9 @@ internal class AffiseComponent(
     /**
      * AutoCatchingClickProvider
      */
-    override val autoCatchingClickProvider: AutoCatchingClickProvider = AutoCatchingClickProvider(
-        storeEventUseCase, activityActionsManager
-    )
+//    override val autoCatchingClickProvider: AutoCatchingClickProvider = AutoCatchingClickProvider(
+//        storeEventUseCase, activityActionsManager
+//    )
 
     override val sendGDPREventUseCase: SendGDPREventUseCaseImpl by lazy {
         SendGDPREventUseCaseImpl(
@@ -494,8 +498,8 @@ internal class AffiseComponent(
         })
         setPropertiesWhenInitUseCase.init(initProperties)
         deeplinkManager.init()
-        autoCatchingClickProvider.init(initProperties.autoCatchingClickEvents)
-        metricsManager.setEnabledMetrics(initProperties.enabledMetrics)
+//        autoCatchingClickProvider.init(initProperties.autoCatchingClickEvents)
+//        metricsManager.setEnabledMetrics(initProperties.enabledMetrics)
 
         AffiseThreadUncaughtExceptionHandlerImpl(
             Thread.getDefaultUncaughtExceptionHandler(),

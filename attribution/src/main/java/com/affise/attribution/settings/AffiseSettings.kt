@@ -22,8 +22,8 @@ class AffiseSettings internal constructor(
     private var partParamName: String? = null
     private var partParamNameToken: String? = null
     private var appToken: String? = null
-    private var autoCatchingClickEvents: List<AutoCatchingType>? = null
-    private var enabledMetrics: Boolean = false
+//    private var autoCatchingClickEvents: List<AutoCatchingType>? = null
+//    private var enabledMetrics: Boolean = false
 
     /**
      * Set Affise SDK for SandBox / Production
@@ -65,16 +65,16 @@ class AffiseSettings internal constructor(
     /**
      * Set [autoCatchingClickEvents] list of AutoCatchingType
      */
-    fun setAutoCatchingClickEvents(autoCatchingClickEvents: List<AutoCatchingType>?): AffiseSettings = this.apply {
-        this.autoCatchingClickEvents = autoCatchingClickEvents
-    }
+//    fun setAutoCatchingClickEvents(autoCatchingClickEvents: List<AutoCatchingType>?): AffiseSettings = this.apply {
+//        this.autoCatchingClickEvents = autoCatchingClickEvents
+//    }
 
     /**
      * Set Metrics [enable]
      */
-    fun setEnabledMetrics(enable: Boolean): AffiseSettings = this.apply {
-        this.enabledMetrics = enable
-    }
+//    fun setEnabledMetrics(enable: Boolean): AffiseSettings = this.apply {
+//        this.enabledMetrics = enable
+//    }
 
     private fun getInitProperties(): AffiseInitProperties = AffiseInitProperties(
         affiseAppId = affiseAppId,
@@ -83,8 +83,8 @@ class AffiseSettings internal constructor(
         partParamName = partParamName,
         partParamNameToken = partParamNameToken,
         appToken = appToken,
-        autoCatchingClickEvents = autoCatchingClickEvents,
-        enabledMetrics = enabledMetrics,
+//        autoCatchingClickEvents = autoCatchingClickEvents,
+//        enabledMetrics = enabledMetrics,
         domain = domain,
     )
 

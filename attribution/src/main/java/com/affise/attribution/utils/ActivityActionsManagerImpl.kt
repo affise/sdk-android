@@ -6,6 +6,7 @@ import android.app.Application
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import com.affise.attribution.init.AffiseInitProperties
 import com.affise.attribution.logs.LogsManager
 
 /**
@@ -16,7 +17,8 @@ import com.affise.attribution.logs.LogsManager
  */
 internal class ActivityActionsManagerImpl(
     private val app: Application,
-    private val logsManager: LogsManager
+    private val logsManager: LogsManager,
+    private val initProperties: AffiseInitProperties
 ) : ActivityActionsManager {
     /**
      * Listeners for start activities
@@ -52,17 +54,19 @@ internal class ActivityActionsManagerImpl(
                 it.handle(activity)
             }
 
-            //If enabled auto click event collector
-            (activity.window.decorView as? ViewGroup)
-                ?.also {
-                    //For all child View add listeners
-                    addListeners(activity, it)
-
-                    it.viewTreeObserver.addOnGlobalLayoutListener {
-                        //For all child View add listeners
-                        addListeners(activity, it)
-                    }
-                }
+//            initProperties.autoCatchingClickEvents ?: return
+//            if (initProperties.autoCatchingClickEvents.isEmpty()) return
+//            //If enabled auto click event collector
+//            (activity.window.decorView as? ViewGroup)
+//                ?.also {
+//                    //For all child View add listeners
+//                    addListeners(activity, it)
+//
+//                    it.viewTreeObserver.addOnGlobalLayoutListener {
+//                        //For all child View add listeners
+//                        addListeners(activity, it)
+//                    }
+//                }
         }
 
         override fun onActivityResumed(activity: Activity) {
