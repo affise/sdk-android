@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.6.47] - 2024-10-21
+
+### Fixed
+
+- Fix `Internal` library for crossplatform.
+
 ## [1.6.46] - 2024-10-21
 
 ### Fixed
@@ -157,6 +163,7 @@
 - Improve `AffiseModuleManager`
 - Update gradle for demo app.
 
+[1.6.47]: https://github.com/affise/sdk-android/compare/v1.6.46...v1.6.47
 [1.6.46]: https://github.com/affise/sdk-android/compare/v1.6.45...v1.6.46
 [1.6.45]: https://github.com/affise/sdk-android/compare/v1.6.44...v1.6.45
 [1.6.44]: https://github.com/affise/sdk-android/compare/v1.6.43...v1.6.44

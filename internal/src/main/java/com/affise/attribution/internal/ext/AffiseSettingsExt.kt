@@ -50,10 +50,10 @@ internal fun AffiseSettings.addSettings(map: Map<*, *>): AffiseSettings = this.a
     map.getString(Field.APP_TOKEN)?.let {
         settings.setAppToken(it)
     }
-    map.getList(Field.AUTO_CATCHING_CLICK_EVENTS)?.toAutoCatchingType()?.let {
-        settings.setAutoCatchingClickEvents(it)
-    }
-    map.getBoolean(Field.ENABLED_METRICS)?.let {
-        settings.setEnabledMetrics(it)
-    }
+//    map.getList(Field.AUTO_CATCHING_CLICK_EVENTS)?.toAutoCatchingType()?.let {
+//        settings.setAutoCatchingClickEvents(it)
+//    }
+//    map.getBoolean(Field.ENABLED_METRICS)?.let {
+//        settings.setEnabledMetrics(it)
+//    }
 }

@@ -95,8 +95,8 @@ class AffiseApiWrapper(
             AffiseApiMethod.SET_SECRET_ID ->
                 callSetSecretId(api, map, result)
 
-            AffiseApiMethod.SET_AUTO_CATCHING_TYPES ->
-                callSetAutoCatchingTypes(api, map, result)
+//            AffiseApiMethod.SET_AUTO_CATCHING_TYPES ->
+//                callSetAutoCatchingTypes(api, map, result)
 
             AffiseApiMethod.SET_OFFLINE_MODE_ENABLED ->
                 callSetOfflineModeEnabled(api, map, result)
@@ -119,8 +119,8 @@ class AffiseApiWrapper(
             AffiseApiMethod.FORGET ->
                 callForget(api, map, result)
 
-            AffiseApiMethod.SET_ENABLED_METRICS ->
-                callSetEnabledMetrics(api, map, result)
+//            AffiseApiMethod.SET_ENABLED_METRICS ->
+//                callSetEnabledMetrics(api, map, result)
 
             AffiseApiMethod.CRASH_APPLICATION ->
                 callCrashApplication(api, map, result)
@@ -336,18 +336,18 @@ class AffiseApiWrapper(
         }
     }
 
-    private fun callSetAutoCatchingTypes(
-        api: AffiseApiMethod,
-        map: Map<String, *>,
-        result: InternalResult
-    ) {
-        val list = map.opt<List<*>>(api)
-        val types = list?.mapNotNull {
-            it?.toString()?.toAutoCatchingType()
-        }
-        Affise.setAutoCatchingTypes(types)
-        result.success(null)
-    }
+//    private fun callSetAutoCatchingTypes(
+//        api: AffiseApiMethod,
+//        map: Map<String, *>,
+//        result: InternalResult
+//    ) {
+//        val list = map.opt<List<*>>(api)
+//        val types = list?.mapNotNull {
+//            it?.toString()?.toAutoCatchingType()
+//        }
+//        Affise.setAutoCatchingTypes(types)
+//        result.success(null)
+//    }
 
     private fun callSetOfflineModeEnabled(
         api: AffiseApiMethod,
@@ -435,19 +435,19 @@ class AffiseApiWrapper(
         }
     }
 
-    private fun callSetEnabledMetrics(
-        api: AffiseApiMethod,
-        map: Map<String, *>,
-        result: InternalResult
-    ) {
-        val enabled = map.opt<Boolean>(api)
-        if (enabled == null) {
-            result.error("api [${api.method}]: value not set")
-        } else {
-            Affise.setEnabledMetrics(enabled)
-            result.success(null)
-        }
-    }
+//    private fun callSetEnabledMetrics(
+//        api: AffiseApiMethod,
+//        map: Map<String, *>,
+//        result: InternalResult
+//    ) {
+//        val enabled = map.opt<Boolean>(api)
+//        if (enabled == null) {
+//            result.error("api [${api.method}]: value not set")
+//        } else {
+//            Affise.setEnabledMetrics(enabled)
+//            result.success(null)
+//        }
+//    }
 
     private fun callCrashApplication(
         api: AffiseApiMethod,

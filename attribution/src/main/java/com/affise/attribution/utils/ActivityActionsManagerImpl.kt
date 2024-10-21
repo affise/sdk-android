@@ -55,7 +55,7 @@ internal class ActivityActionsManagerImpl(
             }
 
 //            initProperties.autoCatchingClickEvents ?: return
-//            if (initProperties.autoCatchingClickEvents.isEmpty()) return
+//            if (!initProperties.enabledMetrics || initProperties.autoCatchingClickEvents.isEmpty()) return
 //            //If enabled auto click event collector
 //            (activity.window.decorView as? ViewGroup)
 //                ?.also {
