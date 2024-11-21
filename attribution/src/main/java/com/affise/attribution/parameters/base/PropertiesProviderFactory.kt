@@ -16,8 +16,8 @@ import com.affise.attribution.session.SessionManager
 import com.affise.attribution.usecase.FirstAppOpenUseCase
 import com.affise.attribution.usecase.DeviceUseCase
 import com.affise.attribution.usecase.RemarketingUseCase
-import com.affise.attribution.usecase.RetrieveInstallReferrerUseCase
-import com.affise.attribution.utils.SystemAppChecker
+import com.affise.attribution.usecase.StoreInstallReferrerUseCase
+import com.affise.attribution.usecase.StoreUseCase
 
 /**
  * Factory for [PostBackModelFactory]
@@ -26,7 +26,7 @@ internal class PropertiesProviderFactory(
     private val buildConfigPropertiesProvider: BuildConfigPropertiesProvider,
     private val app: Application,
     private val firstAppOpenUseCase: FirstAppOpenUseCase,
-    private val retrieveInstallReferrerUseCase: RetrieveInstallReferrerUseCase,
+    private val storeInstallReferrerUseCase: StoreInstallReferrerUseCase,
     private val sessionManager: SessionManager,
     private val sharedPreferences: SharedPreferences,
     private val initPropertiesStorage: InitPropertiesStorage,
@@ -36,6 +36,7 @@ internal class PropertiesProviderFactory(
     private val deeplinkClickRepository: DeeplinkClickRepository,
     private val deviceUseCase: DeviceUseCase,
     private val remarketingUseCase: RemarketingUseCase,
+    private val storeUseCase: StoreUseCase,
 ) {
 
     fun create(): PostBackModelFactory {
@@ -49,19 +50,19 @@ internal class PropertiesProviderFactory(
                 AffisePackageAppNameProvider(app),
                 AppVersionProvider(app, logsManager),
                 AppVersionRawProvider(app, logsManager),
-                StoreProvider(app, logsManager, SystemAppChecker(app)),
+                StoreProvider(storeUseCase),
                 InstalledTimeProvider(app, logsManager),
                 firstOpenTimeProvider,
                 InstalledHourProvider(app),
                 FirstOpenHourProvider(firstAppOpenUseCase),
                 InstallFirstEventProvider(firstAppOpenUseCase),
-                InstallBeginTimeProvider(retrieveInstallReferrerUseCase),
+                InstallBeginTimeProvider(storeInstallReferrerUseCase),
                 InstallFinishTimeProvider(firstAppOpenUseCase),
-                ReferrerInstallVersionProvider(retrieveInstallReferrerUseCase),
-                ReferralTimeProvider(retrieveInstallReferrerUseCase),
-                ReferrerClickTimestampProvider(retrieveInstallReferrerUseCase),
-                ReferrerClickTimestampServerProvider(retrieveInstallReferrerUseCase),
-                ReferrerGooglePlayInstantProvider(retrieveInstallReferrerUseCase),
+                ReferrerInstallVersionProvider(storeInstallReferrerUseCase),
+                ReferralTimeProvider(storeInstallReferrerUseCase),
+                ReferrerClickTimestampProvider(storeInstallReferrerUseCase),
+                ReferrerClickTimestampServerProvider(storeInstallReferrerUseCase),
+                ReferrerGooglePlayInstantProvider(storeInstallReferrerUseCase),
                 CreatedTimeProvider(),
                 CreatedTimeMilliProvider(),
                 CreatedTimeHourProvider(),
@@ -79,7 +80,7 @@ internal class PropertiesProviderFactory(
                 AffiseAltDeviceIdProvider(firstAppOpenUseCase),
                 RefTokenProvider(sharedPreferences),
                 RefTokensProvider(sharedPreferences),
-                InstallReferrerProvider(app, retrieveInstallReferrerUseCase),
+                InstallReferrerProvider(app, storeInstallReferrerUseCase),
                 UserAgentProvider(),
                 MCCProvider(app),
                 MNCProvider(app),

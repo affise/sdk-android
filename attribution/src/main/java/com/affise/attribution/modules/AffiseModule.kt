@@ -10,7 +10,9 @@ import com.affise.attribution.parameters.base.getRequestProviders
 abstract class AffiseModule {
 
     protected var application: Application? = null
+        private set
     protected var logsManager: LogsManager? = null
+        private set
     var dependencies: List<Any>? = null
         private set
     var baseProviders: List<Provider>? = null

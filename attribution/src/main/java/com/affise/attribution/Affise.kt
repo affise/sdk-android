@@ -250,7 +250,7 @@ object Affise {
      */
     @JvmStatic
     fun getReferrerUrl(callback: OnReferrerCallback?) {
-        api?.retrieveInstallReferrerUseCase?.getReferrer(callback)
+        api?.storeInstallReferrerUseCase?.getReferrer(callback)
     }
 
     /**
@@ -258,7 +258,7 @@ object Affise {
      */
     @JvmStatic
     fun getReferrerUrlValue(key: ReferrerKey, callback: OnReferrerCallback?) {
-        api?.retrieveInstallReferrerUseCase?.getReferrerValue(key, callback)
+        api?.storeInstallReferrerUseCase?.getReferrerValue(key, callback)
     }
 
     /**

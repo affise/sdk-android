@@ -2,7 +2,7 @@ package com.affise.attribution.parameters
 
 import com.affise.attribution.parameters.providers.ReferrerInstallVersionProvider
 import com.affise.attribution.referrer.AffiseReferrerData
-import com.affise.attribution.usecase.RetrieveInstallReferrerUseCase
+import com.affise.attribution.usecase.StoreInstallReferrerUseCase
 import com.google.common.truth.Truth
 import io.mockk.every
 import io.mockk.mockk
@@ -22,32 +22,32 @@ class ReferrerInstallVersionProviderTest {
                 installVersion
             } returns version
         }
-        val useCase: RetrieveInstallReferrerUseCase = mockk {
+        val useCase: StoreInstallReferrerUseCase = mockk {
             every {
-                getInstallReferrer()
+                getInstallReferrerData()
             } returns referrerData
         }
         val provider = ReferrerInstallVersionProvider(useCase)
         val actual = provider.provide()
         Truth.assertThat(actual).isEqualTo(version)
         verifyAll {
-            useCase.getInstallReferrer()
+            useCase.getInstallReferrerData()
             referrerData.installVersion
         }
     }
 
     @Test
     fun `verify when usecase returns null result is null`() {
-        val useCase: RetrieveInstallReferrerUseCase = mockk {
+        val useCase: StoreInstallReferrerUseCase = mockk {
             every {
-                getInstallReferrer()
+                getInstallReferrerData()
             } returns null
         }
         val provider = ReferrerInstallVersionProvider(useCase)
         val actual = provider.provide()
         Truth.assertThat(actual).isEqualTo(null)
         verifyAll {
-            useCase.getInstallReferrer()
+            useCase.getInstallReferrerData()
         }
     }
 
@@ -60,16 +60,16 @@ class ReferrerInstallVersionProviderTest {
                 installVersion
             } returns version
         }
-        val useCase: RetrieveInstallReferrerUseCase = mockk {
+        val useCase: StoreInstallReferrerUseCase = mockk {
             every {
-                getInstallReferrer()
+                getInstallReferrerData()
             } returns referrerData
         }
         val provider = ReferrerInstallVersionProvider(useCase)
         val actual = provider.provide()
         Truth.assertThat(actual).isEqualTo(version)
         verifyAll {
-            useCase.getInstallReferrer()
+            useCase.getInstallReferrerData()
             referrerData.installVersion
         }
     }

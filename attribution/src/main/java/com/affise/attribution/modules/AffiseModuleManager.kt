@@ -7,7 +7,7 @@ import com.affise.attribution.modules.exceptions.AffiseModuleError
 import com.affise.attribution.parameters.factory.PostBackModelFactory
 
 
-internal class AffiseModuleManager(
+class AffiseModuleManager(
     private val application: Application,
     private val logsManager: LogsManager,
     private val postBackModelFactory: PostBackModelFactory,

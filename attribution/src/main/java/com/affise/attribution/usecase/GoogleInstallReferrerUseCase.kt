@@ -8,35 +8,29 @@ import com.affise.attribution.converter.Converter
 import com.affise.attribution.converter.StringToAffiseReferrerDataConverter
 import com.affise.attribution.deeplink.DeeplinkManager
 import com.affise.attribution.logs.LogsManager
+import com.affise.attribution.modules.store.StoreApi
 import com.affise.attribution.referrer.AffiseReferrerData
 import com.affise.attribution.referrer.AffiseReferrerDataToStringConverter
-import com.affise.attribution.referrer.OnReferrerCallback
-import com.affise.attribution.referrer.ReferrerKey
-import com.affise.attribution.referrer.getPartnerKey
 import com.android.installreferrer.api.InstallReferrerClient
 import com.android.installreferrer.api.InstallReferrerStateListener
 import com.android.installreferrer.api.ReferrerDetails
 
-class RetrieveInstallReferrerUseCase(
+class GoogleInstallReferrerUseCase(
     private val preferences: SharedPreferences,
     private val toStringConverter: AffiseReferrerDataToStringConverter,
     private val toAffiseReferrerDataConverter: StringToAffiseReferrerDataConverter,
     private val app: Application,
     private val deeplinkManager: DeeplinkManager,
     private val logsManager: LogsManager,
-    private val installReferrerToDeeplinkUriConverter: Converter<String, Uri?>
-) {
+    private val installReferrerToDeeplinkUriConverter: Converter<String, Uri?>,
+) : StoreApi {
 
     /**
      * Referrer client
      */
     private var referrerClient: InstallReferrerClient? = null
 
-    private var onReferrerFinished: (() -> Unit)? = null
-
-    private var callbacks: MutableMap<OnReferrerCallback, ReferrerKey?> = mutableMapOf()
-
-    fun startInstallReferrerRetrieve(onFinished: (() -> Unit)? = null) {
+    override fun startInstallReferrerRetrieve(onFinished: (() -> Unit)?) {
         //Create referrer client
         referrerClient = InstallReferrerClient.newBuilder(app)
             .build()
@@ -68,7 +62,6 @@ class RetrieveInstallReferrerUseCase(
                     }
                 }
                 onFinished?.invoke()
-                onReferrerFinished?.invoke()
             }
 
             override fun onInstallReferrerServiceDisconnected() {
@@ -79,86 +72,17 @@ class RetrieveInstallReferrerUseCase(
     }
 
     /**
-     * Get referrer value
-     */
-    fun getReferrer(callback: OnReferrerCallback?) {
-        addCallback(callback)
-        handleReferrer()
-    }
-
-    /**
-     * Get referrer uri value by key
-     */
-    fun getReferrerValue(key: ReferrerKey, callback: OnReferrerCallback?) {
-        addCallback(callback, key)
-        handleReferrer()
-    }
-
-    private fun handleReferrer() {
-        getInstallReferrer()?.let {
-            handleReferrerCallback()
-            return
-        }
-
-        onReferrerFinished = {
-            handleReferrerCallback()
-        }
-    }
-
-    @Synchronized
-    private fun addCallback(callback: OnReferrerCallback?, key: ReferrerKey? = null) {
-        callback?.let {
-            callbacks[it] = key
-        }
-    }
-
-    @Synchronized
-    private fun handleReferrerCallback() {
-        val referrer = getReferrer()
-        val iterator = callbacks.entries.iterator()
-        while (iterator.hasNext()) {
-            val item = iterator.next()
-            val result = if (item.value != null) {
-                getReferrerValue(referrer, item.value)
-            } else {
-                referrer
-            }
-            item.key.handleReferrer(result)
-            iterator.remove()
-        }
-    }
-
-    private fun getReferrer(): String? {
-        //Check referrer in partner_key
-        val partnerKey = app.getPartnerKey()
-
-        //if partner_key is empty or null use installReferrer
-        return if (partnerKey.isNullOrEmpty()) {
-            getInstallReferrer()?.installReferrer
-        } else {
-            partnerKey
-        }
-    }
-
-    private fun getReferrerValue(referrer: String?, key: ReferrerKey?): String? {
-        referrer ?: return null
-        key ?: return null
-        return Uri.parse("https://referrer/?$referrer")
-            .getQueryParameter(key.type)
-    }
-
-    /**
      * Get install referrer
      * @return install referrer
      */
-    fun getInstallReferrer() = preferences
+    override fun getInstallReferrerData(): AffiseReferrerData? = preferences
         .getString(REFERRER_KEY, null)
         ?.let(toAffiseReferrerDataConverter::convert)
 
     /**
      * Processing referrer details
      */
-    fun processReferrerDetails(data: ReferrerDetails) {
+    private fun processReferrerDetails(data: ReferrerDetails) {
         if (!isDelayedDeeplinkProcessed()) {
             data.installReferrer
                 ?.let(installReferrerToDeeplinkUriConverter::convert)

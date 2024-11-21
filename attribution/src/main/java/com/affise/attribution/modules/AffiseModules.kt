@@ -8,7 +8,8 @@ enum class AffiseModules(val module: String) {
     Network("com.affise.attribution.module.network.NetworkModule"),
     Phone("com.affise.attribution.module.phone.PhoneModule"),
     Status("com.affise.attribution.module.status.StatusModule"),
-    Subscription("com.affise.attribution.module.subscription.SubscriptionModule");
+    Subscription("com.affise.attribution.module.subscription.SubscriptionModule"),
+    RuStore("com.affise.attribution.module.rustore.RuStoreModule");
 
     companion object {
         @JvmStatic

@@ -12,6 +12,7 @@
 | `com.affise:module-phone`        | [![module-phone](https://img.shields.io/maven-central/v/com.affise/module-phone?label=latest)](https://mvnrepository.com/artifact/com.affise/module-phone)                      |
 | `com.affise:module-status`       | [![module-status](https://img.shields.io/maven-central/v/com.affise/module-status?label=latest)](https://mvnrepository.com/artifact/com.affise/module-status)                   |
 | `com.affise:module-subscription` | [![module-subscription](https://img.shields.io/maven-central/v/com.affise/module-subscription?label=latest)](https://mvnrepository.com/artifact/com.affise/module-subscription) |
+| `com.affise:module-rustore`      | [![module-rustore](https://img.shields.io/maven-central/v/com.affise/module-rustore?label=latest)](https://mvnrepository.com/artifact/com.affise/module-rustore)                |
 
 - [Affise Attribution Android Library](#affise-attribution-android-library)
 - [Description](#description)
@@ -99,15 +100,16 @@ For kotlin build script build.gradle.kts use:
 ```kotlin
 dependencies {
   // Add Affise library 
-  implementation("com.affise:attribution:1.6.47")
+  implementation("com.affise:attribution:1.6.48")
   // Add Affise modules 
-  implementation("com.affise:module-advertising:1.6.47")
-  implementation("com.affise:module-androidid:1.6.47")
-  implementation("com.affise:module-link:1.6.47")
-  implementation("com.affise:module-network:1.6.47")
-  implementation("com.affise:module-phone:1.6.47")
-  implementation("com.affise:module-status:1.6.47")
-  implementation("com.affise:module-subscription:1.6.47")
+  implementation("com.affise:module-advertising:1.6.48")
+  implementation("com.affise:module-androidid:1.6.48")
+  implementation("com.affise:module-link:1.6.48")
+  implementation("com.affise:module-network:1.6.48")
+  implementation("com.affise:module-phone:1.6.48")
+  implementation("com.affise:module-status:1.6.48")
+  implementation("com.affise:module-subscription:1.6.48")
+  // implementation("com.affise:module-rustore:1.6.48")
   // Add install referrer
   implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -118,15 +120,16 @@ For groovy build script build.gradle use:
 ```groovy
 dependencies {
     // Add Affise library 
-    implementation 'com.affise:attribution:1.6.47'
+    implementation 'com.affise:attribution:1.6.48'
     // Add Affise modules 
-    implementation 'com.affise:module-advertising:1.6.47'
-    implementation 'com.affise:module-androidid:1.6.47'
-    implementation 'com.affise:module-link:1.6.47'
-    implementation 'com.affise:module-network:1.6.47'
-    implementation 'com.affise:module-phone:1.6.47'
-    implementation 'com.affise:module-status:1.6.47'
-    implementation 'com.affise:module-subscription:1.6.47'
+    implementation 'com.affise:module-advertising:1.6.48'
+    implementation 'com.affise:module-androidid:1.6.48'
+    implementation 'com.affise:module-link:1.6.48'
+    implementation 'com.affise:module-network:1.6.48'
+    implementation 'com.affise:module-phone:1.6.48'
+    implementation 'com.affise:module-status:1.6.48'
+    implementation 'com.affise:module-subscription:1.6.48'
+    // implementation 'com.affise:module-rustore:1.6.48'
     // Add install referrer
     implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -134,9 +137,9 @@ dependencies {
 
 ### Integrate as file dependency
 
-Download latest Affise SDK (`attribution-1.6.47.aar`)
+Download latest Affise SDK (`attribution-1.6.48.aar`)
 from [releases page](https://github.com/affise/sdk-android/releases) and place this binary to gradle application
-module lib directory `app/libs/attribution-1.6.47.aar`
+module lib directory `app/libs/attribution-1.6.48.aar`
 
 Add library as gradle file dependency to application module build script
 Add install referrer library
@@ -147,15 +150,16 @@ For kotlin build script build.gradle.kts use:
 dependencies {
     // ...
     // Add Affise library 
-    implementation(files("libs/attribution-1.6.47.aar"))
+    implementation(files("libs/attribution-1.6.48.aar"))
     // Add Affise modules 
-    implementation(files("libs/module-advertising-1.6.47.aar"))
-    implementation(files("libs/module-androidid-1.6.47.aar"))
-    implementation(files("libs/module-link-1.6.47.aar"))
-    implementation(files("libs/module-network-1.6.47.aar"))
-    implementation(files("libs/module-phone-1.6.47.aar"))
-    implementation(files("libs/module-status-1.6.47.aar"))
-    implementation(files("libs/module-subscription-1.6.47.aar"))
+    implementation(files("libs/module-advertising-1.6.48.aar"))
+    implementation(files("libs/module-androidid-1.6.48.aar"))
+    implementation(files("libs/module-link-1.6.48.aar"))
+    implementation(files("libs/module-network-1.6.48.aar"))
+    implementation(files("libs/module-phone-1.6.48.aar"))
+    implementation(files("libs/module-status-1.6.48.aar"))
+    implementation(files("libs/module-subscription-1.6.48.aar"))
+    // implementation(files("libs/module-rustore-1.6.48.aar"))
     // Add install referrer
     implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -167,15 +171,16 @@ For groovy build script build.gradle use:
 dependencies {
   // ...  
   // Add Affise library 
-  implementation files('libs/attribution-1.6.47.aar')
+  implementation files('libs/attribution-1.6.48.aar')
   // Add Affise modules 
-  implementation files('libs/module-advertising-1.6.47.aar')
-  implementation files('libs/module-androidid-1.6.47.aar')
-  implementation files('libs/module-link-1.6.47.aar')
-  implementation files('libs/module-network-1.6.47.aar')
-  implementation files('libs/module-phone-1.6.47.aar')
-  implementation files('libs/module-status-1.6.47.aar')
-  implementation files('libs/module-subscription-1.6.47.aar')
+  implementation files('libs/module-advertising-1.6.48.aar')
+  implementation files('libs/module-androidid-1.6.48.aar')
+  implementation files('libs/module-link-1.6.48.aar')
+  implementation files('libs/module-network-1.6.48.aar')
+  implementation files('libs/module-phone-1.6.48.aar')
+  implementation files('libs/module-status-1.6.48.aar')
+  implementation files('libs/module-subscription-1.6.48.aar')
+  // implementation files('libs/module-rustore-1.6.48.aar')
   // Add install referrer
   implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -279,6 +284,7 @@ class App : Application() {
 | `Phone`        | [![module-phone](https://img.shields.io/maven-central/v/com.affise/module-phone?label=latest)](https://mvnrepository.com/artifact/com.affise/module-phone)                      | `Auto` |
 | `Status`       | [![module-status](https://img.shields.io/maven-central/v/com.affise/module-status?label=latest)](https://mvnrepository.com/artifact/com.affise/module-status)                   | `Auto` |
 | `Subscription` | [![module-subscription](https://img.shields.io/maven-central/v/com.affise/module-subscription?label=latest)](https://mvnrepository.com/artifact/com.affise/module-subscription) | `Auto` |
+| `RuStore`      | [![module-rustore](https://img.shields.io/maven-central/v/com.affise/module-rustore?label=latest)](https://mvnrepository.com/artifact/com.affise/module-rustore)                | `Auto` |
 
 If module start type is `Manual`, then call:
 
@@ -1161,6 +1167,8 @@ Affise.forget() // to forget users data
 
 Use the next public method of SDK
 
+> To get Install referrer by installing from RuStore include module [`RuStore`](#modules)
+
 For kotlin:
 
 ```kotlin
@@ -1180,6 +1188,8 @@ Affise.getReferrerUrl(referrer -> {
 ## Get referrer parameter
 
 Use the next public method of SDK to get referrer parameter by
+
+> To get Install referrer by installing from RuStore include module [`RuStore`](#modules)
 
 For kotlin:
 

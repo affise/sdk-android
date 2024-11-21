@@ -18,7 +18,6 @@ import com.affise.attribution.deeplink.DeeplinkClickRepositoryImpl
 import com.affise.attribution.deeplink.DeeplinkManagerImpl
 import com.affise.attribution.deeplink.InstallReferrerToDeeplinkUriConverter
 import com.affise.attribution.events.*
-import com.affise.attribution.events.autoCatchingClick.AutoCatchingClickProvider
 import com.affise.attribution.init.*
 import com.affise.attribution.internal.*
 import com.affise.attribution.logs.*
@@ -44,6 +43,7 @@ import com.affise.attribution.test.CrashApplicationUseCaseImpl
 import com.affise.attribution.usecase.*
 import com.affise.attribution.utils.ActivityActionsManager
 import com.affise.attribution.utils.ActivityActionsManagerImpl
+import com.affise.attribution.utils.SystemAppChecker
 import com.affise.attribution.webBridge.WebBridgeManager
 
 internal class AffiseComponent(
@@ -59,7 +59,7 @@ internal class AffiseComponent(
             buildConfigPropertiesProvider,
             app,
             firstAppOpenUseCase,
-            retrieveInstallReferrerUseCase,
+            storeInstallReferrerUseCase,
             sessionManager,
             sharedPreferences,
             initPropertiesStorage,
@@ -68,7 +68,8 @@ internal class AffiseComponent(
             logsManager,
             isDeeplinkClickRepository,
             deviceUseCase,
-            remarketingUseCase
+            remarketingUseCase,
+            storeUseCase
         ).create()
     }
 
@@ -339,15 +340,26 @@ internal class AffiseComponent(
     /**
      * RetrieveInstallReferrerUseCase
      */
-    override val retrieveInstallReferrerUseCase by lazy {
-        RetrieveInstallReferrerUseCase(
+    private val googleInstallReferrerUseCase by lazy {
+        GoogleInstallReferrerUseCase(
             sharedPreferences,
             AffiseReferrerDataToStringConverter(),
             StringToAffiseReferrerDataConverter(logsManager),
             app,
             deeplinkManager,
             logsManager,
-            InstallReferrerToDeeplinkUriConverter()
+            InstallReferrerToDeeplinkUriConverter(),
+        )
+    }
+
+    /**
+     * StoreInstallReferrerUseCase
+     */
+    override val storeInstallReferrerUseCase by lazy {
+        StoreInstallReferrerUseCase(
+            app,
+            storeUseCase,
+            googleInstallReferrerUseCase
         )
     }
 
@@ -386,6 +398,14 @@ internal class AffiseComponent(
             app,
             logsManager,
             initProperties,
+        )
+    }
+
+    private val storeUseCase: StoreUseCase by lazy {
+        StoreUseCaseImpl(
+            app,
+            logsManager,
+            SystemAppChecker(app)
         )
     }
 
@@ -493,9 +513,6 @@ internal class AffiseComponent(
         sendGDPREventUseCase.sendForgetMeEvent()
         firstAppOpenUseCase.onAppCreated()
         sessionManager.init()
-        retrieveInstallReferrerUseCase.startInstallReferrerRetrieve(onFinished = {
-            eventsManager.init()
-        })
         setPropertiesWhenInitUseCase.init(initProperties)
         deeplinkManager.init()
 //        autoCatchingClickProvider.init(initProperties.autoCatchingClickEvents)
@@ -516,8 +533,14 @@ internal class AffiseComponent(
                 httpClient,
                 postBackModelFactory,
                 postBackModelToJsonStringConverter,
+                sharedPreferences,
             )
         )
+
+        storeInstallReferrerUseCase.onReferrerSetupFinished {
+            eventsManager.init()
+        }
+            .init(moduleManager)
 
         isReady = true
     }

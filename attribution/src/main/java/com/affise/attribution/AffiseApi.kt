@@ -6,23 +6,20 @@ import com.affise.attribution.debug.validate.DebugValidateUseCase
 import com.affise.attribution.deeplink.DeeplinkManagerImpl
 import com.affise.attribution.events.EventsManager
 import com.affise.attribution.events.StoreEventUseCase
-import com.affise.attribution.events.autoCatchingClick.AutoCatchingClickProvider
 import com.affise.attribution.init.InitPropertiesStorage
 import com.affise.attribution.init.SetPropertiesWhenAppInitializedUseCase
 import com.affise.attribution.internal.StoreInternalEventUseCase
 import com.affise.attribution.logs.LogsManager
-import com.affise.attribution.metrics.MetricsManager
 import com.affise.attribution.modules.AffiseModuleManager
 import com.affise.attribution.parameters.factory.PostBackModelFactory
 import com.affise.attribution.session.SessionManager
 import com.affise.attribution.test.CrashApplicationUseCase
-import com.affise.attribution.usecase.RetrieveInstallReferrerUseCase
 import com.affise.attribution.usecase.EraseUserDataUseCaseImpl
 import com.affise.attribution.usecase.FirstAppOpenUseCase
-import com.affise.attribution.usecase.PreferencesUseCaseImpl
 import com.affise.attribution.usecase.ImmediateSendToServerUseCase
-import com.affise.attribution.usecase.SendDataToServerUseCase
+import com.affise.attribution.usecase.PreferencesUseCaseImpl
 import com.affise.attribution.usecase.SendGDPREventUseCaseImpl
+import com.affise.attribution.usecase.StoreInstallReferrerUseCase
 import com.affise.attribution.webBridge.WebBridgeManager
 
 /**
@@ -46,7 +43,7 @@ internal interface AffiseApi {
     val sendGDPREventUseCase: SendGDPREventUseCaseImpl
 //    val metricsManager: MetricsManager
     val crashApplicationUseCase: CrashApplicationUseCase
-    val retrieveInstallReferrerUseCase: RetrieveInstallReferrerUseCase
+    val storeInstallReferrerUseCase: StoreInstallReferrerUseCase
     val moduleManager: AffiseModuleManager
     val postBackModelFactory: PostBackModelFactory
     val debugValidateUseCase: DebugValidateUseCase
