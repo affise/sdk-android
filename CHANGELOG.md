@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.6.49] - 2024-11-25
+
+### Fixed
+
+- Fix event writing to storage exception.
+
 ## [1.6.48] - 2024-11-21
 
 ### Added
@@ -169,6 +175,7 @@
 - Improve `AffiseModuleManager`
 - Update gradle for demo app.
 
+[1.6.49]: https://github.com/affise/sdk-android/compare/v1.6.48...v1.6.49
 [1.6.48]: https://github.com/affise/sdk-android/compare/v1.6.47...v1.6.48
 [1.6.47]: https://github.com/affise/sdk-android/compare/v1.6.46...v1.6.47
 [1.6.46]: https://github.com/affise/sdk-android/compare/v1.6.45...v1.6.46

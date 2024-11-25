@@ -109,12 +109,17 @@ internal class MetricsStorageImpl(
                 it.runCatching { deleteRecursively() }
             }
 
-        //Generate new file
-        val file = File(dir, generateUUID().toString())
+        try {
+            //Generate new file
+            val file = File(dir, generateUUID().toString())
 
-        //Save metrics event to file
-        FileWriter(file).use {
-            it.write(event.serialize().toString())
+            //Save metrics event to file
+            FileWriter(file).use {
+                it.write(event.serialize().toString())
+            }
+        } catch (e: Exception)
+        {
+            e.printStackTrace()
         }
     }
 

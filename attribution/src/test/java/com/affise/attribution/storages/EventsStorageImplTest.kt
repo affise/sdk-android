@@ -292,10 +292,15 @@ class EventsStorageImplTest {
         val folder = File(rootEventFolderRule.root, dir)
         folder.mkdir()
 
-        val file = File(folder, name)
+        try {
+            val file = File(folder, name)
 
-        FileWriter(file).use {
-            file.writeText(content)
+            FileWriter(file).use {
+                file.writeText(content)
+            }
+        } catch (e: Exception)
+        {
+            e.printStackTrace()
         }
     }
 

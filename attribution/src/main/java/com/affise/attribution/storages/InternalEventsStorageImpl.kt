@@ -35,12 +35,17 @@ internal class InternalEventsStorageImpl(
      */
     @SuppressLint("ApplySharedPref")
     override fun saveEvent(key: String, event: SerializedEvent) {
-        //Create file for event
-        val file = File(getEventsDirectory(key), event.id)
+        try {
+            //Create file for event
+            val file = File(getEventsDirectory(key), event.id)
 
-        //Write event to file
-        FileWriter(file).use {
-            it.write(event.data.toString())
+            //Write event to file
+            FileWriter(file).use {
+                it.write(event.data.toString())
+            }
+        } catch (e: Exception)
+        {
+            e.printStackTrace()
         }
     }
 

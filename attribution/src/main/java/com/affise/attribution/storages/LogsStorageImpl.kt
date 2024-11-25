@@ -43,12 +43,17 @@ internal class LogsStorageImpl(
             }
 
         //Save logs
-        //Create file for log
-        val file = File(logsDir, log.id)
+        try {
+            //Create file for log
+            val file = File(logsDir, log.id)
 
-        //Write log to file
-        FileWriter(file).use {
-            it.write(log.data.toString())
+            //Write log to file
+            FileWriter(file).use {
+                it.write(log.data.toString())
+            }
+        } catch (e: Exception)
+        {
+            e.printStackTrace()
         }
     }
 

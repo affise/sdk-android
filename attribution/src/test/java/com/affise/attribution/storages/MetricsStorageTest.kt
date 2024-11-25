@@ -266,10 +266,15 @@ class MetricsStorageTest {
         val dateDir = File(urlDir, dateDirName)
             .apply { if (!exists()) mkdir() }
 
-        val file = File(dateDir, fileName)
+        try {
+            val file = File(dateDir, fileName)
 
-        FileWriter(file).use {
-            file.writeText(content)
+            FileWriter(file).use {
+                file.writeText(content)
+            }
+        } catch (e: Exception)
+        {
+            e.printStackTrace()
         }
     }
 
