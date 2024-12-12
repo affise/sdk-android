@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.6.50] - 2024-12-12
+
+### Added
+
+- New module `huawei` for AppGallery install referrer.
+
 ## [1.6.49] - 2024-11-25
 
 ### Fixed
@@ -175,6 +181,7 @@
 - Improve `AffiseModuleManager`
 - Update gradle for demo app.
 
+[1.6.50]: https://github.com/affise/sdk-android/compare/v1.6.49...v1.6.50
 [1.6.49]: https://github.com/affise/sdk-android/compare/v1.6.48...v1.6.49
 [1.6.48]: https://github.com/affise/sdk-android/compare/v1.6.47...v1.6.48
 [1.6.47]: https://github.com/affise/sdk-android/compare/v1.6.46...v1.6.47

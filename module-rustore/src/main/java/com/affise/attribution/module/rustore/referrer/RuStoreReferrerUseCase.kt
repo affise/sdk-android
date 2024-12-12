@@ -3,7 +3,6 @@ package com.affise.attribution.module.rustore.referrer
 import android.app.Application
 import android.content.SharedPreferences
 import com.affise.attribution.logs.LogsManager
-import com.affise.attribution.modules.rustore.RuStoreReferrerData
 import com.affise.attribution.modules.store.StoreApi
 import com.affise.attribution.referrer.AffiseReferrerData
 import ru.rustore.sdk.install.referrer.InstallReferrerClient

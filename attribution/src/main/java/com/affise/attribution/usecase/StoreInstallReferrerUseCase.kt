@@ -4,6 +4,7 @@ import android.app.Application
 import android.net.Uri
 import com.affise.attribution.modules.AffiseModuleManager
 import com.affise.attribution.modules.AffiseModules
+import com.affise.attribution.modules.huawei.AffiseHuaweiApi
 import com.affise.attribution.modules.rustore.AffiseRuStoreApi
 import com.affise.attribution.modules.store.StoreApi
 import com.affise.attribution.referrer.AffiseReferrerData
@@ -30,6 +31,7 @@ class StoreInstallReferrerUseCase(
 
     fun init(moduleManager: AffiseModuleManager) {
         storeModule = when (storeUseCase.getStore()) {
+            StoreUseCase.HUAWEI -> moduleManager.api<AffiseHuaweiApi>(AffiseModules.Huawei)
             StoreUseCase.RUSTORE -> moduleManager.api<AffiseRuStoreApi>(AffiseModules.RuStore)
             StoreUseCase.GOOGLE -> googleInstallReferrerUseCase
             else -> googleInstallReferrerUseCase

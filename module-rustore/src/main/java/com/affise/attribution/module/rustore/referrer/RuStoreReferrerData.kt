@@ -1,4 +1,4 @@
-package com.affise.attribution.modules.rustore
+package com.affise.attribution.module.rustore.referrer
 
 /**
  * Model to RuStore install referrer data
@@ -10,7 +10,7 @@ package com.affise.attribution.modules.rustore
  * @property versionCode Version code.
  *
  */
-data class RuStoreReferrerData(
+internal data class RuStoreReferrerData(
     val installAppTimestamp: Long,
     val packageName: String,
     val receivedTimestamp: Long,

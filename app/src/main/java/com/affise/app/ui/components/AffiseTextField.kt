@@ -70,6 +70,7 @@ fun AffiseTextField(
                         modifier = Modifier
                             .clickable {
                                 value.value = ""
+                                onValueChange.invoke("")
                             }
                     )
                 }

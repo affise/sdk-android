@@ -33,6 +33,7 @@ allprojects {
         maven {
             url = uri("https://artifactory-external.vkpartner.ru/artifactory/maven")
         }
+        maven { url 'https://developer.huawei.com/repo/' }
     }
 }
 
@@ -58,7 +59,7 @@ tasks.register('clean', Delete) {
 }
 
 ext {
-    affiseVersion = "1.6.49"
+    affiseVersion = "1.6.50"
 
     compose_compiler_version = "1.4.8"
     compose_bom = "2024.06.00"
@@ -69,6 +70,7 @@ ext {
     billingVersion = "7.0.0"
 
     rustoreInstallReferrerVersion = "6.1.0"
+    huaweiInstallReferrerVersion = "3.4.30.307"
 
     testJunit = "4.13.2"
     testAndroidxJunit = "1.2.1"

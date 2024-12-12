@@ -53,6 +53,7 @@ jobs:
           ./gradlew :module-status:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
           ./gradlew :module-subscription:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
           ./gradlew :module-rustore:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
+          ./gradlew :module-huawei:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
           ./gradlew :internal:publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --no-parallel
 
       - name: Version Tag
@@ -179,6 +180,18 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: module-rustore/build/outputs/aar/module-rustore-release.aar
           asset_name: module-rustore-${{ steps.version_tag.outputs.VERSION }}.aar
+          asset_content_type: application/aar
+
+      # Release Upload Module Huawei
+      - name: Upload Release Module Huawei AAR 🗳
+        id: upload-module-huawei-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: module-huawei/build/outputs/aar/module-huawei-release.aar
+          asset_name: module-huawei-${{ steps.version_tag.outputs.VERSION }}.aar
           asset_content_type: application/aar
 
 #      # Release Upload Internal library

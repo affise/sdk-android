@@ -2,7 +2,6 @@ package com.affise.attribution.module.rustore.referrer
 
 import com.affise.attribution.converter.Converter
 import com.affise.attribution.logs.LogsManager
-import com.affise.attribution.modules.rustore.RuStoreReferrerData
 import org.json.JSONObject
 
 /**
