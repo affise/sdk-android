@@ -33,6 +33,7 @@ import com.affise.attribution.parameters.factory.PostBackModelFactory
 import com.affise.attribution.preferences.ApplicationLifecyclePreferencesRepositoryImpl
 import com.affise.attribution.preferences.ApplicationLifetimePreferencesRepositoryImpl
 import com.affise.attribution.referrer.AffiseReferrerDataToStringConverter
+import com.affise.attribution.referrer.RetrieveReferrerOnServerUseCase
 import com.affise.attribution.session.CurrentActiveActivityCountProvider
 import com.affise.attribution.session.CurrentActiveActivityCountProviderImpl
 import com.affise.attribution.session.SessionManager
@@ -360,6 +361,15 @@ internal class AffiseComponent(
             app,
             storeUseCase,
             googleInstallReferrerUseCase
+        )
+    }
+
+    /**
+     * RetrieveReferrerOnServerUseCase
+     */
+    override val retrieveReferrerOnServerUseCase by lazy {
+        RetrieveReferrerOnServerUseCase(
+            moduleManager
         )
     }
 

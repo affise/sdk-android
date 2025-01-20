@@ -1,4 +1,4 @@
-name: Publish
+name: 🏗️ Publish
 run-name: Publish ${{ github.ref_name }}
 
 on:
@@ -75,7 +75,7 @@ jobs:
           prerelease: false
 
       # Release Upload Attribution library
-      - name: Upload Release Attribution AAR 🗳
+      - name: Upload Release Attribution AAR 📦
         id: upload-attribution-asset
         uses: actions/upload-release-asset@v1
         env:
@@ -87,7 +87,7 @@ jobs:
           asset_content_type: application/aar
 
       # Release Upload Module Advertising
-      - name: Upload Release Module Advertising AAR 🗳
+      - name: Upload Release Module Advertising AAR 📦
         id: upload-module-advertising-asset
         uses: actions/upload-release-asset@v1
         env:
@@ -99,7 +99,7 @@ jobs:
           asset_content_type: application/aar
 
       # Release Upload Module AndroidId
-      - name: Upload Release Module AndroidId AAR 🗳
+      - name: Upload Release Module AndroidId AAR 📦
         id: upload-module-androidid-asset
         uses: actions/upload-release-asset@v1
         env:
@@ -111,7 +111,7 @@ jobs:
           asset_content_type: application/aar
 
       # Release Upload Module Link
-      - name: Upload Release Module Link AAR 🗳
+      - name: Upload Release Module Link AAR 📦
         id: upload-module-link-asset
         uses: actions/upload-release-asset@v1
         env:
@@ -123,7 +123,7 @@ jobs:
           asset_content_type: application/aar
 
       # Release Upload Module Network
-      - name: Upload Release Module Network AAR 🗳
+      - name: Upload Release Module Network AAR 📦
         id: upload-module-network-asset
         uses: actions/upload-release-asset@v1
         env:
@@ -135,7 +135,7 @@ jobs:
           asset_content_type: application/aar
 
       # Release Upload Module Phone
-      - name: Upload Release Module Phone AAR 🗳
+      - name: Upload Release Module Phone AAR 📦
         id: upload-module-phone-asset
         uses: actions/upload-release-asset@v1
         env:
@@ -147,7 +147,7 @@ jobs:
           asset_content_type: application/aar
 
       # Release Upload Module Status
-      - name: Upload Release Module Status AAR 🗳
+      - name: Upload Release Module Status AAR 📦
         id: upload-module-status-asset
         uses: actions/upload-release-asset@v1
         env:
@@ -159,7 +159,7 @@ jobs:
           asset_content_type: application/aar
 
       # Release Upload Module Subscription
-      - name: Upload Release Module Subscription AAR 🗳
+      - name: Upload Release Module Subscription AAR 📦
         id: upload-module-subscription-asset
         uses: actions/upload-release-asset@v1
         env:
@@ -171,7 +171,7 @@ jobs:
           asset_content_type: application/aar
 
       # Release Upload Module RuStore
-      - name: Upload Release Module RuStore AAR 🗳
+      - name: Upload Release Module RuStore AAR 📦
         id: upload-module-rustore-asset
         uses: actions/upload-release-asset@v1
         env:
@@ -183,7 +183,7 @@ jobs:
           asset_content_type: application/aar
 
       # Release Upload Module Huawei
-      - name: Upload Release Module Huawei AAR 🗳
+      - name: Upload Release Module Huawei AAR 📦
         id: upload-module-huawei-asset
         uses: actions/upload-release-asset@v1
         env:
@@ -195,7 +195,7 @@ jobs:
           asset_content_type: application/aar
 
 #      # Release Upload Internal library
-#      - name: Upload Release Internal AAR 🗳
+#      - name: Upload Release Internal AAR 📦
 #        id: upload-internal-asset
 #        uses: actions/upload-release-asset@v1
 #        env:
@@ -213,7 +213,7 @@ jobs:
           ./gradlew :app:assembleDebug --no-daemon --no-parallel
 
       # Release Upload Demo App
-      - name: Upload Demo App 🗳
+      - name: Upload Demo App 📦
         if: ${{ !cancelled() }}
         id: upload-demo-app-asset
         uses: actions/upload-release-asset@v1

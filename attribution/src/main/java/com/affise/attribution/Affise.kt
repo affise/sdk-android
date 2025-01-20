@@ -10,7 +10,6 @@ import com.affise.attribution.events.Event
 import com.affise.attribution.events.OnSendFailedCallback
 import com.affise.attribution.events.OnSendSuccessCallback
 import com.affise.attribution.referrer.ReferrerKey
-import com.affise.attribution.events.autoCatchingClick.AutoCatchingType
 import com.affise.attribution.events.predefined.GDPREvent
 import com.affise.attribution.init.AffiseInitProperties
 import com.affise.attribution.internal.InternalEvent
@@ -259,6 +258,22 @@ object Affise {
     @JvmStatic
     fun getReferrerUrlValue(key: ReferrerKey, callback: OnReferrerCallback?) {
         api?.storeInstallReferrerUseCase?.getReferrerValue(key, callback)
+    }
+
+    /**
+     * Get referrer on server
+     */
+    @JvmStatic
+    fun getReferrerOnServer(callback: OnReferrerCallback?) {
+        api?.retrieveReferrerOnServerUseCase?.getReferrerOnServer(callback)
+    }
+
+    /**
+     * Get referrer on server value
+     */
+    @JvmStatic
+    fun getReferrerOnServerValue(key: ReferrerKey, callback: OnReferrerCallback?) {
+        api?.retrieveReferrerOnServerUseCase?.getReferrerOnServerValue(key, callback)
     }
 
     /**

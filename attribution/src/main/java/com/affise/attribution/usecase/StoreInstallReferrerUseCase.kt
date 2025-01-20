@@ -1,7 +1,6 @@
 package com.affise.attribution.usecase
 
 import android.app.Application
-import android.net.Uri
 import com.affise.attribution.modules.AffiseModuleManager
 import com.affise.attribution.modules.AffiseModules
 import com.affise.attribution.modules.huawei.AffiseHuaweiApi
@@ -11,6 +10,7 @@ import com.affise.attribution.referrer.AffiseReferrerData
 import com.affise.attribution.referrer.OnReferrerCallback
 import com.affise.attribution.referrer.ReferrerKey
 import com.affise.attribution.referrer.getPartnerKey
+import com.affise.attribution.utils.getReferrerValue
 
 class StoreInstallReferrerUseCase(
     private val app: Application,
@@ -102,7 +102,7 @@ class StoreInstallReferrerUseCase(
         while (iterator.hasNext()) {
             val item = iterator.next()
             val result = if (item.value != null) {
-                getReferrerValue(referrer, item.value)
+                referrer?.getReferrerValue(item.value)
             } else {
                 referrer
             }
@@ -122,13 +122,4 @@ class StoreInstallReferrerUseCase(
             partnerKey
         }
     }
-
-    private fun getReferrerValue(referrer: String?, key: ReferrerKey?): String? {
-        referrer ?: return null
-        key ?: return null
-        return Uri.parse("https://referrer/?$referrer")
-            .getQueryParameter(key.type)
-    }
-
-
 }

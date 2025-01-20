@@ -77,6 +77,16 @@ private fun demoApi(): List<Pair<String, () -> Unit>> {
                 output("getReferrerValue: $it")
             }
         },
+        Pair("getReferrerOnServer") {
+            Affise.getReferrerOnServer() {
+                output("getReferrerOnServer: $it")
+            }
+        },
+        Pair("getReferrerOnServerValue") {
+            Affise.getReferrerOnServerValue(ReferrerKey.AD_ID) {
+                output("getReferrerOnServerValue: $it")
+            }
+        },
         Pair("getStatus") {
             output("getStatus: requesting...")
             Affise.Module.getStatus(AffiseModules.Status) { keyValue ->

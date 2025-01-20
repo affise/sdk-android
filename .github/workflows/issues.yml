@@ -1,4 +1,4 @@
-name: Close inactive issues
+name: 🧹 Close inactive issues
 on:
   schedule:
     - cron: "0 0 * * 0"
