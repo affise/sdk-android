@@ -34,7 +34,7 @@ class AffiseEventFactoryTest {
 
     @Test
     fun `verify createEvent`() {
-        val conv = EventToSerializedEventConverter()
+        val conv = EventToSerializedEventConverter(indexUseCase)
 
         val eventName = EventName.ADD_TO_CART
         val map = mapOf(

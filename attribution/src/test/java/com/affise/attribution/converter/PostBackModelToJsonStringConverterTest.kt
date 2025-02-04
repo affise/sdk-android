@@ -3,6 +3,7 @@ package com.affise.attribution.converter
 import com.affise.attribution.events.SerializedEvent
 import com.affise.attribution.logs.SerializedLog
 import com.affise.attribution.network.entity.PostBackModel
+import com.affise.attribution.usecase.IndexUseCase
 import com.google.common.truth.Truth
 import io.mockk.*
 import org.json.JSONArray
@@ -12,6 +13,10 @@ import org.junit.Before
 import org.junit.Test
 
 class PostBackModelToJsonStringConverterTest {
+
+    private val indexUseCase: IndexUseCase = mockk {
+        every { getUuidIndex() } returns 0
+    }
 
     private val model: PostBackModel = spyk(
         PostBackModel()
@@ -46,7 +51,7 @@ class PostBackModelToJsonStringConverterTest {
         } returns testEmptyData
 
         val models = listOf(model)
-        val converter = PostBackModelToJsonStringConverter()
+        val converter = PostBackModelToJsonStringConverter(indexUseCase)
 
         val data = converter.convert(models)
 
@@ -126,7 +131,8 @@ class PostBackModelToJsonStringConverterTest {
                     "first_open_hour": "test",
                     "os_name": "test",
                     "network_type": "test",
-                    "android_id": "test"
+                    "android_id": "test",
+                    "uuid_index": 0
                 }
             ]
         """.trimIndent()
@@ -136,7 +142,7 @@ class PostBackModelToJsonStringConverterTest {
         } returns testData
 
         val models = listOf(model)
-        val converter = PostBackModelToJsonStringConverter()
+        val converter = PostBackModelToJsonStringConverter(indexUseCase)
 
         val data = converter.convert(models)
 
@@ -153,7 +159,7 @@ class PostBackModelToJsonStringConverterTest {
         } returns testDataWithStringSlash
 
         val models = listOf(model)
-        val converter = PostBackModelToJsonStringConverter()
+        val converter = PostBackModelToJsonStringConverter(indexUseCase)
 
         val data = converter.convert(models)
 
@@ -165,7 +171,7 @@ class PostBackModelToJsonStringConverterTest {
         unmockkConstructor(JSONArray::class)
         unmockkConstructor(JSONObject::class)
 
-        val converter = PostBackModelToJsonStringConverter()
+        val converter = PostBackModelToJsonStringConverter(indexUseCase)
         val eventData = JSONObject()
         val event = SerializedEvent("id", eventData)
 
@@ -191,7 +197,7 @@ class PostBackModelToJsonStringConverterTest {
         unmockkConstructor(JSONArray::class)
         unmockkConstructor(JSONObject::class)
 
-        val converter = PostBackModelToJsonStringConverter()
+        val converter = PostBackModelToJsonStringConverter(indexUseCase)
         val logData = JSONObject()
         val log = SerializedLog("id", "type", logData)
 
@@ -227,7 +233,7 @@ class PostBackModelToJsonStringConverterTest {
         unmockkConstructor(JSONArray::class)
         unmockkConstructor(JSONObject::class)
 
-        val converter = PostBackModelToJsonStringConverter()
+        val converter = PostBackModelToJsonStringConverter(indexUseCase)
 
         every { model.events } returns listOf()
         every { model.logs } returns listOf()

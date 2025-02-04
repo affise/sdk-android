@@ -20,6 +20,11 @@ internal class CurrentActiveActivityCountProviderImpl(
     private var activityCountListener: MutableList<((count: Long) -> Unit)> = mutableListOf()
 
     /**
+     * Listener of change of stop activity
+     */
+    private var activityStopListener: MutableList<(() -> Unit)> = mutableListOf()
+
+    /**
      * Listener of start activity
      */
     private var onStartedSubscription: ActivityLifecycleCallback? = null
@@ -59,6 +64,11 @@ internal class CurrentActiveActivityCountProviderImpl(
                 activityCountListener.forEach {
                     it.invoke(activityCount)
                 }
+
+                //Notify stop activity
+                activityStopListener.forEach {
+                    it.invoke()
+                }
             }.apply {
                 activityActionsManager.addOnActivityStoppedListener(this)
             }
@@ -76,4 +86,11 @@ internal class CurrentActiveActivityCountProviderImpl(
      * Get current open activities count
      */
     override fun getActivityCount(): Long = activityCount
+
+    /**
+     * Add [listener] for change activity stop
+     */
+    override fun addActivityStopListener(listener: () -> Unit) {
+        activityStopListener.add(listener)
+    }
 }

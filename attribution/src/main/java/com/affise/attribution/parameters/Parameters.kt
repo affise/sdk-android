@@ -9,6 +9,7 @@ object Parameters {
     const val AFFISE_EVENT_USER_DATA = "affise_event_user_data"
     const val AFFISE_EVENT_DATA = "affise_event_data"
     const val AFFISE_PARAMETERS = "affise_parameters"
+    const val AFFISE_EVENT_ID_INDEX = "affise_event_id_index"
 
     const val AFFISE_EVENTS_COUNT = "affise_events_count"
     const val AFFISE_SDK_EVENTS_COUNT = "affise_sdk_events_count"

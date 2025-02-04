@@ -17,6 +17,8 @@ class FirstAppOpenUseCase(
 
     private var firstRun: Boolean = false
 
+    private var isFirstOpenValue: Boolean = preferences.getBoolean(FIRST_OPENED, true)
+
     /**
      * Check preferences for have first opened date and generate properties if no data
      */
@@ -67,19 +69,18 @@ class FirstAppOpenUseCase(
      * Get first open
      * @return is first open
      */
-    fun isFirstOpen() = preferences
-        .getBoolean(FIRST_OPENED, true)
-        .let {
-            if (it) {
-                //Save properties
-                preferences.edit().apply {
-                    putBoolean(FIRST_OPENED, false)
-                }.apply()
-                true
-            } else {
-               false
-            }
-        }
+    fun isFirstOpen() = isFirstOpenValue
+
+    /**
+     * First open completed
+     */
+    fun completeFirstOpen() {
+        isFirstOpenValue = false
+        //Save properties
+        preferences.edit().apply {
+            putBoolean(FIRST_OPENED, isFirstOpenValue)
+        }.apply()
+    }
 
     /**
      * Get first run

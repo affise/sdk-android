@@ -19,4 +19,10 @@ interface CurrentActiveActivityCountProvider {
      * @return current foreground activity count
      */
     fun getActivityCount(): Long
+
+
+    /**
+     * Add [listener] to subscribe activity stop
+     */
+    fun addActivityStopListener(listener: (() -> Unit))
 }

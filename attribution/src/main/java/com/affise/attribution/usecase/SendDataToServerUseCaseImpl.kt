@@ -11,6 +11,7 @@ import com.affise.attribution.network.CloudRepository
 import com.affise.attribution.parameters.factory.PostBackModelFactory
 import com.affise.attribution.preferences.models.OfflineModeEnabledException
 import com.affise.attribution.internal.InternalEventsRepository
+import com.affise.attribution.network.entity.asFirstOpen
 
 internal class SendDataToServerUseCaseImpl(
     private val postBackModelFactory: PostBackModelFactory,
@@ -21,7 +22,8 @@ internal class SendDataToServerUseCaseImpl(
     private val logsRepository: LogsRepository,
     private val metricsRepository: MetricsRepository,
     private val logsManager: LogsManager,
-    private val preferencesUseCase: PreferencesUseCase
+    private val preferencesUseCase: PreferencesUseCase,
+    private val firstAppOpenUseCase: FirstAppOpenUseCase
 ) : SendDataToServerUseCase {
 
     /**
@@ -35,7 +37,7 @@ internal class SendDataToServerUseCaseImpl(
      * Send data
      */
     @Synchronized
-    override fun send(withDelay: Boolean) {
+    override fun send(withDelay: Boolean, sendEmpty: Boolean) {
         if (preferencesUseCase.isOfflineModeEnabled()) {
             logsManager.addSdkError(OfflineModeEnabledException())
             return
@@ -54,7 +56,7 @@ internal class SendDataToServerUseCaseImpl(
 
                     //Send to this url
                     try {
-                        send(it)
+                        send(it, sendEmpty)
                     } catch (throwable: Throwable) {
                         //Log error
                         logsManager.addSdkError(throwable)
@@ -70,7 +72,7 @@ internal class SendDataToServerUseCaseImpl(
     /**
      * Sending for url
      */
-    private fun send(url: String) {
+    private fun send(url: String, sendEmpty: Boolean) {
         do {
             //Get events
             val events = eventsRepository.getEvents(url)
@@ -84,12 +86,23 @@ internal class SendDataToServerUseCaseImpl(
             //Get internal events
             val internalEvents = internalEventsRepository.getEvents(url)
 
+            if (!sendEmpty && !(events.isNotEmpty() || logs.isNotEmpty() || metrics.isNotEmpty() || internalEvents.isNotEmpty())) {
+                // if flag sendEmpty is false and all array is empty
+                // don't send empty postback
+                return
+            }
+
             //Generate data
-            val data = listOf(postBackModelFactory.create(events, logs, metrics, internalEvents))
+            var data = postBackModelFactory.create(events, logs, metrics, internalEvents)
+
+            // If first run
+            if (firstAppOpenUseCase.isFirstOpen()) {
+                data = data.asFirstOpen()
+            }
 
             try {
                 //Send data for single url
-                cloudRepository.send(data, url)
+                cloudRepository.send(listOf(data), url)
 
                 //Remove sent events
                 eventsRepository.deleteEvent(events.map { it.id }, url)
@@ -102,6 +115,11 @@ internal class SendDataToServerUseCaseImpl(
 
                 //Remove sent internal events
                 internalEventsRepository.deleteEvent(internalEvents.map { it.id }, url)
+
+                if (firstAppOpenUseCase.isFirstOpen()) {
+                    // Complete first open
+                    firstAppOpenUseCase.completeFirstOpen()
+                }
             } catch (cloudException: Throwable) {
                 //Log error
                 logsManager.addNetworkError(cloudException)

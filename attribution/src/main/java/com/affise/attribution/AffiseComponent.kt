@@ -95,11 +95,15 @@ internal class AffiseComponent(
     }
 
     private val postBackModelToJsonStringConverter: PostBackModelToJsonStringConverter by lazy {
-        PostBackModelToJsonStringConverter()
+        PostBackModelToJsonStringConverter(indexUseCase)
     }
 
     private val buildConfigPropertiesProvider: BuildConfigPropertiesProvider by lazy {
         BuildConfigPropertiesProviderImpl()
+    }
+
+    private val indexUseCase: IndexUseCase by lazy {
+        IndexUseCaseImpl(sharedPreferences)
     }
 
     /**
@@ -127,7 +131,7 @@ internal class AffiseComponent(
      * Provides [Converter] from [Event] to [SerializedEvent]
      */
     private val eventToSerializedEventConverter: Converter<Event, SerializedEvent> by lazy {
-        EventToSerializedEventConverter()
+        EventToSerializedEventConverter(indexUseCase)
     }
 
     /**
@@ -247,7 +251,8 @@ internal class AffiseComponent(
             logsRepository,
             metricsRepository,
             logsManager,
-            preferencesUseCase
+            preferencesUseCase,
+            firstAppOpenUseCase
         )
     }
 

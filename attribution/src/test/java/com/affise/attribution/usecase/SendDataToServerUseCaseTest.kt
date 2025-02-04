@@ -75,6 +75,10 @@ class SendDataToServerUseCaseTest {
         every { isOfflineModeEnabled() } returns false
     }
 
+    private val firstAppOpenUseCase: FirstAppOpenUseCase = mockk {
+        every { isFirstOpen() } returns false
+    }
+
     private val useCase: SendDataToServerUseCaseImpl by lazy {
         SendDataToServerUseCaseImpl(
             propertiesProvider,
@@ -85,7 +89,8 @@ class SendDataToServerUseCaseTest {
             logRepository,
             metricsRepository,
             logsManager,
-            preferencesUseCase
+            preferencesUseCase,
+            firstAppOpenUseCase
         )
     }
 

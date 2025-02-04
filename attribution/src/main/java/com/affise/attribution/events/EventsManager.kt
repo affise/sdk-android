@@ -34,6 +34,7 @@ class EventsManager(
     fun init() {
         subscribeToActivityEvents()
         sendEventsOnStart()
+        sendEventsOnStop()
     }
 
     fun sendEventsOnStart() {
@@ -45,6 +46,12 @@ class EventsManager(
 
         //Start timer fo repeat send events
         startTimer()
+    }
+
+    private fun sendEventsOnStop() {
+        activityCountProvider.addActivityStopListener {
+            sendEvents(withDelay = false, sendEmpty = false)
+        }
     }
 
     /**
@@ -65,8 +72,8 @@ class EventsManager(
     /**
      * Send event
      */
-    fun sendEvents(withDelay: Boolean = true) {
-        sendDataToServerUseCase.send(withDelay)
+    fun sendEvents(withDelay: Boolean = true, sendEmpty: Boolean = true) {
+        sendDataToServerUseCase.send(withDelay, sendEmpty)
     }
 
     /**

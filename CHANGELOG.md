@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.6.52] - 2025-02-04
+
+### Added
+
+- New event index `affise_event_id_index`.
+- New postback index `uuid_index`.
+
+### Fixed
+
+- Fix `ProviderType.INSTALL_FIRST_EVENT`
+
 ## [1.6.51] - 2025-01-20
 
 ### Added
@@ -188,6 +199,7 @@
 - Improve `AffiseModuleManager`
 - Update gradle for demo app.
 
+[1.6.52]: https://github.com/affise/sdk-android/compare/v1.6.51...v1.6.52
 [1.6.51]: https://github.com/affise/sdk-android/compare/v1.6.50...v1.6.51
 [1.6.50]: https://github.com/affise/sdk-android/compare/v1.6.49...v1.6.50
 [1.6.49]: https://github.com/affise/sdk-android/compare/v1.6.48...v1.6.49

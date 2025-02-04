@@ -2,13 +2,16 @@ package com.affise.attribution.converter
 
 import com.affise.attribution.network.entity.PostBackModel
 import com.affise.attribution.parameters.Parameters
+import com.affise.attribution.usecase.IndexUseCase
 import org.json.JSONArray
 import org.json.JSONObject
 
 /**
  * Converter List<PostBackModel> to String
  */
-class PostBackModelToJsonStringConverter : Converter<List<PostBackModel>, String> {
+class PostBackModelToJsonStringConverter(
+    private val indexUseCase: IndexUseCase
+) : Converter<List<PostBackModel>, String> {
 
     /**
      * Convert [from] list of PostBackModel to json string
@@ -37,6 +40,9 @@ class PostBackModelToJsonStringConverter : Converter<List<PostBackModel>, String
         obj.parameters.forEach {
             put(it.key.provider, it.value)
         }
+
+        // PostBack index
+        put(UUID_INDEX_KEY, indexUseCase.getUuidIndex())
 
         //Events
         val eventsArray = JSONArray()
@@ -76,5 +82,6 @@ class PostBackModelToJsonStringConverter : Converter<List<PostBackModel>, String
         private const val SDK_EVENTS_KEY = "sdk_events"
         private const val METRICS_EVENTS_KEY = "metrics_events"
         private const val INTERNAL_EVENTS_KEY = "internal_events"
+        private const val UUID_INDEX_KEY = "uuid_index"
     }
 }

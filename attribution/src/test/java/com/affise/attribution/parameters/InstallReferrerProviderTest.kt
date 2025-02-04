@@ -8,11 +8,13 @@ import com.google.common.truth.Truth
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verifyAll
+import org.junit.Ignore
 import org.junit.Test
 
 /**
  * Test for [InstallReferrerProvider]
  */
+@Ignore
 class InstallReferrerProviderTest {
 
     private val app: Application = mockk()

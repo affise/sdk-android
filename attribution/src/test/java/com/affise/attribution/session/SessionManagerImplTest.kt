@@ -35,6 +35,9 @@ class SessionManagerImplTest {
         override fun getActivityCount(): Long {
             return 0
         }
+
+        override fun addActivityStopListener(listener: () -> Unit) {
+        }
     }
 
     @Test

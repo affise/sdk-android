@@ -1,5 +1,6 @@
 package com.affise.attribution.events
 
+import com.affise.attribution.usecase.IndexUseCase
 import com.affise.attribution.utils.generateUUID
 import com.affise.attribution.utils.timestamp
 import com.google.common.truth.Truth
@@ -19,6 +20,11 @@ import java.util.*
  */
 @Ignore
 class EventToSerializedEventConverterTest {
+
+    private val indexUseCase: IndexUseCase = mockk {
+        every { getAffiseEventIdIndex() } returns 0
+    }
+
     @Before
     fun setUp() {
         mockkStatic(::timestamp)
@@ -42,7 +48,7 @@ class EventToSerializedEventConverterTest {
             timestamp()
         } returns 1636229513985
 
-        val converter = EventToSerializedEventConverter()
+        val converter = EventToSerializedEventConverter(indexUseCase)
 
         val event: Event = mockk {
             every { serialize() } returns JSONObject()

@@ -2,6 +2,7 @@ package com.affise.attribution.events
 
 import com.affise.attribution.converter.Converter
 import com.affise.attribution.parameters.Parameters
+import com.affise.attribution.usecase.IndexUseCase
 import com.affise.attribution.utils.generateUUID
 import com.affise.attribution.utils.timestamp
 import org.json.JSONObject
@@ -9,7 +10,9 @@ import org.json.JSONObject
 /**
  * Converter Event to SerializedEvent
  */
-class EventToSerializedEventConverter : Converter<Event, SerializedEvent> {
+class EventToSerializedEventConverter(
+    private val indexUseCase: IndexUseCase
+) : Converter<Event, SerializedEvent> {
 
     /**
      * Convert [from] Event to SerializedEvent
@@ -31,6 +34,9 @@ class EventToSerializedEventConverter : Converter<Event, SerializedEvent> {
 
             //Add timestamp
             put(Parameters.AFFISE_EVENT_TIMESTAMP, timestamp())
+
+            //Add id index
+            put(Parameters.AFFISE_EVENT_ID_INDEX, indexUseCase.getAffiseEventIdIndex())
 
             //Add is first for user Or not
             put(Parameters.AFFISE_EVENT_FIRST_FOR_USER, from.isFirstForUser())
