@@ -304,6 +304,10 @@ internal class AffiseComponent(
         RemarketingUseCaseImpl()
     }
 
+    private val persistentUseCase: PersistentUseCase by lazy {
+        PersistentUseCaseImpl()
+    }
+
     /**
      * SetPropertiesWhenInitUseCase
      */
@@ -315,7 +319,7 @@ internal class AffiseComponent(
      * FirstAppOpenUseCase
      */
     override val firstAppOpenUseCase: FirstAppOpenUseCase by lazy {
-        FirstAppOpenUseCase(sharedPreferences, activityCountProvider)
+        FirstAppOpenUseCase(sharedPreferences, activityCountProvider, persistentUseCase)
     }
 
     /**
@@ -526,7 +530,6 @@ internal class AffiseComponent(
      */
     init {
         sendGDPREventUseCase.sendForgetMeEvent()
-        firstAppOpenUseCase.onAppCreated()
         sessionManager.init()
         setPropertiesWhenInitUseCase.init(initProperties)
         deeplinkManager.init()
@@ -551,6 +554,8 @@ internal class AffiseComponent(
                 sharedPreferences,
             )
         )
+        persistentUseCase.init(moduleManager)
+        firstAppOpenUseCase.onAppCreated()
 
         storeInstallReferrerUseCase.onReferrerSetupFinished {
             eventsManager.init()

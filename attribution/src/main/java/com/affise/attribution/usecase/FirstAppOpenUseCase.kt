@@ -12,7 +12,8 @@ import java.util.*
 
 class FirstAppOpenUseCase(
     private val preferences: SharedPreferences,
-    private val activityCountProvider: CurrentActiveActivityCountProvider
+    private val activityCountProvider: CurrentActiveActivityCountProvider,
+    private val persistentUseCase: PersistentUseCase
 ) {
 
     private var firstRun: Boolean = false
@@ -52,7 +53,7 @@ class FirstAppOpenUseCase(
         preferences.apply {
             //Create affDevId
             checkSaveString(AFF_DEVICE_ID) {
-                generateUUID().toString()
+                persistentUseCase.getAffDeviceId() ?: generateUUID().toString()
             }
             //Create affAltDevId
             checkSaveString(AFF_ALT_DEVICE_ID) {

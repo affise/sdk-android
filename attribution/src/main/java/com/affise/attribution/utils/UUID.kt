@@ -28,3 +28,26 @@ private fun generateType1UUID(): UUID {
 fun generateUUID() : UUID {
     return generateType1UUID()
 }
+
+internal fun String.isValidUUID(): Boolean {
+    return !this.startsWith("00000000-", false)
+}
+
+internal fun String.toFakeUUID(): String {
+    var baseString = this
+    val uuidLength = 4*8
+
+    while (baseString.length < uuidLength) {
+        baseString += baseString
+    }
+
+    baseString = baseString.takeLast(uuidLength)
+
+    val uuid1 = baseString.substring(0, 8)
+    val uuid2 = baseString.substring(8, 12)
+    val uuid3 = baseString.substring(12, 16)
+    val uuid4 = baseString.substring(16, 20)
+    val uuid5 = baseString.substring(20, 32)
+
+    return "$uuid1-$uuid2-$uuid3-$uuid4-$uuid5"
+}

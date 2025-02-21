@@ -13,11 +13,12 @@ import com.affise.attribution.module.advertising.parameters.GoogleAdvertisingPer
 import com.affise.attribution.module.advertising.parameters.OaidMD5Provider
 import com.affise.attribution.module.advertising.parameters.OaidProvider
 import com.affise.attribution.modules.AffiseModule
+import com.affise.attribution.modules.advertising.AdvertisingApi
 import com.affise.attribution.parameters.ProviderType
 import com.affise.attribution.parameters.base.PropertyProvider
 import com.affise.attribution.parameters.providers.EmptyStringProvider
 
-class AdvertisingModule : AffiseModule() {
+class AdvertisingModule : AffiseModule(), AdvertisingApi {
 
     override val version: String = BuildConfig.AFFISE_VERSION
 
@@ -101,4 +102,6 @@ class AdvertisingModule : AffiseModule() {
     }
 
     override fun providers(): List<PropertyProvider<*>> = providers
+
+    override fun getAdvertisingId(): String? = advManager?.getAdvertisingId()
 }

@@ -42,7 +42,7 @@ class PostBackModelToJsonStringConverter(
         }
 
         // PostBack index
-        put(UUID_INDEX_KEY, indexUseCase.getUuidIndex())
+        put(Parameters.UUID_INDEX_KEY, indexUseCase.getUuidIndex())
 
         //Events
         val eventsArray = JSONArray()
@@ -82,6 +82,5 @@ class PostBackModelToJsonStringConverter(
         private const val SDK_EVENTS_KEY = "sdk_events"
         private const val METRICS_EVENTS_KEY = "metrics_events"
         private const val INTERNAL_EVENTS_KEY = "internal_events"
-        private const val UUID_INDEX_KEY = "uuid_index"
     }
 }

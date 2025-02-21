@@ -15,4 +15,5 @@ object Parameters {
     const val AFFISE_SDK_EVENTS_COUNT = "affise_sdk_events_count"
     const val AFFISE_METRICS_EVENTS_COUNT = "affise_metrics_events_count"
     const val AFFISE_INTERNAL_EVENTS_COUNT = "affise_internal_events_count"
+    const val UUID_INDEX_KEY = "uuid_index"
 }

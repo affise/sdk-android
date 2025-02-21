@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.6.53] - 2025-02-21
+
+### Added
+
+- Persistent `AFFISE_DEVICE_ID`.
+
 ## [1.6.52] - 2025-02-04
 
 ### Added
@@ -199,6 +205,7 @@
 - Improve `AffiseModuleManager`
 - Update gradle for demo app.
 
+[1.6.53]: https://github.com/affise/sdk-android/compare/v1.6.52...v1.6.53
 [1.6.52]: https://github.com/affise/sdk-android/compare/v1.6.51...v1.6.52
 [1.6.51]: https://github.com/affise/sdk-android/compare/v1.6.50...v1.6.51
 [1.6.50]: https://github.com/affise/sdk-android/compare/v1.6.49...v1.6.50
