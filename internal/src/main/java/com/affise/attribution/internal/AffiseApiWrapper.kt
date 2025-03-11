@@ -3,7 +3,6 @@ package com.affise.attribution.internal
 import android.app.Activity
 import android.app.Application
 import com.affise.attribution.Affise
-import com.affise.attribution.events.autoCatchingClick.toAutoCatchingType
 import com.affise.attribution.internal.builder.AffiseBuilder
 import com.affise.attribution.internal.callback.InternalResult
 import com.affise.attribution.internal.callback.OnAffiseCallback
@@ -143,11 +142,11 @@ class AffiseApiWrapper(
             AffiseApiMethod.GET_REFERRER_URL_VALUE_CALLBACK ->
                 callGetReferrerUrlValue(api, map, result)
 
-            AffiseApiMethod.GET_REFERRER_ON_SERVER_CALLBACK ->
-                callGetReferrerOnServer(api, map, result)
+            AffiseApiMethod.GET_DEFERRED_DEEPLINK_CALLBACK ->
+                callGetDeferredDeeplink(api, map, result)
 
-            AffiseApiMethod.GET_REFERRER_ON_SERVER_VALUE_CALLBACK ->
-                callGetReferrerOnServerValue(api, map, result)
+            AffiseApiMethod.GET_DEFERRED_DEEPLINK_VALUE_CALLBACK ->
+                callGetDeferredDeeplinkValue(api, map, result)
 
             AffiseApiMethod.REGISTER_DEEPLINK_CALLBACK ->
                 callRegisterDeeplinkCallback(api, map, result)
@@ -534,13 +533,13 @@ class AffiseApiWrapper(
         }
     }
 
-    private fun callGetReferrerOnServer(
+    private fun callGetDeferredDeeplink(
         api: AffiseApiMethod,
         map: Map<String, *>,
         result: InternalResult
     ) {
         val uuid = map.opt<String>(UUID)
-        Affise.getReferrerOnServer { referrer ->
+        Affise.getDeferredDeeplink { referrer ->
             val data = mapOf<String, Any?>(
                 UUID to uuid,
                 api.method to referrer,
@@ -550,7 +549,7 @@ class AffiseApiWrapper(
         result.success(null)
     }
 
-    private fun callGetReferrerOnServerValue(
+    private fun callGetDeferredDeeplinkValue(
         api: AffiseApiMethod,
         map: Map<String, *>,
         result: InternalResult
@@ -561,7 +560,7 @@ class AffiseApiWrapper(
         if (key == null) {
             result.error("api [${api.method}]: value not set")
         } else {
-            Affise.getReferrerOnServerValue(key) { referrer ->
+            Affise.getDeferredDeeplinkValue(key) { referrer ->
                 val data = mapOf<String, Any?>(
                     UUID to uuid,
                     api.method to referrer,

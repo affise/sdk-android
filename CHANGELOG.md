@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.54] - 2025-03-11
+
+### Changed
+
+- Update api `Affise.getReferrerOnServer` moved to `Affise.getDeferredDeeplink`.
+- Update api `Affise.getReferrerOnServerValue` moved to `Affise.getDeferredDeeplinkValue`.
+
 ## [1.6.53] - 2025-02-21
 
 ### Added
@@ -205,6 +212,7 @@
 - Improve `AffiseModuleManager`
 - Update gradle for demo app.
 
+[1.6.54]: https://github.com/affise/sdk-android/compare/v1.6.53...v1.6.54
 [1.6.53]: https://github.com/affise/sdk-android/compare/v1.6.52...v1.6.53
 [1.6.52]: https://github.com/affise/sdk-android/compare/v1.6.51...v1.6.52
 [1.6.51]: https://github.com/affise/sdk-android/compare/v1.6.50...v1.6.51

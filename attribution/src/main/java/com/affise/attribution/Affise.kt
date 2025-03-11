@@ -225,11 +225,11 @@ object Affise {
      */
     @Deprecated(
         message = "This method will be removed",
-        replaceWith = ReplaceWith("Affise.getReferrerUrl(callback)")
+        replaceWith = ReplaceWith("Affise.getDeferredDeeplink(callback)")
     )
     @JvmStatic
     fun getReferrer(callback: OnReferrerCallback?) {
-        getReferrerUrl(callback)
+        getDeferredDeeplink(callback)
     }
 
     /**
@@ -237,11 +237,11 @@ object Affise {
      */
     @Deprecated(
         message = "This method will be removed",
-        replaceWith = ReplaceWith("Affise.getReferrerUrlValue(key,callback)")
+        replaceWith = ReplaceWith("Affise.getDeferredDeeplinkValue(key,callback)")
     )
     @JvmStatic
     fun getReferrerValue(key: ReferrerKey, callback: OnReferrerCallback?) {
-        getReferrerUrlValue(key, callback)
+        getDeferredDeeplinkValue(key, callback)
     }
 
     /**
@@ -263,16 +263,40 @@ object Affise {
     /**
      * Get referrer on server
      */
+    @Deprecated(
+        message = "This method will be removed",
+        replaceWith = ReplaceWith("Affise.getDeferredDeeplink(callback)")
+    )
     @JvmStatic
     fun getReferrerOnServer(callback: OnReferrerCallback?) {
-        api?.retrieveReferrerOnServerUseCase?.getReferrerOnServer(callback)
+        getDeferredDeeplink(callback)
     }
 
     /**
      * Get referrer on server value
      */
+    @Deprecated(
+        message = "This method will be removed",
+        replaceWith = ReplaceWith("Affise.getDeferredDeeplinkValue(key,callback)")
+    )
     @JvmStatic
     fun getReferrerOnServerValue(key: ReferrerKey, callback: OnReferrerCallback?) {
+        getDeferredDeeplinkValue(key, callback)
+    }
+
+    /**
+     * Get deferred deeplink on server
+     */
+    @JvmStatic
+    fun getDeferredDeeplink(callback: OnReferrerCallback?) {
+        api?.retrieveReferrerOnServerUseCase?.getReferrerOnServer(callback)
+    }
+
+    /**
+     * Get deferred deeplink value on server
+     */
+    @JvmStatic
+    fun getDeferredDeeplinkValue(key: ReferrerKey, callback: OnReferrerCallback?) {
         api?.retrieveReferrerOnServerUseCase?.getReferrerOnServerValue(key, callback)
     }
 
