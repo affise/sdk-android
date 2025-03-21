@@ -2,6 +2,8 @@ package com.affise.attribution.init
 
 import com.affise.attribution.events.autoCatchingClick.AutoCatchingType
 import com.affise.attribution.network.CloudConfig
+import com.affise.attribution.settings.OnInitErrorHandler
+import com.affise.attribution.settings.OnInitSuccessHandler
 
 /**
  * Model that holds properties required on library init
@@ -15,7 +17,9 @@ data class AffiseInitProperties @JvmOverloads constructor(
     val secretKey: String? = null,
     val autoCatchingClickEvents: List<AutoCatchingType>? = null,
     val enabledMetrics: Boolean = false,
-    val domain: String? = CloudConfig.defaultDomain
+    val domain: String? = CloudConfig.defaultDomain,
+    val onInitSuccessHandler: OnInitSuccessHandler? = null,
+    val onInitErrorHandler: OnInitErrorHandler? = null,
 ) {
 
     init {

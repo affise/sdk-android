@@ -87,6 +87,7 @@
   - [Admost](#admost)
 - [Debug](#debug)
   - [Validate credentials](#validate-credentials)
+  - [Version](#version)
     
 # Description
 
@@ -102,19 +103,21 @@ referrer.
 For kotlin build script build.gradle.kts use:
 
 ```kotlin
+val affise_version = "1.6.55"
+
 dependencies {
   // Add Affise library 
-  implementation("com.affise:attribution:1.6.54")
+  implementation("com.affise:attribution:$affise_version")
   // Add Affise modules 
-  implementation("com.affise:module-advertising:1.6.54")
-  implementation("com.affise:module-androidid:1.6.54")
-  implementation("com.affise:module-link:1.6.54")
-  implementation("com.affise:module-network:1.6.54")
-  implementation("com.affise:module-phone:1.6.54")
-  implementation("com.affise:module-status:1.6.54")
-  implementation("com.affise:module-subscription:1.6.54")
-  // implementation("com.affise:module-rustore:1.6.54")
-  // implementation("com.affise:module-huawei:1.6.54")
+  implementation("com.affise:module-advertising:$affise_version")
+  implementation("com.affise:module-androidid:$affise_version")
+  implementation("com.affise:module-link:$affise_version")
+  implementation("com.affise:module-network:$affise_version")
+  implementation("com.affise:module-phone:$affise_version")
+  implementation("com.affise:module-status:$affise_version")
+  implementation("com.affise:module-subscription:$affise_version")
+  // implementation("com.affise:module-rustore:$affise_version")
+  // implementation("com.affise:module-huawei:$affise_version")
   // Add install referrer
   implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -123,19 +126,21 @@ dependencies {
 For groovy build script build.gradle use:
 
 ```groovy
+final affise_version = '1.6.55'
+
 dependencies {
     // Add Affise library 
-    implementation 'com.affise:attribution:1.6.54'
+    implementation "com.affise:attribution:$affise_version"
     // Add Affise modules 
-    implementation 'com.affise:module-advertising:1.6.54'
-    implementation 'com.affise:module-androidid:1.6.54'
-    implementation 'com.affise:module-link:1.6.54'
-    implementation 'com.affise:module-network:1.6.54'
-    implementation 'com.affise:module-phone:1.6.54'
-    implementation 'com.affise:module-status:1.6.54'
-    implementation 'com.affise:module-subscription:1.6.54'
-    // implementation 'com.affise:module-rustore:1.6.54'
-    // implementation 'com.affise:module-huawei:1.6.54'
+    implementation "com.affise:module-advertising:$affise_version"
+    implementation "com.affise:module-androidid:$affise_version"
+    implementation "com.affise:module-link:$affise_version"
+    implementation "com.affise:module-network:$affise_version"
+    implementation "com.affise:module-phone:$affise_version"
+    implementation "com.affise:module-status:$affise_version"
+    implementation "com.affise:module-subscription:$affise_version"
+    // implementation "com.affise:module-rustore:$affise_version"
+    // implementation "com.affise:module-huawei:$affise_version"
     // Add install referrer
     implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -143,9 +148,9 @@ dependencies {
 
 ### Integrate as file dependency
 
-Download latest Affise SDK (`attribution-1.6.54.aar`)
+Download latest Affise SDK (`attribution-1.6.55.aar`)
 from [releases page](https://github.com/affise/sdk-android/releases) and place this binary to gradle application
-module lib directory `app/libs/attribution-1.6.54.aar`
+module lib directory `app/libs/attribution-1.6.55.aar`
 
 Add library as gradle file dependency to application module build script
 Add install referrer library
@@ -153,20 +158,22 @@ Add install referrer library
 For kotlin build script build.gradle.kts use:
 
 ```kotlin
+val affise_version = "1.6.55"
+
 dependencies {
     // ...
     // Add Affise library 
-    implementation(files("libs/attribution-1.6.54.aar"))
+    implementation(files("libs/attribution-1.6.55.aar"))
     // Add Affise modules 
-    implementation(files("libs/module-advertising-1.6.54.aar"))
-    implementation(files("libs/module-androidid-1.6.54.aar"))
-    implementation(files("libs/module-link-1.6.54.aar"))
-    implementation(files("libs/module-network-1.6.54.aar"))
-    implementation(files("libs/module-phone-1.6.54.aar"))
-    implementation(files("libs/module-status-1.6.54.aar"))
-    implementation(files("libs/module-subscription-1.6.54.aar"))
-    // implementation(files("libs/module-rustore-1.6.54.aar"))
-    // implementation(files("libs/module-huawei-1.6.54.aar"))
+    implementation(files("libs/module-advertising-$affise_version.aar"))
+    implementation(files("libs/module-androidid-$affise_version.aar"))
+    implementation(files("libs/module-link-$affise_version.aar"))
+    implementation(files("libs/module-network-$affise_version.aar"))
+    implementation(files("libs/module-phone-$affise_version.aar"))
+    implementation(files("libs/module-status-$affise_version.aar"))
+    implementation(files("libs/module-subscription-$affise_version.aar"))
+    // implementation(files("libs/module-rustore-$affise_version.aar"))
+    // implementation(files("libs/module-huawei-$affise_version.aar"))
     // Add install referrer
     implementation("com.android.installreferrer:installreferrer:2.2")
 }
@@ -175,20 +182,22 @@ dependencies {
 For groovy build script build.gradle use:
 
 ```groovy
+final affise_version = '1.6.55'
+
 dependencies {
   // ...  
   // Add Affise library 
-  implementation files('libs/attribution-1.6.54.aar')
+  implementation files("libs/attribution-${affise_version}.aar")
   // Add Affise modules 
-  implementation files('libs/module-advertising-1.6.54.aar')
-  implementation files('libs/module-androidid-1.6.54.aar')
-  implementation files('libs/module-link-1.6.54.aar')
-  implementation files('libs/module-network-1.6.54.aar')
-  implementation files('libs/module-phone-1.6.54.aar')
-  implementation files('libs/module-status-1.6.54.aar')
-  implementation files('libs/module-subscription-1.6.54.aar')
-  // implementation files('libs/module-rustore-1.6.54.aar')
-  // implementation files('libs/module-huawei-1.6.54.aar')
+  implementation files("libs/module-advertising-${affise_version}.aar")
+  implementation files("libs/module-androidid-${affise_version}.aar")
+  implementation files("libs/module-link-${affise_version}.aar")
+  implementation files("libs/module-network-${affise_version}.aar")
+  implementation files("libs/module-phone-${affise_version}.aar")
+  implementation files("libs/module-status-${affise_version}.aar")
+  implementation files("libs/module-subscription-${affise_version}.aar")
+  // implementation files("libs/module-rustore-${affise_version}.aar")
+  // implementation files("libs/module-huawei-${affise_version}.aar")
   // Add install referrer
   implementation 'com.android.installreferrer:installreferrer:2.2'
 }
@@ -238,7 +247,15 @@ public class App extends Application {
 Check if library is initialized
 
 ```kotlin
-Affise.isInitialized()
+Affise
+    .settings(
+        affiseAppId = "Your appId",
+        secretKey = "Your SDK secretKey",
+    )
+    .setOnInitSuccess {
+        // Called then library is initialized
+    }
+    .start(this)
 ```
 
 #### Before application is published
@@ -1116,7 +1133,7 @@ Affise.getDeferredDeeplink { deferredDeeplink ->
 Use the next public method of SDK to get referrer parameter by
 
 ```kotlin
-Affise.getDeferredDeeplinkValue(ReferrerKey.CLICK_ID) { deferredDeeplink ->
+Affise.getDeferredDeeplinkValue(ReferrerKey.CLICK_ID) { deferredDeeplinkValue ->
   // handle deferred deeplink value
 }
 ```
@@ -1655,4 +1672,13 @@ Affise
 Affise.Debug.validate { status ->
     // Handle validation status
 }
+```
+
+
+## Version
+
+Get Affise library version
+
+```kotlin
+Affise.Debug.version()
 ```

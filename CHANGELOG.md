@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.6.55] - 2025-03-21
+
+### Added
+
+- Api `Affise.settings.setOnInitSuccess`.
+- Api `Affise.settings.setOnInitError`.
+- Api `Affise.Debug.version`.
+
 ## [1.6.54] - 2025-03-11
 
 ### Changed
@@ -212,6 +220,7 @@
 - Improve `AffiseModuleManager`
 - Update gradle for demo app.
 
+[1.6.55]: https://github.com/affise/sdk-android/compare/v1.6.54...v1.6.55
 [1.6.54]: https://github.com/affise/sdk-android/compare/v1.6.53...v1.6.54
 [1.6.53]: https://github.com/affise/sdk-android/compare/v1.6.52...v1.6.53
 [1.6.52]: https://github.com/affise/sdk-android/compare/v1.6.51...v1.6.52

@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import android.util.Log
 import com.affise.attribution.Affise
-import com.affise.attribution.events.autoCatchingClick.AutoCatchingType
 import com.affise.attribution.init.AffiseInitProperties
 
 /**
@@ -22,6 +21,9 @@ class AffiseSettings internal constructor(
     private var partParamName: String? = null
     private var partParamNameToken: String? = null
     private var appToken: String? = null
+    private var onInitSuccessHandler: OnInitSuccessHandler? = null
+    private var onInitErrorHandler: OnInitErrorHandler? = null
+
 //    private var autoCatchingClickEvents: List<AutoCatchingType>? = null
 //    private var enabledMetrics: Boolean = false
 
@@ -63,6 +65,20 @@ class AffiseSettings internal constructor(
     }
 
     /**
+     * Set [onInitSuccessHandler]
+     */
+    fun setOnInitSuccess(onInitSuccessHandler: OnInitSuccessHandler): AffiseSettings = this.apply {
+        this.onInitSuccessHandler = onInitSuccessHandler
+    }
+
+    /**
+     * Set [onInitErrorHandler]
+     */
+    fun setOnInitError(onInitErrorHandler: OnInitErrorHandler): AffiseSettings = this.apply {
+        this.onInitErrorHandler = onInitErrorHandler
+    }
+
+    /**
      * Set [autoCatchingClickEvents] list of AutoCatchingType
      */
 //    fun setAutoCatchingClickEvents(autoCatchingClickEvents: List<AutoCatchingType>?): AffiseSettings = this.apply {
@@ -86,6 +102,8 @@ class AffiseSettings internal constructor(
 //        autoCatchingClickEvents = autoCatchingClickEvents,
 //        enabledMetrics = enabledMetrics,
         domain = domain,
+        onInitSuccessHandler = onInitSuccessHandler,
+        onInitErrorHandler = onInitErrorHandler
     )
 
     /**

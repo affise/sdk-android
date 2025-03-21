@@ -529,40 +529,45 @@ internal class AffiseComponent(
      * Init properties
      */
     init {
-        sendGDPREventUseCase.sendForgetMeEvent()
-        sessionManager.init()
-        setPropertiesWhenInitUseCase.init(initProperties)
-        deeplinkManager.init()
-//        autoCatchingClickProvider.init(initProperties.autoCatchingClickEvents)
-//        metricsManager.setEnabledMetrics(initProperties.enabledMetrics)
+        try {
+            sendGDPREventUseCase.sendForgetMeEvent()
+            sessionManager.init()
+            setPropertiesWhenInitUseCase.init(initProperties)
+            deeplinkManager.init()
+    //        autoCatchingClickProvider.init(initProperties.autoCatchingClickEvents)
+    //        metricsManager.setEnabledMetrics(initProperties.enabledMetrics)
 
-        AffiseThreadUncaughtExceptionHandlerImpl(
-            Thread.getDefaultUncaughtExceptionHandler(),
-            logsManager
-        )
-            .also(Thread::setDefaultUncaughtExceptionHandler)
-
-        moduleManager.init(
-            dependencies = listOf(
-                buildConfigPropertiesProvider,
-                stringToMD5Converter,
-                stringToSHA1Converter,
-                providersToJsonStringConverter,
-                httpClient,
-                postBackModelFactory,
-                postBackModelToJsonStringConverter,
-                sharedPreferences,
+            AffiseThreadUncaughtExceptionHandlerImpl(
+                Thread.getDefaultUncaughtExceptionHandler(),
+                logsManager
             )
-        )
-        persistentUseCase.init(moduleManager)
-        firstAppOpenUseCase.onAppCreated()
+                .also(Thread::setDefaultUncaughtExceptionHandler)
 
-        storeInstallReferrerUseCase.onReferrerSetupFinished {
-            eventsManager.init()
+            moduleManager.init(
+                dependencies = listOf(
+                    buildConfigPropertiesProvider,
+                    stringToMD5Converter,
+                    stringToSHA1Converter,
+                    providersToJsonStringConverter,
+                    httpClient,
+                    postBackModelFactory,
+                    postBackModelToJsonStringConverter,
+                    sharedPreferences,
+                )
+            )
+            persistentUseCase.init(moduleManager)
+            firstAppOpenUseCase.onAppCreated()
+
+            storeInstallReferrerUseCase.onReferrerSetupFinished {
+                eventsManager.init()
+            }
+                .init(moduleManager)
+
+            isReady = true
+            initProperties.onInitSuccessHandler?.handle()
+        } catch (e: Exception) {
+            initProperties.onInitErrorHandler?.handle(e)
         }
-            .init(moduleManager)
-
-        isReady = true
     }
 
     override fun isInitialized(): Boolean = isReady

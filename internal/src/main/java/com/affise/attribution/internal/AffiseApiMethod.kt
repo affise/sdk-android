@@ -25,6 +25,8 @@ enum class AffiseApiMethod(val method: String) {
     IS_FIRST_RUN("is_first_run"),
 
     // callback methods
+    ON_INIT_SUCCESS_HANDLER("on_init_success_handler"),
+    ON_INIT_ERROR_HANDLER("on_init_error_handler"),
     GET_REFERRER_URL_CALLBACK("get_referrer_url_callback"),
     GET_REFERRER_URL_VALUE_CALLBACK("get_referrer_url_value_callback"),
     GET_DEFERRED_DEEPLINK_CALLBACK("get_deferred_deeplink_callback"),
@@ -34,6 +36,7 @@ enum class AffiseApiMethod(val method: String) {
     // debug
     DEBUG_VALIDATE_CALLBACK("debug_validate_callback"),
     DEBUG_NETWORK_CALLBACK("debug_network_callback"),
+    DEBUG_VERSION_NATIVE("debug_version_native"),
 
     // affise builder
     AFFISE_BUILDER("affise_builder"),

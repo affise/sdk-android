@@ -32,6 +32,9 @@ private fun demoApi(): List<Pair<String, () -> Unit>> {
                 output("validate: $it")
             }
         },
+        Pair("Debug: version") {
+            output("version: ${Affise.Debug.version()}")
+        },
 //        Pair("Debug: network") {
 //            Affise.Debug.network { req, res ->
 //

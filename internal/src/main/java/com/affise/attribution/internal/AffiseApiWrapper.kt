@@ -157,6 +157,9 @@ class AffiseApiWrapper(
             AffiseApiMethod.DEBUG_NETWORK_CALLBACK ->
                 callDebugNetworkCallback(api, map, result)
 
+            AffiseApiMethod.DEBUG_VERSION_NATIVE ->
+                callDebugVersionNative(api, map, result)
+
             AffiseApiMethod.AFFISE_BUILDER ->
                 callBuilder(api, map, result)
 
@@ -218,6 +221,16 @@ class AffiseApiWrapper(
                 secretKey = secretKey
             )
             .addSettings(properties)
+            .setOnInitSuccess {
+                val data = mapOf<String, Any?>()
+                callback?.invoke(AffiseApiMethod.ON_INIT_SUCCESS_HANDLER, data)
+            }
+            .setOnInitError{
+                val data = mapOf<String, Any?>(
+                    AffiseApiMethod.ON_INIT_ERROR_HANDLER.method to it.localizedMessage,
+                )
+                callback?.invoke(AffiseApiMethod.ON_INIT_ERROR_HANDLER, data)
+            }
             .start(app)
 
         InternalCrossPlatform.start()
@@ -616,6 +629,14 @@ class AffiseApiWrapper(
             callback?.invoke(api, data)
         }
         result.success(null)
+    }
+
+    private fun callDebugVersionNative(
+        api: AffiseApiMethod,
+        map: Map<String, *>,
+        result: InternalResult
+    ) {
+        result.success(Affise.Debug.version())
     }
 
     private fun callBuilder(

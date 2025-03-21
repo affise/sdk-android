@@ -64,6 +64,7 @@ object Affise {
         }
     }
 
+    @Deprecated("Use Affise.settings().setOnInitSuccess()")
     @JvmStatic
     fun isInitialized(): Boolean {
         return api?.isInitialized() ?: false
@@ -428,6 +429,14 @@ object Affise {
         @JvmStatic
         fun network(callback: DebugOnNetworkCallback) {
             api?.debugNetworkUseCase?.onRequest(callback)
+        }
+
+        /**
+         * Show version
+         */
+        @JvmStatic
+        fun version(): String {
+            return BuildConfig.AFFISE_VERSION
         }
     }
 }
