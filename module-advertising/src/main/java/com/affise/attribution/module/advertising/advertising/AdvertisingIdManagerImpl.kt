@@ -16,7 +16,7 @@ import com.google.android.gms.ads.identifier.AdvertisingIdClient
  */
 internal class AdvertisingIdManagerImpl(
     private val executorProvider: ExecutorServiceProvider,
-    private val logsManager: LogsManager
+    private val logsManager: LogsManager?
 ) : AdvertisingIdManager {
 
     /**
@@ -29,15 +29,19 @@ internal class AdvertisingIdManagerImpl(
     /**
      * Init Advertising IdManager
      */
-    override fun init(app: Application) = executorProvider.provideExecutorService().execute {
-        try {
-            advertisingIdInfo = getAdvertisingIdInfo(app)
-            //Get Google Advertising ID
-            advertisingId = getGoogleAdvertisingId()
-            adPersonalization = checkGoogleAdPersonalization()
-        } catch (throwable: Throwable) {
-            //Log error
-            logsManager.addDeviceError(throwable)
+    override fun init(app: Application?) {
+        app ?: return
+
+        executorProvider.provideExecutorService().execute {
+            try {
+                advertisingIdInfo = getAdvertisingIdInfo(app)
+                //Get Google Advertising ID
+                advertisingId = getGoogleAdvertisingId()
+                adPersonalization = checkGoogleAdPersonalization()
+            } catch (throwable: Throwable) {
+                //Log error
+                logsManager?.addDeviceError(throwable)
+            }
         }
     }
 
@@ -56,6 +60,8 @@ internal class AdvertisingIdManagerImpl(
     private fun getAdvertisingIdInfo(context: Context) = try {
         AdvertisingIdClient.getAdvertisingIdInfo(context)
     } catch (throwable: Throwable) {
+        throwable.printStackTrace()
+//        logsManager?.addDeviceError(throwable)
         null
     }
 

@@ -78,7 +78,6 @@ class App : Application() {
         const val SECRET_ID_KEY = "SECRET_ID_KEY"
         const val PRODUCTION_KEY = "PRODUCTION_KEY"
         const val DOMAIN_KEY = "DOMAIN_KEY"
-        const val AUTO_CATCHING_TYPES_KEY = "AUTO_CATCHING_TYPES_KEY"
         const val ENABLED_METRICS_KEY = "ENABLED_METRICS_KEY"
         const val DEBUG_REQUEST_KEY = "DEBUG_REQUEST_KEY"
         const val DEBUG_RESPONSE_KEY = "DEBUG_RESPONSE_KEY"

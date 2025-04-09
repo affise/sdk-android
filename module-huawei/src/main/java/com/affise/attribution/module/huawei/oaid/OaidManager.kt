@@ -1,4 +1,4 @@
-package com.affise.attribution.module.advertising.oaid
+package com.affise.attribution.module.huawei.oaid
 
 import android.content.Context
 
@@ -9,7 +9,7 @@ interface OaidManager {
     /**
      * Start manager
      */
-    fun init(app: Context)
+    fun init(app: Context?)
 
     /**
      * Get open advertising identifier

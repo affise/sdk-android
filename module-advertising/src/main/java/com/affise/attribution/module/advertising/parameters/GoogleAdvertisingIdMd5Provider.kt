@@ -15,7 +15,7 @@ import com.affise.attribution.parameters.ProviderType
  */
 class GoogleAdvertisingIdMd5Provider(
     private val advertisingIdManager: AdvertisingIdManager,
-    private val md5Converter: Converter<@JvmSuppressWildcards String, @JvmSuppressWildcards String>
+    private val md5Converter: Converter<@JvmSuppressWildcards String, @JvmSuppressWildcards String>?
 ) : StringPropertyProvider() {
 
     override val order: Float = 31.4f
@@ -23,5 +23,5 @@ class GoogleAdvertisingIdMd5Provider(
 
     override fun provide(): String? = advertisingIdManager
         .getAdvertisingId()
-        ?.let(md5Converter::convert)
+        ?.let { md5Converter?.convert(it) }
 }

@@ -80,14 +80,14 @@ private fun demoApi(): List<Pair<String, () -> Unit>> {
                 output("getReferrerValue: $it")
             }
         },
-        Pair("getReferrerOnServer") {
-            Affise.getReferrerOnServer() {
-                output("getReferrerOnServer: $it")
+        Pair("getDeferredDeeplink") {
+            Affise.getDeferredDeeplink {
+                output("getDeferredDeeplink: $it")
             }
         },
-        Pair("getReferrerOnServerValue") {
-            Affise.getReferrerOnServerValue(ReferrerKey.AD_ID) {
-                output("getReferrerOnServerValue: $it")
+        Pair("getDeferredDeeplinkValue") {
+            Affise.getDeferredDeeplinkValue(ReferrerKey.AD_ID) {
+                output("getDeferredDeeplinkValue: $it")
             }
         },
         Pair("getStatus") {

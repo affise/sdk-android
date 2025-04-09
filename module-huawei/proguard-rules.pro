@@ -21,4 +21,5 @@
 #-renamesourcefileattribute SourceFile
 -keep class com.affise.attribution.** { *; }
 -keep class com.huawei.hms.ads.** { *; }
--keep interface com.huawei.hms.ads.** { *; }
+-keep class com.huawei.hms.ads.** {*; }
+-keep interface com.huawei.hms.ads.** {*; }

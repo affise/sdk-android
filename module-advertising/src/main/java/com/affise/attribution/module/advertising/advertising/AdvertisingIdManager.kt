@@ -9,7 +9,7 @@ interface AdvertisingIdManager {
     /**
      * Called on [app] init
      */
-    fun init(app: Application)
+    fun init(app: Application?)
 
     /**
      * Returns google advertising id if present

@@ -3,8 +3,6 @@ package com.affise.attribution.module.status.usecase
 import com.affise.attribution.converter.PostBackModelToJsonStringConverter
 import com.affise.attribution.converter.ProvidersToJsonStringConverter
 import com.affise.attribution.converter.StringToKeyValueConverter
-import com.affise.attribution.exceptions.CloudException
-import com.affise.attribution.exceptions.NetworkException
 import com.affise.attribution.executors.ExecutorServiceProvider
 import com.affise.attribution.logs.LogsManager
 import com.affise.attribution.modules.AffiseModule
@@ -51,11 +49,11 @@ class CheckStatusUseCaseImpl(
 
         //While has attempts and not send
         while (attempts != 0 && !send) {
-            val postBackResponse = if (!isPostBackSend) {
+            if (!isPostBackSend) {
                 createRequest(postBackData()).also {
                     isPostBackSend = it.isHttpValid()
                 }
-            } else null
+            }
 
             val response = if (isPostBackSend) {
                 createRequest(providersData())
@@ -70,20 +68,7 @@ class CheckStatusUseCaseImpl(
                 attempts--
                 //Check attempts
                 if (attempts <= 0) {
-
                     onComplete.handle(emptyList())
-
-//                    val httpResponse = response ?: postBackResponse
-//
-//                    //Log error
-//                    logsManager?.addSdkError(
-//                        CloudException(
-//                            url,
-//                            NetworkException(httpResponse?.code ?: 0, httpResponse?.body ?: ""),
-//                            TIMINGS.size + 1,
-//                            true
-//                        )
-//                    )
                 } else {
                     onFailedAttempt(attempts - 1)
                 }

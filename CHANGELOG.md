@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.6.56] - 2025-04-09
+
+### Changed
+
+- Update `OAID` to use `com.huawei.hms:ads-identifier`
+- Provider api `OAID` moved to module `huawei`.
+- Provider api `OAID_MD5` moved to module `huawei`.
+
 ## [1.6.55] - 2025-03-21
 
 ### Added
@@ -220,6 +228,7 @@
 - Improve `AffiseModuleManager`
 - Update gradle for demo app.
 
+[1.6.56]: https://github.com/affise/sdk-android/compare/v1.6.55...v1.6.56
 [1.6.55]: https://github.com/affise/sdk-android/compare/v1.6.54...v1.6.55
 [1.6.54]: https://github.com/affise/sdk-android/compare/v1.6.53...v1.6.54
 [1.6.53]: https://github.com/affise/sdk-android/compare/v1.6.52...v1.6.53

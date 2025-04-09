@@ -59,18 +59,18 @@ tasks.register('clean', Delete) {
 }
 
 ext {
-    affiseVersion = "1.6.55"
+    affiseVersion = "1.6.56"
 
     compose_compiler_version = "1.4.8"
     compose_bom = "2024.06.00"
-    firebase = "24.0.0"
+    firebase = "24.1.1"
     activityCompose = "1.9.0"
 
     installReferrerVersion = "2.2"
     billingVersion = "7.0.0"
 
     rustoreInstallReferrerVersion = "6.1.0"
-    huaweiInstallReferrerVersion = "3.4.30.307"
+    hmsVersion = "3.4.62.300"
 
     testJunit = "4.13.2"
     testAndroidxJunit = "1.2.1"
