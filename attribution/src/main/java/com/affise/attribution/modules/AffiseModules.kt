@@ -10,7 +10,8 @@ enum class AffiseModules(val module: String) {
     Status("com.affise.attribution.module.status.StatusModule"),
     Subscription("com.affise.attribution.module.subscription.SubscriptionModule"),
     RuStore("com.affise.attribution.module.rustore.RuStoreModule"),
-    Huawei("com.affise.attribution.module.huawei.HuaweiModule");
+    Huawei("com.affise.attribution.module.huawei.HuaweiModule"),
+    Meta("com.affise.attribution.module.meta.MetaModule");
 
     companion object {
         @JvmStatic

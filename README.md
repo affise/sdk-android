@@ -14,6 +14,7 @@
 | `com.affise:module-subscription` | [![module-subscription](https://img.shields.io/maven-central/v/com.affise/module-subscription?label=latest)](https://mvnrepository.com/artifact/com.affise/module-subscription) |
 | `com.affise:module-rustore`      | [![module-rustore](https://img.shields.io/maven-central/v/com.affise/module-rustore?label=latest)](https://mvnrepository.com/artifact/com.affise/module-rustore)                |
 | `com.affise:module-huawei`       | [![module-huawei](https://img.shields.io/maven-central/v/com.affise/module-huawei?label=latest)](https://mvnrepository.com/artifact/com.affise/module-huawei)                   |
+| `com.affise:module-meta`         | [![module-meta](https://img.shields.io/maven-central/v/com.affise/module-meta?label=latest)](https://mvnrepository.com/artifact/com.affise/module-meta)                   |
 
 - [Affise Attribution Android Library](#affise-attribution-android-library)
 - [Description](#description)
@@ -28,6 +29,7 @@
       - [Module Advertising](#module-advertising)
       - [Module Huawei](#module-huawei)
       - [Module Link](#module-link)
+      - [Module Meta](#module-meta)
       - [Module Status](#module-status)
       - [Module Subscription](#module-subscription)
         - [AffiseProductType](#affiseproducttype)
@@ -38,6 +40,7 @@
     - [Advertising](#advertising)
     - [AndroidId](#androidid)
     - [Huawei](#huawei)
+    - [Meta](#meta)
     - [Network](#network)
     - [Phone](#phone)
   - [Event send control](#event-send-control)
@@ -105,7 +108,7 @@ referrer.
 For kotlin build script build.gradle.kts use:
 
 ```kotlin
-val affise_version = "1.6.56"
+val affise_version = "1.6.57"
 
 dependencies {
   // Add Affise library 
@@ -128,7 +131,7 @@ dependencies {
 For groovy build script build.gradle use:
 
 ```groovy
-final affise_version = '1.6.56'
+final affise_version = '1.6.57'
 
 dependencies {
     // Add Affise library 
@@ -150,9 +153,9 @@ dependencies {
 
 ### Integrate as file dependency
 
-Download latest Affise SDK (`attribution-1.6.56.aar`)
+Download latest Affise SDK (`attribution-1.6.57.aar`)
 from [releases page](https://github.com/affise/sdk-android/releases) and place this binary to gradle application
-module lib directory `app/libs/attribution-1.6.56.aar`
+module lib directory `app/libs/attribution-1.6.57.aar`
 
 Add library as gradle file dependency to application module build script
 Add install referrer library
@@ -160,12 +163,12 @@ Add install referrer library
 For kotlin build script build.gradle.kts use:
 
 ```kotlin
-val affise_version = "1.6.56"
+val affise_version = "1.6.57"
 
 dependencies {
     // ...
     // Add Affise library 
-    implementation(files("libs/attribution-1.6.56.aar"))
+    implementation(files("libs/attribution-1.6.57.aar"))
     // Add Affise modules 
     implementation(files("libs/module-advertising-$affise_version.aar"))
     implementation(files("libs/module-androidid-$affise_version.aar"))
@@ -184,7 +187,7 @@ dependencies {
 For groovy build script build.gradle use:
 
 ```groovy
-final affise_version = '1.6.56'
+final affise_version = '1.6.57'
 
 dependencies {
   // ...  
@@ -313,6 +316,7 @@ class App : Application() {
 | `Subscription` | [![module-subscription](https://img.shields.io/maven-central/v/com.affise/module-subscription?label=latest)](https://mvnrepository.com/artifact/com.affise/module-subscription) | `Auto` |
 | `RuStore`      | [![module-rustore](https://img.shields.io/maven-central/v/com.affise/module-rustore?label=latest)](https://mvnrepository.com/artifact/com.affise/module-rustore)                | `Auto` |
 | `Huawei`       | [![module-huawei](https://img.shields.io/maven-central/v/com.affise/module-huawei?label=latest)](https://mvnrepository.com/artifact/com.affise/module-huawei)                   | `Auto` |
+| `Meta`         | [![module-meta](https://img.shields.io/maven-central/v/com.affise/module-meta?label=latest)](https://mvnrepository.com/artifact/com.affise/module-meta)                     | `Auto` |
 
 If module start type is `Manual`, then call:
 
@@ -348,7 +352,7 @@ val gaid = Affise.getProviders()[ProviderType.GAID_ADID] as? String
 >
 > 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
 >
-> For module `Huawei` to send OAID (Open Advertising Identifier)
+> Use [Huawei Module](#modules) to get OAID (Open Advertising Identifier)
 >
 > Uses `com.huawei.hms:ads-identifier`
 >
@@ -376,6 +380,40 @@ For java use:
 AffiseLink.linkResolve("SITE_WITH_REDIRECTION", redirectUrl -> {
     // handle redirect url  
 });
+```
+
+#### Module Meta
+
+- [Meta Install Referrer Docs](https://developers.facebook.com/docs/app-ads/meta-install-referrer)
+- [Google's Install Referral Docs](https://developer.android.com/google/play/installreferrer)
+
+1. Add `queries` to your `AndroidManifest.xml`
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <queries>
+        <package android:name="com.facebook.katana" />
+        <package android:name="com.instagram.android" />
+        <package android:name="com.facebook.lite" />
+    </queries>
+
+    <application>
+      ...
+    </application>
+</manifest>
+```
+
+2. Add your `Facebook App Id` as config value `AffiseConfig.FbAppId` in `Affise.settings`
+
+```kotlin
+Affise
+    .settings(
+        affiseAppId = "Your appId",
+        secretKey = "Your SDK secretKey",
+    )
+    .setConfigValue(AffiseConfig.FbAppId, "Your Facebook App Id")
+    .start(this)
 ```
 
 #### Module Status
@@ -548,6 +586,10 @@ To match users with events and data library is sending, these `ProviderType` ide
 
 - `OAID`
 - `OAID_MD5`
+
+### Meta
+
+- `META`
 
 ### Network
 

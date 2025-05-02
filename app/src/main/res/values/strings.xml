@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Affise SDK showcase</string>
 
+<!--    Meta-->
+    <string name="facebook_app_id">1111111111111111</string>
+
 <!--    Min Screen-->
     <string name="api">API</string>
     <string name="events">Events</string>
@@ -39,4 +42,11 @@
     <string name="push_token">Push token</string>
     <string name="forget_all">GDPR forget all</string>
     <string name="crash_application">CRASH Application</string>
+
+
+<!--    test-->
+    <string name="test_data">Subs</string>
+    <string name="test_send_now">sendNow()</string>
+    <string name="order_id">order id</string>
+    <string name="original_order_id">original order id</string>
 </resources>

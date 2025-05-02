@@ -23,6 +23,7 @@ class AffiseSettings internal constructor(
     private var appToken: String? = null
     private var onInitSuccessHandler: OnInitSuccessHandler? = null
     private var onInitErrorHandler: OnInitErrorHandler? = null
+    private var configValues: MutableMap<AffiseConfig, Any> = mutableMapOf()
 
 //    private var autoCatchingClickEvents: List<AutoCatchingType>? = null
 //    private var enabledMetrics: Boolean = false
@@ -79,6 +80,22 @@ class AffiseSettings internal constructor(
     }
 
     /**
+     * Set [configValues] value
+     */
+    fun setConfigValue(key: AffiseConfig, value: Any): AffiseSettings = this.apply {
+        this.configValues[key] = value
+    }
+
+    /**
+     * Set [configValues] values
+     */
+    fun setConfigValues(values: Map<AffiseConfig, Any>): AffiseSettings = this.apply {
+        for ((key, value) in values) {
+            this.configValues[key] = value
+        }
+    }
+
+    /**
      * Set [autoCatchingClickEvents] list of AutoCatchingType
      */
 //    fun setAutoCatchingClickEvents(autoCatchingClickEvents: List<AutoCatchingType>?): AffiseSettings = this.apply {
@@ -103,7 +120,8 @@ class AffiseSettings internal constructor(
 //        enabledMetrics = enabledMetrics,
         domain = domain,
         onInitSuccessHandler = onInitSuccessHandler,
-        onInitErrorHandler = onInitErrorHandler
+        onInitErrorHandler = onInitErrorHandler,
+        configValues = configValues
     )
 
     /**

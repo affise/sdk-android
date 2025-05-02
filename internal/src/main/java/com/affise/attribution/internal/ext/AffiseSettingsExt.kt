@@ -2,6 +2,7 @@ package com.affise.attribution.internal.ext
 
 import com.affise.attribution.events.autoCatchingClick.AutoCatchingType
 import com.affise.attribution.events.autoCatchingClick.toAutoCatchingType
+import com.affise.attribution.settings.AffiseConfig
 import com.affise.attribution.settings.AffiseSettings
 
 internal object Field {
@@ -14,11 +15,13 @@ internal object Field {
     const val IS_PRODUCTION = "isProduction"
     const val ENABLED_METRICS = "enabledMetrics"
     const val DOMAIN = "domain"
+    const val CONFIG_STRINGS = "configStrings"
 }
 
 internal fun Map<*, *>.getString(key: String): String? = this[key]?.toString()
 internal fun Map<*, *>.getBoolean(key: String): Boolean? = this.getString(key)?.toBoolean()
 internal fun Map<*, *>.getList(key: String): List<*>? = this[key] as? List<*>
+internal fun Map<*, *>.getMap(key: String): Map<*,*>? = this[key] as? Map<*,*>
 internal fun List<*>.toAutoCatchingType(): List<AutoCatchingType> = this.mapNotNull {
     it?.toString()?.toAutoCatchingType()
 }
@@ -49,6 +52,14 @@ internal fun AffiseSettings.addSettings(map: Map<*, *>): AffiseSettings = this.a
     }
     map.getString(Field.APP_TOKEN)?.let {
         settings.setAppToken(it)
+    }
+    map.getMap(Field.CONFIG_STRINGS)?.let {
+        for ((key, value) in it) {
+            value ?: continue
+            AffiseConfig.from(key.toString())?.let { configKey ->
+                settings.setConfigValue(configKey, value)
+            }
+        }
     }
 //    map.getList(Field.AUTO_CATCHING_CLICK_EVENTS)?.toAutoCatchingType()?.let {
 //        settings.setAutoCatchingClickEvents(it)

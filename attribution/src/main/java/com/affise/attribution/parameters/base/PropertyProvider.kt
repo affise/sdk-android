@@ -55,6 +55,27 @@ abstract class LongPropertyProvider : PropertyProvider<Long>() {
 }
 
 /**
+ * Base list property provider
+ */
+abstract class ListPropertyProvider : PropertyProvider<List<Any>>() {
+
+    /**
+     * Default value of provider
+     */
+    override val defaultValue = emptyList<Any>()
+}
+
+/**
+ * Base map property provider
+ */
+abstract class MapPropertyProvider : PropertyProvider<Map<String, Any>>() {
+
+    /**
+     * Default value of provider
+     */
+    override val defaultValue = emptyMap<String, Any>()
+}
+/**
  * Base string property provider with param
  */
 abstract class StringWithParamPropertyProvider : Provider {

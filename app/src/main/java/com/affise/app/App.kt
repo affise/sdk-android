@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import com.affise.attribution.Affise
+import com.affise.attribution.settings.AffiseConfig
 import com.google.firebase.FirebaseApp
 
 
@@ -25,6 +26,7 @@ class App : Application() {
                 affiseAppId = Prefs.string(AFFISE_APP_ID_KEY, DEMO_APP_ID),
                 secretKey = Prefs.string(SECRET_ID_KEY, DEMO_SECRET_KEY)
             )
+            .setConfigValue(AffiseConfig.FbAppId, getString(R.string.facebook_app_id))
             //To enable debug methods set Production to false
             .setProduction(Prefs.boolean(PRODUCTION_KEY))
             // Custom domain example
@@ -72,7 +74,8 @@ class App : Application() {
     companion object {
         const val DEMO_APP_ID = "129"
         const val DEMO_SECRET_KEY = "93a40b54-6f12-443f-a250-ebf67c5ee4d2"
-        const val DEMO_DOMAIN = "https://tracking.affattr.com"
+//        const val DEMO_DOMAIN = "https://tracking.affattr.com"
+        const val DEMO_DOMAIN = "https://webhook.site/c4050874-99bb-425b-9e08-12487e1c0baa" // TODO dev
 
         const val AFFISE_APP_ID_KEY = "AFFISE_APP_ID_KEY"
         const val SECRET_ID_KEY = "SECRET_ID_KEY"

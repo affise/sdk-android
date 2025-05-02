@@ -553,6 +553,7 @@ internal class AffiseComponent(
                     postBackModelFactory,
                     postBackModelToJsonStringConverter,
                     sharedPreferences,
+                    initProperties
                 )
             )
             persistentUseCase.init(moduleManager)

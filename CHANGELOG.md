@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.57] - 2025-05-02
+
+### Added
+
+- New module `meta` for `Facebook`.
+- Provider for `Facebook` install referrer
+
 ## [1.6.56] - 2025-04-09
 
 ### Changed
@@ -228,6 +235,7 @@
 - Improve `AffiseModuleManager`
 - Update gradle for demo app.
 
+[1.6.57]: https://github.com/affise/sdk-android/compare/v1.6.56...v1.6.57
 [1.6.56]: https://github.com/affise/sdk-android/compare/v1.6.55...v1.6.56
 [1.6.55]: https://github.com/affise/sdk-android/compare/v1.6.54...v1.6.55
 [1.6.54]: https://github.com/affise/sdk-android/compare/v1.6.53...v1.6.54

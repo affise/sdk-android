@@ -38,7 +38,15 @@ class PostBackModelToJsonStringConverter(
     private fun parameters(obj: PostBackModel) = JSONObject().apply {
         //Parameters
         obj.parameters.forEach {
-            put(it.key.provider, it.value)
+            try {
+                when(it.value) {
+                    is Map<*,*> -> put(it.key.provider, JSONObject(it.value as Map<*,*>))
+                    is List<*> -> put(it.key.provider, JSONArray(it.value))
+                    else -> put(it.key.provider, it.value)
+                }
+            } catch (_: Exception) {
+
+            }
         }
 
         // PostBack index

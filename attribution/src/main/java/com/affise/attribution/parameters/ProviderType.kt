@@ -99,6 +99,9 @@ enum class ProviderType(val provider: String) {
     COLOROS_ADID("coloros_adid"),
     AD_PERSONALIZATION("ad_personalization"),
 
+    // meta
+    META("meta"),
+
     // network
     MAC_SHA1("mac_sha1"),
     MAC_MD5("mac_md5"),
