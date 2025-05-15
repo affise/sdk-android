@@ -12,6 +12,9 @@ internal fun Map<*, *>.getEventName(): String? =
 internal fun Map<*, *>.getUserData(): String? =
     this[Parameters.AFFISE_EVENT_USER_DATA] as? String
 
+internal fun Map<*, *>.getCategory(): String? =
+    this[Parameters.AFFISE_EVENT_CATEGORY] as? String
+
 internal fun Map<*, *>.getEventData(): Map<*, *>? =
     this[Parameters.AFFISE_EVENT_DATA] as? Map<*, *>
 

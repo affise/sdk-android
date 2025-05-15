@@ -2,6 +2,7 @@ package com.affise.attribution.internal.events
 
 import com.affise.attribution.events.Event
 import com.affise.attribution.events.custom.UserCustomSubscriptionEvent
+import com.affise.attribution.internal.utils.getCategory
 import com.affise.attribution.internal.utils.getEventData
 import com.affise.attribution.internal.utils.getSubTypeName
 import com.affise.attribution.internal.utils.getUserData
@@ -20,12 +21,14 @@ internal object SubscriptionEvent {
         val userData = map.getUserData()
         val eventData = map.getEventData() ?: mapOf<Any, Any?>()
         val data = JSONObject(eventData.toMutableMap())
+        val category =  map.getCategory()
 
         return UserCustomSubscriptionEvent(
             type = type,
             subtype = subType,
             data = data,
-            userData = userData
+            userData = userData,
+            category = category,
         )
     }
 }

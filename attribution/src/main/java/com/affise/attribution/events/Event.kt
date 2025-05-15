@@ -1,6 +1,7 @@
 package com.affise.attribution.events
 
 import com.affise.attribution.Affise
+import com.affise.attribution.events.parameters.Predefined
 import com.affise.attribution.events.parameters.PredefinedCustom
 import com.affise.attribution.events.parameters.PredefinedFloat
 import com.affise.attribution.events.parameters.PredefinedListObject
@@ -160,5 +161,11 @@ abstract class Event: PredefinedParameter {
 
     fun customPredefined() : PredefinedCustom {
         return predefinedCustom
+    }
+
+    protected fun addRawParameters(parameters: Map<String, Any>) {
+        for ((key, value) in parameters) {
+            predefinedParameters["${Predefined.PREFIX}$key"] = value
+        }
     }
 }

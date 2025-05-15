@@ -1,6 +1,11 @@
 package com.affise.attribution.internal.data
 
 internal object DataName {
+    const val TYPE = "type"
+    const val REQUEST = "request"
+    const val RESPONSE = "response"
+
+    const val FAILED = "failed";
     const val SUCCESS = "success"
     const val ERROR = "error"
 
@@ -38,4 +43,7 @@ internal object DataName {
     const val TIME_UNIT = "timeUnit"
     const val NUMBER_OF_UNITS = "numberOfUnits"
     const val PRODUCT_DETAILS = "productDetails"
+
+    const val EVENT_NAME = "eventName"
+    const val EVENT_VALUES = "eventValues"
 }

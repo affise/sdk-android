@@ -14,8 +14,10 @@ import com.affise.attribution.events.predefined.GDPREvent
 import com.affise.attribution.init.AffiseInitProperties
 import com.affise.attribution.internal.InternalEvent
 import com.affise.attribution.modules.AffiseModuleApi
+import com.affise.attribution.modules.AffiseModuleApiWrapper
 import com.affise.attribution.modules.AffiseModules
 import com.affise.attribution.modules.OnKeyValueCallback
+import com.affise.attribution.modules.appsflyer.AffiseAppsFlyerApi
 import com.affise.attribution.parameters.providers.AffiseDeviceIdProvider
 import com.affise.attribution.parameters.ProviderType
 import com.affise.attribution.parameters.providers.PushTokenProvider
@@ -406,6 +408,13 @@ object Affise {
 
         internal fun <API:AffiseModuleApi> api(module: AffiseModules): API? {
             return api?.moduleManager?.api(module)
+        }
+
+        object AppsFlyer: AffiseModuleApiWrapper<AffiseAppsFlyerApi>(AffiseModules.AppsFlyer) {
+            @JvmStatic
+            fun logEvent(eventName: String, eventValues: Map<String, Any>) {
+                moduleApi?.logEvent(eventName, eventValues)
+            }
         }
     }
 

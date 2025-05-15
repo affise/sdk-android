@@ -7,6 +7,7 @@
 | `com.affise:attribution`         | [![attribution](https://img.shields.io/maven-central/v/com.affise/attribution?label=latest)](https://mvnrepository.com/artifact/com.affise/attribution)                         |
 | `com.affise:module-advertising`  | [![module-advertising](https://img.shields.io/maven-central/v/com.affise/module-advertising?label=latest)](https://mvnrepository.com/artifact/com.affise/module-advertising)    |
 | `com.affise:module-androidid`    | [![module-androidid](https://img.shields.io/maven-central/v/com.affise/module-androidid?label=latest)](https://mvnrepository.com/artifact/com.affise/module-androidid)          |
+| `com.affise:module-appsflyer`    | [![module-appsflyer](https://img.shields.io/maven-central/v/com.affise/module-appsflyer?label=latest)](https://mvnrepository.com/artifact/com.affise/module-appsflyer)          |
 | `com.affise:module-link`         | [![module-link](https://img.shields.io/maven-central/v/com.affise/module-link?label=latest)](https://mvnrepository.com/artifact/com.affise/module-link)                         |
 | `com.affise:module-network`      | [![module-network](https://img.shields.io/maven-central/v/com.affise/module-network?label=latest)](https://mvnrepository.com/artifact/com.affise/module-network)                |
 | `com.affise:module-phone`        | [![module-phone](https://img.shields.io/maven-central/v/com.affise/module-phone?label=latest)](https://mvnrepository.com/artifact/com.affise/module-phone)                      |
@@ -27,6 +28,7 @@
       - [Domain](#domain)
     - [Modules](#modules)
       - [Module Advertising](#module-advertising)
+      - [Module AppsFlyer](#module-appsflyer)
       - [Module Huawei](#module-huawei)
       - [Module Link](#module-link)
       - [Module Meta](#module-meta)
@@ -108,7 +110,7 @@ referrer.
 For kotlin build script build.gradle.kts use:
 
 ```kotlin
-val affise_version = "1.6.57"
+val affise_version = "1.6.58"
 
 dependencies {
   // Add Affise library 
@@ -121,6 +123,7 @@ dependencies {
   implementation("com.affise:module-phone:$affise_version")
   implementation("com.affise:module-status:$affise_version")
   implementation("com.affise:module-subscription:$affise_version")
+  // implementation("com.affise:module-appsflyer:$affise_version")
   // implementation("com.affise:module-rustore:$affise_version")
   // implementation("com.affise:module-huawei:$affise_version")
   // Add install referrer
@@ -131,7 +134,7 @@ dependencies {
 For groovy build script build.gradle use:
 
 ```groovy
-final affise_version = '1.6.57'
+final affise_version = '1.6.58'
 
 dependencies {
     // Add Affise library 
@@ -144,6 +147,7 @@ dependencies {
     implementation "com.affise:module-phone:$affise_version"
     implementation "com.affise:module-status:$affise_version"
     implementation "com.affise:module-subscription:$affise_version"
+    // implementation "com.affise:module-appsflyer:$affise_version"
     // implementation "com.affise:module-rustore:$affise_version"
     // implementation "com.affise:module-huawei:$affise_version"
     // Add install referrer
@@ -153,9 +157,9 @@ dependencies {
 
 ### Integrate as file dependency
 
-Download latest Affise SDK (`attribution-1.6.57.aar`)
+Download latest Affise SDK (`attribution-1.6.58.aar`)
 from [releases page](https://github.com/affise/sdk-android/releases) and place this binary to gradle application
-module lib directory `app/libs/attribution-1.6.57.aar`
+module lib directory `app/libs/attribution-1.6.58.aar`
 
 Add library as gradle file dependency to application module build script
 Add install referrer library
@@ -163,12 +167,12 @@ Add install referrer library
 For kotlin build script build.gradle.kts use:
 
 ```kotlin
-val affise_version = "1.6.57"
+val affise_version = "1.6.58"
 
 dependencies {
     // ...
     // Add Affise library 
-    implementation(files("libs/attribution-1.6.57.aar"))
+    implementation(files("libs/attribution-1.6.58.aar"))
     // Add Affise modules 
     implementation(files("libs/module-advertising-$affise_version.aar"))
     implementation(files("libs/module-androidid-$affise_version.aar"))
@@ -177,6 +181,7 @@ dependencies {
     implementation(files("libs/module-phone-$affise_version.aar"))
     implementation(files("libs/module-status-$affise_version.aar"))
     implementation(files("libs/module-subscription-$affise_version.aar"))
+    // implementation(files("libs/module-appsflyer-$affise_version.aar"))
     // implementation(files("libs/module-rustore-$affise_version.aar"))
     // implementation(files("libs/module-huawei-$affise_version.aar"))
     // Add install referrer
@@ -187,7 +192,7 @@ dependencies {
 For groovy build script build.gradle use:
 
 ```groovy
-final affise_version = '1.6.57'
+final affise_version = '1.6.58'
 
 dependencies {
   // ...  
@@ -201,6 +206,7 @@ dependencies {
   implementation files("libs/module-phone-${affise_version}.aar")
   implementation files("libs/module-status-${affise_version}.aar")
   implementation files("libs/module-subscription-${affise_version}.aar")
+  // implementation files("libs/module-appsflyer-${affise_version}.aar")
   // implementation files("libs/module-rustore-${affise_version}.aar")
   // implementation files("libs/module-huawei-${affise_version}.aar")
   // Add install referrer
@@ -309,6 +315,7 @@ class App : Application() {
 |:---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------:|
 | `Advertising`  | [![module-advertising](https://img.shields.io/maven-central/v/com.affise/module-advertising?label=latest)](https://mvnrepository.com/artifact/com.affise/module-advertising)    | `Auto` |
 | `AndroidId`    | [![module-androidid](https://img.shields.io/maven-central/v/com.affise/module-androidid?label=latest)](https://mvnrepository.com/artifact/com.affise/module-androidid)          | `Auto` |
+| `AppsFlyer`    | [![module-appsflyer ](https://img.shields.io/maven-central/v/com.affise/module-appsflyer?label=latest)](https://mvnrepository.com/artifact/com.affise/module-appsflyer)         | `Auto` |
 | `Link`         | [![module-link](https://img.shields.io/maven-central/v/com.affise/module-link?label=latest)](https://mvnrepository.com/artifact/com.affise/module-link)                         | `Auto` |
 | `Network`      | [![module-network](https://img.shields.io/maven-central/v/com.affise/module-network?label=latest)](https://mvnrepository.com/artifact/com.affise/module-network)                | `Auto` |
 | `Phone`        | [![module-phone](https://img.shields.io/maven-central/v/com.affise/module-phone?label=latest)](https://mvnrepository.com/artifact/com.affise/module-phone)                      | `Auto` |
@@ -316,7 +323,7 @@ class App : Application() {
 | `Subscription` | [![module-subscription](https://img.shields.io/maven-central/v/com.affise/module-subscription?label=latest)](https://mvnrepository.com/artifact/com.affise/module-subscription) | `Auto` |
 | `RuStore`      | [![module-rustore](https://img.shields.io/maven-central/v/com.affise/module-rustore?label=latest)](https://mvnrepository.com/artifact/com.affise/module-rustore)                | `Auto` |
 | `Huawei`       | [![module-huawei](https://img.shields.io/maven-central/v/com.affise/module-huawei?label=latest)](https://mvnrepository.com/artifact/com.affise/module-huawei)                   | `Auto` |
-| `Meta`         | [![module-meta](https://img.shields.io/maven-central/v/com.affise/module-meta?label=latest)](https://mvnrepository.com/artifact/com.affise/module-meta)                     | `Auto` |
+| `Meta`         | [![module-meta](https://img.shields.io/maven-central/v/com.affise/module-meta?label=latest)](https://mvnrepository.com/artifact/com.affise/module-meta)                         | `Auto` |
 
 If module start type is `Manual`, then call:
 
@@ -344,6 +351,25 @@ Affise.Module.getModulesInstalled()
 
 ```kotlin
 val gaid = Affise.getProviders()[ProviderType.GAID_ADID] as? String
+```
+
+#### Module AppsFlyer
+
+Send AppsFlyer event data to Affise 
+
+```kotlin
+//AppsFlyer event data
+val eventValues: Map<String, Any> = mapOf(
+    AFInAppEventParameterName.PRICE to 1234.56,
+    AFInAppEventParameterName.CONTENT_ID to "1234567",
+)
+// Send AppsFlyer event
+AppsFlyerLib.getInstance().logEvent(
+    applicationContext,
+    AFInAppEventType.ADD_TO_WISH_LIST, eventValues
+)
+// Send AppsFlyer data to Affise
+Affise.Module.AppsFlyer.logEvent(AFInAppEventType.ADD_TO_WISH_LIST, eventValues)
 ```
 
 #### Module Huawei

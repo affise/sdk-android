@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.58] - 2025-05-15
+
+### Added
+
+- New module `AppsFlyer`.
+- Api `Affise.Module.AppsFlyer.logEvent`.
+
 ## [1.6.57] - 2025-05-02
 
 ### Added
@@ -235,6 +242,7 @@
 - Improve `AffiseModuleManager`
 - Update gradle for demo app.
 
+[1.6.58]: https://github.com/affise/sdk-android/compare/v1.6.57...v1.6.58
 [1.6.57]: https://github.com/affise/sdk-android/compare/v1.6.56...v1.6.57
 [1.6.56]: https://github.com/affise/sdk-android/compare/v1.6.55...v1.6.56
 [1.6.55]: https://github.com/affise/sdk-android/compare/v1.6.54...v1.6.55

@@ -62,7 +62,7 @@ class AffiseModuleManager(
 
     private fun initAffiseModules(callback: (AffiseModule) -> Unit) {
         AffiseModules.values().forEach { name ->
-            getClassInstance(name.module)?.let { module ->
+            getClassInstance(name.className)?.let { module ->
                 if (module.version == BuildConfig.AFFISE_VERSION) {
                     modules[name] = module
                     callback(module)

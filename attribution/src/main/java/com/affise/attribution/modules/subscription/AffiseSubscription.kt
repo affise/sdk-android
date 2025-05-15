@@ -2,24 +2,17 @@ package com.affise.attribution.modules.subscription
 
 import android.app.Activity
 import com.affise.attribution.Affise
+import com.affise.attribution.modules.AffiseModuleApiWrapper
 import com.affise.attribution.modules.AffiseModules
 
 
-object AffiseSubscription {
-
-    internal val api: AffiseSubscriptionApi?
-        get() = module ?: Affise.Module.api<AffiseSubscriptionApi>(AffiseModules.Subscription).also {
-            module = it
-        }
-
-    private var module: AffiseSubscriptionApi? = null
-
+object AffiseSubscription : AffiseModuleApiWrapper<AffiseSubscriptionApi>(AffiseModules.Subscription) {
     /**
      * Get Subscription Module status
      * (billingclient wrapper)
      */
     @JvmStatic
-    fun hasSubscriptionModule(): Boolean = api != null
+    fun hasSubscriptionModule(): Boolean = moduleApi != null
 
     /**
      * Subscription Module fetch products for purchase from [productsIds]
@@ -30,7 +23,7 @@ object AffiseSubscription {
         productsIds: List<String>,
         callback: AffiseResultCallback<AffiseProductsResult>,
     ) {
-        api
+        moduleApi
             ?.fetchProducts(productsIds, callback)
             ?: callback.handle(AffiseResult.Error(AffiseSubscriptionError.NotInitialized()))
     }
@@ -46,7 +39,7 @@ object AffiseSubscription {
         type: AffiseProductType?,
         callback: AffiseResultCallback<AffisePurchasedInfo>,
     ) {
-        api
+        moduleApi
             ?.purchase(activity, product, type, callback)
             ?: callback.handle(AffiseResult.Error(AffiseSubscriptionError.NotInitialized()))
     }
@@ -63,7 +56,7 @@ object AffiseSubscription {
         type: AffiseProductType?,
         callback: AffiseResultCallback<AffisePurchasedInfo>,
     ) {
-        api
+        moduleApi
             ?.purchase(activity, productId, offerToken, type, callback)
             ?: callback.handle(AffiseResult.Error(AffiseSubscriptionError.NotInitialized()))
     }

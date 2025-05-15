@@ -14,6 +14,9 @@ import com.affise.attribution.internal.ext.opt
 import com.affise.attribution.internal.ext.toListOfMap
 import com.affise.attribution.internal.platform.InternalCrossPlatform
 import com.affise.attribution.internal.data.DataMapper
+import com.affise.attribution.internal.data.DataName
+import com.affise.attribution.internal.ext.getMap
+import com.affise.attribution.internal.ext.getString
 import com.affise.attribution.internal.utils.jsonToMap
 import com.affise.attribution.internal.utils.toJSONObject
 import com.affise.attribution.modules.link.AffiseLink
@@ -175,9 +178,15 @@ class AffiseApiWrapper(
             AffiseApiMethod.GET_STATUS_CALLBACK ->
                 callGetStatusCallback(api, map, result)
 
+            // AppsFlyer Module
+            AffiseApiMethod.MODULE_APPSFLYER_LOG_EVENT ->
+                callModuleAppsFlyerLogEvent(api, map, result)
+
+            // Link Module
             AffiseApiMethod.MODULE_LINK_LINK_RESOLVE_CALLBACK ->
                 callModuleLinkLinkResolveCallback(api, map, result)
 
+            // Subscription Module
             AffiseApiMethod.MODULE_SUBS_FETCH_PRODUCTS_CALLBACK ->
                 callModuleSubsFetchProductsCallback(api, map, result)
 
@@ -288,17 +297,17 @@ class AffiseApiWrapper(
         event.sendNow({
             val dataMap = mapOf<String, Any?>(
                 UUID to uuid,
-                TAG to "success",
+                TAG to DataName.SUCCESS,
             )
             callback?.invoke(api, dataMap)
         }) { response ->
             val dataMap = mapOf<String, Any?>(
                 UUID to uuid,
-                TAG to "failed",
+                TAG to DataName.FAILED,
                 api.method to mapOf(
-                    "code" to response.code,
-                    "message" to response.message,
-                    "body" to response.body,
+                    DataName.CODE to response.code,
+                    DataName.MESSAGE to response.message,
+                    DataName.BODY to response.body,
                 ),
             )
             callback?.invoke(api, dataMap)
@@ -622,8 +631,8 @@ class AffiseApiWrapper(
         Affise.Debug.network { request, response ->
             val data = mapOf<String, Any?>(
                 api.method to mapOf(
-                    "request" to DataMapper.fromRequest(request),
-                    "response" to DataMapper.fromResponse(response),
+                    DataName.REQUEST to DataMapper.fromRequest(request),
+                    DataName.RESPONSE to DataMapper.fromResponse(response),
                 ),
             )
             callback?.invoke(api, data)
@@ -693,6 +702,32 @@ class AffiseApiWrapper(
         }
     }
 
+    // AppsFlyer Module
+    private fun callModuleAppsFlyerLogEvent(
+        api: AffiseApiMethod,
+        map: Map<String, *>,
+        result: InternalResult
+    ) {
+        val data = map.opt<Map<*, *>>(api)
+
+        if (data == null) {
+            result.error("api [${api.method}]: no valid data")
+            return
+        }
+
+        val eventName = data.getString(DataName.EVENT_NAME)
+        @Suppress("UNCHECKED_CAST")
+        val eventValues: Map<String, Any>? = data.getMap(DataName.EVENT_VALUES) as? Map<String, Any>
+
+        if (eventName == null) {
+            result.error("api [${api.method}]: eventName not set")
+            return
+        }
+
+        Affise.Module.AppsFlyer.logEvent(eventName, eventValues ?: emptyMap())
+        result.success(null)
+    }
+
     // Link Module
     private fun callModuleLinkLinkResolveCallback(
         api: AffiseApiMethod,
@@ -754,13 +789,13 @@ class AffiseApiWrapper(
 
         val apiData = map.opt<Map<String, Any?>>(api)
 
-        val product = DataMapper.toAffiseProduct(apiData?.opt<Map<String, *>>("product"))
+        val product = DataMapper.toAffiseProduct(apiData?.opt<Map<String, *>>(DataName.PRODUCT))
         if (product == null) {
             result.error("api [${api.method}]: product not set")
             return
         }
 
-        val type = DataMapper.toAffiseProductType(apiData?.opt<String>("type"))
+        val type = DataMapper.toAffiseProductType(apiData?.opt<String>(DataName.TYPE))
 
         AffiseSubscription.purchase(
             activity = activity!!,
