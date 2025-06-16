@@ -110,7 +110,7 @@ referrer.
 For kotlin build script build.gradle.kts use:
 
 ```kotlin
-val affise_version = "1.6.58"
+val affise_version = "1.6.59"
 
 dependencies {
   // Add Affise library 
@@ -134,7 +134,7 @@ dependencies {
 For groovy build script build.gradle use:
 
 ```groovy
-final affise_version = '1.6.58'
+final affise_version = '1.6.59'
 
 dependencies {
     // Add Affise library 
@@ -157,9 +157,9 @@ dependencies {
 
 ### Integrate as file dependency
 
-Download latest Affise SDK (`attribution-1.6.58.aar`)
+Download latest Affise SDK (`attribution-1.6.59.aar`)
 from [releases page](https://github.com/affise/sdk-android/releases) and place this binary to gradle application
-module lib directory `app/libs/attribution-1.6.58.aar`
+module lib directory `app/libs/attribution-1.6.59.aar`
 
 Add library as gradle file dependency to application module build script
 Add install referrer library
@@ -167,12 +167,12 @@ Add install referrer library
 For kotlin build script build.gradle.kts use:
 
 ```kotlin
-val affise_version = "1.6.58"
+val affise_version = "1.6.59"
 
 dependencies {
     // ...
     // Add Affise library 
-    implementation(files("libs/attribution-1.6.58.aar"))
+    implementation(files("libs/attribution-1.6.59.aar"))
     // Add Affise modules 
     implementation(files("libs/module-advertising-$affise_version.aar"))
     implementation(files("libs/module-androidid-$affise_version.aar"))
@@ -192,7 +192,7 @@ dependencies {
 For groovy build script build.gradle use:
 
 ```groovy
-final affise_version = '1.6.58'
+final affise_version = '1.6.59'
 
 dependencies {
   // ...  
@@ -372,6 +372,12 @@ AppsFlyerLib.getInstance().logEvent(
 Affise.Module.AppsFlyer.logEvent(AFInAppEventType.ADD_TO_WISH_LIST, eventValues)
 ```
 
+Is Module present:
+
+```kotlin
+Affise.Module.AppsFlyer.hasModule()
+```
+
 #### Module Huawei
 
 > **Warning**
@@ -395,7 +401,7 @@ Return last url in chan of redirection
 🟥Support MAX 10 redirections🟥
 
 ```kotlin
-Affise.Module.linkResolve("SITE_WITH_REDIRECTION") { redirectUrl ->
+Affise.Module.Link.resolve("SITE_WITH_REDIRECTION") { redirectUrl ->
     // handle redirect url
 }
 ```
@@ -403,9 +409,15 @@ Affise.Module.linkResolve("SITE_WITH_REDIRECTION") { redirectUrl ->
 For java use:
 
 ```java
-AffiseLink.linkResolve("SITE_WITH_REDIRECTION", redirectUrl -> {
+Affise.Module.Link.resolve("SITE_WITH_REDIRECTION", redirectUrl -> {
     // handle redirect url  
 });
+```
+
+Is Module present:
+
+```kotlin
+Affise.Module.Link.hasModule()
 ```
 
 #### Module Meta
@@ -457,7 +469,7 @@ Get products by ids:
 ```kotlin
 val ids = ["exampple.product.id_1", "exampple.product.id_2"]
 
-Affise.Module.fetchProducts(ids) { result ->
+Affise.Module.Subscription.fetchProducts(ids) { result ->
     when (result) {
         is AffiseResult.Success -> {
           val products: List<AffiseProduct> = result.value.products
@@ -474,7 +486,7 @@ Purchase product:
 
 ```kotlin
 // Specify AffiseProductType for correct affise event
-Affise.Module.purchase(activity, product, AffiseProductType.CONSUMABLE) { result ->
+Affise.Module.Subscription.purchase(activity, product, AffiseProductType.CONSUMABLE) { result ->
     when (result) {
         is AffiseResult.Success -> {
           val purchasedInfo: AffisePurchasedInfo  = result.value
@@ -484,6 +496,12 @@ Affise.Module.purchase(activity, product, AffiseProductType.CONSUMABLE) { result
         }
     }
 }
+```
+
+Is Module present:
+
+```kotlin
+Affise.Module.Subscription.hasModule()
 ```
 
 ##### AffiseProductType

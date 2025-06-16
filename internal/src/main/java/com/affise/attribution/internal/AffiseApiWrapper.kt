@@ -19,8 +19,6 @@ import com.affise.attribution.internal.ext.getMap
 import com.affise.attribution.internal.ext.getString
 import com.affise.attribution.internal.utils.jsonToMap
 import com.affise.attribution.internal.utils.toJSONObject
-import com.affise.attribution.modules.link.AffiseLink
-import com.affise.attribution.modules.subscription.AffiseSubscription
 import com.affise.attribution.modules.toAffiseModules
 import com.affise.attribution.referrer.toReferrerKey
 import org.json.JSONObject
@@ -739,7 +737,7 @@ class AffiseApiWrapper(
         if (url == null) {
             result.error("api [${api.method}]: value not set")
         } else {
-            AffiseLink.linkResolve(url) {
+            Affise.Module.Link.resolve(url) {
                 val data = mapOf<String, Any?>(
                     UUID to uuid,
                     api.method to it,
@@ -763,7 +761,7 @@ class AffiseApiWrapper(
             return
         }
 
-        AffiseSubscription.fetchProducts(ids) {
+        Affise.Module.Subscription.fetchProducts(ids) {
             val data = mapOf<String, Any?>(
                 UUID to uuid,
                 api.method to DataMapper.fromFetchProductsResult(it),
@@ -797,7 +795,7 @@ class AffiseApiWrapper(
 
         val type = DataMapper.toAffiseProductType(apiData?.opt<String>(DataName.TYPE))
 
-        AffiseSubscription.purchase(
+        Affise.Module.Subscription.purchase(
             activity = activity!!,
             product = product,
             type = type

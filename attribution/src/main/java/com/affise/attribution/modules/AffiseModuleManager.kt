@@ -60,6 +60,8 @@ class AffiseModuleManager(
 
     fun getModule(module: AffiseModules): AffiseModule? = modules[module]
 
+    fun hasModule(module: AffiseModules): Boolean = getModule(module) != null
+
     private fun initAffiseModules(callback: (AffiseModule) -> Unit) {
         AffiseModules.values().forEach { name ->
             getClassInstance(name.className)?.let { module ->

@@ -37,9 +37,6 @@ import com.affise.attribution.modules.subscription.AffiseProduct
 import com.affise.attribution.modules.subscription.AffiseProductsResult
 import com.affise.attribution.modules.subscription.AffisePurchasedInfo
 import com.affise.attribution.modules.subscription.AffiseResult
-import com.affise.attribution.modules.subscription.fetchProducts
-import com.affise.attribution.modules.subscription.hasSubscriptionModule
-import com.affise.attribution.modules.subscription.purchase
 
 @Preview(
     showBackground = true,
@@ -67,7 +64,7 @@ private val ids = listOf(
 var fetchProductsResult = mutableStateOf<AffiseProductsResult?>(null)
 
 fun fetchProducts(onError: ((String?, List<String>?) -> Unit)? = null) {
-    Affise.Module.fetchProducts(ids) { result ->
+    Affise.Module.Subscription.fetchProducts(ids) { result ->
         when (result) {
             is AffiseResult.Success -> {
                 fetchProductsResult.value = result.value
@@ -90,7 +87,7 @@ fun purchase(
     onResult: (AffisePurchasedInfo?, String?) -> Unit,
 ) {
     activity?.let {
-        Affise.Module.purchase(it, product) { result ->
+        Affise.Module.Subscription.purchase(it, product, null) { result ->
             when (result) {
                 is AffiseResult.Success -> onResult(result.value, null)
                 is AffiseResult.Error -> onResult(null, result.error.message)
@@ -99,7 +96,7 @@ fun purchase(
     } ?: onResult(null, "no activity")
 }
 
-private val hasSubscriptionModule = mutableStateOf(Affise.Module.hasSubscriptionModule())
+private val hasSubscriptionModule = mutableStateOf(Affise.Module.Subscription.hasModule())
 
 @Composable
 fun StoreScreen() {

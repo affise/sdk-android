@@ -5,7 +5,7 @@ internal object DataName {
     const val REQUEST = "request"
     const val RESPONSE = "response"
 
-    const val FAILED = "failed";
+    const val FAILED = "failed"
     const val SUCCESS = "success"
     const val ERROR = "error"
 

@@ -3,12 +3,11 @@ package com.affise.attribution.modules.appsflyer
 import com.affise.attribution.modules.AffiseModuleApiWrapper
 import com.affise.attribution.modules.AffiseModules
 
-object AffiseAppsFlyer : AffiseModuleApiWrapper<AffiseAppsFlyerApi>(AffiseModules.AppsFlyer) {
+internal class AffiseAppsFlyer : AffiseModuleApiWrapper<AffiseAppsFlyerApi>(AffiseModules.AppsFlyer), AffiseModuleAppsFlyerApi {
     /**
      * Module AppsFlyer log event
      */
-    @JvmStatic
-    fun logEvent(eventName: String, eventValues: Map<String, Any>) {
+    override fun logEvent(eventName: String, eventValues: Map<String, Any>) {
         moduleApi?.logEvent(eventName, eventValues)
     }
 }

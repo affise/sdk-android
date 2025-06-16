@@ -6,6 +6,7 @@ import com.affise.attribution.network.HttpClient
 import com.affise.attribution.network.HttpResponse
 import com.affise.attribution.utils.isRedirect
 import java.net.URL
+import javax.net.ssl.HttpsURLConnection
 
 internal class LinkResolveUseCaseImpl(
     private val httpClient: HttpClient,
@@ -39,14 +40,21 @@ internal class LinkResolveUseCaseImpl(
     }
 
     private fun createRequest(url: String): HttpResponse {
-        //Create request
-        return httpClient.executeRequest(
-            httpsUrl = URL(url),
-            method = HttpClient.Method.GET,
-            data = "",
-            headers = emptyMap(),
-            redirect = false
-        )
+        try {
+            //Create request
+            return httpClient.executeRequest(
+                httpsUrl = URL(url),
+                method = HttpClient.Method.GET,
+                data = "",
+                headers = emptyMap(),
+                redirect = false
+            )
+        } catch (e: Exception) {
+            return HttpResponse(
+                code = HttpsURLConnection.HTTP_BAD_REQUEST,
+                message = e.localizedMessage ?: e.message ?: e.toString()
+            )
+        }
     }
 
     companion object {

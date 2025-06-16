@@ -3,8 +3,8 @@ package com.affise.attribution
 import android.app.Application
 import android.util.Log
 import android.webkit.WebView
-import com.affise.attribution.debug.network.DebugOnNetworkCallback
-import com.affise.attribution.debug.validate.DebugOnValidateCallback
+import com.affise.attribution.debug.AffiseDebug
+import com.affise.attribution.debug.AffiseDebugApi
 import com.affise.attribution.deeplink.OnDeeplinkCallback
 import com.affise.attribution.events.Event
 import com.affise.attribution.events.OnSendFailedCallback
@@ -13,11 +13,9 @@ import com.affise.attribution.referrer.ReferrerKey
 import com.affise.attribution.events.predefined.GDPREvent
 import com.affise.attribution.init.AffiseInitProperties
 import com.affise.attribution.internal.InternalEvent
-import com.affise.attribution.modules.AffiseModuleApi
-import com.affise.attribution.modules.AffiseModuleApiWrapper
 import com.affise.attribution.modules.AffiseModules
 import com.affise.attribution.modules.OnKeyValueCallback
-import com.affise.attribution.modules.appsflyer.AffiseAppsFlyerApi
+import com.affise.attribution.modules.attribution.AffiseAttributionModule
 import com.affise.attribution.parameters.providers.AffiseDeviceIdProvider
 import com.affise.attribution.parameters.ProviderType
 import com.affise.attribution.parameters.providers.PushTokenProvider
@@ -33,7 +31,8 @@ object Affise {
     /**
      * Api to communication with Affise
      */
-    private var api: AffiseApi? = null
+    internal var api: AffiseApi? = null
+        private set
 
     /**
      * Affise SDK settings builder
@@ -371,8 +370,6 @@ object Affise {
         return api?.firstAppOpenUseCase?.isFirstRun() ?: true
     }
 
-    internal fun getApi(): AffiseApi? = api
-
     /**
      * Send internal event
      */
@@ -381,71 +378,9 @@ object Affise {
         api?.storeInternalEventUseCase?.storeInternalEvent(event)
     }
 
-    object Module {
-        /**
-         * Get module status
-         */
-        @JvmStatic
-        fun getStatus(module: AffiseModules, onComplete: OnKeyValueCallback) {
-            api?.moduleManager?.status(module, onComplete)
-        }
+    @JvmField
+    val Module: AffiseAttributionModule = AffiseAttributionModule()
 
-        /**
-         * Manual module start
-         */
-        @JvmStatic
-        fun moduleStart(module: AffiseModules): Boolean {
-            return api?.moduleManager?.manualStart(module) ?: false
-        }
-
-        /**
-         * Get installed modules
-         */
-        @JvmStatic
-        fun getModulesInstalled(): List<AffiseModules> {
-            return api?.moduleManager?.getModules() ?: emptyList()
-        }
-
-        internal fun <API:AffiseModuleApi> api(module: AffiseModules): API? {
-            return api?.moduleManager?.api(module)
-        }
-
-        object AppsFlyer: AffiseModuleApiWrapper<AffiseAppsFlyerApi>(AffiseModules.AppsFlyer) {
-            @JvmStatic
-            fun logEvent(eventName: String, eventValues: Map<String, Any>) {
-                moduleApi?.logEvent(eventName, eventValues)
-            }
-        }
-    }
-
-
-    object Debug {
-        /**
-         * Won't work on Production
-         *
-         * Validate credentials
-         */
-        @JvmStatic
-        fun validate(callback: DebugOnValidateCallback) {
-            api?.debugValidateUseCase?.validate(callback)
-        }
-
-        /**
-         * Won't work on Production
-         *
-         * Show request/response data
-         */
-        @JvmStatic
-        fun network(callback: DebugOnNetworkCallback) {
-            api?.debugNetworkUseCase?.onRequest(callback)
-        }
-
-        /**
-         * Show version
-         */
-        @JvmStatic
-        fun version(): String {
-            return BuildConfig.AFFISE_VERSION
-        }
-    }
+    @JvmField
+    val Debug: AffiseDebugApi = AffiseDebug()
 }

@@ -12,6 +12,7 @@ import com.affise.attribution.network.CloudRepository
 import com.affise.attribution.network.HttpResponse
 import com.affise.attribution.parameters.factory.PostBackModelFactory
 import com.affise.attribution.utils.isHttpValid
+import javax.net.ssl.HttpsURLConnection
 
 
 internal class ImmediateSendToServerUseCaseImpl(
@@ -62,7 +63,7 @@ internal class ImmediateSendToServerUseCaseImpl(
             logsManager.addNetworkError(exception)
 
             return HttpResponse(
-                code = 0,
+                code = HttpsURLConnection.HTTP_BAD_REQUEST,
                 message = exception.localizedMessage ?: exception.message
                 ?: exception.toString()
             )

@@ -32,7 +32,7 @@ internal class LinkModule : AffiseModule(), AffiseLinkApi {
         )
     }
 
-    override fun linkResolve(url: String, callback: AffiseLinkCallback) {
+    override fun resolve(url: String, callback: AffiseLinkCallback) {
         useCase?.linkResolve(url, callback) ?: callback.handle("")
     }
 }

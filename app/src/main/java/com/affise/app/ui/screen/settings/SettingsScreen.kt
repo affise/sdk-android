@@ -6,9 +6,15 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -152,11 +158,23 @@ fun SettingsScreen(modifier: Modifier = Modifier) {
             AffiseButton(text = stringResource(R.string.crash_application)) {
                 Affise.crashApplication()
             }
+
+            Button(
+                modifier = modifier
+                    .fillMaxWidth(),
+                shape = RoundedCornerShape(10.dp),
+                colors = ButtonDefaults.buttonColors(
+                    contentColor = MaterialTheme.colorScheme.secondary,
+                    containerColor = MaterialTheme.colorScheme.background,
+                ),
+                onClick = {
+                },
+            ) {
+                Text("version v${BuildConfig.AFFISE_VERSION}")
+            }
         }
     }
-
 }
-
 
 @Preview(showBackground = true, name = "Settings Screen Preview")
 @Composable
