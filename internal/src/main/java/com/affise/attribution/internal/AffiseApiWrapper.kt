@@ -21,6 +21,7 @@ import com.affise.attribution.internal.utils.jsonToMap
 import com.affise.attribution.internal.utils.toJSONObject
 import com.affise.attribution.modules.toAffiseModules
 import com.affise.attribution.referrer.toReferrerKey
+import com.affise.attribution.settings.PushTokenService
 import org.json.JSONObject
 
 
@@ -319,11 +320,16 @@ class AffiseApiWrapper(
         map: Map<String, *>,
         result: InternalResult
     ) {
-        val pushToken = map.opt<String>(api)
+        val apiData = map.opt<Map<String, Any?>>(api)
+
+        val pushToken = apiData?.opt<String>(DataName.PUSH_TOKEN)
+        val pushTokenService = PushTokenService.from(apiData?.opt<String>(DataName.PUSH_TOKEN_SERVICE))
+            ?: PushTokenService.FIREBASE
+
         if (pushToken.isNullOrBlank()) {
-            result.error("api [${api.method}]: value not set")
+            result.error("api [${api.method}]: push token value not set")
         } else {
-            Affise.addPushToken(pushToken)
+            Affise.addPushToken(pushToken, pushTokenService)
             result.success(null)
         }
     }

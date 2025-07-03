@@ -46,4 +46,6 @@ internal object DataName {
 
     const val EVENT_NAME = "eventName"
     const val EVENT_VALUES = "eventValues"
+    const val PUSH_TOKEN = "push_token"
+    const val PUSH_TOKEN_SERVICE = "push_token_service"
 }

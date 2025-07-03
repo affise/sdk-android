@@ -6,6 +6,10 @@
 
 - Provider `PUSHTOKEN_SERVICE`
 
+### Fixed
+
+- Fix `CI/CD` `sonatype` repository
+
 ## [1.6.59] - 2025-06-16
 
 ### Added
