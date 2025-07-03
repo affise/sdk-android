@@ -70,7 +70,8 @@ internal class AffiseComponent(
             isDeeplinkClickRepository,
             deviceUseCase,
             remarketingUseCase,
-            storeUseCase
+            storeUseCase,
+            pushTokenUseCase,
         ).create()
     }
 
@@ -264,6 +265,10 @@ internal class AffiseComponent(
             eventToSerializedEventConverter,
             logsManager,
         )
+    }
+
+    override val pushTokenUseCase: PushTokenUseCase by lazy {
+        PushTokenUseCaseImpl(sharedPreferences)
     }
 
     /**

@@ -1,18 +1,24 @@
 # Changelog
 
+## [1.6.60] - 2025-07-03
+
+### Added
+
+- Provider `PUSHTOKEN_SERVICE`
+
 ## [1.6.59] - 2025-06-16
 
 ### Added
 
-- Api `Affise.Module.AppsFlyer.hasModule`.
-- Api `Affise.Module.Link.hasModule`.
-- Api `Affise.Module.Subscription.hasModule`.
+- Api `Affise.Module.AppsFlyer.hasModule`
+- Api `Affise.Module.Link.hasModule`
+- Api `Affise.Module.Subscription.hasModule`
 
 ### Changed
 
-- Api `Affise.Module.linkResolve` moved to `Affise.Module.Link.resolve`.
-- Api `Affise.Module.fetchProducts` moved to `Affise.Module.Subscription.fetchProducts`.
-- Api `Affise.Module.purchase` moved to `Affise.Module.Subscription.purchase`.
+- Api `Affise.Module.linkResolve` moved to `Affise.Module.Link.resolve`
+- Api `Affise.Module.fetchProducts` moved to `Affise.Module.Subscription.fetchProducts`
+- Api `Affise.Module.purchase` moved to `Affise.Module.Subscription.purchase`
 
 ## [1.6.58] - 2025-05-15
 
@@ -256,6 +262,7 @@
 - Improve `AffiseModuleManager`
 - Update gradle for demo app.
 
+[1.6.60]: https://github.com/affise/sdk-android/compare/v1.6.59...v1.6.60
 [1.6.59]: https://github.com/affise/sdk-android/compare/v1.6.58...v1.6.59
 [1.6.58]: https://github.com/affise/sdk-android/compare/v1.6.57...v1.6.58
 [1.6.57]: https://github.com/affise/sdk-android/compare/v1.6.56...v1.6.57

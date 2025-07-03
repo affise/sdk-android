@@ -18,10 +18,10 @@ import com.affise.attribution.modules.OnKeyValueCallback
 import com.affise.attribution.modules.attribution.AffiseAttributionModule
 import com.affise.attribution.parameters.providers.AffiseDeviceIdProvider
 import com.affise.attribution.parameters.ProviderType
-import com.affise.attribution.parameters.providers.PushTokenProvider
 import com.affise.attribution.parameters.providers.RandomUserIdProvider
 import com.affise.attribution.referrer.OnReferrerCallback
 import com.affise.attribution.settings.AffiseSettings
+import com.affise.attribution.settings.PushTokenService
 
 /**
  * Entry point to initialise Affise Attribution library
@@ -100,11 +100,8 @@ object Affise {
      * Add [pushToken]
      */
     @JvmStatic
-    fun addPushToken(pushToken: String) {
-        api?.sharedPreferences?.edit()?.let {
-            it.putString(PushTokenProvider.KEY_APP_PUSHTOKEN, pushToken)
-            it.commit()
-        }
+    fun addPushToken(pushToken: String, service: PushTokenService = PushTokenService.FIREBASE) {
+        api?.pushTokenUseCase?.addPushToken(pushToken, service)
     }
 
     /**

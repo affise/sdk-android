@@ -19,6 +19,7 @@ import com.affise.attribution.usecase.EraseUserDataUseCaseImpl
 import com.affise.attribution.usecase.FirstAppOpenUseCase
 import com.affise.attribution.usecase.ImmediateSendToServerUseCase
 import com.affise.attribution.usecase.PreferencesUseCaseImpl
+import com.affise.attribution.usecase.PushTokenUseCase
 import com.affise.attribution.usecase.SendGDPREventUseCaseImpl
 import com.affise.attribution.usecase.StoreInstallReferrerUseCase
 import com.affise.attribution.webBridge.WebBridgeManager
@@ -51,6 +52,7 @@ internal interface AffiseApi {
     val debugValidateUseCase: DebugValidateUseCase
     val debugNetworkUseCase: DebugNetworkUseCase
     val immediateSendToServerUseCase: ImmediateSendToServerUseCase
+    val pushTokenUseCase: PushTokenUseCase
 
     fun isInitialized(): Boolean
 }

@@ -76,6 +76,7 @@ enum class ProviderType(val provider: String) {
     UUID("uuid"),
     AFFISE_APP_OPENED("affise_app_opened"),
     PUSHTOKEN("pushtoken"),
+    PUSHTOKEN_SERVICE("pushtoken_service"),
     AFFISE_EVENTS_COUNT("affise_events_count"),
     AFFISE_SDK_EVENTS_COUNT("affise_sdk_events_count"),
     AFFISE_METRICS_EVENTS_COUNT("affise_metrics_events_count"),

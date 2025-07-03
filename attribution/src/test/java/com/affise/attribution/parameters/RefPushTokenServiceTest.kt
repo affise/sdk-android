@@ -18,7 +18,7 @@ import java.util.UUID
 /**
  * Test for [RefTokenProvider]
  */
-class RefTokenProviderTest {
+class RefPushTokenServiceTest {
 
     @Before
     fun setUp() {

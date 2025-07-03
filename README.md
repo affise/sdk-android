@@ -110,7 +110,7 @@ referrer.
 For kotlin build script build.gradle.kts use:
 
 ```kotlin
-val affise_version = "1.6.59"
+val affise_version = "1.6.60"
 
 dependencies {
   // Add Affise library 
@@ -134,7 +134,7 @@ dependencies {
 For groovy build script build.gradle use:
 
 ```groovy
-final affise_version = '1.6.59'
+final affise_version = '1.6.60'
 
 dependencies {
     // Add Affise library 
@@ -157,9 +157,9 @@ dependencies {
 
 ### Integrate as file dependency
 
-Download latest Affise SDK (`attribution-1.6.59.aar`)
+Download latest Affise SDK (`attribution-1.6.60.aar`)
 from [releases page](https://github.com/affise/sdk-android/releases) and place this binary to gradle application
-module lib directory `app/libs/attribution-1.6.59.aar`
+module lib directory `app/libs/attribution-1.6.60.aar`
 
 Add library as gradle file dependency to application module build script
 Add install referrer library
@@ -167,12 +167,12 @@ Add install referrer library
 For kotlin build script build.gradle.kts use:
 
 ```kotlin
-val affise_version = "1.6.59"
+val affise_version = "1.6.60"
 
 dependencies {
     // ...
     // Add Affise library 
-    implementation(files("libs/attribution-1.6.59.aar"))
+    implementation(files("libs/attribution-1.6.60.aar"))
     // Add Affise modules 
     implementation(files("libs/module-advertising-$affise_version.aar"))
     implementation(files("libs/module-androidid-$affise_version.aar"))
@@ -192,7 +192,7 @@ dependencies {
 For groovy build script build.gradle use:
 
 ```groovy
-final affise_version = '1.6.59'
+final affise_version = '1.6.60'
 
 dependencies {
   // ...  
@@ -604,6 +604,7 @@ To match users with events and data library is sending, these `ProviderType` ide
 - `UUID`
 - `AFFISE_APP_OPENED`
 - `PUSHTOKEN`
+- `PUSHTOKEN_SERVICE`
 - `AFFISE_EVENTS_COUNT`
 - `AFFISE_SDK_EVENTS_COUNT`
 - `AFFISE_METRICS_EVENTS_COUNT`
@@ -1002,6 +1003,8 @@ First add firebase integration to your app completing these steps: [Firebase Doc
 
 After you have done with firebase integration, add to your cloud messaging service `onNewToken` method `Affise.addPushToken(token)`
 
+Example [PushService.kt](app/src/main/java/com/affise/app/PushService.kt):
+
 ```kotlin
 class FirebaseCloudMessagingService : FirebaseMessagingService() {
   override fun onNewToken(token: String) {
@@ -1013,10 +1016,16 @@ class FirebaseCloudMessagingService : FirebaseMessagingService() {
 
 ## Reinstall Uninstall tracking
 
-Affise automatically track reinstall events by using silent-push technology, to make this feature work, pass push token when it is recreated by user and on you application starts up
+Affise automatically track reinstall events by using silent-push technology, 
+to make this feature work, pass push token when it is recreated by user and on you application starts up
 
 ```kotlin
-Affise.addPushToken(token)
+class FirebaseCloudMessagingService : FirebaseMessagingService() {
+  override fun onNewToken(token: String) {
+    // New token generated
+    Affise.addPushToken(token)
+  }
+}
 ```
 
 ## APK preinstall tracking

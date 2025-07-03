@@ -7,14 +7,14 @@ import com.affise.attribution.usecase.PushTokenUseCase
 /**
  * Provider for parameter [ProviderType.PUSHTOKEN]
  *
- * @property useCase to retrieve push token
+ * @property useCase to retrieve push token service
  */
-class PushTokenProvider(
+class PushTokenServiceProvider(
     private val useCase: PushTokenUseCase
 ) : StringPropertyProvider() {
 
-    override val order: Float = 65.0f
-    override val key: ProviderType = ProviderType.PUSHTOKEN
+    override val order: Float = 65.1f
+    override val key: ProviderType = ProviderType.PUSHTOKEN_SERVICE
 
-    override fun provide(): String? = useCase.getPushToken()
+    override fun provide(): String? = useCase.getPushTokenService()
 }
