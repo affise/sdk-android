@@ -793,8 +793,12 @@ Use any of custom events if default doesn't fit your scenario:
 If above event functionality still limits your usecase, you can use `UserCustomEvent`
 
 ```kotlin
-UserCustomEvent("MyCustomEvent")
-    .send() 
+UserCustomEvent("MyCustomNameEvent")
+  .addPredefinedParameter(PredefinedString.DESCRIPTION, "best before 2029")
+  .addPredefinedParameter(PredefinedObject.CONTENT, JSONObject().apply {
+    put("collection", "Greatest Hits")
+  })
+  .send() // Send event
 ```
 
 ## Predefined event parameters
