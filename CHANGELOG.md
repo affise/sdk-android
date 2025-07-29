@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.6.61] - 2025-07-29
+
+### Fixed
+
+- Fix android API < 24 crash for cross platform
+
 ## [1.6.60] - 2025-07-03
 
 ### Added

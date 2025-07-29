@@ -5,7 +5,8 @@ import com.affise.attribution.internal.builder.AffiseBuilderProperty
 
 @Suppress("UNCHECKED_CAST")
 internal fun <T> Map<*, *>.opt(key: String): T? {
-    return this.getOrDefault(key, null) as? T
+    if (!this.containsKey(key)) return null
+    return this[key] as? T
 }
 
 internal fun <T> Map<*, *>.opt(api: AffiseApiMethod): T? {

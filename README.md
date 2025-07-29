@@ -20,6 +20,7 @@
 - [Affise Attribution Android Library](#affise-attribution-android-library)
 - [Description](#description)
   - [Quick start](#quick-start)
+    - [SDK compatibility](#sdk-compatibility)
   - [Integration](#integration)
     - [Integrate as dependency](#integrate-as-dependency)
     - [Integrate as file dependency](#integrate-as-file-dependency)
@@ -103,6 +104,10 @@ referrer.
 
 ## Quick start
 
+### SDK compatibility
+
+- `API` `24+`
+
 ## Integration
 
 ### Integrate as dependency
@@ -110,7 +115,7 @@ referrer.
 For kotlin build script build.gradle.kts use:
 
 ```kotlin
-val affise_version = "1.6.60"
+val affise_version = "1.6.61"
 
 dependencies {
   // Add Affise library 
@@ -134,7 +139,7 @@ dependencies {
 For groovy build script build.gradle use:
 
 ```groovy
-final affise_version = '1.6.60'
+final affise_version = '1.6.61'
 
 dependencies {
     // Add Affise library 
@@ -157,9 +162,9 @@ dependencies {
 
 ### Integrate as file dependency
 
-Download latest Affise SDK (`attribution-1.6.60.aar`)
+Download latest Affise SDK (`attribution-1.6.61.aar`)
 from [releases page](https://github.com/affise/sdk-android/releases) and place this binary to gradle application
-module lib directory `app/libs/attribution-1.6.60.aar`
+module lib directory `app/libs/attribution-1.6.61.aar`
 
 Add library as gradle file dependency to application module build script
 Add install referrer library
@@ -167,12 +172,12 @@ Add install referrer library
 For kotlin build script build.gradle.kts use:
 
 ```kotlin
-val affise_version = "1.6.60"
+val affise_version = "1.6.61"
 
 dependencies {
     // ...
     // Add Affise library 
-    implementation(files("libs/attribution-1.6.60.aar"))
+    implementation(files("libs/attribution-1.6.61.aar"))
     // Add Affise modules 
     implementation(files("libs/module-advertising-$affise_version.aar"))
     implementation(files("libs/module-androidid-$affise_version.aar"))
@@ -192,7 +197,7 @@ dependencies {
 For groovy build script build.gradle use:
 
 ```groovy
-final affise_version = '1.6.60'
+final affise_version = '1.6.61'
 
 dependencies {
   // ...  
